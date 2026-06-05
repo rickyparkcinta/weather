@@ -58,6 +58,7 @@ export function ForecastMarketMap({
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
+  const initialCenterRef = useRef<[number, number]>([selectedCity.lon, selectedCity.lat]);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
 
   useEffect(() => {
@@ -66,10 +67,10 @@ export function ForecastMarketMap({
     const instance = new maplibregl.Map({
       container: containerRef.current,
       style,
-      center: [selectedCity.lon, selectedCity.lat],
+      center: initialCenterRef.current,
       zoom: 2.4,
       pitch: 30,
-      bearing: -18,
+      bearing: 0,
       attributionControl: { compact: true }
     });
 
@@ -82,7 +83,7 @@ export function ForecastMarketMap({
       mapRef.current = null;
       setMap(null);
     };
-  }, [selectedCity.lat, selectedCity.lon]);
+  }, []);
 
   useEffect(() => {
     if (!mapRef.current) return;
@@ -90,6 +91,7 @@ export function ForecastMarketMap({
       center: [selectedCity.lon, selectedCity.lat],
       zoom: Math.max(mapRef.current.getZoom(), 3.4),
       pitch: 36,
+      bearing: 0,
       duration: 900
     });
   }, [selectedCity]);

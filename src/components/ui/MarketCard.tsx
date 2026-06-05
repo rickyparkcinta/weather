@@ -1,4 +1,4 @@
-import { ExternalLink, Waves } from "lucide-react";
+import { ChevronRight, Waves } from "lucide-react";
 import { formatCompactNumber, formatPercent } from "@/lib/utils";
 import type { MarketEvent } from "@/types/domain";
 
@@ -13,6 +13,7 @@ export function MarketCard({
     <button
       type="button"
       onClick={() => onOpen(market)}
+      aria-label={`Open market details for ${market.title}`}
       className="w-full rounded-md border border-white/12 bg-white/[0.04] p-3 text-left transition hover:border-cyan-200/35 hover:bg-white/[0.07]"
     >
       <div className="flex gap-3">
@@ -25,7 +26,7 @@ export function MarketCard({
             <span className="rounded-full bg-white/8 px-2 py-1 uppercase">{market.provider}</span>
             <span>{formatPercent(market.probability)}</span>
             <span>vol {formatCompactNumber(market.volume)}</span>
-            {market.url ? <ExternalLink size={12} /> : null}
+            <ChevronRight size={13} className="text-slate-500" />
           </div>
         </div>
       </div>

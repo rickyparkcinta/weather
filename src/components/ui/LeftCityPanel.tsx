@@ -35,7 +35,7 @@ export function LeftCityPanel({
               {city.country} · {city.region ?? "Global"} · pop {formatCompactNumber(city.population)}
             </p>
           </div>
-          <Link href={`/city/${city.slug}`} className="shrink-0 rounded-md border border-white/15 px-3 py-2 text-xs text-slate-200 hover:bg-white/8">
+          <Link href={`/city/${city.slug}`} aria-label={`Open ${city.name} city page`} className="shrink-0 rounded-md border border-white/15 px-3 py-2 text-xs text-slate-200 hover:bg-white/8">
             City page
           </Link>
         </div>
@@ -95,6 +95,7 @@ function BestBuyCard({
       <button
         type="button"
         onClick={() => onOpenMarket(candidate.market)}
+        aria-label={`Open market details for ${candidate.market.title}`}
         className="mt-3 inline-flex h-9 items-center gap-2 rounded-md border border-emerald-200/25 px-3 text-sm text-emerald-50 hover:bg-emerald-300/10"
       >
         Open market

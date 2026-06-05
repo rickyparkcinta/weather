@@ -15,11 +15,18 @@ export function TopSearch({
 }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
+
+  function selectCity(city: City) {
+    onSelect(city);
+    setQuery("");
+    setOpen(false);
+  }
+
   const matches = useMemo(() => {
     const value = query.trim().toLowerCase();
     if (!value) return cities.slice(0, 8);
     return cities
-      .filter((city) => `${city.name} ${city.country} ${city.region}`.toLowerCase().includes(value))
+      .filter((city) => `${city.name} ${city.country} ${city.region ?? ""}`.toLowerCase().includes(value))
       .slice(0, 8);
   }, [cities, query]);
 
@@ -39,27 +46,38 @@ export function TopSearch({
         <input
           value={query}
           onChange={(event) => setQuery(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Escape") {
+              setOpen(false);
+              event.currentTarget.blur();
+              return;
+            }
+
+            if (event.key === "Enter" && matches[0]) {
+              selectCity(matches[0]);
+            }
+          }}
+          aria-expanded={open}
+          aria-label="Search cities"
           placeholder={`Search ${selectedCity.name}`}
           className="h-10 w-full bg-transparent text-sm text-white outline-none placeholder:text-slate-500"
         />
       </div>
       <div className={open ? "absolute left-0 right-0 top-full z-40 mt-2 grid max-h-[52dvh] gap-1 overflow-y-auto rounded-md border border-white/12 bg-[var(--panel-strong)] p-2 shadow-2xl backdrop-blur-xl" : "hidden"}>
-        {matches.map((city) => (
+        {matches.length ? matches.map((city) => (
           <button
             key={city.id}
             type="button"
-            onClick={() => {
-              onSelect(city);
-              setQuery("");
-              setOpen(false);
-            }}
+            onClick={() => selectCity(city)}
             aria-current={city.id === selectedCity.id ? "true" : undefined}
             className="flex min-h-11 items-center justify-between rounded px-3 py-2 text-left text-sm text-slate-200 hover:bg-white/8 aria-[current=true]:bg-cyan-300/10 aria-[current=true]:text-cyan-100"
           >
             <span>{city.name}</span>
             <span className="text-xs text-slate-500">{city.countryCode}</span>
           </button>
-        ))}
+        )) : (
+          <div className="px-3 py-3 text-sm text-slate-400">No matching cities</div>
+        )}
       </div>
     </div>
   );

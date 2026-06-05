@@ -24,7 +24,10 @@ export function CityMarkerLayer({
       element.className = `city-marker${city.id === selectedCityId ? " is-selected" : ""}`;
       element.title = city.name;
       element.setAttribute("aria-label", `Select ${city.name}`);
-      element.addEventListener("click", () => onSelect(city));
+      element.addEventListener("click", (event) => {
+        event.stopPropagation();
+        onSelect(city);
+      });
 
       return new maplibregl.Marker({ element, anchor: "center" }).setLngLat([city.lon, city.lat]).addTo(map);
     });

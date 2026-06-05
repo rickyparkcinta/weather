@@ -30,12 +30,16 @@ export function MarketProbabilityLayer({
       const element = document.createElement("button");
       element.type = "button";
       element.title = market.title;
+      element.setAttribute("aria-label", `Open market details for ${market.title}`);
       element.className = "market-bubble";
       element.style.width = `${size}px`;
       element.style.height = `${size}px`;
       element.style.color = probability > 0.6 ? "#64f0a2" : probability < 0.4 ? "#ffb86b" : "#37c2ff";
       element.style.background = `rgba(55, 194, 255, ${0.16 + probability * 0.34})`;
-      element.addEventListener("click", () => onSelect(market));
+      element.addEventListener("click", (event) => {
+        event.stopPropagation();
+        onSelect(market);
+      });
 
       return new maplibregl.Marker({ element, anchor: "center" }).setLngLat([city.lon, city.lat]).addTo(map);
     });

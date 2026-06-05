@@ -80,6 +80,19 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
     setSelectedMarket(null);
   }, [selectedSlug]);
 
+  useEffect(() => {
+    if (!selectedMarket) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedMarket(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedMarket]);
+
   const cities = citiesQuery.data ?? initialData.cities;
   const selectedData = cityQuery.data;
   const selectedCity = selectedData?.city ?? cities.find((city) => city.slug === selectedSlug) ?? initialData.selectedCity;
