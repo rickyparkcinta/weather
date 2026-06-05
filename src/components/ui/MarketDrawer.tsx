@@ -31,7 +31,7 @@ export function MarketDrawer({
   const history = historyQuery.data ?? [];
 
   return (
-    <aside className="pointer-events-auto absolute bottom-4 right-4 top-24 z-30 w-[min(92vw,390px)] overflow-y-auto rounded-md border border-white/12 bg-[var(--panel-strong)] p-4 shadow-2xl backdrop-blur-xl">
+    <aside className="pointer-events-auto absolute inset-x-3 bottom-3 z-30 max-h-[82dvh] overflow-y-auto rounded-md border border-white/12 bg-[var(--panel-strong)] p-4 shadow-2xl backdrop-blur-xl md:inset-x-auto md:bottom-4 md:right-4 md:top-24 md:w-[min(92vw,390px)]">
       <div className="flex items-start justify-between gap-4">
         <div>
           <div className="text-xs uppercase tracking-wide text-slate-500">{market.provider}</div>

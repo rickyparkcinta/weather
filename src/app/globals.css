@@ -57,20 +57,40 @@ a {
 }
 
 .city-marker {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.city-marker::after {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 13px;
   width: 14px;
   height: 14px;
   border: 2px solid rgba(238, 244, 247, 0.95);
   border-radius: 50%;
   background: var(--accent);
   box-shadow: 0 0 0 8px rgba(55, 194, 255, 0.14), 0 0 24px rgba(55, 194, 255, 0.72);
-  cursor: pointer;
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-.city-marker:hover,
-.city-marker.is-selected {
+.city-marker:hover::after,
+.city-marker.is-selected::after {
   transform: scale(1.35);
   box-shadow: 0 0 0 10px rgba(100, 240, 162, 0.18), 0 0 28px rgba(100, 240, 162, 0.8);
+}
+
+.city-marker:focus-visible {
+  outline: 2px solid rgba(100, 240, 162, 0.92);
+  outline-offset: 2px;
 }
 
 .market-bubble {

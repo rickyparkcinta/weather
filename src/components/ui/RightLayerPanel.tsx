@@ -1,4 +1,5 @@
-import { CloudSun, Landmark, Map, Waves } from "lucide-react";
+import { CloudSun, Landmark, Map, SlidersHorizontal, Waves } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export type LayerState = {
   forecast: boolean;
@@ -8,10 +9,14 @@ export type LayerState = {
 
 export function RightLayerPanel({
   layers,
-  onChange
+  onChange,
+  compact = false,
+  className
 }: {
   layers: LayerState;
   onChange: (layers: LayerState) => void;
+  compact?: boolean;
+  className?: string;
 }) {
   const controls = [
     { key: "forecast" as const, label: "Forecast", icon: CloudSun },
@@ -19,8 +24,8 @@ export function RightLayerPanel({
     { key: "wind" as const, label: "Flow", icon: Waves }
   ];
 
-  return (
-    <aside className="pointer-events-auto w-44 rounded-md border border-white/12 bg-[var(--panel)] p-3 shadow-2xl backdrop-blur-xl">
+  const content = (
+    <>
       <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-100">
         <Map size={16} />
         Layers
@@ -41,6 +46,29 @@ export function RightLayerPanel({
           </label>
         ))}
       </div>
+    </>
+  );
+
+  if (compact) {
+    return (
+      <details className={cn("pointer-events-auto relative", className)}>
+        <summary
+          aria-label="Map layers"
+          title="Map layers"
+          className="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-md border border-white/12 bg-[var(--panel-strong)] text-slate-100 shadow-2xl backdrop-blur-xl hover:bg-white/8 [&::-webkit-details-marker]:hidden"
+        >
+          <SlidersHorizontal size={17} />
+        </summary>
+        <div className="absolute right-0 top-12 z-40 w-44 rounded-md border border-white/12 bg-[var(--panel-strong)] p-3 shadow-2xl backdrop-blur-xl">
+          {content}
+        </div>
+      </details>
+    );
+  }
+
+  return (
+    <aside className={cn("pointer-events-auto w-44 rounded-md border border-white/12 bg-[var(--panel)] p-3 shadow-2xl backdrop-blur-xl", className)}>
+      {content}
     </aside>
   );
 }

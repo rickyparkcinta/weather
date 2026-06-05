@@ -30,12 +30,12 @@ export function ForecastSummaryCard({ forecast }: { forecast: ForecastPoint[] })
   ];
 
   return (
-    <section className="rounded-md border border-white/12 bg-white/[0.045] p-4">
+    <section className="rounded-md border border-white/12 bg-white/[0.045] p-3 sm:p-4">
       <div className="mb-3 flex items-center justify-between">
         <h2 className="text-sm font-semibold text-slate-100">Forecast Signals</h2>
         <span className="font-mono text-[11px] text-slate-400">{forecast[0]?.provider ?? "n/a"}</span>
       </div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 gap-2 min-[390px]:grid-cols-3">
         {items.map((item) => (
           <div key={item.label} className="rounded-md border border-white/10 bg-black/18 p-3">
             <item.icon size={17} className="mb-2 text-cyan-200" />

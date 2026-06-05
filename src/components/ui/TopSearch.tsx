@@ -14,26 +14,36 @@ export function TopSearch({
   onSelect: (city: City) => void;
 }) {
   const [query, setQuery] = useState("");
+  const [open, setOpen] = useState(false);
   const matches = useMemo(() => {
     const value = query.trim().toLowerCase();
-    if (!value) return cities.slice(0, 6);
+    if (!value) return cities.slice(0, 8);
     return cities
       .filter((city) => `${city.name} ${city.country} ${city.region}`.toLowerCase().includes(value))
-      .slice(0, 6);
+      .slice(0, 8);
   }, [cities, query]);
 
   return (
-    <div className="pointer-events-auto w-[min(92vw,380px)] rounded-md border border-white/12 bg-[var(--panel-strong)] p-2 shadow-2xl backdrop-blur-xl">
+    <div
+      className="pointer-events-auto relative min-w-0 flex-1 rounded-md border border-white/12 bg-[var(--panel-strong)] p-2 shadow-2xl backdrop-blur-xl sm:max-w-[380px]"
+      onFocusCapture={() => setOpen(true)}
+      onBlurCapture={(event) => {
+        const nextTarget = event.relatedTarget;
+        if (!(nextTarget instanceof Node) || !event.currentTarget.contains(nextTarget)) {
+          setOpen(false);
+        }
+      }}
+    >
       <div className="flex items-center gap-2 rounded-md border border-white/10 bg-black/30 px-3">
         <Search size={16} className="text-slate-400" />
         <input
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder={selectedCity.name}
+          placeholder={`Search ${selectedCity.name}`}
           className="h-10 w-full bg-transparent text-sm text-white outline-none placeholder:text-slate-500"
         />
       </div>
-      <div className="mt-2 grid gap-1">
+      <div className={open ? "absolute left-0 right-0 top-full z-40 mt-2 grid max-h-[52dvh] gap-1 overflow-y-auto rounded-md border border-white/12 bg-[var(--panel-strong)] p-2 shadow-2xl backdrop-blur-xl" : "hidden"}>
         {matches.map((city) => (
           <button
             key={city.id}
@@ -41,8 +51,10 @@ export function TopSearch({
             onClick={() => {
               onSelect(city);
               setQuery("");
+              setOpen(false);
             }}
-            className="flex items-center justify-between rounded px-2 py-2 text-left text-sm text-slate-200 hover:bg-white/8"
+            aria-current={city.id === selectedCity.id ? "true" : undefined}
+            className="flex min-h-11 items-center justify-between rounded px-3 py-2 text-left text-sm text-slate-200 hover:bg-white/8 aria-[current=true]:bg-cyan-300/10 aria-[current=true]:text-cyan-100"
           >
             <span>{city.name}</span>
             <span className="text-xs text-slate-500">{city.countryCode}</span>

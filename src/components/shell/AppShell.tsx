@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { ForecastMarketMap } from "@/components/map/ForecastMarketMap";
 import { BottomTimeline } from "@/components/ui/BottomTimeline";
@@ -29,12 +30,20 @@ async function getJson<T>(url: string): Promise<T> {
 }
 
 export function AppShell({ initialData }: { initialData: DashboardData }) {
+  const router = useRouter();
   const [selectedSlug, setSelectedSlug] = useState(initialData.selectedCity.slug);
   const [selectedMarket, setSelectedMarket] = useState<MarketEvent | null>(null);
   const [timeline, setTimeline] = useState(2);
   const [playing, setPlaying] = useState(false);
   const [layers, setLayers] = useState<LayerState>({ forecast: true, markets: true, wind: true });
-  const handleSelectCity = useCallback((city: City) => setSelectedSlug(city.slug), []);
+  const handleSelectCity = useCallback(
+    (city: City) => {
+      setSelectedSlug(city.slug);
+      setSelectedMarket(null);
+      router.push(`/city/${city.slug}`, { scroll: false });
+    },
+    [router]
+  );
   const handleSelectMarket = useCallback((market: MarketEvent) => setSelectedMarket(market), []);
 
   const citiesQuery = useQuery({
@@ -64,12 +73,16 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
   }, [playing]);
 
   useEffect(() => {
+    setSelectedSlug(initialData.selectedCity.slug);
+  }, [initialData.selectedCity.slug]);
+
+  useEffect(() => {
     setSelectedMarket(null);
   }, [selectedSlug]);
 
   const cities = citiesQuery.data ?? initialData.cities;
   const selectedData = cityQuery.data;
-  const selectedCity = selectedData?.city ?? initialData.selectedCity;
+  const selectedCity = selectedData?.city ?? cities.find((city) => city.slug === selectedSlug) ?? initialData.selectedCity;
   const forecast = selectedData?.forecast ?? [];
   const markets = selectedData?.markets ?? [];
   const signals = selectedData?.signals ?? [];
@@ -80,7 +93,7 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
   }, [forecast, timeline]);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#06080b]">
+    <main className="relative h-[100dvh] overflow-hidden bg-[#06080b]">
       <ForecastMarketMap
         cities={cities}
         selectedCity={selectedCity}
@@ -91,30 +104,39 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
         onSelectMarket={handleSelectMarket}
       />
 
-      <div className="pointer-events-none absolute inset-0 z-20 p-4">
-        <div className="flex items-start justify-between gap-4">
+      <div className="pointer-events-none absolute inset-0 z-20 grid grid-rows-[auto_minmax(0,1fr)_auto] gap-3 p-3 sm:p-4">
+        <div className="flex min-w-0 items-start justify-between gap-2 sm:gap-4">
           <TopSearch cities={cities} selectedCity={selectedCity} onSelect={handleSelectCity} />
-          <div className="flex flex-col items-end gap-3">
-            <DataSourceBadge demoMode={initialData.demoMode} />
-            <RightLayerPanel layers={layers} onChange={setLayers} />
+          <div className="flex shrink-0 items-start gap-2 sm:flex-col sm:items-end">
+            <DataSourceBadge demoMode={initialData.demoMode} className="hidden min-[420px]:inline-flex" />
+            <RightLayerPanel layers={layers} onChange={setLayers} compact className="md:hidden" />
+            <RightLayerPanel layers={layers} onChange={setLayers} className="hidden md:block" />
           </div>
         </div>
 
-        <div className="mt-4">
-          {cityQuery.isError ? (
-            <div className="pointer-events-auto w-[min(92vw,420px)]">
-              <ErrorState title="Unable to load city intelligence." />
-            </div>
-          ) : cityQuery.isLoading ? (
-            <div className="pointer-events-auto w-[min(92vw,420px)] rounded-md border border-white/12 bg-[var(--panel)] p-4">
-              <LoadingSkeleton lines={6} />
-            </div>
-          ) : (
-            <LeftCityPanel city={selectedCity} forecast={forecast} markets={markets} signals={signals} onOpenMarket={handleSelectMarket} />
-          )}
+        <div className="relative min-h-0">
+          <div className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-[430px] lg:inset-x-auto lg:bottom-auto lg:left-0 lg:top-0 lg:mx-0">
+            {cityQuery.isError ? (
+              <div className="pointer-events-auto w-full">
+                <ErrorState title="Unable to load city intelligence." />
+              </div>
+            ) : cityQuery.isLoading ? (
+              <div className="pointer-events-auto w-full rounded-md border border-white/12 bg-[var(--panel)] p-4">
+                <LoadingSkeleton lines={6} />
+              </div>
+            ) : (
+              <LeftCityPanel
+                city={selectedCity}
+                forecast={forecast}
+                markets={markets}
+                signals={signals}
+                onOpenMarket={handleSelectMarket}
+              />
+            )}
+          </div>
         </div>
 
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+        <div className="flex justify-center">
           <BottomTimeline
             value={timeline}
             playing={playing}
