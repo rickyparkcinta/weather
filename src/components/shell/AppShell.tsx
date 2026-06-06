@@ -34,7 +34,7 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
   const [selectedMarket, setSelectedMarket] = useState<MarketEvent | null>(null);
   const [timeline, setTimeline] = useState(2);
   const [playing, setPlaying] = useState(false);
-  const [layers, setLayers] = useState<LayerState>({ forecast: true, markets: true, wind: true });
+  const [layers, setLayers] = useState<LayerState>({ forecast: true, markets: true, signals: true, wind: true });
   const handleSelectCity = useCallback(
     (city: City) => {
       setSelectedSlug(city.slug);
@@ -111,6 +111,7 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
         selectedCity={selectedCity}
         forecast={filteredForecast}
         markets={markets}
+        signals={signals}
         layers={layers}
         onSelectCity={handleSelectCity}
         onSelectMarket={handleSelectMarket}

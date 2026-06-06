@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Providers } from "@/app/providers";
-import "./globals.css";
+import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "Forecast Market Map",
-  description: "A global forecast intelligence map for major cities and prediction markets."
+  title: "預報市場地圖",
+  description: "面向主要城市及預測市場的全球預報智能地圖。"
 };
 
 export const viewport: Viewport = {
@@ -13,9 +13,9 @@ export const viewport: Viewport = {
   maximumScale: 1
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function ZhHkRootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="zh-HK">
       <body>
         <Providers>{children}</Providers>
       </body>

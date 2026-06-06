@@ -5,11 +5,12 @@ import maplibregl, { type StyleSpecification } from "maplibre-gl";
 import { CityMarkerLayer } from "@/components/map/CityMarkerLayer";
 import { ForecastLayer } from "@/components/map/ForecastLayer";
 import { MarketProbabilityLayer } from "@/components/map/MarketProbabilityLayer";
+import { SignalLayer } from "@/components/map/SignalLayer";
 import { WindParticleLayer } from "@/components/map/WindParticleLayer";
 import type { LayerState } from "@/components/ui/RightLayerPanel";
 import { sanitizeCenter, toLngLat } from "@/lib/map/coords";
 import { isWebglSupported } from "@/lib/map/webgl";
-import type { City, ForecastPoint, MarketEvent } from "@/types/domain";
+import type { City, CombinedSignal, ForecastPoint, MarketEvent } from "@/types/domain";
 
 const style: StyleSpecification = {
   version: 8,
@@ -51,6 +52,7 @@ export function ForecastMarketMap({
   selectedCity,
   forecast,
   markets,
+  signals,
   layers,
   onSelectCity,
   onSelectMarket
@@ -59,6 +61,7 @@ export function ForecastMarketMap({
   selectedCity: City;
   forecast: ForecastPoint[];
   markets: MarketEvent[];
+  signals: CombinedSignal[];
   layers: LayerState;
   onSelectCity: (city: City) => void;
   onSelectMarket: (market: MarketEvent) => void;
@@ -179,6 +182,14 @@ export function ForecastMarketMap({
             markets={markets}
             enabled={layers.markets}
             onSelect={onSelectMarket}
+          />
+          <SignalLayer
+            map={ready ? map : null}
+            cities={cities}
+            markets={markets}
+            signals={signals}
+            enabled={layers.signals}
+            onSelectMarket={onSelectMarket}
           />
           <ForecastLayer map={ready ? map : null} forecast={forecast} enabled={layers.forecast} />
         </>

@@ -57,6 +57,10 @@ export async function POST(request: Request) {
       model_probability: signal.modelProbability ?? null,
       market_probability: signal.marketProbability ?? null,
       disagreement: signal.disagreement ?? null,
+      raw_edge: signal.rawEdge ?? null,
+      adjusted_edge: signal.adjustedEdge ?? null,
+      confidence: signal.confidence ?? null,
+      freshness_status: signal.freshnessStatus ?? "unknown",
       status: signal.status,
       explanation: signal.explanation ?? null,
       raw: signal.raw

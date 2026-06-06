@@ -1,3 +1,5 @@
+import { zhHKDocTranslations, zhHKDocsCopy, zhHKSourceLinkTranslations } from "./zh-hk.ts";
+
 export type SourceId =
   | "ncei-nwp"
   | "ncei-gfs"
@@ -46,7 +48,112 @@ export type DocPage = {
   sections: DocSection[];
 };
 
-export const sourceLinks: Record<SourceId, { label: string; href: string; publisher: string }> = {
+export type DocsLocale = "en" | "zh-HK";
+
+export type SourceLink = { label: string; href: string; publisher: string };
+
+export type DocBlockTranslation = {
+  title?: string;
+  text?: string;
+  description?: string;
+  items?: string[];
+  steps?: string[];
+  columns?: string[];
+  rows?: string[][];
+};
+
+export type DocSectionTranslation = {
+  title: string;
+  description?: string;
+  blocks: DocBlockTranslation[];
+};
+
+export type DocPageTranslation = {
+  slug: string;
+  title: string;
+  shortTitle: string;
+  description: string;
+  keywords: string[];
+  sections: DocSectionTranslation[];
+};
+
+export type DocsSidebarGroup = {
+  title: string;
+  pages: Pick<DocPage, "slug" | "title" | "shortTitle" | "description">[];
+};
+
+export type DocsCopy = {
+  localeName: string;
+  metadata: {
+    homeTitle: string;
+    homeDescription: string;
+    homeOpenGraphDescription: string;
+    notFoundTitle: string;
+    pageTitleSuffix: string;
+    pageOpenGraphSuffix: string;
+    dataSourcesTitle: string;
+    dataSourcesDescription: string;
+  };
+  shell: {
+    map: string;
+    dataSources: string;
+    docsBadge: string;
+    technicalReference: string;
+    forecastIntelligence: string;
+    marketSignals: string;
+    documentationMenu: string;
+    docsHome: string;
+    referencesHeading: string;
+    previous: string;
+    next: string;
+    localeSwitcherLabel: string;
+    localeOptions: Record<DocsLocale, string>;
+  };
+  home: {
+    title: string;
+    intro: string;
+    technicalSummary: string;
+    routesHeading: string;
+    diagramsHeading: string;
+    diagrams: Record<"forecast-pipeline" | "ensemble-probability" | "forecast-edge", { title: string; steps: string[] }>;
+  };
+  groups: Record<DocPage["group"], string>;
+  diagrams: {
+    forecastPipeline: { steps: { label: string; detail: string }[] };
+    ensembleProbability: {
+      memberForecastsEvent: string;
+      memberDoesNotForecastEvent: string;
+      caption: string;
+      eventProbability: string;
+      countLabel: string;
+      description: string;
+    };
+    forecastEdge: {
+      rows: { label: string; value: number; color: string }[];
+      adjustedEdge: string;
+    };
+    assimilationCycle: {
+      nodes: string[];
+      finalDetail: string;
+      defaultDetail: string;
+    };
+    modelMarketSignal: {
+      stages: [string, string][];
+    };
+  };
+  dataSources: {
+    title: string;
+    intro: string;
+    transparencyHeading: string;
+    notes: string[];
+    sources: { name: string; body: string }[];
+  };
+};
+
+export const docsLocales = ["en", "zh-HK"] as const satisfies readonly DocsLocale[];
+export const defaultDocsLocale: DocsLocale = "en";
+
+export const sourceLinks: Record<SourceId, SourceLink> = {
   "ncei-nwp": {
     label: "Numerical Weather Prediction",
     href: "https://www.ncei.noaa.gov/products/weather-climate-models/numerical-weather-prediction",
@@ -1541,10 +1648,283 @@ export const docGroups = [
 
 export const docsBySlug = new Map(docs.map((page) => [page.slug, page]));
 
-export function getAdjacentDocs(slug: string) {
-  const index = docs.findIndex((page) => page.slug === slug);
+const englishDocsCopy: DocsCopy = {
+  localeName: "English",
+  metadata: {
+    homeTitle: "Weather AI Docs | Forecast Market Map",
+    homeDescription:
+      "Professional documentation for weather-model pipelines, numerical forecasts, uncertainty, AI calibration, verification, and prediction-market weather signals.",
+    homeOpenGraphDescription: "Technical documentation for weather AI, forecast models, verification, and market signal workflows.",
+    notFoundTitle: "Docs | Forecast Market Map",
+    pageTitleSuffix: "Forecast Market Map",
+    pageOpenGraphSuffix: "Weather AI Docs",
+    dataSourcesTitle: "Data Sources | Forecast Market Map",
+    dataSourcesDescription:
+      "Weather AI data-source transparency notes for forecast providers, market providers, Supabase storage, and ingestion jobs."
+  },
+  shell: {
+    map: "Map",
+    dataSources: "Data Sources",
+    docsBadge: "Weather AI Docs",
+    technicalReference: "Technical reference",
+    forecastIntelligence: "Forecast intelligence",
+    marketSignals: "Market signals",
+    documentationMenu: "Documentation menu",
+    docsHome: "Docs Home",
+    referencesHeading: "Reference Sources",
+    previous: "Previous",
+    next: "Next",
+    localeSwitcherLabel: "Documentation language",
+    localeOptions: {
+      en: "English",
+      "zh-HK": "繁體中文（香港）"
+    }
+  },
+  home: {
+    title: "Weather AI Documentation",
+    intro: docsIntro,
+    technicalSummary,
+    routesHeading: "Documentation Routes",
+    diagramsHeading: "Reference Diagrams",
+    diagrams: {
+      "forecast-pipeline": {
+        title: "Forecast pipeline",
+        steps: [
+          "Satellites / Radar / Stations / Balloons",
+          "Observation quality control",
+          "Data assimilation",
+          "Analysis state",
+          "Numerical model",
+          "Supercomputer",
+          "Forecast output",
+          "AI post-processing",
+          "Market signal"
+        ]
+      },
+      "ensemble-probability": {
+        title: "Ensemble probability",
+        steps: ["50 ensemble members", "38 predict rain", "12 predict no rain", "Rain probability = 76%"]
+      },
+      "forecast-edge": {
+        title: "Forecast edge",
+        steps: ["Model probability: 72%", "Market probability: 58%", "Raw edge: +14 points", "Confidence: 0.65", "Adjusted edge: +9.1 points"]
+      }
+    }
+  },
+  groups: {
+    "Weather Prediction": "Weather Prediction",
+    "Platform Architecture": "Platform Architecture"
+  },
+  diagrams: {
+    forecastPipeline: {
+      steps: [
+        { label: "Observations", detail: "Satellite, radar, stations, aircraft" },
+        { label: "Quality control", detail: "Reject late, duplicated, or suspect records" },
+        { label: "Assimilation", detail: "Blend observations with background state" },
+        { label: "Model run", detail: "Integrate dynamics and physics forward" },
+        { label: "Post-process", detail: "Calibrate probabilities and confidence" },
+        { label: "Signals", detail: "Compare model output with market prices" }
+      ]
+    },
+    ensembleProbability: {
+      memberForecastsEvent: "Member forecasts event",
+      memberDoesNotForecastEvent: "Member does not forecast event",
+      caption: "Each tile is an ensemble member. Filled tiles satisfy the event rule after applying station, time-window, and threshold mapping.",
+      eventProbability: "Event probability",
+      countLabel: "29 / 40",
+      description: "Probability is counted from members, then calibrated against verification history."
+    },
+    forecastEdge: {
+      rows: [
+        { label: "Model probability", value: 74, color: "bg-emerald-300" },
+        { label: "Market probability", value: 59, color: "bg-cyan-300" },
+        { label: "Confidence", value: 68, color: "bg-amber-300" }
+      ],
+      adjustedEdge: "Adjusted edge"
+    },
+    assimilationCycle: {
+      nodes: ["Background forecast", "Observations", "Quality control", "Analysis state", "Forecast model", "Short-range forecast"],
+      finalDetail: "Feeds the next cycle as the background state.",
+      defaultDetail: "Passes constrained state information to the next step."
+    },
+    modelMarketSignal: {
+      stages: [
+        ["Forecast data", "Provider run, valid time, variable, units"],
+        ["Event mapping", "Market rule, city, station, threshold, time window"],
+        ["Probability", "Model probability plus confidence and quality flags"],
+        ["Market data", "Best bid/ask, mid, liquidity, stale-data checks"],
+        ["Combined signal", "Disagreement, adjusted edge, and explanatory status"]
+      ]
+    }
+  },
+  dataSources: {
+    title: "Data Sources",
+    intro:
+      "This app is a data display and intelligence interface. Signals explain model-market disagreement and data quality. They are not trading advice and do not imply guaranteed profit.",
+    transparencyHeading: "Transparency Notes",
+    notes: [
+      "Data can be delayed by provider update cadence, bot failures, Supabase replication, or Vercel cache behavior.",
+      "Forecast model output is probabilistic and can disagree across models or runs.",
+      "Market data reflects traded prices and order books, not verified truth.",
+      "Market access, display, and trading may be restricted by local laws or provider rules."
+    ],
+    sources: [
+      {
+        name: "Supabase Postgres",
+        body: "Primary application database. The Vercel app reads normalized city, forecast, market, history, and combined-signal records from Supabase."
+      },
+      {
+        name: "Hourly agent bot",
+        body: "External process owned by the operator. It fetches official/public APIs, normalizes records, and calls the secured ingestion routes with INGESTION_SECRET."
+      },
+      {
+        name: "Forecast providers",
+        body: "Supported adapter targets are Windy API, NOAA/NCEP NOMADS GFS, ECMWF Open Data, and Open-Meteo. Production ingestion should respect each provider's attribution and usage terms."
+      },
+      {
+        name: "Prediction-market providers",
+        body: "Supported adapter targets are Kalshi official API and Polymarket official APIs. Market availability and trading permissions may vary by jurisdiction."
+      }
+    ]
+  }
+};
+
+const docsCopyByLocale: Record<DocsLocale, DocsCopy> = {
+  en: englishDocsCopy,
+  "zh-HK": zhHKDocsCopy
+};
+
+const docsByLocale = new Map<DocsLocale, DocPage[]>([["en", docs]]);
+
+function mergeBlockTranslation(block: DocBlock, translation: DocBlockTranslation | undefined): DocBlock {
+  switch (block.kind) {
+    case "lead":
+    case "paragraph":
+      return { ...block, text: translation?.text ?? block.text };
+    case "list":
+      return { ...block, title: translation?.title ?? block.title, items: translation?.items ?? block.items };
+    case "flow":
+      return { ...block, title: translation?.title ?? block.title, steps: translation?.steps ?? block.steps };
+    case "table":
+      return { ...block, title: translation?.title ?? block.title, columns: translation?.columns ?? block.columns, rows: translation?.rows ?? block.rows };
+    case "formula":
+      return { ...block, title: translation?.title ?? block.title, description: translation?.description ?? block.description };
+    case "callout":
+      return { ...block, title: translation?.title ?? block.title, text: translation?.text ?? block.text };
+    case "code":
+      return { ...block, title: translation?.title ?? block.title };
+    case "diagram":
+      return { ...block, title: translation?.title ?? block.title, description: translation?.description ?? block.description };
+  }
+}
+
+function mergeDocTranslation(page: DocPage, translation: DocPageTranslation | undefined): DocPage {
+  if (!translation) {
+    return page;
+  }
+
   return {
-    previous: index > 0 ? docs[index - 1] : null,
-    next: index >= 0 && index < docs.length - 1 ? docs[index + 1] : null
+    ...page,
+    title: translation.title,
+    shortTitle: translation.shortTitle,
+    description: translation.description,
+    keywords: translation.keywords,
+    sections: page.sections.map((section, sectionIndex) => {
+      const sectionTranslation = translation.sections[sectionIndex];
+
+      return {
+        ...section,
+        title: sectionTranslation?.title ?? section.title,
+        description: sectionTranslation?.description ?? section.description,
+        blocks: section.blocks.map((block, blockIndex) => mergeBlockTranslation(block, sectionTranslation?.blocks[blockIndex]))
+      };
+    })
+  };
+}
+
+function buildLocalizedDocs(locale: DocsLocale) {
+  if (locale === "en") {
+    return docs;
+  }
+
+  return docs.map((page) => mergeDocTranslation(page, zhHKDocTranslations.find((translation) => translation.slug === page.slug)));
+}
+
+export function normalizeDocsLocale(locale?: string | null): DocsLocale {
+  return locale === "zh-HK" ? "zh-HK" : "en";
+}
+
+export function docsHref(locale: DocsLocale, slug?: string) {
+  const base = locale === "zh-HK" ? "/zh-HK/docs" : "/docs";
+  return slug ? `${base}/${slug}` : base;
+}
+
+export function docsDataSourcesHref(locale: DocsLocale) {
+  return `${docsHref(locale)}/data-sources`;
+}
+
+export function getDocsAlternates(slug?: string) {
+  return {
+    en: docsHref("en", slug),
+    "zh-HK": docsHref("zh-HK", slug),
+    "x-default": docsHref("en", slug)
+  };
+}
+
+export function getDocs(locale: DocsLocale = defaultDocsLocale) {
+  if (!docsByLocale.has(locale)) {
+    docsByLocale.set(locale, buildLocalizedDocs(locale));
+  }
+
+  return docsByLocale.get(locale) ?? docs;
+}
+
+export function getDocBySlug(locale: DocsLocale, slug: string) {
+  return getDocs(locale).find((page) => page.slug === slug);
+}
+
+export function getDocGroups(locale: DocsLocale = defaultDocsLocale): DocsSidebarGroup[] {
+  const localizedDocs = getDocs(locale);
+  const copy = getDocsCopy(locale);
+
+  return [
+    {
+      title: copy.groups["Weather Prediction"],
+      pages: localizedDocs
+        .filter((page) => page.group === "Weather Prediction")
+        .map(({ slug, title, shortTitle, description }) => ({ slug, title, shortTitle, description }))
+    },
+    {
+      title: copy.groups["Platform Architecture"],
+      pages: localizedDocs
+        .filter((page) => page.group === "Platform Architecture")
+        .map(({ slug, title, shortTitle, description }) => ({ slug, title, shortTitle, description }))
+    }
+  ];
+}
+
+export function getSourceLinks(locale: DocsLocale = defaultDocsLocale): Record<SourceId, SourceLink> {
+  if (locale === "en") {
+    return sourceLinks;
+  }
+
+  return Object.fromEntries(
+    Object.entries(sourceLinks).map(([id, source]) => {
+      const translation = zhHKSourceLinkTranslations[id as SourceId];
+      return [id, { ...source, ...translation }];
+    })
+  ) as Record<SourceId, SourceLink>;
+}
+
+export function getDocsCopy(locale: DocsLocale = defaultDocsLocale) {
+  return docsCopyByLocale[locale];
+}
+
+export function getAdjacentDocs(slug: string, locale: DocsLocale = defaultDocsLocale) {
+  const localizedDocs = getDocs(locale);
+  const index = localizedDocs.findIndex((page) => page.slug === slug);
+  return {
+    previous: index > 0 ? localizedDocs[index - 1] : null,
+    next: index >= 0 && index < localizedDocs.length - 1 ? localizedDocs[index + 1] : null
   };
 }

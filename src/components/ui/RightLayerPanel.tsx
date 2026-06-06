@@ -1,9 +1,10 @@
-import { CloudSun, Landmark, Map, SlidersHorizontal, Waves } from "lucide-react";
+import { Activity, CloudSun, Landmark, Map, SlidersHorizontal, Waves } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type LayerState = {
   forecast: boolean;
   markets: boolean;
+  signals: boolean;
   wind: boolean;
 };
 
@@ -21,6 +22,7 @@ export function RightLayerPanel({
   const controls = [
     { key: "forecast" as const, label: "Forecast", icon: CloudSun },
     { key: "markets" as const, label: "Markets", icon: Landmark },
+    { key: "signals" as const, label: "Signals", icon: Activity },
     { key: "wind" as const, label: "Flow", icon: Waves }
   ];
 

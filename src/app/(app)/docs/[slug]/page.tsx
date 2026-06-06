@@ -1,53 +1,57 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DocPageContent, DocsShell } from "@/components/docs/DocsShell";
-import { docs, docsBySlug } from "@/lib/docs/content";
+import { docsHref, getDocBySlug, getDocs, getDocsAlternates, getDocsCopy } from "@/lib/docs/content";
 
 type Params = {
   slug: string;
 };
 
+const locale = "en";
+
 export function generateStaticParams() {
-  return docs.map((page) => ({ slug: page.slug }));
+  return getDocs(locale).map((page) => ({ slug: page.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;
-  const page = docsBySlug.get(slug);
+  const page = getDocBySlug(locale, slug);
+  const copy = getDocsCopy(locale);
 
   if (!page) {
     return {
-      title: "Docs | Forecast Market Map"
+      title: copy.metadata.notFoundTitle
     };
   }
 
   return {
-    title: `${page.title} | Forecast Market Map`,
+    title: `${page.title} | ${copy.metadata.pageTitleSuffix}`,
     description: page.description,
     keywords: page.keywords,
     alternates: {
-      canonical: `/docs/${page.slug}`
+      canonical: docsHref(locale, page.slug),
+      languages: getDocsAlternates(page.slug)
     },
     openGraph: {
-      title: `${page.title} | Weather AI Docs`,
+      title: `${page.title} | ${copy.metadata.pageOpenGraphSuffix}`,
       description: page.description,
       type: "article",
-      url: `/docs/${page.slug}`
+      url: docsHref(locale, page.slug)
     }
   };
 }
 
 export default async function DocsSlugPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
-  const page = docsBySlug.get(slug);
+  const page = getDocBySlug(locale, slug);
 
   if (!page) {
     notFound();
   }
 
   return (
-    <DocsShell activeSlug={page.slug} title={page.title} description={page.description}>
-      <DocPageContent page={page} />
+    <DocsShell activeSlug={page.slug} locale={locale} title={page.title} description={page.description}>
+      <DocPageContent locale={locale} page={page} />
     </DocsShell>
   );
 }

@@ -94,6 +94,11 @@ export type CityMarketLink = {
 
 export type CombinedSignalStatus =
   | "aligned"
+  | "watch"
+  | "divergent"
+  | "stale"
+  | "unavailable"
+  | "avoid"
   | "market_above_model"
   | "model_above_market"
   | "insufficient_data";
@@ -107,6 +112,10 @@ export type CombinedSignal = {
   modelProbability: number | null;
   marketProbability: number | null;
   disagreement: number | null;
+  rawEdge?: number | null;
+  adjustedEdge?: number | null;
+  confidence?: number | null;
+  freshnessStatus?: "fresh" | "aging" | "stale" | "unknown" | null;
   status: CombinedSignalStatus;
   explanation: string | null;
   computedAt?: string;

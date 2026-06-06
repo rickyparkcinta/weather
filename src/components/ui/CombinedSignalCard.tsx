@@ -5,6 +5,8 @@ import type { CombinedSignal } from "@/types/domain";
 export function CombinedSignalCard({ signal }: { signal: CombinedSignal }) {
   const Icon =
     signal.status === "model_above_market" ? ArrowUpRight : signal.status === "market_above_model" ? ArrowDownRight : signal.status === "aligned" ? Minus : Activity;
+  const rawEdge = typeof signal.rawEdge === "number" ? signal.rawEdge : null;
+  const adjustedEdge = typeof signal.adjustedEdge === "number" ? signal.adjustedEdge : null;
 
   return (
     <article className="rounded-md border border-white/12 bg-white/[0.04] p-3">
@@ -16,9 +18,13 @@ export function CombinedSignalCard({ signal }: { signal: CombinedSignal }) {
         <span className="font-mono text-xs text-slate-300">{formatPercent(signal.disagreement)}</span>
       </div>
       <p className="mt-2 text-xs leading-5 text-slate-400">{signal.explanation}</p>
-      <div className="mt-3 flex gap-2 font-mono text-[11px] text-slate-300">
+      <div className="mt-3 flex flex-wrap gap-2 font-mono text-[11px] text-slate-300">
         <span>model {formatPercent(signal.modelProbability)}</span>
         <span>market {formatPercent(signal.marketProbability)}</span>
+        <span>confidence {formatPercent(signal.confidence ?? null)}</span>
+        <span>edge {formatPercent(rawEdge)}</span>
+        <span>adj {formatPercent(adjustedEdge)}</span>
+        <span>{signal.freshnessStatus ?? "unknown"}</span>
       </div>
     </article>
   );

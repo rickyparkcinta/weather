@@ -17,11 +17,17 @@ import {
   Sigma
 } from "lucide-react";
 import {
+  docsDataSourcesHref,
+  docsHref,
+  docsLocales,
   getAdjacentDocs,
-  sourceLinks,
+  getDocGroups,
+  getDocsCopy,
+  getSourceLinks,
   type DiagramVariant,
   type DocBlock,
   type DocPage,
+  type DocsLocale,
   type SourceId
 } from "@/lib/docs/content";
 import { DocsSidebar } from "@/components/docs/DocsSidebar";
@@ -58,15 +64,12 @@ function MathFormula({ expression }: { expression: string }) {
   );
 }
 
-function ForecastPipelineDiagram() {
-  const steps = [
-    { label: "Observations", detail: "Satellite, radar, stations, aircraft", icon: CloudSun },
-    { label: "Quality control", detail: "Reject late, duplicated, or suspect records", icon: Activity },
-    { label: "Assimilation", detail: "Blend observations with background state", icon: GitBranch },
-    { label: "Model run", detail: "Integrate dynamics and physics forward", icon: Network },
-    { label: "Post-process", detail: "Calibrate probabilities and confidence", icon: Sigma },
-    { label: "Signals", detail: "Compare model output with market prices", icon: LineChart }
-  ];
+function ForecastPipelineDiagram({ locale }: { locale: DocsLocale }) {
+  const icons = [CloudSun, Activity, GitBranch, Network, Sigma, LineChart];
+  const steps = getDocsCopy(locale).diagrams.forecastPipeline.steps.map((step, index) => ({
+    ...step,
+    icon: icons[index] ?? CloudSun
+  }));
 
   return (
     <div className="min-w-0 w-full overflow-hidden rounded-md border border-cyan-200/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.52),rgba(6,8,11,0.72))] p-4">
@@ -89,7 +92,8 @@ function ForecastPipelineDiagram() {
   );
 }
 
-function EnsembleProbabilityDiagram() {
+function EnsembleProbabilityDiagram({ locale }: { locale: DocsLocale }) {
+  const copy = getDocsCopy(locale).diagrams.ensembleProbability;
   const members = Array.from({ length: 40 }, (_, index) => index < 29);
 
   return (
@@ -104,33 +108,28 @@ function EnsembleProbabilityDiagram() {
                   "h-7 rounded-sm border",
                   isEvent ? "border-emerald-200/35 bg-emerald-300/55" : "border-white/15 bg-white/8"
                 ].join(" ")}
-                title={isEvent ? "Member forecasts event" : "Member does not forecast event"}
+                title={isEvent ? copy.memberForecastsEvent : copy.memberDoesNotForecastEvent}
               />
             ))}
           </div>
-          <p className="mt-4 text-sm leading-6 text-slate-300">
-            Each tile is an ensemble member. Filled tiles satisfy the event rule after applying station, time-window, and threshold mapping.
-          </p>
+          <p className="mt-4 text-sm leading-6 text-slate-300">{copy.caption}</p>
         </div>
         <div className="rounded-md border border-white/12 bg-black/22 p-4">
-          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-100/70">Event probability</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-100/70">{copy.eventProbability}</span>
           <div className="mt-4 flex items-end gap-2">
             <span className="text-5xl font-semibold text-white">72.5%</span>
-            <span className="pb-2 font-mono text-xs text-slate-500">29 / 40</span>
+            <span className="pb-2 font-mono text-xs text-slate-500">{copy.countLabel}</span>
           </div>
-          <p className="mt-3 text-sm leading-6 text-slate-400">Probability is counted from members, then calibrated against verification history.</p>
+          <p className="mt-3 text-sm leading-6 text-slate-400">{copy.description}</p>
         </div>
       </div>
     </div>
   );
 }
 
-function ForecastEdgeDiagram() {
-  const rows = [
-    { label: "Model probability", value: 74, color: "bg-emerald-300" },
-    { label: "Market probability", value: 59, color: "bg-cyan-300" },
-    { label: "Confidence", value: 68, color: "bg-amber-300" }
-  ];
+function ForecastEdgeDiagram({ locale }: { locale: DocsLocale }) {
+  const copy = getDocsCopy(locale).diagrams.forecastEdge;
+  const rows = copy.rows;
 
   return (
     <div className="min-w-0 w-full overflow-hidden rounded-md border border-amber-200/15 bg-[linear-gradient(135deg,rgba(120,53,15,0.38),rgba(6,8,11,0.78))] p-4">
@@ -149,7 +148,7 @@ function ForecastEdgeDiagram() {
           ))}
         </div>
         <div className="rounded-md border border-white/12 bg-black/24 p-4">
-          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-amber-100/70">Adjusted edge</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-amber-100/70">{copy.adjustedEdge}</span>
           <div className="mt-4 font-mono text-sm text-slate-300">
             <div>0.74 - 0.59 = 0.15</div>
             <div>0.15 x 0.68 = 0.102</div>
@@ -161,8 +160,9 @@ function ForecastEdgeDiagram() {
   );
 }
 
-function AssimilationCycleDiagram() {
-  const nodes = ["Background forecast", "Observations", "Quality control", "Analysis state", "Forecast model", "Short-range forecast"];
+function AssimilationCycleDiagram({ locale }: { locale: DocsLocale }) {
+  const copy = getDocsCopy(locale).diagrams.assimilationCycle;
+  const nodes = copy.nodes;
 
   return (
     <div className="min-w-0 w-full overflow-hidden rounded-md border border-indigo-200/15 bg-[linear-gradient(135deg,rgba(49,46,129,0.48),rgba(6,8,11,0.78))] p-4">
@@ -172,7 +172,7 @@ function AssimilationCycleDiagram() {
             <span className="font-mono text-xs text-indigo-100/60">{String(index + 1).padStart(2, "0")}</span>
             <span className="mt-2 block text-sm font-semibold text-white">{node}</span>
             <span className="mt-2 block text-xs leading-5 text-slate-400">
-              {index === nodes.length - 1 ? "Feeds the next cycle as the background state." : "Passes constrained state information to the next step."}
+              {index === nodes.length - 1 ? copy.finalDetail : copy.defaultDetail}
             </span>
           </div>
         ))}
@@ -181,14 +181,8 @@ function AssimilationCycleDiagram() {
   );
 }
 
-function ModelMarketSignalDiagram() {
-  const stages = [
-    ["Forecast data", "Provider run, valid time, variable, units"],
-    ["Event mapping", "Market rule, city, station, threshold, time window"],
-    ["Probability", "Model probability plus confidence and quality flags"],
-    ["Market data", "Best bid/ask, mid, liquidity, stale-data checks"],
-    ["Combined signal", "Disagreement, adjusted edge, and explanatory status"]
-  ];
+function ModelMarketSignalDiagram({ locale }: { locale: DocsLocale }) {
+  const stages = getDocsCopy(locale).diagrams.modelMarketSignal.stages;
 
   return (
     <div className="min-w-0 w-full overflow-hidden rounded-md border border-fuchsia-200/15 bg-[linear-gradient(135deg,rgba(112,26,117,0.34),rgba(6,8,11,0.78))] p-4">
@@ -205,22 +199,22 @@ function ModelMarketSignalDiagram() {
   );
 }
 
-function DiagramBlock({ variant }: { variant: DiagramVariant }) {
+function DiagramBlock({ locale, variant }: { locale: DocsLocale; variant: DiagramVariant }) {
   switch (variant) {
     case "forecast-pipeline":
-      return <ForecastPipelineDiagram />;
+      return <ForecastPipelineDiagram locale={locale} />;
     case "ensemble-probability":
-      return <EnsembleProbabilityDiagram />;
+      return <EnsembleProbabilityDiagram locale={locale} />;
     case "forecast-edge":
-      return <ForecastEdgeDiagram />;
+      return <ForecastEdgeDiagram locale={locale} />;
     case "data-assimilation-cycle":
-      return <AssimilationCycleDiagram />;
+      return <AssimilationCycleDiagram locale={locale} />;
     case "model-market-signal-flow":
-      return <ModelMarketSignalDiagram />;
+      return <ModelMarketSignalDiagram locale={locale} />;
   }
 }
 
-function BlockView({ block }: { block: DocBlock }) {
+function BlockView({ block, locale }: { block: DocBlock; locale: DocsLocale }) {
   switch (block.kind) {
     case "lead":
       return <p className="text-base leading-8 text-slate-200 md:text-lg">{block.text}</p>;
@@ -325,14 +319,15 @@ function BlockView({ block }: { block: DocBlock }) {
               {block.description ? <p className="mt-2 text-sm leading-6 text-slate-400">{block.description}</p> : null}
             </div>
           ) : null}
-          <DiagramBlock variant={block.variant} />
+          <DiagramBlock locale={locale} variant={block.variant} />
         </div>
       );
   }
 }
 
-export function DocPageContent({ page }: { page: DocPage }) {
-  const adjacent = getAdjacentDocs(page.slug);
+export function DocPageContent({ locale, page }: { locale: DocsLocale; page: DocPage }) {
+  const adjacent = getAdjacentDocs(page.slug, locale);
+  const copy = getDocsCopy(locale);
 
   return (
     <>
@@ -343,21 +338,21 @@ export function DocPageContent({ page }: { page: DocPage }) {
             {section.description ? <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">{section.description}</p> : null}
             <div className="mt-5 grid min-w-0 gap-5">
               {section.blocks.map((block, index) => (
-                <BlockView key={`${section.title}-${index}`} block={block} />
+                <BlockView key={`${section.title}-${index}`} block={block} locale={locale} />
               ))}
             </div>
           </section>
         ))}
       </div>
 
-      {page.references?.length ? <ReferencesPanel references={page.references} /> : null}
+      {page.references?.length ? <ReferencesPanel locale={locale} references={page.references} /> : null}
 
       <nav className="mt-10 grid gap-3 border-t border-white/10 pt-6 sm:grid-cols-2">
         {adjacent.previous ? (
-          <Link href={`/docs/${adjacent.previous.slug}`} className="rounded-md border border-white/12 p-4 text-sm text-slate-300 hover:bg-white/[0.04]">
+          <Link href={docsHref(locale, adjacent.previous.slug)} className="rounded-md border border-white/12 p-4 text-sm text-slate-300 hover:bg-white/[0.04]">
             <span className="flex items-center gap-2 text-slate-500">
               <ArrowLeft size={16} />
-              Previous
+              {copy.shell.previous}
             </span>
             <span className="mt-2 block font-semibold text-white">{adjacent.previous.title}</span>
           </Link>
@@ -365,9 +360,9 @@ export function DocPageContent({ page }: { page: DocPage }) {
           <span />
         )}
         {adjacent.next ? (
-          <Link href={`/docs/${adjacent.next.slug}`} className="rounded-md border border-white/12 p-4 text-right text-sm text-slate-300 hover:bg-white/[0.04]">
+          <Link href={docsHref(locale, adjacent.next.slug)} className="rounded-md border border-white/12 p-4 text-right text-sm text-slate-300 hover:bg-white/[0.04]">
             <span className="flex items-center justify-end gap-2 text-slate-500">
-              Next
+              {copy.shell.next}
               <ArrowRight size={16} />
             </span>
             <span className="mt-2 block font-semibold text-white">{adjacent.next.title}</span>
@@ -378,10 +373,13 @@ export function DocPageContent({ page }: { page: DocPage }) {
   );
 }
 
-export function ReferencesPanel({ references }: { references: SourceId[] }) {
+export function ReferencesPanel({ locale, references }: { locale: DocsLocale; references: SourceId[] }) {
+  const copy = getDocsCopy(locale);
+  const sourceLinks = getSourceLinks(locale);
+
   return (
     <section className="mt-10 border-t border-white/10 pt-8">
-      <h2 className="text-lg font-semibold text-white">Reference Sources</h2>
+      <h2 className="text-lg font-semibold text-white">{copy.shell.referencesHeading}</h2>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         {references.map((id) => {
           const source = sourceLinks[id];
@@ -408,53 +406,92 @@ export function ReferencesPanel({ references }: { references: SourceId[] }) {
 
 export function DocsShell({
   activeSlug,
+  locale,
   title,
   description,
   children
 }: {
   activeSlug?: string;
+  locale: DocsLocale;
   title: string;
   description: string;
   children: React.ReactNode;
 }) {
+  const copy = getDocsCopy(locale);
+  const groups = getDocGroups(locale);
+
   return (
     <main className="min-h-screen bg-[#06080b] text-slate-100">
       <div className="border-b border-white/10 bg-black/20">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 md:px-8">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 md:px-8">
           <Link href="/" className="inline-flex items-center gap-2 rounded-md border border-white/15 px-3 py-2 text-sm text-slate-200 hover:bg-white/8">
             <Map size={16} />
-            Map
+            {copy.shell.map}
           </Link>
-          <Link href="/docs/data-sources" className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm text-slate-400 hover:bg-white/8 hover:text-slate-100">
-            Data Sources
-            <ExternalLink size={15} />
-          </Link>
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            <Link
+              href={docsDataSourcesHref(locale)}
+              className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm text-slate-400 hover:bg-white/8 hover:text-slate-100"
+            >
+              {copy.shell.dataSources}
+              <ExternalLink size={15} />
+            </Link>
+            <nav
+              aria-label={copy.shell.localeSwitcherLabel}
+              className="inline-flex rounded-md border border-white/12 bg-white/[0.035] p-1"
+            >
+              {docsLocales.map((targetLocale) => {
+                const active = targetLocale === locale;
+                return (
+                  <Link
+                    key={targetLocale}
+                    href={docsHref(targetLocale, activeSlug)}
+                    aria-current={active ? "page" : undefined}
+                    className={[
+                      "rounded px-2.5 py-1.5 text-xs font-semibold transition",
+                      active ? "bg-cyan-300/15 text-cyan-100" : "text-slate-400 hover:bg-white/8 hover:text-slate-100"
+                    ].join(" ")}
+                  >
+                    {copy.shell.localeOptions[targetLocale]}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
         </div>
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-8 md:px-8 lg:grid-cols-[280px_minmax(0,1fr)]">
-        <DocsSidebar activeSlug={activeSlug} />
+        <DocsSidebar
+          activeSlug={activeSlug}
+          groups={groups}
+          labels={{
+            documentationMenu: copy.shell.documentationMenu,
+            docsHome: copy.shell.docsHome
+          }}
+          locale={locale}
+        />
 
         <article className="order-2 min-w-0 overflow-hidden lg:order-none">
           <header className="pb-8">
             <div className="inline-flex items-center gap-2 rounded-md border border-cyan-200/15 bg-cyan-300/8 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">
               <BookOpen size={14} />
-              Weather AI Docs
+              {copy.shell.docsBadge}
             </div>
             <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-normal text-white md:text-5xl">{title}</h1>
             <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">{description}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-2 rounded-md border border-white/12 px-3 py-1.5 text-xs text-slate-400">
                 <Layers3 size={14} />
-                Technical reference
+                {copy.shell.technicalReference}
               </span>
               <span className="inline-flex items-center gap-2 rounded-md border border-white/12 px-3 py-1.5 text-xs text-slate-400">
                 <Database size={14} />
-                Forecast intelligence
+                {copy.shell.forecastIntelligence}
               </span>
               <span className="inline-flex items-center gap-2 rounded-md border border-white/12 px-3 py-1.5 text-xs text-slate-400">
                 <BarChart3 size={14} />
-                Market signals
+                {copy.shell.marketSignals}
               </span>
             </div>
           </header>

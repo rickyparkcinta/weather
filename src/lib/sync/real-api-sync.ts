@@ -488,6 +488,10 @@ async function syncSignals(client: SyncClient, cities: City[], forecast: Forecas
     model_probability: signal.modelProbability,
     market_probability: signal.marketProbability,
     disagreement: signal.disagreement,
+    raw_edge: signal.rawEdge ?? null,
+    adjusted_edge: signal.adjustedEdge ?? null,
+    confidence: signal.confidence ?? null,
+    freshness_status: signal.freshnessStatus ?? "unknown",
     status: signal.status,
     explanation: signal.explanation,
     raw: { ...(signal.raw ?? {}), source: "real-api-sync" }

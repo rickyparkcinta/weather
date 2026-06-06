@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Home, Menu, X } from "lucide-react";
-import { docGroups } from "@/lib/docs/content";
+import { docsHref, type DocsLocale, type DocsSidebarGroup } from "@/lib/docs/content";
 
 function linkClass(active: boolean) {
   return [
@@ -14,7 +14,20 @@ function linkClass(active: boolean) {
   ].join(" ");
 }
 
-export function DocsSidebar({ activeSlug }: { activeSlug?: string }) {
+export function DocsSidebar({
+  activeSlug,
+  groups,
+  locale,
+  labels
+}: {
+  activeSlug?: string;
+  groups: DocsSidebarGroup[];
+  locale: DocsLocale;
+  labels: {
+    documentationMenu: string;
+    docsHome: string;
+  };
+}) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
@@ -29,7 +42,7 @@ export function DocsSidebar({ activeSlug }: { activeSlug?: string }) {
       >
         <span className="inline-flex items-center gap-2">
           {open ? <X size={16} /> : <Menu size={16} />}
-          Documentation menu
+          {labels.documentationMenu}
         </span>
       </button>
 
@@ -37,21 +50,21 @@ export function DocsSidebar({ activeSlug }: { activeSlug?: string }) {
         id="docs-nav"
         className={[open ? "block" : "hidden", "mt-3 rounded-md border border-white/12 bg-white/[0.035] p-3 lg:mt-0 lg:block"].join(" ")}
       >
-        <Link href="/docs" onClick={close} className={linkClass(!activeSlug)}>
+        <Link href={docsHref(locale)} onClick={close} className={linkClass(!activeSlug)}>
           <span className="inline-flex items-center gap-2">
             <Home size={16} />
-            Docs Home
+            {labels.docsHome}
           </span>
         </Link>
         <div className="mt-5 grid gap-5">
-          {docGroups.map((group) => (
+          {groups.map((group) => (
             <div key={group.title}>
               <h2 className="px-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{group.title}</h2>
               <div className="mt-2 grid gap-1">
                 {group.pages.map((page) => (
                   <Link
                     key={page.slug}
-                    href={`/docs/${page.slug}`}
+                    href={docsHref(locale, page.slug)}
                     onClick={close}
                     className={linkClass(activeSlug === page.slug)}
                   >

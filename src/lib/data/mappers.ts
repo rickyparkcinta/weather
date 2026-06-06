@@ -123,11 +123,26 @@ export function mapCombinedSignal(row: Row): CombinedSignal {
     disagreement: numberOrNull(row.disagreement),
     status:
       status === "aligned" ||
+      status === "watch" ||
+      status === "divergent" ||
+      status === "stale" ||
+      status === "unavailable" ||
+      status === "avoid" ||
       status === "market_above_model" ||
       status === "model_above_market" ||
       status === "insufficient_data"
         ? status
         : "insufficient_data",
+    rawEdge: numberOrNull(row.raw_edge),
+    adjustedEdge: numberOrNull(row.adjusted_edge),
+    confidence: numberOrNull(row.confidence),
+    freshnessStatus:
+      row.freshness_status === "fresh" ||
+      row.freshness_status === "aging" ||
+      row.freshness_status === "stale" ||
+      row.freshness_status === "unknown"
+        ? row.freshness_status
+        : null,
     explanation: text(row.explanation),
     computedAt: text(row.computed_at) ?? undefined,
     raw: record(row.raw)
