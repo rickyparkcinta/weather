@@ -1,3 +1,4 @@
+import katex from "katex";
 import Link from "next/link";
 import {
   Activity,
@@ -9,7 +10,6 @@ import {
   Database,
   ExternalLink,
   GitBranch,
-  Home,
   Layers3,
   LineChart,
   Map,
@@ -17,7 +17,6 @@ import {
   Sigma
 } from "lucide-react";
 import {
-  docGroups,
   getAdjacentDocs,
   sourceLinks,
   type DiagramVariant,
@@ -25,165 +24,36 @@ import {
   type DocPage,
   type SourceId
 } from "@/lib/docs/content";
-
-function linkClass(active: boolean) {
-  return [
-    "block rounded-md px-3 py-2 text-sm transition",
-    active
-      ? "bg-cyan-300/12 text-cyan-100 shadow-[inset_3px_0_0_rgba(103,232,249,0.7)]"
-      : "text-slate-400 hover:bg-white/8 hover:text-slate-100"
-  ].join(" ");
-}
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-function readBraced(source: string, openIndex: number) {
-  if (source[openIndex] !== "{") {
-    return null;
-  }
-
-  let depth = 0;
-  for (let index = openIndex; index < source.length; index += 1) {
-    const char = source[index];
-    if (char === "{") {
-      depth += 1;
-    }
-    if (char === "}") {
-      depth -= 1;
-      if (depth === 0) {
-        return {
-          value: source.slice(openIndex + 1, index),
-          endIndex: index + 1
-        };
-      }
-    }
-  }
-
-  return null;
-}
-
-function replaceLatexCommand(source: string, command: "\\frac" | "\\sqrt", renderer: (parts: string[]) => string) {
-  let output = "";
-  let index = 0;
-
-  while (index < source.length) {
-    const commandIndex = source.indexOf(command, index);
-    if (commandIndex === -1) {
-      output += source.slice(index);
-      break;
-    }
-
-    output += source.slice(index, commandIndex);
-    const first = readBraced(source, commandIndex + command.length);
-    if (!first) {
-      output += command;
-      index = commandIndex + command.length;
-      continue;
-    }
-
-    if (command === "\\sqrt") {
-      output += renderer([first.value]);
-      index = first.endIndex;
-      continue;
-    }
-
-    const second = readBraced(source, first.endIndex);
-    if (!second) {
-      output += source.slice(commandIndex, first.endIndex);
-      index = first.endIndex;
-      continue;
-    }
-
-    output += renderer([first.value, second.value]);
-    index = second.endIndex;
-  }
-
-  return output;
-}
-
-function renderLatexHtml(expression: string): string {
-  const pieces: string[] = [];
-  let source = expression.trim();
-
-  source = replaceLatexCommand(source, "\\frac", ([numerator, denominator]) => {
-    const index = pieces.push(
-      `<span class="doc-frac"><span>${renderLatexHtml(numerator)}</span><span>${renderLatexHtml(denominator)}</span></span>`
-    ) - 1;
-    return `@@MATH${index}@@`;
-  });
-
-  source = replaceLatexCommand(source, "\\sqrt", ([value]) => {
-    const index = pieces.push(`<span class="doc-sqrt"><span>${renderLatexHtml(value)}</span></span>`) - 1;
-    return `@@MATH${index}@@`;
-  });
-
-  let html = escapeHtml(source)
-    .replace(/\\left/g, "")
-    .replace(/\\right/g, "")
-    .replace(/\\,/g, " ")
-    .replace(/\\mathbf\{([^{}]+)\}/g, "<strong>$1</strong>")
-    .replace(/\\hat\{([^{}]+)\}/g, '<span class="doc-hat">$1</span>')
-    .replace(/\\vec\{([^{}]+)\}/g, '<span class="doc-vector">$1</span>')
-    .replace(/\\bar\{([^{}]+)\}/g, '<span class="doc-overline">$1</span>')
-    .replace(/\\sum_\{([^{}]+)\}\^\{([^{}]+)\}/g, '<span class="doc-sum"><span>$2</span><span>&sum;</span><span>$1</span></span>')
-    .replace(/([A-Za-z][A-Za-z0-9]*|[A-Za-z0-9\)\]])_\{([^{}]+)\}\^\{([^{}]+)\}/g, "$1<sub>$2</sub><sup>$3</sup>")
-    .replace(/([A-Za-z][A-Za-z0-9]*|[A-Za-z0-9\)\]])\^\{([^{}]+)\}_\{([^{}]+)\}/g, "$1<sub>$3</sub><sup>$2</sup>")
-    .replace(/([A-Za-z][A-Za-z0-9]*|[A-Za-z0-9\)\]])_\{([^{}]+)\}/g, "$1<sub>$2</sub>")
-    .replace(/([A-Za-z][A-Za-z0-9]*|[A-Za-z0-9\)\]])\^\{([^{}]+)\}/g, "$1<sup>$2</sup>")
-    .replace(/([A-Za-z][A-Za-z0-9]*|[A-Za-z0-9\)\]])_([A-Za-z0-9+-]+)/g, "$1<sub>$2</sub>")
-    .replace(/([A-Za-z][A-Za-z0-9]*|[A-Za-z0-9\)\]])\^([A-Za-z0-9+-]+)/g, "$1<sup>$2</sup>");
-
-  const symbols: Record<string, string> = {
-    "\\alpha": "&alpha;",
-    "\\beta": "&beta;",
-    "\\gamma": "&gamma;",
-    "\\Delta": "&Delta;",
-    "\\delta": "&delta;",
-    "\\epsilon": "&epsilon;",
-    "\\eta": "&eta;",
-    "\\lambda": "&lambda;",
-    "\\mu": "&mu;",
-    "\\nabla": "&nabla;",
-    "\\omega": "&omega;",
-    "\\Omega": "&Omega;",
-    "\\partial": "&part;",
-    "\\propto": "&prop;",
-    "\\rho": "&rho;",
-    "\\sigma": "&sigma;",
-    "\\theta": "&theta;",
-    "\\cdot": "&middot;",
-    "\\le": "&le;",
-    "\\ge": "&ge;",
-    "\\in": "&isin;",
-    "\\approx": "&asymp;",
-    "\\rightarrow": "&rarr;",
-    "\\times": "&times;",
-    "\\pm": "&plusmn;"
-  };
-
-  for (const [token, replacement] of Object.entries(symbols)) {
-    html = html.replaceAll(token, replacement);
-  }
-
-  html = html.replace(/\s+/g, " ");
-  pieces.forEach((piece, index) => {
-    html = html.replaceAll(`@@MATH${index}@@`, piece);
-  });
-
-  return html;
-}
+import { DocsSidebar } from "@/components/docs/DocsSidebar";
 
 function MathFormula({ expression }: { expression: string }) {
+  const latex = expression.trim();
+
+  let html: string;
+  try {
+    html = katex.renderToString(latex, {
+      displayMode: true,
+      throwOnError: false,
+      strict: false,
+      output: "html"
+    });
+  } catch (error) {
+    // KaTeX is configured with throwOnError: false, so it normally renders an
+    // error node instead of throwing. This guard only catches unexpected
+    // failures, and surfaces the raw LaTeX as a safe, readable fallback.
+    if (process.env.NODE_ENV !== "production") {
+      console.error(`Failed to render formula: ${latex}`, error);
+    }
+    return (
+      <div className="doc-math" role="math" aria-label={latex}>
+        <code className="font-mono text-sm text-emerald-50/80">{latex}</code>
+      </div>
+    );
+  }
+
   return (
-    <div className="doc-math" role="math" aria-label={expression}>
-      <span dangerouslySetInnerHTML={{ __html: renderLatexHtml(expression) }} />
+    <div className="doc-math" role="math" aria-label={latex}>
+      <span dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );
 }
@@ -563,32 +433,9 @@ export function DocsShell({
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-8 md:px-8 lg:grid-cols-[280px_minmax(0,1fr)]">
-        <aside className="order-2 lg:sticky lg:top-6 lg:order-none lg:h-[calc(100dvh-3rem)] lg:overflow-y-auto">
-          <nav className="rounded-md border border-white/12 bg-white/[0.035] p-3">
-            <Link href="/docs" className={linkClass(!activeSlug)}>
-              <span className="inline-flex items-center gap-2">
-                <Home size={16} />
-                Docs Home
-              </span>
-            </Link>
-            <div className="mt-5 grid gap-5">
-              {docGroups.map((group) => (
-                <div key={group.title}>
-                  <h2 className="px-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{group.title}</h2>
-                  <div className="mt-2 grid gap-1">
-                    {group.pages.map((page) => (
-                      <Link key={page.slug} href={`/docs/${page.slug}`} className={linkClass(activeSlug === page.slug)}>
-                        {page.shortTitle}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </nav>
-        </aside>
+        <DocsSidebar activeSlug={activeSlug} />
 
-        <article className="order-1 min-w-0 overflow-hidden lg:order-none">
+        <article className="order-2 min-w-0 overflow-hidden lg:order-none">
           <header className="pb-8">
             <div className="inline-flex items-center gap-2 rounded-md border border-cyan-200/15 bg-cyan-300/8 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">
               <BookOpen size={14} />

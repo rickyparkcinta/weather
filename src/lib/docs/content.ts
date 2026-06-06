@@ -377,6 +377,36 @@ export const docs: DocPage[] = [
             text: "Find the atmospheric state that is close to the previous forecast, close to the new observations, and weighted by how much each input is trusted."
           }
         ]
+      },
+      {
+        title: "Optimal Analysis Update",
+        description: "Minimizing the variational cost is equivalent to a linear update that blends the background and observations by their relative confidence.",
+        blocks: [
+          {
+            kind: "formula",
+            title: "Analysis update",
+            expression: "x_a = x_b + K(y - H(x_b))",
+            description: "The analysis nudges the background toward observations in proportion to the innovation, the difference between observed and simulated values."
+          },
+          {
+            kind: "formula",
+            title: "Kalman gain",
+            expression: "K = BH^T\\left(HBH^T + R\\right)^{-1}",
+            description: "The gain weights the correction by background error relative to total error, so noisier observations move the analysis less."
+          },
+          {
+            kind: "formula",
+            title: "Analysis error covariance",
+            expression: "A = (I - KH)B",
+            description: "Assimilating observations reduces the background uncertainty, producing a more confident initial state for the next forecast."
+          },
+          {
+            kind: "formula",
+            title: "Four-dimensional variational cost",
+            expression: "J(x_0) = \\frac{1}{2}(x_0 - x_b)^T B^{-1}(x_0 - x_b) + \\frac{1}{2}\\sum_{k=0}^{K}(y_k - H_k(x_k))^T R_k^{-1}(y_k - H_k(x_k))",
+            description: "4D-Var fits a model trajectory to observations spread across an assimilation window, not just a single analysis time."
+          }
+        ]
       }
     ]
   },
@@ -438,6 +468,18 @@ export const docs: DocPage[] = [
               ["Delta t", "Model time step."],
               ["F(X_t)", "Physical tendency calculated by the model."]
             ]
+          },
+          {
+            kind: "formula",
+            title: "Advection",
+            expression: "\\frac{\\partial \\phi}{\\partial t} = -\\vec{V} \\cdot \\nabla \\phi + S_\\phi",
+            description: "Most atmospheric tendencies are dominated by transport: a field changes locally because the wind carries it, plus any source or sink."
+          },
+          {
+            kind: "formula",
+            title: "Leapfrog time scheme",
+            expression: "X^{n+1} = X^{n-1} + 2\\Delta t\\, F(X^n)",
+            description: "A common centered scheme that is second-order accurate in time, typically combined with a filter to suppress the computational mode."
           },
           {
             kind: "paragraph",
@@ -518,6 +560,30 @@ export const docs: DocPage[] = [
             title: "Moisture tendency",
             expression: "\\frac{Dq}{Dt} = E - C + S_q",
             description: "Specific humidity changes through evaporation, condensation, and additional source or sink terms."
+          },
+          {
+            kind: "formula",
+            title: "Thermodynamic energy equation",
+            expression: "c_p\\frac{DT}{Dt} - \\frac{1}{\\rho}\\frac{Dp}{Dt} = Q",
+            description: "Temperature evolves through adiabatic compression and diabatic heating Q from radiation, condensation, and mixing."
+          },
+          {
+            kind: "formula",
+            title: "Potential temperature",
+            expression: "\\theta = T\\left(\\frac{p_0}{p}\\right)^{R_d/c_p}",
+            description: "Potential temperature is conserved under dry adiabatic motion, which makes it a natural vertical coordinate for stability analysis."
+          },
+          {
+            kind: "formula",
+            title: "Clausius-Clapeyron relation",
+            expression: "\\frac{d e_s}{dT} = \\frac{L_v\\, e_s}{R_v T^2}",
+            description: "Saturation vapor pressure rises roughly exponentially with temperature, so warmer air holds more moisture and can produce heavier precipitation."
+          },
+          {
+            kind: "formula",
+            title: "Geostrophic balance",
+            expression: "\\vec{V}_g = \\frac{1}{\\rho f}\\,\\hat{k} \\times \\nabla p",
+            description: "Away from the surface and the equator, large-scale wind is approximately the balance between pressure-gradient and Coriolis forces."
           }
         ]
       },
@@ -620,6 +686,18 @@ export const docs: DocPage[] = [
             ]
           },
           {
+            kind: "formula",
+            title: "Diffusive stability",
+            expression: "\\frac{\\kappa\\,\\Delta t}{(\\Delta x)^2} \\le \\frac{1}{2}",
+            description: "Explicit diffusion and mixing schemes impose their own, often stricter, limit on the time step as grid spacing shrinks."
+          },
+          {
+            kind: "formula",
+            title: "Shortest resolvable wave",
+            expression: "\\lambda_{min} = 2\\,\\Delta x",
+            description: "A grid cannot represent features smaller than two grid lengths, so sub-grid processes must be parameterized rather than resolved."
+          },
+          {
             kind: "callout",
             title: "Product implication",
             text: "Resolution, lead time, model cycle, and update cadence should be visible when users compare forecasts. Higher resolution does not automatically mean higher forecast skill."
@@ -677,6 +755,18 @@ export const docs: DocPage[] = [
             title: "Event probability",
             expression: "P(E) = \\frac{n_E}{N}",
             description: "The fraction of members that satisfy the event rule."
+          },
+          {
+            kind: "formula",
+            title: "Spread-skill relationship",
+            expression: "\\langle \\sigma^2 \\rangle \\approx \\langle (\\bar{x} - o)^2 \\rangle",
+            description: "In a well-calibrated ensemble, the average variance of the members matches the mean squared error of the ensemble mean, so spread is a usable proxy for expected error."
+          },
+          {
+            kind: "formula",
+            title: "Continuous ranked probability score",
+            expression: "\\mathrm{CRPS} = \\int_{-\\infty}^{\\infty}\\left(F(x) - \\mathbf{1}\\{x \\ge o\\}\\right)^2 dx",
+            description: "CRPS compares the full forecast distribution F against the observed outcome o, rewarding sharp forecasts that stay calibrated."
           },
           {
             kind: "table",
@@ -746,8 +836,20 @@ export const docs: DocPage[] = [
           {
             kind: "formula",
             title: "Confidence score",
-            expression: "C = clamp(w_1A_e + w_2A_m + w_3S_h - w_4V - w_5D, 0, 1)",
+            expression: "C = \\mathrm{clamp}(w_1A_e + w_2A_m + w_3S_h - w_4V - w_5D,\\ 0,\\ 1)",
             description: "A practical confidence score can combine ensemble agreement, multi-model agreement, historical skill, volatility, and disagreement."
+          },
+          {
+            kind: "formula",
+            title: "Error saturation growth",
+            expression: "\\epsilon(t) = \\epsilon_\\infty\\left(1 - e^{-t/\\tau}\\right)",
+            description: "Forecast error grows quickly at first, then saturates toward a climatological ceiling as predictability is lost at long lead times."
+          },
+          {
+            kind: "formula",
+            title: "Logistic confidence mapping",
+            expression: "C = \\frac{1}{1 + e^{-(a - bU)}}",
+            description: "A raw uncertainty measure U can be mapped to a bounded 0-to-1 confidence with a calibrated logistic function."
           },
           {
             kind: "table",
@@ -828,6 +930,24 @@ export const docs: DocPage[] = [
             description: "Subtract recent systematic error from the raw model estimate."
           },
           {
+            kind: "formula",
+            title: "Latitude-weighted training loss",
+            expression: "\\mathcal{L} = \\frac{1}{N}\\sum_{i=1}^{N} w(\\phi_i)\\left(\\hat{y}_i - y_i\\right)^2",
+            description: "Data-driven weather models minimize a gridded error that weights each cell so that high-latitude grid points do not dominate the loss."
+          },
+          {
+            kind: "formula",
+            title: "Latitude weight",
+            expression: "w(\\phi) = \\frac{\\cos\\phi}{\\frac{1}{N_\\phi}\\sum_{j} \\cos\\phi_j}",
+            description: "The weight is proportional to grid-cell area, which shrinks toward the poles as the cosine of latitude."
+          },
+          {
+            kind: "formula",
+            title: "Anomaly correlation coefficient",
+            expression: "\\mathrm{ACC} = \\frac{\\sum_i w_i (f_i - c_i)(o_i - c_i)}{\\sqrt{\\sum_i w_i (f_i - c_i)^2 \\, \\sum_i w_i (o_i - c_i)^2}}",
+            description: "ACC measures how well the forecast captures departures from climatology c, and is a primary headline metric for AI and physics models alike."
+          },
+          {
             kind: "callout",
             title: "Guardrail",
             text: "AI outputs should be compared against official model fields, ensemble spread, observation quality, and historical verification before they influence market-facing signals."
@@ -889,6 +1009,30 @@ export const docs: DocPage[] = [
             description: "A positive score means the model beats the reference forecast."
           },
           {
+            kind: "formula",
+            title: "Anomaly correlation coefficient",
+            expression: "\\mathrm{ACC} = \\frac{\\sum_i (f_i - c_i)(o_i - c_i)}{\\sqrt{\\sum_i (f_i - c_i)^2 \\, \\sum_i (o_i - c_i)^2}}",
+            description: "Correlation between forecast and observed anomalies relative to climatology c; values above about 0.6 are often treated as useful."
+          },
+          {
+            kind: "formula",
+            title: "Continuous ranked probability score",
+            expression: "\\mathrm{CRPS} = \\int_{-\\infty}^{\\infty}\\left(F(x) - \\mathbf{1}\\{x \\ge o\\}\\right)^2 dx",
+            description: "A distributional generalization of absolute error; it reduces to MAE for a deterministic forecast."
+          },
+          {
+            kind: "formula",
+            title: "Brier skill score",
+            expression: "\\mathrm{BSS} = 1 - \\frac{BS}{BS_{ref}}",
+            description: "Brier score expressed as skill against a reference such as climatology, so positive means better than the baseline."
+          },
+          {
+            kind: "formula",
+            title: "Brier score decomposition",
+            expression: "BS = \\mathrm{REL} - \\mathrm{RES} + \\mathrm{UNC}",
+            description: "The Brier score splits into reliability, resolution, and an irreducible uncertainty term that depends only on the event base rate."
+          },
+          {
             kind: "table",
             title: "Verification table",
             columns: ["Metric", "Best for"],
@@ -897,6 +1041,8 @@ export const docs: DocPage[] = [
               ["RMSE", "Penalizing large misses."],
               ["Bias", "Detecting systematic over- or under-forecasting."],
               ["Brier Score", "Binary probability forecasts."],
+              ["Brier Skill Score", "Probability skill against a baseline."],
+              ["ACC", "Large-scale pattern skill versus climatology."],
               ["Reliability curve", "Probability calibration."],
               ["ROC-AUC", "Event discrimination."],
               ["CRPS", "Full probabilistic distributions."]
@@ -1184,9 +1330,27 @@ export const docs: DocPage[] = [
           },
           {
             kind: "formula",
+            title: "Market mid probability",
+            expression: "P_{market} = \\frac{p_{bid} + p_{ask}}{2}",
+            description: "Using the mid-price reduces the bias from a wide bid-ask spread before any edge is computed."
+          },
+          {
+            kind: "formula",
+            title: "Calibration log loss",
+            expression: "L = -\\frac{1}{N}\\sum_{i=1}^{N}\\left[o_i \\ln p_i + (1 - o_i)\\ln(1 - p_i)\\right]",
+            description: "Log loss compares model and market probabilities against realized outcomes, penalizing confident-but-wrong probabilities heavily."
+          },
+          {
+            kind: "formula",
             title: "Signal threshold",
             expression: "NetEdge > Threshold",
             description: "Thresholds should be conservative and depend on data quality, market liquidity, and verification history."
+          },
+          {
+            kind: "formula",
+            title: "Illustrative Kelly fraction",
+            expression: "f^{*} = \\frac{P_{model} - P_{market}}{1 - P_{market}}",
+            description: "Shown only to illustrate how edge and price relate to position sizing in theory. It is a diagnostic identity, not a recommendation to size or place any trade."
           },
           {
             kind: "table",
@@ -1244,15 +1408,21 @@ export const docs: DocPage[] = [
           { kind: "formula", title: "Mass continuity", expression: "\\frac{\\partial \\rho}{\\partial t} + \\nabla \\cdot (\\rho \\vec{V}) = 0" },
           { kind: "formula", title: "Hydrostatic balance", expression: "\\frac{\\partial p}{\\partial z} = -\\rho g" },
           { kind: "formula", title: "Thermodynamic tendency", expression: "\\frac{DT}{Dt} = \\frac{Q}{c_p} - \\frac{\\omega}{\\rho c_p}" },
-          { kind: "formula", title: "Moisture tendency", expression: "\\frac{Dq}{Dt} = E - C + S_q" }
+          { kind: "formula", title: "Moisture tendency", expression: "\\frac{Dq}{Dt} = E - C + S_q" },
+          { kind: "formula", title: "Potential temperature", expression: "\\theta = T\\left(\\frac{p_0}{p}\\right)^{R_d/c_p}" },
+          { kind: "formula", title: "Clausius-Clapeyron", expression: "\\frac{d e_s}{dT} = \\frac{L_v\\, e_s}{R_v T^2}" },
+          { kind: "formula", title: "Geostrophic balance", expression: "\\vec{V}_g = \\frac{1}{\\rho f}\\,\\hat{k} \\times \\nabla p" }
         ]
       },
       {
         title: "Numerical Methods",
         blocks: [
           { kind: "formula", title: "Forward time step", expression: "X^{n+1} = X^n + \\Delta t F(X^n)" },
+          { kind: "formula", title: "Leapfrog scheme", expression: "X^{n+1} = X^{n-1} + 2\\Delta t\\, F(X^n)" },
+          { kind: "formula", title: "Advection", expression: "\\frac{\\partial \\phi}{\\partial t} = -\\vec{V} \\cdot \\nabla \\phi + S_\\phi" },
           { kind: "formula", title: "Spatial derivative", expression: "\\frac{\\partial T}{\\partial x} \\approx \\frac{T_{i+1} - T_i}{\\Delta x}" },
           { kind: "formula", title: "CFL condition", expression: "\\frac{u\\Delta t}{\\Delta x} \\le 1" },
+          { kind: "formula", title: "Diffusive stability", expression: "\\frac{\\kappa\\,\\Delta t}{(\\Delta x)^2} \\le \\frac{1}{2}" },
           { kind: "formula", title: "Compute scaling", expression: "Cost \\propto GridCells \\times VerticalLayers \\times TimeSteps \\times EnsembleMembers" }
         ]
       },
@@ -1261,7 +1431,9 @@ export const docs: DocPage[] = [
         blocks: [
           { kind: "formula", title: "Variational objective", expression: "J(x) = (x - x_b)^T B^{-1}(x - x_b) + (y - H(x))^T R^{-1}(y - H(x))" },
           { kind: "formula", title: "Analysis update", expression: "x_a = x_b + K(y - Hx_b)" },
-          { kind: "formula", title: "Kalman gain", expression: "K = BH^T(HBH^T + R)^{-1}" }
+          { kind: "formula", title: "Kalman gain", expression: "K = BH^T(HBH^T + R)^{-1}" },
+          { kind: "formula", title: "Analysis error covariance", expression: "A = (I - KH)B" },
+          { kind: "formula", title: "4D-Var cost", expression: "J(x_0) = \\frac{1}{2}(x_0 - x_b)^T B^{-1}(x_0 - x_b) + \\frac{1}{2}\\sum_{k=0}^{K}(y_k - H_k(x_k))^T R_k^{-1}(y_k - H_k(x_k))" }
         ]
       },
       {
@@ -1270,7 +1442,9 @@ export const docs: DocPage[] = [
           { kind: "formula", title: "Ensemble mean", expression: "\\bar{x} = \\frac{1}{N}\\sum_{i=1}^{N}x_i" },
           { kind: "formula", title: "Ensemble spread", expression: "\\sigma = \\sqrt{\\frac{1}{N-1}\\sum_{i=1}^{N}(x_i - \\bar{x})^2}" },
           { kind: "formula", title: "Event probability", expression: "P(E) = \\frac{n_E}{N}" },
-          { kind: "formula", title: "Percentile forecast", expression: "Q_p = percentile(\\{x_1, x_2, ..., x_N\\}, p)" }
+          { kind: "formula", title: "Percentile forecast", expression: "Q_p = percentile(\\{x_1, x_2, ..., x_N\\}, p)" },
+          { kind: "formula", title: "Spread-skill", expression: "\\langle \\sigma^2 \\rangle \\approx \\langle (\\bar{x} - o)^2 \\rangle" },
+          { kind: "formula", title: "CRPS", expression: "\\mathrm{CRPS} = \\int_{-\\infty}^{\\infty}\\left(F(x) - \\mathbf{1}\\{x \\ge o\\}\\right)^2 dx" }
         ]
       },
       {
@@ -1280,6 +1454,8 @@ export const docs: DocPage[] = [
           { kind: "formula", title: "RMSE", expression: "RMSE = \\sqrt{\\frac{1}{N}\\sum_{i=1}^{N}(f_i - o_i)^2}" },
           { kind: "formula", title: "Bias", expression: "Bias = \\frac{1}{N}\\sum_{i=1}^{N}(f_i - o_i)" },
           { kind: "formula", title: "Brier Score", expression: "BS = \\frac{1}{N}\\sum_{i=1}^{N}(p_i - o_i)^2" },
+          { kind: "formula", title: "Brier Skill Score", expression: "\\mathrm{BSS} = 1 - \\frac{BS}{BS_{ref}}" },
+          { kind: "formula", title: "ACC", expression: "\\mathrm{ACC} = \\frac{\\sum_i (f_i - c_i)(o_i - c_i)}{\\sqrt{\\sum_i (f_i - c_i)^2 \\, \\sum_i (o_i - c_i)^2}}" },
           { kind: "formula", title: "Skill Score", expression: "Skill = 1 - \\frac{Score_{model}}{Score_{reference}}" }
         ]
       },
@@ -1287,9 +1463,12 @@ export const docs: DocPage[] = [
         title: "Market Edge Formulas",
         blocks: [
           { kind: "formula", title: "Market-implied probability", expression: "P_{market} \\approx Price" },
+          { kind: "formula", title: "Market mid probability", expression: "P_{market} = \\frac{p_{bid} + p_{ask}}{2}" },
           { kind: "formula", title: "Raw edge", expression: "Edge = P_{model} - P_{market}" },
           { kind: "formula", title: "Confidence-adjusted edge", expression: "AdjustedEdge = (P_{model} - P_{market})C" },
           { kind: "formula", title: "Net edge", expression: "NetEdge = AdjustedEdge - Fees - Slippage - RiskBuffer" },
+          { kind: "formula", title: "Calibration log loss", expression: "L = -\\frac{1}{N}\\sum_{i=1}^{N}\\left[o_i \\ln p_i + (1 - o_i)\\ln(1 - p_i)\\right]" },
+          { kind: "formula", title: "Illustrative Kelly fraction", expression: "f^{*} = \\frac{P_{model} - P_{market}}{1 - P_{market}}" },
           { kind: "callout", title: "Non-advice boundary", text: noAdviceText }
         ]
       }
