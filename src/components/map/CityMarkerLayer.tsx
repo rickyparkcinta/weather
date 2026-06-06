@@ -31,8 +31,14 @@ export function CityMarkerLayer({
   // Keep handlers stable while always reading the latest props.
   const citiesRef = useRef(cities);
   const onSelectRef = useRef(onSelect);
-  citiesRef.current = cities;
-  onSelectRef.current = onSelect;
+
+  useEffect(() => {
+    citiesRef.current = cities;
+  }, [cities]);
+
+  useEffect(() => {
+    onSelectRef.current = onSelect;
+  }, [onSelect]);
 
   // Setup: add source + layers + interaction handlers once per map instance.
   useEffect(() => {
