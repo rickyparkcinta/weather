@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { getMarketById, getMarketHistory } from "@/lib/data/queries";
+import { DataSourceBadge } from "@/components/ui/DataSourceBadge";
+import { getMarketById, getMarketHistory, usingDemoData } from "@/lib/data/queries";
 import { formatCompactNumber, formatPercent } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -22,6 +23,7 @@ export default async function MarketPage({ params }: { params: Promise<{ id: str
             <ArrowLeft size={16} />
             Map
           </Link>
+          <DataSourceBadge demoMode={usingDemoData()} />
         </div>
 
         <section className="rounded-md border border-white/12 bg-white/[0.04] p-5">

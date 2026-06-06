@@ -1,5 +1,5 @@
 import { jsonError, jsonOk } from "@/lib/api/responses";
-import { listForecastPoints } from "@/lib/data/queries";
+import { listForecastPoints, usingDemoData } from "@/lib/data/queries";
 
 export const dynamic = "force-dynamic";
 
@@ -12,7 +12,7 @@ export async function GET(request: Request) {
     const to = url.searchParams.get("to") ?? undefined;
 
     const forecast = await listForecastPoints({ cityId, variable, from, to });
-    return jsonOk({ data: forecast });
+    return jsonOk({ data: forecast, demoMode: usingDemoData() });
   } catch (error) {
     return jsonError("Failed to load forecast", 500, error instanceof Error ? error.message : error);
   }

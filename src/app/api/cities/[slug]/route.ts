@@ -1,5 +1,5 @@
 import { jsonError, jsonOk } from "@/lib/api/responses";
-import { getCityBySlug, listCombinedSignals, listForecastPoints, listMarkets } from "@/lib/data/queries";
+import { getCityBySlug, listCombinedSignals, listForecastPoints, listMarkets, usingDemoData } from "@/lib/data/queries";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +17,7 @@ export async function GET(_request: Request, context: { params: Promise<{ slug: 
       listCombinedSignals(city.id)
     ]);
 
-    return jsonOk({ data: { city, forecast, markets, signals } });
+    return jsonOk({ data: { city, forecast, markets, signals }, demoMode: usingDemoData() });
   } catch (error) {
     return jsonError("Failed to load city", 500, error instanceof Error ? error.message : error);
   }
