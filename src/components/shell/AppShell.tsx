@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { ForecastMarketMap } from "@/components/map/ForecastMarketMap";
+import { ClientMap } from "@/components/map/ClientMap";
 import { BottomTimeline } from "@/components/ui/BottomTimeline";
 import { DataSourceBadge } from "@/components/ui/DataSourceBadge";
 import { ErrorState } from "@/components/ui/ErrorState";
@@ -107,7 +107,7 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
 
   return (
     <main className="relative h-[100dvh] overflow-hidden bg-[#06080b]">
-      <ForecastMarketMap
+      <ClientMap
         cities={cities}
         selectedCity={selectedCity}
         forecast={filteredForecast}

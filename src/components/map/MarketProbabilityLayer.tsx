@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import maplibregl from "maplibre-gl";
+import { toLngLat } from "@/lib/map/coords";
 import type { City, MarketEvent } from "@/types/domain";
 
 export function MarketProbabilityLayer({
@@ -25,6 +26,9 @@ export function MarketProbabilityLayer({
       const city = market.cityIds.map((id) => cityById.get(id)).find(Boolean);
       if (!city) return [];
 
+      const coords = toLngLat(city.lon, city.lat);
+      if (!coords) return []; // defensive: skip cities with invalid coordinates
+
       const probability = market.probability ?? 0.5;
       const size = Math.max(22, Math.min(72, Math.sqrt((market.volume ?? market.liquidity ?? 20000) / 700)));
       const element = document.createElement("button");
@@ -41,10 +45,18 @@ export function MarketProbabilityLayer({
         onSelect(market);
       });
 
-      return new maplibregl.Marker({ element, anchor: "center" }).setLngLat([city.lon, city.lat]).addTo(map);
+      return new maplibregl.Marker({ element, anchor: "center" }).setLngLat(coords).addTo(map);
     });
 
-    return () => markers.forEach((marker) => marker.remove());
+    return () => {
+      markers.forEach((marker) => {
+        try {
+          marker.remove();
+        } catch {
+          // Map already torn down — marker is gone with it.
+        }
+      });
+    };
   }, [cities, enabled, map, markets, onSelect]);
 
   return null;
