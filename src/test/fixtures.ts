@@ -2,8 +2,7 @@ import type {
   City,
   CombinedSignal,
   ForecastPoint,
-  MarketEvent,
-  MarketTimeSeriesPoint
+  MarketEvent
 } from "@/types/domain";
 
 const now = new Date("2026-06-05T00:00:00.000Z");
@@ -20,7 +19,7 @@ function hoursFromNow(hours: number) {
   return new Date(now.getTime() + hours * 60 * 60 * 1000).toISOString();
 }
 
-export const demoCities: City[] = [
+export const fixtureCities: City[] = [
   ["new-york", "New York", "United States", "US", "North America", 40.7128, -74.006, "America/New_York", 18804000, 99],
   ["london", "London", "United Kingdom", "GB", "Europe", 51.5072, -0.1276, "Europe/London", 9558000, 98],
   ["tokyo", "Tokyo", "Japan", "JP", "Asia", 35.6762, 139.6503, "Asia/Tokyo", 37400068, 100],
@@ -67,7 +66,7 @@ export const demoCities: City[] = [
   updatedAt: now.toISOString()
 }));
 
-export const demoForecast: ForecastPoint[] = demoCities.flatMap((city, cityIndex) => {
+export const fixtureForecast: ForecastPoint[] = fixtureCities.flatMap((city, cityIndex) => {
   const heatBias = Math.max(-8, Math.min(12, 28 - Math.abs(city.lat) * 0.22));
   const rainBase = city.region === "Asia" || city.region === "Africa" ? 0.52 : 0.34;
 
@@ -100,24 +99,24 @@ export const demoForecast: ForecastPoint[] = demoCities.flatMap((city, cityIndex
     id: pointId(cityIndex * 10 + pointIndex + 1),
     cityId: city.id,
     forecastRunId: "10000000-0000-4000-8000-000000000001",
-    provider: "demo",
+    provider: "fixture",
     model: "blended-gfs-ecmwf",
     runTime: now.toISOString(),
     forecastTime: hoursFromNow(12 + pointIndex * 6),
     lat: city.lat,
     lon: city.lon,
-    raw: { demo: true },
+    raw: { fixture: true },
     ...point
   }));
 });
 
-export const demoMarkets: MarketEvent[] = [
+export const fixtureMarkets: MarketEvent[] = [
   {
     id: "30000000-0000-4000-8000-000000000001",
     provider: "kalshi",
-    providerEventId: "DEMO-KX-SEOUL-RAIN",
+    providerEventId: "KX-SEOUL-RAIN",
     title: "Will Seoul record measurable rain this weekend?",
-    description: "Demo normalized weather market linked to Seoul precipitation signals.",
+    description: "Normalized weather market linked to Seoul precipitation signals.",
     category: "weather",
     tags: ["weather", "rain", "precipitation", "seoul"],
     cityIds: [cityId(4)],
@@ -129,19 +128,19 @@ export const demoMarkets: MarketEvent[] = [
     liquidity: 34000,
     openInterest: 67000,
     closeTime: hoursFromNow(72),
-    resolutionSource: "Demo source",
+    resolutionSource: "Fixture source",
     url: "https://kalshi.com/",
     status: "active",
-    raw: { demo: true },
+    raw: { fixture: true },
     createdAt: now.toISOString(),
     updatedAt: now.toISOString()
   },
   {
     id: "30000000-0000-4000-8000-000000000002",
     provider: "polymarket",
-    providerEventId: "DEMO-PM-HK-TYPHOON",
+    providerEventId: "PM-HK-TYPHOON",
     title: "Will a named typhoon warning affect Hong Kong before July?",
-    description: "Demo weather-risk contract linked to Hong Kong.",
+    description: "Weather-risk contract linked to Hong Kong.",
     category: "climate",
     tags: ["weather", "typhoon", "wind", "hong-kong"],
     cityIds: [cityId(10)],
@@ -153,19 +152,19 @@ export const demoMarkets: MarketEvent[] = [
     liquidity: 91000,
     openInterest: 118000,
     closeTime: hoursFromNow(600),
-    resolutionSource: "Demo source",
+    resolutionSource: "Fixture source",
     url: "https://polymarket.com/",
     status: "active",
-    raw: { demo: true },
+    raw: { fixture: true },
     createdAt: now.toISOString(),
     updatedAt: now.toISOString()
   },
   {
     id: "30000000-0000-4000-8000-000000000003",
     provider: "kalshi",
-    providerEventId: "DEMO-KX-NYC-TEMP",
+    providerEventId: "KX-NYC-TEMP",
     title: "Will New York temperature exceed 90F next week?",
-    description: "Demo temperature-threshold market linked to New York.",
+    description: "Temperature-threshold market linked to New York.",
     category: "weather",
     tags: ["weather", "temperature", "heat", "new-york"],
     cityIds: [cityId(1)],
@@ -177,19 +176,19 @@ export const demoMarkets: MarketEvent[] = [
     liquidity: 57000,
     openInterest: 101000,
     closeTime: hoursFromNow(168),
-    resolutionSource: "Demo source",
+    resolutionSource: "Fixture source",
     url: "https://kalshi.com/",
     status: "active",
-    raw: { demo: true },
+    raw: { fixture: true },
     createdAt: now.toISOString(),
     updatedAt: now.toISOString()
   },
   {
     id: "30000000-0000-4000-8000-000000000004",
     provider: "polymarket",
-    providerEventId: "DEMO-PM-GLOBAL-MACRO",
+    providerEventId: "PM-GLOBAL-MACRO",
     title: "Will global macro volatility rise after the next central-bank cycle?",
-    description: "Demo global prediction-market event linked to major financial centers.",
+    description: "Global prediction-market event linked to major financial centers.",
     category: "economics",
     tags: ["macro", "rates", "global"],
     cityIds: [cityId(1), cityId(2), cityId(3), cityId(5)],
@@ -201,80 +200,56 @@ export const demoMarkets: MarketEvent[] = [
     liquidity: 220000,
     openInterest: 370000,
     closeTime: hoursFromNow(960),
-    resolutionSource: "Demo source",
+    resolutionSource: "Fixture source",
     url: "https://polymarket.com/",
     status: "active",
-    raw: { demo: true },
+    raw: { fixture: true },
     createdAt: now.toISOString(),
     updatedAt: now.toISOString()
   }
 ];
 
-export const demoTimeseries: MarketTimeSeriesPoint[] = demoMarkets.flatMap((market, marketIndex) =>
-  Array.from({ length: 12 }, (_, index) => {
-    const wobble = (Math.sin(index / 2 + marketIndex) * 0.035) + (index - 6) * 0.004;
-    const probability = Math.max(0.02, Math.min(0.98, (market.probability ?? 0.5) + wobble));
-
-    return {
-      id: `40000000-0000-4000-8000-${(marketIndex * 100 + index + 1).toString().padStart(12, "0")}`,
-      marketEventId: market.id,
-      provider: market.provider,
-      timestamp: hoursFromNow(-11 + index),
-      probability: Number(probability.toFixed(3)),
-      bid: Number(Math.max(0.01, probability - 0.015).toFixed(3)),
-      ask: Number(Math.min(0.99, probability + 0.015).toFixed(3)),
-      volume: (market.volume ?? 10000) + index * 1800,
-      liquidity: market.liquidity,
-      raw: { demo: true }
-    };
-  })
-);
-
-export const demoSignals: CombinedSignal[] = [
+export const fixtureSignals: CombinedSignal[] = [
   {
     id: "50000000-0000-4000-8000-000000000001",
     cityId: cityId(4),
-    marketEventId: demoMarkets[0].id,
+    marketEventId: fixtureMarkets[0].id,
     forecastVariable: "precipitation_probability",
     signalType: "weather_market_disagreement",
     modelProbability: 0.73,
     marketProbability: 0.55,
     disagreement: 0.18,
     status: "model_above_market",
-    explanation: "Demo model precipitation probability is higher than the market-implied probability.",
+    explanation: "Model precipitation probability is higher than the market-implied probability.",
     computedAt: now.toISOString(),
-    raw: { demo: true }
+    raw: { fixture: true }
   },
   {
     id: "50000000-0000-4000-8000-000000000002",
     cityId: cityId(10),
-    marketEventId: demoMarkets[1].id,
+    marketEventId: fixtureMarkets[1].id,
     forecastVariable: "wind_speed_10m",
     signalType: "weather_market_disagreement",
     modelProbability: 0.24,
     marketProbability: 0.31,
     disagreement: 0.07,
     status: "aligned",
-    explanation: "Demo wind-risk signal is broadly aligned with market pricing.",
+    explanation: "Wind-risk signal is broadly aligned with market pricing.",
     computedAt: now.toISOString(),
-    raw: { demo: true }
+    raw: { fixture: true }
   },
   {
     id: "50000000-0000-4000-8000-000000000003",
     cityId: cityId(1),
-    marketEventId: demoMarkets[2].id,
+    marketEventId: fixtureMarkets[2].id,
     forecastVariable: "temperature_2m",
     signalType: "weather_market_disagreement",
     modelProbability: 0.35,
     marketProbability: 0.46,
     disagreement: 0.11,
     status: "market_above_model",
-    explanation: "Demo market probability is above the rough model proxy.",
+    explanation: "Market probability is above the rough model proxy.",
     computedAt: now.toISOString(),
-    raw: { demo: true }
+    raw: { fixture: true }
   }
 ];
-
-export function getDemoCity(slug: string) {
-  return demoCities.find((city) => city.slug === slug) ?? demoCities[3];
-}

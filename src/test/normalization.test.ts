@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { demoCities } from "@/lib/demo-data";
+import { fixtureCities } from "@/test/fixtures";
 import { normalizeKalshiMarket } from "@/providers/markets/kalshi";
 import { normalizePolymarketGammaMarket } from "@/providers/markets/polymarket";
 import { normalizeOpenMeteoHourlyResponse } from "@/providers/weather/openMeteo";
@@ -37,7 +37,7 @@ describe("provider normalization", () => {
   });
 
   it("normalizes Open-Meteo hourly records into forecast points", () => {
-    const city = demoCities[0];
+    const city = fixtureCities[0];
     const points = normalizeOpenMeteoHourlyResponse(
       {
         hourly: {

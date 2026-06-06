@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { ClientMap } from "@/components/map/ClientMap";
 import { BottomTimeline } from "@/components/ui/BottomTimeline";
-import { DataSourceBadge } from "@/components/ui/DataSourceBadge";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { LeftCityPanel } from "@/components/ui/LeftCityPanel";
 import { LoadingSkeleton } from "@/components/ui/LoadingSkeleton";
@@ -121,7 +120,6 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
         <div className="flex min-w-0 items-start justify-between gap-2 sm:gap-4">
           <TopSearch cities={cities} selectedCity={selectedCity} onSelect={handleSelectCity} />
           <div className="flex shrink-0 items-start gap-2 sm:flex-col sm:items-end">
-            <DataSourceBadge demoMode={initialData.demoMode} className="hidden min-[420px]:inline-flex" />
             <RightLayerPanel layers={layers} onChange={setLayers} compact className="md:hidden" />
             <RightLayerPanel layers={layers} onChange={setLayers} className="hidden md:block" />
           </div>

@@ -119,6 +119,5 @@ export type DashboardData = {
   forecast: ForecastPoint[];
   markets: MarketEvent[];
   signals: CombinedSignal[];
-  demoMode: boolean;
   generatedAt: string;
 };

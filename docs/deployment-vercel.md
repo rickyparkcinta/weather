@@ -7,11 +7,9 @@
 3. Apply `supabase/seed.sql`.
 4. Import the GitHub repository into Vercel.
 5. Add all required environment variables from `.env.example`.
-6. Keep `NEXT_PUBLIC_ENABLE_DEMO_DATA=true` for the first deploy if you want a credential-free visual smoke test.
-7. Set `NEXT_PUBLIC_ENABLE_DEMO_DATA=false` after Supabase reads are verified.
-8. Deploy using the default Next.js preset.
-9. Open `/admin/health` and verify non-secret status.
-10. Configure the hourly bot to call production `/api/ingest/*` routes.
+6. Deploy using the default Next.js preset.
+7. Open `/admin/health` and verify non-secret status.
+8. Configure the hourly bot to call production `/api/ingest/*` routes.
 
 ## Required Vercel Environment Variables
 
@@ -20,7 +18,6 @@
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `INGESTION_SECRET`
 - `NEXT_PUBLIC_DEFAULT_CITY`
-- `NEXT_PUBLIC_ENABLE_DEMO_DATA`
 - `ENABLE_PROVIDER_FETCH_DEBUG`
 
 Optional provider variables:
@@ -39,8 +36,8 @@ Optional provider variables:
 - No long-running process is required.
 - No filesystem persistence is required.
 - No Vercel cron is required for core behavior.
-- Supabase clients are lazily initialized so missing env vars do not crash demo-mode imports.
+- Supabase clients are lazily initialized so missing env vars surface as a clear runtime error rather than a crash at import time.
 
 ## Tile Provider Note
 
-The demo map style uses public OpenStreetMap raster tiles so the app can render without a key. For production traffic, configure a dedicated tile provider or self-hosted tiles that match your usage requirements.
+The map style uses public OpenStreetMap raster tiles so the app can render without a key. For production traffic, configure a dedicated tile provider or self-hosted tiles that match your usage requirements.

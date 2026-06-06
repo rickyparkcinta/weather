@@ -2,7 +2,7 @@
 
 A Vercel-ready Next.js App Router application for a global prediction-market forecast map. The production app reads normalized records from Supabase Postgres, while an external hourly bot is responsible for fetching official weather and prediction-market APIs.
 
-The UI runs without credentials in demo mode. It shows a full-screen MapLibre map, major-city search, market probability bubbles, forecast overlays, city detail panels, timeline controls, market detail pages, data-source transparency, and admin health status.
+The UI reads all data from Supabase. It shows a full-screen MapLibre map, major-city search, market probability bubbles, forecast overlays, city detail panels, timeline controls, market detail pages, and admin health status.
 
 ## Stack
 
@@ -45,13 +45,12 @@ POLYMARKET_FUNDER_ADDRESS=
 
 NEXT_PUBLIC_DEFAULT_CITY=seoul
 NEXT_PUBLIC_DEFAULT_MAP_ENGINE=maplibre
-NEXT_PUBLIC_ENABLE_DEMO_DATA=true
 NEXT_PUBLIC_DEFAULT_FORECAST_PROVIDER=supabase
 NEXT_PUBLIC_DEFAULT_MARKET_PROVIDER=supabase
 ENABLE_PROVIDER_FETCH_DEBUG=false
 ```
 
-Leave `NEXT_PUBLIC_ENABLE_DEMO_DATA=true` for a credential-free demo. Set it to `false` only after Supabase URL and anon key are configured and migrations have been applied.
+Supabase URL, anon key, and service role key must be configured and the migrations applied before the app can load data.
 
 ## Supabase Setup
 
@@ -97,7 +96,7 @@ npm run typecheck
 npm run build
 ```
 
-The current repo was scaffolded without running a local build. Use `npm run dev` to inspect demo mode, then `npm run build` before deployment.
+Configure Supabase before running. Use `npm run dev` for local development, then `npm run build` before deployment.
 
 ## Vercel Deployment
 

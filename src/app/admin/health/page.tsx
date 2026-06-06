@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, CheckCircle2, CircleAlert } from "lucide-react";
-import { getEnv, isDemoModeEnabled } from "@/lib/env";
+import { getEnv } from "@/lib/env";
 import { listCities, listMarkets } from "@/lib/data/queries";
 
 export const dynamic = "force-dynamic";
@@ -11,8 +11,7 @@ export default async function AdminHealthPage() {
     { label: "Supabase URL", ok: Boolean(getEnv("NEXT_PUBLIC_SUPABASE_URL")) },
     { label: "Supabase anon key", ok: Boolean(getEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY")) },
     { label: "Service role key", ok: Boolean(getEnv("SUPABASE_SERVICE_ROLE_KEY")) },
-    { label: "Ingestion secret", ok: Boolean(getEnv("INGESTION_SECRET")) },
-    { label: "Demo mode", ok: isDemoModeEnabled() }
+    { label: "Ingestion secret", ok: Boolean(getEnv("INGESTION_SECRET")) }
   ];
 
   return (

@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { demoCities, demoForecast, demoMarkets } from "@/lib/demo-data";
+import { fixtureCities, fixtureForecast, fixtureMarkets } from "@/test/fixtures";
 import { computeCombinedSignal } from "@/lib/signals/computeCombinedSignal";
 
 describe("computeCombinedSignal", () => {
   it("detects model-above-market precipitation disagreement", () => {
-    const city = demoCities.find((item) => item.slug === "seoul")!;
-    const market = demoMarkets.find((item) => item.providerEventId === "DEMO-KX-SEOUL-RAIN")!;
-    const forecast = demoForecast.filter((point) => point.cityId === city.id);
+    const city = fixtureCities.find((item) => item.slug === "seoul")!;
+    const market = fixtureMarkets.find((item) => item.providerEventId === "KX-SEOUL-RAIN")!;
+    const forecast = fixtureForecast.filter((point) => point.cityId === city.id);
 
     const signal = computeCombinedSignal({ city, market, forecast });
 
@@ -16,9 +16,9 @@ describe("computeCombinedSignal", () => {
   });
 
   it("marks non-weather markets as insufficient data", () => {
-    const city = demoCities[0];
-    const market = demoMarkets.find((item) => item.providerEventId === "DEMO-PM-GLOBAL-MACRO")!;
-    const forecast = demoForecast.filter((point) => point.cityId === city.id);
+    const city = fixtureCities[0];
+    const market = fixtureMarkets.find((item) => item.providerEventId === "PM-GLOBAL-MACRO")!;
+    const forecast = fixtureForecast.filter((point) => point.cityId === city.id);
 
     const signal = computeCombinedSignal({ city, market, forecast });
 

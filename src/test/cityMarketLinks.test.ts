@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { demoCities, demoMarkets } from "@/lib/demo-data";
+import { fixtureCities, fixtureMarkets } from "@/test/fixtures";
 
 describe("city market links", () => {
-  it("links Seoul demo weather market to Seoul city id", () => {
-    const city = demoCities.find((item) => item.slug === "seoul")!;
-    const market = demoMarkets.find((item) => item.providerEventId === "DEMO-KX-SEOUL-RAIN")!;
+  it("links Seoul weather market to Seoul city id", () => {
+    const city = fixtureCities.find((item) => item.slug === "seoul")!;
+    const market = fixtureMarkets.find((item) => item.providerEventId === "KX-SEOUL-RAIN")!;
 
     expect(market.cityIds).toContain(city.id);
   });
