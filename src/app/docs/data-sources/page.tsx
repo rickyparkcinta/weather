@@ -1,5 +1,14 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Data Sources | Forecast Market Map",
+  description: "Weather AI data-source transparency notes for forecast providers, market providers, Supabase storage, and ingestion jobs.",
+  alternates: {
+    canonical: "/docs/data-sources"
+  }
+};
 
 const sources = [
   {
@@ -30,7 +39,7 @@ export default function DataSourcesPage() {
         </Link>
         <h1 className="mt-8 text-3xl font-semibold text-white">Data Sources</h1>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-400">
-          This app is a data display and intelligence interface. It does not provide trading advice, and prediction-market probabilities are not forecast guarantees.
+          This app is a data display and intelligence interface. Signals explain model-market disagreement and data quality. They are not trading advice and do not imply guaranteed profit.
         </p>
 
         <div className="mt-8 grid gap-4">

@@ -21,6 +21,22 @@ describe("provider normalization", () => {
     expect(market.probability).toBe(0.64);
   });
 
+  it("normalizes Kalshi dollar price fields", () => {
+    const market = normalizeKalshiMarket({
+      ticker: "KXHEAT",
+      title: "Will New York be hot?",
+      yes_bid_dollars: "0.4300",
+      yes_ask_dollars: "0.4700",
+      last_price_dollars: "0.4500",
+      liquidity_dollars: "1500.25"
+    });
+
+    expect(market.probability).toBe(0.45);
+    expect(market.bid).toBe(0.43);
+    expect(market.ask).toBe(0.47);
+    expect(market.liquidity).toBe(1500.25);
+  });
+
   it("normalizes Polymarket Gamma outcome prices", () => {
     const market = normalizePolymarketGammaMarket({
       id: "123",

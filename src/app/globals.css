@@ -114,6 +114,115 @@ a {
   outline-offset: 3px;
 }
 
+.doc-math {
+  margin-top: 0.9rem;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 6px;
+  border: 1px solid rgba(110, 231, 183, 0.12);
+  background: rgba(2, 6, 8, 0.24);
+  padding: 1rem;
+  font-family: "Times New Roman", Cambria, Georgia, serif;
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.18rem);
+  line-height: 2;
+  color: rgba(236, 253, 245, 0.96);
+  white-space: nowrap;
+}
+
+.doc-math sub,
+.doc-math sup {
+  font-size: 0.68em;
+  line-height: 0;
+}
+
+.doc-frac {
+  display: inline-grid;
+  grid-template-rows: auto auto;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 1.15;
+}
+
+.doc-frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding: 0 0.26em 0.16em;
+}
+
+.doc-frac > span:last-child {
+  padding: 0.16em 0.26em 0;
+}
+
+.doc-sqrt {
+  display: inline-flex;
+  align-items: stretch;
+  margin: 0 0.08em;
+}
+
+.doc-sqrt::before {
+  content: "sqrt";
+  padding-right: 0.18em;
+  font-size: 0.78em;
+  opacity: 0.74;
+}
+
+.doc-sqrt > span {
+  border-top: 1px solid currentColor;
+  padding: 0 0.2em;
+}
+
+.doc-overline {
+  text-decoration: overline;
+}
+
+.doc-hat {
+  position: relative;
+  display: inline-block;
+}
+
+.doc-hat::before {
+  content: "^";
+  position: absolute;
+  left: 50%;
+  top: -0.86em;
+  transform: translateX(-50%);
+  font-size: 0.72em;
+}
+
+.doc-vector {
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.doc-vector::before {
+  content: "\2192";
+  position: absolute;
+  left: 50%;
+  top: -0.78em;
+  transform: translateX(-50%);
+  font-size: 0.74em;
+  font-weight: 400;
+}
+
+.doc-sum {
+  display: inline-grid;
+  grid-template-rows: auto auto auto;
+  place-items: center;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.doc-sum > span:nth-child(2) {
+  font-size: 1.32em;
+}
+
+.doc-sum > span:first-child,
+.doc-sum > span:last-child {
+  font-size: 0.58em;
+}
+
 .wind-particle {
   position: absolute;
   width: 90px;

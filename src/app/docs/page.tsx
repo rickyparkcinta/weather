@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowRight, CloudSun, Cpu, LineChart, Network } from "lucide-react";
 import { DocsShell, ReferencesPanel } from "@/components/docs/DocsShell";
 import { docGroups, docsIntro, sourceLinks, technicalSummary, type SourceId } from "@/lib/docs/content";
@@ -33,9 +34,25 @@ const diagrams = [
   }
 ];
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Weather AI Docs | Forecast Market Map",
-  description: "Documentation for weather-model, forecast-pipeline, uncertainty, AI, and prediction-market signal concepts."
+  description: "Professional documentation for weather-model pipelines, numerical forecasts, uncertainty, AI calibration, verification, and prediction-market weather signals.",
+  keywords: [
+    "Weather AI docs",
+    "forecast market intelligence",
+    "numerical weather prediction",
+    "ensemble forecasting",
+    "weather data pipeline"
+  ],
+  alternates: {
+    canonical: "/docs"
+  },
+  openGraph: {
+    title: "Weather AI Docs | Forecast Market Map",
+    description: "Technical documentation for weather AI, forecast models, verification, and market signal workflows.",
+    type: "website",
+    url: "/docs"
+  }
 };
 
 export default function DocsPage() {

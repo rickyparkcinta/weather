@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "sync:real-api": "node --experimental-strip-types scripts/sync-real-api-data.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",

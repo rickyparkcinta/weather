@@ -18,6 +18,19 @@ const gammaMarketSchema = z.object({
   outcomePrices: z.union([z.string(), z.array(z.union([z.string(), z.number()]))]).optional().nullable()
 }).passthrough();
 
+const gammaEventSchema = z.object({
+  id: z.union([z.string(), z.number()]),
+  slug: z.string().optional(),
+  title: z.string().optional(),
+  description: z.string().optional().nullable(),
+  category: z.string().optional().nullable(),
+  tags: z.array(z.union([z.string(), z.object({ label: z.string().optional(), slug: z.string().optional() }).passthrough()])).optional(),
+  endDate: z.string().optional().nullable(),
+  active: z.boolean().optional(),
+  closed: z.boolean().optional(),
+  markets: z.array(gammaMarketSchema).optional()
+}).passthrough();
+
 function numberFromUnknown(value: unknown) {
   if (typeof value === "number") return value;
   if (typeof value === "string") {
@@ -44,10 +57,22 @@ function parseOutcomeProbability(value: unknown) {
   return numberFromUnknown(value);
 }
 
+function tagsFromUnknown(tags: z.infer<typeof gammaMarketSchema>["tags"]) {
+  return tags?.map((tag) => (typeof tag === "string" ? tag : tag.slug ?? tag.label)).filter((tag): tag is string => Boolean(tag)) ?? [];
+}
+
+function arrayFromJsonData(input: unknown): unknown[] {
+  if (Array.isArray(input)) return input;
+  if (input && typeof input === "object" && "data" in input) {
+    const data = (input as { data?: unknown }).data;
+    return Array.isArray(data) ? data : [];
+  }
+  return [];
+}
+
 export function normalizePolymarketGammaMarket(input: unknown): MarketEvent {
   const market = gammaMarketSchema.parse(input);
-  const tags =
-    market.tags?.map((tag) => (typeof tag === "string" ? tag : tag.slug ?? tag.label)).filter((tag): tag is string => Boolean(tag)) ?? [];
+  const tags = tagsFromUnknown(market.tags);
   const id = String(market.id);
 
   return {
@@ -74,6 +99,49 @@ export function normalizePolymarketGammaMarket(input: unknown): MarketEvent {
   };
 }
 
+export function normalizePolymarketGammaEvent(input: unknown, tagSlug?: string): MarketEvent[] {
+  const event = gammaEventSchema.parse(input);
+  const eventTags = tagsFromUnknown(event.tags);
+  const category = tagSlug ?? event.category ?? eventTags[0] ?? null;
+
+  return (event.markets ?? []).map((marketInput) => {
+    const market = gammaMarketSchema.parse(marketInput);
+    const normalized = normalizePolymarketGammaMarket(market);
+    const marketTags = tagsFromUnknown(market.tags);
+
+    return {
+      ...normalized,
+      title: normalized.title === "Untitled Polymarket market" ? event.title ?? normalized.title : normalized.title,
+      description: normalized.description ?? event.description ?? null,
+      category,
+      tags: [...new Set([...eventTags, ...marketTags, ...(tagSlug ? [tagSlug] : [])])],
+      closeTime: normalized.closeTime ?? event.endDate ?? null,
+      url: event.slug ? `https://polymarket.com/event/${event.slug}` : normalized.url,
+      status: event.closed || market.closed ? "closed" : event.active === false || market.active === false ? "inactive" : normalized.status,
+      raw: { event, market }
+    };
+  });
+}
+
+export async function fetchPolymarketEventsByTag(tagSlug: string, limit = 50): Promise<MarketProviderResult<MarketEvent[]>> {
+  const url = new URL("https://gamma-api.polymarket.com/events");
+  url.searchParams.set("limit", String(limit));
+  url.searchParams.set("tag_slug", tagSlug);
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      return { ok: false, error: { code: "polymarket_events_http", message: `Polymarket events returned ${response.status}`, retryable: response.status >= 500 } };
+    }
+
+    const records = (await response.json()) as unknown;
+    const events = arrayFromJsonData(records);
+    return { ok: true, data: events.flatMap((event) => normalizePolymarketGammaEvent(event, tagSlug)) };
+  } catch (error) {
+    return { ok: false, error: { code: "polymarket_events_fetch_failed", message: error instanceof Error ? error.message : String(error), retryable: true } };
+  }
+}
+
 export const polymarketAdapter: MarketProviderAdapter = {
   name: "polymarket",
   async fetchMarkets(options?: MarketFetchOptions): Promise<MarketProviderResult<MarketEvent[]>> {
@@ -87,8 +155,8 @@ export const polymarketAdapter: MarketProviderAdapter = {
         return { ok: false, error: { code: "polymarket_http", message: `Polymarket returned ${response.status}`, retryable: response.status >= 500 } };
       }
 
-      const json = await response.json();
-      const records = Array.isArray(json) ? json : Array.isArray(json?.data) ? json.data : [];
+      const json = (await response.json()) as unknown;
+      const records = arrayFromJsonData(json);
       return { ok: true, data: records.map(normalizePolymarketGammaMarket) };
     } catch (error) {
       return { ok: false, error: { code: "polymarket_fetch_failed", message: error instanceof Error ? error.message : String(error), retryable: true } };

@@ -7,7 +7,26 @@ Authorization: Bearer INGESTION_SECRET
 Content-Type: application/json
 ```
 
-The bot should fetch official/public APIs, normalize records, and submit payloads. The app does not call external data providers for the main user experience.
+The bot should fetch official/public APIs, normalize records, and submit payloads. The app does not call external data providers for the main user experience. Operators can also run the built-in real API sync endpoint for a one-shot server-side collection pass.
+
+## Built-In Real API Sync
+
+`POST /api/sync/real-api`
+
+Optional JSON body:
+
+```json
+{
+  "cityLimit": 30,
+  "forecastDays": 3,
+  "marketLimit": 40,
+  "marketQueries": ["weather", "rain", "temperature"],
+  "includeKalshi": true,
+  "includePolymarket": true
+}
+```
+
+The route upserts seeded city metadata, Open-Meteo forecast points, linked weather prediction markets, market timeseries snapshots, and computed combined signals.
 
 ## Forecast Ingestion
 

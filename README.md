@@ -17,9 +17,9 @@ The UI reads all data from Supabase. It shows a full-screen MapLibre map, major-
 
 ## Data Flow
 
-1. Hourly agent bot fetches official/public APIs.
-2. Bot normalizes records into the contract in `docs/hourly-bot-contract.md`.
-3. Bot calls secured ingestion routes with `Authorization: Bearer INGESTION_SECRET`.
+1. Built-in sync or an hourly agent bot fetches official/public APIs.
+2. Provider records are normalized into the Supabase schema.
+3. Sync and ingestion routes write through secured server-side Supabase service role calls.
 4. Vercel-hosted Next.js app reads Supabase using the anon key.
 5. UI renders city forecast signals, linked markets, probability history, and model-vs-market disagreement.
 
@@ -80,11 +80,31 @@ RLS is enabled on every table. Public anon users can only read app data tables. 
 - `GET /api/markets/[id]`
 - `GET /api/markets/[id]/history`
 - `GET /api/combined-signals?cityId=...`
+- `POST /api/sync/real-api`
 - `POST /api/ingest/forecast`
 - `POST /api/ingest/markets`
 - `POST /api/ingest/combined-signals`
 
-Ingestion routes require `Authorization: Bearer ${INGESTION_SECRET}`.
+Ingestion and sync routes require `Authorization: Bearer ${INGESTION_SECRET}`.
+
+## Real API Sync
+
+Run a manual server-side sync after migrations and seed data are applied:
+
+```bash
+node --experimental-strip-types scripts/sync-real-api-data.ts
+```
+
+The sync upserts the city catalog, pulls Open-Meteo forecasts, fetches Polymarket weather/climate markets plus Kalshi public-market snapshots where available, links city-specific weather markets, writes probability history, and recomputes combined signals.
+
+Optional environment overrides:
+
+- `REAL_API_SYNC_CITY_LIMIT=30`
+- `REAL_API_SYNC_FORECAST_DAYS=3`
+- `REAL_API_SYNC_MARKET_LIMIT=40`
+- `REAL_API_SYNC_MARKET_QUERIES=weather,rain,temperature`
+- `REAL_API_SYNC_INCLUDE_KALSHI=true`
+- `REAL_API_SYNC_INCLUDE_POLYMARKET=true`
 
 ## Development
 

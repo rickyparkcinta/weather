@@ -7,19 +7,46 @@ const kalshiMarketSchema = z.object({
   title: z.string(),
   subtitle: z.string().optional().nullable(),
   category: z.string().optional().nullable(),
-  yes_bid: z.number().optional().nullable(),
-  yes_ask: z.number().optional().nullable(),
-  last_price: z.number().optional().nullable(),
-  volume: z.number().optional().nullable(),
-  liquidity: z.number().optional().nullable(),
-  open_interest: z.number().optional().nullable(),
+  yes_bid: z.union([z.number(), z.string()]).optional().nullable(),
+  yes_ask: z.union([z.number(), z.string()]).optional().nullable(),
+  last_price: z.union([z.number(), z.string()]).optional().nullable(),
+  yes_bid_dollars: z.union([z.number(), z.string()]).optional().nullable(),
+  yes_ask_dollars: z.union([z.number(), z.string()]).optional().nullable(),
+  last_price_dollars: z.union([z.number(), z.string()]).optional().nullable(),
+  volume: z.union([z.number(), z.string()]).optional().nullable(),
+  volume_dollars: z.union([z.number(), z.string()]).optional().nullable(),
+  liquidity: z.union([z.number(), z.string()]).optional().nullable(),
+  liquidity_dollars: z.union([z.number(), z.string()]).optional().nullable(),
+  open_interest: z.union([z.number(), z.string()]).optional().nullable(),
   close_time: z.string().optional().nullable(),
   status: z.string().optional().nullable()
 }).passthrough();
 
+function numberFromUnknown(value: unknown) {
+  if (typeof value === "number") return Number.isFinite(value) ? value : null;
+  if (typeof value === "string") {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+  return null;
+}
+
+function probabilityFromPrice(value: unknown) {
+  const parsed = numberFromUnknown(value);
+  if (parsed === null) return null;
+
+  return parsed > 1 ? parsed / 100 : parsed;
+}
+
 export function normalizeKalshiMarket(input: unknown): MarketEvent {
   const market = kalshiMarketSchema.parse(input);
-  const probability = market.last_price ?? market.yes_ask ?? market.yes_bid ?? null;
+  const probability =
+    probabilityFromPrice(market.last_price_dollars) ??
+    probabilityFromPrice(market.last_price) ??
+    probabilityFromPrice(market.yes_ask_dollars) ??
+    probabilityFromPrice(market.yes_ask) ??
+    probabilityFromPrice(market.yes_bid_dollars) ??
+    probabilityFromPrice(market.yes_bid);
 
   return {
     id: `kalshi-${market.ticker}`,
@@ -32,11 +59,11 @@ export function normalizeKalshiMarket(input: unknown): MarketEvent {
     cityIds: [],
     countryCodes: [],
     probability,
-    bid: market.yes_bid ?? null,
-    ask: market.yes_ask ?? null,
-    volume: market.volume ?? null,
-    liquidity: market.liquidity ?? null,
-    openInterest: market.open_interest ?? null,
+    bid: probabilityFromPrice(market.yes_bid_dollars) ?? probabilityFromPrice(market.yes_bid),
+    ask: probabilityFromPrice(market.yes_ask_dollars) ?? probabilityFromPrice(market.yes_ask),
+    volume: numberFromUnknown(market.volume_dollars) ?? numberFromUnknown(market.volume),
+    liquidity: numberFromUnknown(market.liquidity_dollars) ?? numberFromUnknown(market.liquidity),
+    openInterest: numberFromUnknown(market.open_interest),
     closeTime: market.close_time ?? null,
     resolutionSource: null,
     url: `https://kalshi.com/markets/${market.ticker}`,

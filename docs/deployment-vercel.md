@@ -9,7 +9,7 @@
 5. Add all required environment variables from `.env.example`.
 6. Deploy using the default Next.js preset.
 7. Open `/admin/health` and verify non-secret status.
-8. Configure the hourly bot to call production `/api/ingest/*` routes.
+8. Run a manual real API sync or configure the hourly bot to call production `/api/ingest/*` routes.
 
 ## Required Vercel Environment Variables
 
@@ -30,9 +30,19 @@ Optional provider variables:
 - `POLYMARKET_PRIVATE_KEY`
 - `POLYMARKET_FUNDER_ADDRESS`
 
+Optional built-in sync variables:
+
+- `REAL_API_SYNC_CITY_LIMIT`
+- `REAL_API_SYNC_FORECAST_DAYS`
+- `REAL_API_SYNC_MARKET_LIMIT`
+- `REAL_API_SYNC_MARKET_QUERIES`
+- `REAL_API_SYNC_INCLUDE_KALSHI`
+- `REAL_API_SYNC_INCLUDE_POLYMARKET`
+
 ## Vercel Compatibility
 
 - API routes are standard Next.js Route Handlers.
+- `POST /api/sync/real-api` performs one secured provider sync and requires `Authorization: Bearer INGESTION_SECRET`.
 - No long-running process is required.
 - No filesystem persistence is required.
 - No Vercel cron is required for core behavior.

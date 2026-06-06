@@ -1,9 +1,26 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, BookOpen, ExternalLink, Home, Map } from "lucide-react";
+import {
+  Activity,
+  ArrowLeft,
+  ArrowRight,
+  BarChart3,
+  BookOpen,
+  CloudSun,
+  Database,
+  ExternalLink,
+  GitBranch,
+  Home,
+  Layers3,
+  LineChart,
+  Map,
+  Network,
+  Sigma
+} from "lucide-react";
 import {
   docGroups,
   getAdjacentDocs,
   sourceLinks,
+  type DiagramVariant,
   type DocBlock,
   type DocPage,
   type SourceId
@@ -12,8 +29,325 @@ import {
 function linkClass(active: boolean) {
   return [
     "block rounded-md px-3 py-2 text-sm transition",
-    active ? "bg-cyan-300/12 text-cyan-100" : "text-slate-400 hover:bg-white/8 hover:text-slate-100"
+    active
+      ? "bg-cyan-300/12 text-cyan-100 shadow-[inset_3px_0_0_rgba(103,232,249,0.7)]"
+      : "text-slate-400 hover:bg-white/8 hover:text-slate-100"
   ].join(" ");
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function readBraced(source: string, openIndex: number) {
+  if (source[openIndex] !== "{") {
+    return null;
+  }
+
+  let depth = 0;
+  for (let index = openIndex; index < source.length; index += 1) {
+    const char = source[index];
+    if (char === "{") {
+      depth += 1;
+    }
+    if (char === "}") {
+      depth -= 1;
+      if (depth === 0) {
+        return {
+          value: source.slice(openIndex + 1, index),
+          endIndex: index + 1
+        };
+      }
+    }
+  }
+
+  return null;
+}
+
+function replaceLatexCommand(source: string, command: "\\frac" | "\\sqrt", renderer: (parts: string[]) => string) {
+  let output = "";
+  let index = 0;
+
+  while (index < source.length) {
+    const commandIndex = source.indexOf(command, index);
+    if (commandIndex === -1) {
+      output += source.slice(index);
+      break;
+    }
+
+    output += source.slice(index, commandIndex);
+    const first = readBraced(source, commandIndex + command.length);
+    if (!first) {
+      output += command;
+      index = commandIndex + command.length;
+      continue;
+    }
+
+    if (command === "\\sqrt") {
+      output += renderer([first.value]);
+      index = first.endIndex;
+      continue;
+    }
+
+    const second = readBraced(source, first.endIndex);
+    if (!second) {
+      output += source.slice(commandIndex, first.endIndex);
+      index = first.endIndex;
+      continue;
+    }
+
+    output += renderer([first.value, second.value]);
+    index = second.endIndex;
+  }
+
+  return output;
+}
+
+function renderLatexHtml(expression: string): string {
+  const pieces: string[] = [];
+  let source = expression.trim();
+
+  source = replaceLatexCommand(source, "\\frac", ([numerator, denominator]) => {
+    const index = pieces.push(
+      `<span class="doc-frac"><span>${renderLatexHtml(numerator)}</span><span>${renderLatexHtml(denominator)}</span></span>`
+    ) - 1;
+    return `@@MATH${index}@@`;
+  });
+
+  source = replaceLatexCommand(source, "\\sqrt", ([value]) => {
+    const index = pieces.push(`<span class="doc-sqrt"><span>${renderLatexHtml(value)}</span></span>`) - 1;
+    return `@@MATH${index}@@`;
+  });
+
+  let html = escapeHtml(source)
+    .replace(/\\left/g, "")
+    .replace(/\\right/g, "")
+    .replace(/\\,/g, " ")
+    .replace(/\\mathbf\{([^{}]+)\}/g, "<strong>$1</strong>")
+    .replace(/\\hat\{([^{}]+)\}/g, '<span class="doc-hat">$1</span>')
+    .replace(/\\vec\{([^{}]+)\}/g, '<span class="doc-vector">$1</span>')
+    .replace(/\\bar\{([^{}]+)\}/g, '<span class="doc-overline">$1</span>')
+    .replace(/\\sum_\{([^{}]+)\}\^\{([^{}]+)\}/g, '<span class="doc-sum"><span>$2</span><span>&sum;</span><span>$1</span></span>')
+    .replace(/([A-Za-z][A-Za-z0-9]*|[A-Za-z0-9\)\]])_\{([^{}]+)\}\^\{([^{}]+)\}/g, "$1<sub>$2</sub><sup>$3</sup>")
+    .replace(/([A-Za-z][A-Za-z0-9]*|[A-Za-z0-9\)\]])\^\{([^{}]+)\}_\{([^{}]+)\}/g, "$1<sub>$3</sub><sup>$2</sup>")
+    .replace(/([A-Za-z][A-Za-z0-9]*|[A-Za-z0-9\)\]])_\{([^{}]+)\}/g, "$1<sub>$2</sub>")
+    .replace(/([A-Za-z][A-Za-z0-9]*|[A-Za-z0-9\)\]])\^\{([^{}]+)\}/g, "$1<sup>$2</sup>")
+    .replace(/([A-Za-z][A-Za-z0-9]*|[A-Za-z0-9\)\]])_([A-Za-z0-9+-]+)/g, "$1<sub>$2</sub>")
+    .replace(/([A-Za-z][A-Za-z0-9]*|[A-Za-z0-9\)\]])\^([A-Za-z0-9+-]+)/g, "$1<sup>$2</sup>");
+
+  const symbols: Record<string, string> = {
+    "\\alpha": "&alpha;",
+    "\\beta": "&beta;",
+    "\\gamma": "&gamma;",
+    "\\Delta": "&Delta;",
+    "\\delta": "&delta;",
+    "\\epsilon": "&epsilon;",
+    "\\eta": "&eta;",
+    "\\lambda": "&lambda;",
+    "\\mu": "&mu;",
+    "\\nabla": "&nabla;",
+    "\\omega": "&omega;",
+    "\\Omega": "&Omega;",
+    "\\partial": "&part;",
+    "\\propto": "&prop;",
+    "\\rho": "&rho;",
+    "\\sigma": "&sigma;",
+    "\\theta": "&theta;",
+    "\\cdot": "&middot;",
+    "\\le": "&le;",
+    "\\ge": "&ge;",
+    "\\in": "&isin;",
+    "\\approx": "&asymp;",
+    "\\rightarrow": "&rarr;",
+    "\\times": "&times;",
+    "\\pm": "&plusmn;"
+  };
+
+  for (const [token, replacement] of Object.entries(symbols)) {
+    html = html.replaceAll(token, replacement);
+  }
+
+  html = html.replace(/\s+/g, " ");
+  pieces.forEach((piece, index) => {
+    html = html.replaceAll(`@@MATH${index}@@`, piece);
+  });
+
+  return html;
+}
+
+function MathFormula({ expression }: { expression: string }) {
+  return (
+    <div className="doc-math" role="math" aria-label={expression}>
+      <span dangerouslySetInnerHTML={{ __html: renderLatexHtml(expression) }} />
+    </div>
+  );
+}
+
+function ForecastPipelineDiagram() {
+  const steps = [
+    { label: "Observations", detail: "Satellite, radar, stations, aircraft", icon: CloudSun },
+    { label: "Quality control", detail: "Reject late, duplicated, or suspect records", icon: Activity },
+    { label: "Assimilation", detail: "Blend observations with background state", icon: GitBranch },
+    { label: "Model run", detail: "Integrate dynamics and physics forward", icon: Network },
+    { label: "Post-process", detail: "Calibrate probabilities and confidence", icon: Sigma },
+    { label: "Signals", detail: "Compare model output with market prices", icon: LineChart }
+  ];
+
+  return (
+    <div className="min-w-0 w-full overflow-hidden rounded-md border border-cyan-200/15 bg-[linear-gradient(135deg,rgba(8,47,73,0.52),rgba(6,8,11,0.72))] p-4">
+      <div className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
+        {steps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <div key={step.label} className="relative min-h-[150px] rounded-md border border-white/12 bg-black/22 p-4">
+              <span className="flex h-9 w-9 items-center justify-center rounded-md border border-cyan-200/25 bg-cyan-300/10 text-cyan-100">
+                <Icon size={18} />
+              </span>
+              <span className="mt-4 block text-sm font-semibold text-white">{step.label}</span>
+              <span className="mt-2 block text-xs leading-5 text-slate-400">{step.detail}</span>
+              <span className="absolute right-3 top-3 font-mono text-xs text-cyan-100/45">{String(index + 1).padStart(2, "0")}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function EnsembleProbabilityDiagram() {
+  const members = Array.from({ length: 40 }, (_, index) => index < 29);
+
+  return (
+    <div className="min-w-0 w-full overflow-hidden rounded-md border border-emerald-200/15 bg-[linear-gradient(135deg,rgba(6,78,59,0.45),rgba(6,8,11,0.72))] p-4">
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_260px]">
+        <div>
+          <div className="grid grid-cols-10 gap-2">
+            {members.map((isEvent, index) => (
+              <span
+                key={index}
+                className={[
+                  "h-7 rounded-sm border",
+                  isEvent ? "border-emerald-200/35 bg-emerald-300/55" : "border-white/15 bg-white/8"
+                ].join(" ")}
+                title={isEvent ? "Member forecasts event" : "Member does not forecast event"}
+              />
+            ))}
+          </div>
+          <p className="mt-4 text-sm leading-6 text-slate-300">
+            Each tile is an ensemble member. Filled tiles satisfy the event rule after applying station, time-window, and threshold mapping.
+          </p>
+        </div>
+        <div className="rounded-md border border-white/12 bg-black/22 p-4">
+          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-100/70">Event probability</span>
+          <div className="mt-4 flex items-end gap-2">
+            <span className="text-5xl font-semibold text-white">72.5%</span>
+            <span className="pb-2 font-mono text-xs text-slate-500">29 / 40</span>
+          </div>
+          <p className="mt-3 text-sm leading-6 text-slate-400">Probability is counted from members, then calibrated against verification history.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ForecastEdgeDiagram() {
+  const rows = [
+    { label: "Model probability", value: 74, color: "bg-emerald-300" },
+    { label: "Market probability", value: 59, color: "bg-cyan-300" },
+    { label: "Confidence", value: 68, color: "bg-amber-300" }
+  ];
+
+  return (
+    <div className="min-w-0 w-full overflow-hidden rounded-md border border-amber-200/15 bg-[linear-gradient(135deg,rgba(120,53,15,0.38),rgba(6,8,11,0.78))] p-4">
+      <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <div className="grid min-w-0 gap-4">
+          {rows.map((row) => (
+            <div key={row.label}>
+              <div className="flex items-center justify-between gap-3 text-sm">
+                <span className="font-semibold text-white">{row.label}</span>
+                <span className="font-mono text-slate-300">{row.value}%</span>
+              </div>
+              <div className="mt-2 h-3 w-full rounded-full bg-white/10">
+                <div className={`h-3 rounded-full ${row.color}`} style={{ width: `${row.value}%` }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-md border border-white/12 bg-black/24 p-4">
+          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-amber-100/70">Adjusted edge</span>
+          <div className="mt-4 font-mono text-sm text-slate-300">
+            <div>0.74 - 0.59 = 0.15</div>
+            <div>0.15 x 0.68 = 0.102</div>
+          </div>
+          <div className="mt-4 text-4xl font-semibold text-white">+10.2 pts</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AssimilationCycleDiagram() {
+  const nodes = ["Background forecast", "Observations", "Quality control", "Analysis state", "Forecast model", "Short-range forecast"];
+
+  return (
+    <div className="min-w-0 w-full overflow-hidden rounded-md border border-indigo-200/15 bg-[linear-gradient(135deg,rgba(49,46,129,0.48),rgba(6,8,11,0.78))] p-4">
+      <div className="grid gap-3 md:grid-cols-3">
+        {nodes.map((node, index) => (
+          <div key={node} className="rounded-md border border-white/12 bg-black/24 p-4">
+            <span className="font-mono text-xs text-indigo-100/60">{String(index + 1).padStart(2, "0")}</span>
+            <span className="mt-2 block text-sm font-semibold text-white">{node}</span>
+            <span className="mt-2 block text-xs leading-5 text-slate-400">
+              {index === nodes.length - 1 ? "Feeds the next cycle as the background state." : "Passes constrained state information to the next step."}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ModelMarketSignalDiagram() {
+  const stages = [
+    ["Forecast data", "Provider run, valid time, variable, units"],
+    ["Event mapping", "Market rule, city, station, threshold, time window"],
+    ["Probability", "Model probability plus confidence and quality flags"],
+    ["Market data", "Best bid/ask, mid, liquidity, stale-data checks"],
+    ["Combined signal", "Disagreement, adjusted edge, and explanatory status"]
+  ];
+
+  return (
+    <div className="min-w-0 w-full overflow-hidden rounded-md border border-fuchsia-200/15 bg-[linear-gradient(135deg,rgba(112,26,117,0.34),rgba(6,8,11,0.78))] p-4">
+      <div className="grid gap-3 lg:grid-cols-5">
+        {stages.map(([title, detail], index) => (
+          <div key={title} className="rounded-md border border-white/12 bg-black/24 p-4">
+            <span className="font-mono text-xs text-fuchsia-100/60">{index + 1}</span>
+            <span className="mt-2 block text-sm font-semibold text-white">{title}</span>
+            <span className="mt-2 block text-xs leading-5 text-slate-400">{detail}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DiagramBlock({ variant }: { variant: DiagramVariant }) {
+  switch (variant) {
+    case "forecast-pipeline":
+      return <ForecastPipelineDiagram />;
+    case "ensemble-probability":
+      return <EnsembleProbabilityDiagram />;
+    case "forecast-edge":
+      return <ForecastEdgeDiagram />;
+    case "data-assimilation-cycle":
+      return <AssimilationCycleDiagram />;
+    case "model-market-signal-flow":
+      return <ModelMarketSignalDiagram />;
+  }
 }
 
 function BlockView({ block }: { block: DocBlock }) {
@@ -35,7 +369,7 @@ function BlockView({ block }: { block: DocBlock }) {
       );
     case "flow":
       return (
-        <div className="max-w-full rounded-md border border-white/12 bg-white/[0.035] p-4">
+        <div className="min-w-0 max-w-full overflow-hidden rounded-md border border-white/12 bg-white/[0.035] p-4">
           {block.title ? <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-100/80">{block.title}</h3> : null}
           <ol className="mt-4 grid gap-2">
             {block.steps.map((step, index) => (
@@ -51,14 +385,14 @@ function BlockView({ block }: { block: DocBlock }) {
       );
     case "table":
       return (
-        <div className="min-w-0">
+        <div className="min-w-0 max-w-full overflow-hidden">
           {block.title ? <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">{block.title}</h3> : null}
-          <div className="mt-3 max-w-full overflow-x-auto rounded-md border border-white/12">
-            <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+          <div className="mt-3 min-w-0 max-w-full overflow-x-auto rounded-md border border-white/12">
+            <table className="w-full min-w-[620px] border-collapse text-left text-sm">
               <thead className="bg-white/[0.06] text-slate-200">
                 <tr>
                   {block.columns.map((column) => (
-                    <th key={column} className="border-b border-white/12 px-4 py-3 font-semibold">
+                    <th key={column} scope="col" className="border-b border-white/12 px-4 py-3 font-semibold">
                       {column}
                     </th>
                   ))}
@@ -81,26 +415,47 @@ function BlockView({ block }: { block: DocBlock }) {
       );
     case "formula":
       return (
-        <div className="max-w-full rounded-md border border-emerald-200/15 bg-emerald-300/8 p-4">
-          {block.title ? <h3 className="text-sm font-semibold text-emerald-100">{block.title}</h3> : null}
-          <pre className="mt-3 overflow-x-auto whitespace-pre-wrap font-mono text-sm leading-6 text-emerald-50">
-            {block.expression}
-          </pre>
+        <div className="min-w-0 max-w-full overflow-hidden rounded-md border border-emerald-200/15 bg-emerald-300/8 p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            {block.title ? <h3 className="text-sm font-semibold text-emerald-100">{block.title}</h3> : <span />}
+            <span className="inline-flex items-center gap-1 rounded-md border border-emerald-200/15 px-2 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-emerald-100/70">
+              <Sigma size={12} />
+              LaTeX
+            </span>
+          </div>
+          <MathFormula expression={block.expression} />
           {block.description ? <p className="mt-3 text-sm leading-6 text-emerald-50/75">{block.description}</p> : null}
         </div>
       );
     case "callout":
       return (
-        <aside className="max-w-full rounded-md border border-amber-200/20 bg-amber-300/8 p-4">
+        <aside className="min-w-0 max-w-full overflow-hidden rounded-md border border-amber-200/20 bg-amber-300/8 p-4">
           <h3 className="text-sm font-semibold text-amber-100">{block.title}</h3>
           <p className="mt-2 text-sm leading-6 text-amber-50/80">{block.text}</p>
         </aside>
       );
     case "code":
       return (
-        <div className="max-w-full rounded-md border border-white/12 bg-black/30 p-4">
-          {block.title ? <h3 className="text-sm font-semibold text-slate-200">{block.title}</h3> : null}
-          <pre className="mt-3 overflow-x-auto whitespace-pre-wrap font-mono text-sm leading-6 text-slate-300">{block.code}</pre>
+        <div className="min-w-0 max-w-full overflow-hidden rounded-md border border-white/12 bg-black/30 p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            {block.title ? <h3 className="text-sm font-semibold text-slate-200">{block.title}</h3> : <span />}
+            {block.language ? <span className="rounded-md bg-white/8 px-2 py-1 font-mono text-xs text-slate-400">{block.language}</span> : null}
+          </div>
+          <pre className="mt-3 min-w-0 max-w-full overflow-x-auto whitespace-pre font-mono text-sm leading-6 text-slate-300">
+            <code>{block.code}</code>
+          </pre>
+        </div>
+      );
+    case "diagram":
+      return (
+        <div className="min-w-0 max-w-full overflow-hidden">
+          {block.title || block.description ? (
+            <div className="mb-3">
+              {block.title ? <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">{block.title}</h3> : null}
+              {block.description ? <p className="mt-2 text-sm leading-6 text-slate-400">{block.description}</p> : null}
+            </div>
+          ) : null}
+          <DiagramBlock variant={block.variant} />
         </div>
       );
   }
@@ -113,8 +468,9 @@ export function DocPageContent({ page }: { page: DocPage }) {
     <>
       <div className="grid min-w-0 gap-10">
         {page.sections.map((section) => (
-          <section key={section.title} className="min-w-0 border-t border-white/10 pt-8">
+          <section key={section.title} className="min-w-0 overflow-hidden border-t border-white/10 pt-8">
             <h2 className="text-2xl font-semibold text-white">{section.title}</h2>
+            {section.description ? <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">{section.description}</p> : null}
             <div className="mt-5 grid min-w-0 gap-5">
               {section.blocks.map((block, index) => (
                 <BlockView key={`${section.title}-${index}`} block={block} />
@@ -207,7 +563,7 @@ export function DocsShell({
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-8 md:px-8 lg:grid-cols-[280px_minmax(0,1fr)]">
-        <aside className="lg:sticky lg:top-6 lg:h-[calc(100dvh-3rem)] lg:overflow-y-auto">
+        <aside className="order-2 lg:sticky lg:top-6 lg:order-none lg:h-[calc(100dvh-3rem)] lg:overflow-y-auto">
           <nav className="rounded-md border border-white/12 bg-white/[0.035] p-3">
             <Link href="/docs" className={linkClass(!activeSlug)}>
               <span className="inline-flex items-center gap-2">
@@ -232,7 +588,7 @@ export function DocsShell({
           </nav>
         </aside>
 
-        <article className="min-w-0">
+        <article className="order-1 min-w-0 overflow-hidden lg:order-none">
           <header className="pb-8">
             <div className="inline-flex items-center gap-2 rounded-md border border-cyan-200/15 bg-cyan-300/8 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100">
               <BookOpen size={14} />
@@ -240,6 +596,20 @@ export function DocsShell({
             </div>
             <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-normal text-white md:text-5xl">{title}</h1>
             <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">{description}</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-2 rounded-md border border-white/12 px-3 py-1.5 text-xs text-slate-400">
+                <Layers3 size={14} />
+                Technical reference
+              </span>
+              <span className="inline-flex items-center gap-2 rounded-md border border-white/12 px-3 py-1.5 text-xs text-slate-400">
+                <Database size={14} />
+                Forecast intelligence
+              </span>
+              <span className="inline-flex items-center gap-2 rounded-md border border-white/12 px-3 py-1.5 text-xs text-slate-400">
+                <BarChart3 size={14} />
+                Market signals
+              </span>
+            </div>
           </header>
           {children}
         </article>

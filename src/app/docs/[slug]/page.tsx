@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DocPageContent, DocsShell } from "@/components/docs/DocsShell";
 import { docs, docsBySlug } from "@/lib/docs/content";
@@ -10,7 +11,7 @@ export function generateStaticParams() {
   return docs.map((page) => ({ slug: page.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<Params> }) {
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;
   const page = docsBySlug.get(slug);
 
@@ -22,7 +23,17 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
 
   return {
     title: `${page.title} | Forecast Market Map`,
-    description: page.description
+    description: page.description,
+    keywords: page.keywords,
+    alternates: {
+      canonical: `/docs/${page.slug}`
+    },
+    openGraph: {
+      title: `${page.title} | Weather AI Docs`,
+      description: page.description,
+      type: "article",
+      url: `/docs/${page.slug}`
+    }
   };
 }
 

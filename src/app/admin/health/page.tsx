@@ -1,17 +1,23 @@
 import Link from "next/link";
 import { ArrowLeft, CheckCircle2, CircleAlert } from "lucide-react";
 import { getEnv, isDemoModeEnabled } from "@/lib/env";
-import { listCities, listMarkets } from "@/lib/data/queries";
+import { listCities, listCombinedSignals, listForecastPoints, listMarkets } from "@/lib/data/queries";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminHealthPage() {
-  const [cities, markets] = await Promise.all([listCities(), listMarkets()]);
+  const [cities, forecast, markets, signals] = await Promise.all([
+    listCities(),
+    listForecastPoints({}),
+    listMarkets(),
+    listCombinedSignals()
+  ]);
   const checks = [
     { label: "Supabase URL", ok: Boolean(getEnv("NEXT_PUBLIC_SUPABASE_URL")) },
     { label: "Supabase anon key", ok: Boolean(getEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY")) },
     { label: "Service role key", ok: Boolean(getEnv("SUPABASE_SERVICE_ROLE_KEY")) },
     { label: "Ingestion secret", ok: Boolean(getEnv("INGESTION_SECRET")) },
+    { label: "Real API sync route", ok: Boolean(getEnv("SUPABASE_SERVICE_ROLE_KEY") && getEnv("INGESTION_SECRET")) },
     { label: "Demo mode", ok: isDemoModeEnabled() }
   ];
 
@@ -36,7 +42,9 @@ export default async function AdminHealthPage() {
 
         <div className="mt-6 grid gap-3 md:grid-cols-2">
           <Metric label="Cities readable" value={String(cities.length)} />
+          <Metric label="Forecast points readable" value={String(forecast.length)} />
           <Metric label="Markets readable" value={String(markets.length)} />
+          <Metric label="Combined signals readable" value={String(signals.length)} />
         </div>
       </div>
     </main>
