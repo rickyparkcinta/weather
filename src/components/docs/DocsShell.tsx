@@ -31,6 +31,7 @@ import {
   type SourceId
 } from "@/lib/docs/content";
 import { DocsSidebar } from "@/components/docs/DocsSidebar";
+import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
 
 function MathFormula({ expression }: { expression: string }) {
   const latex = expression.trim();
@@ -332,6 +333,7 @@ export function DocPageContent({ locale, page }: { locale: DocsLocale; page: Doc
   return (
     <>
       <div className="grid min-w-0 gap-10">
+        {page.slug === "prediction-market-weather-signals" ? <NonAdvisoryNotice /> : null}
         {page.sections.map((section) => (
           <section key={section.title} className="min-w-0 overflow-hidden border-t border-white/10 pt-8">
             <h2 className="text-2xl font-semibold text-white">{section.title}</h2>

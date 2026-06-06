@@ -13,7 +13,7 @@ export function MarketCard({
     <button
       type="button"
       onClick={() => onOpen(market)}
-      aria-label={`Open market details for ${market.title}`}
+      aria-label={`View market details for ${market.title}`}
       className="w-full rounded-md border border-white/12 bg-white/[0.04] p-3 text-left transition hover:border-cyan-200/35 hover:bg-white/[0.07]"
     >
       <div className="flex gap-3">

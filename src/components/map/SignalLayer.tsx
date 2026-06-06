@@ -3,15 +3,23 @@
 import { useEffect } from "react";
 import maplibregl from "maplibre-gl";
 import { toLngLat } from "@/lib/map/coords";
+import { classifySignal } from "@/lib/signals/classify";
 import type { City, CombinedSignal, MarketEvent } from "@/types/domain";
 
 function signalColor(signal: CombinedSignal) {
-  if (signal.status === "aligned") return "#94a3b8";
-  if (signal.status === "stale" || signal.freshnessStatus === "stale") return "#f59e0b";
-  if (signal.status === "insufficient_data" || signal.status === "unavailable" || signal.status === "avoid") return "#64748b";
-  if ((signal.rawEdge ?? 0) > 0 || signal.status === "model_above_market") return "#34d399";
-  if ((signal.rawEdge ?? 0) < 0 || signal.status === "market_above_model") return "#fb7185";
-  return "#38bdf8";
+  switch (classifySignal(signal).state) {
+    case "aligned":
+      return "#94a3b8";
+    case "watch":
+      return "#38bdf8";
+    case "divergent":
+      return "#fb7185";
+    case "stale":
+    case "high_uncertainty":
+      return "#f59e0b";
+    case "unavailable":
+      return "#64748b";
+  }
 }
 
 export function SignalLayer({
@@ -42,13 +50,13 @@ export function SignalLayer({
       const coords = toLngLat(city.lon, city.lat);
       if (!coords) return [];
 
-      const edge = Math.abs(signal.rawEdge ?? signal.disagreement ?? 0);
-      const size = Math.max(20, Math.min(46, 18 + edge * 120));
+      const gap = Math.abs(signal.rawEdge ?? signal.disagreement ?? 0);
+      const size = Math.max(20, Math.min(46, 18 + gap * 120));
       const color = signalColor(signal);
       const element = document.createElement("button");
       element.type = "button";
       element.title = signal.explanation ?? "Weather AI signal";
-      element.setAttribute("aria-label", market ? `Open signal market details for ${market.title}` : "Weather AI signal");
+      element.setAttribute("aria-label", market ? `View signal market details for ${market.title}` : "Weather AI signal");
       element.style.width = `${size}px`;
       element.style.height = `${size}px`;
       element.style.border = `1px solid ${color}`;

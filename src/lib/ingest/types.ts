@@ -99,6 +99,26 @@ export type NormalizedRecord =
   | NormalizedMarketTimeseriesRecord
   | NormalizedSignalRecord;
 
+export type ForecastPointRecord = NormalizedForecastPointRecord;
+export type MarketEventRecord = NormalizedMarketEventRecord;
+export type SignalOutput = NormalizedSignalRecord;
+
+export type ProviderRunLog = {
+  id?: string;
+  providerId: string;
+  providerType: ProviderAdapter["type"];
+  adapterVersion: string;
+  idempotencyKey?: string | null;
+  fetchedAt: string;
+  staleAfter: string;
+  status: "running" | "complete" | "stale" | "failed";
+  recordsSeen: number;
+  recordsInserted: number;
+  recordsUpdated: number;
+  error?: string | null;
+  metadata: JsonRecord;
+};
+
 export type ProviderAdapter = {
   id: string;
   type: "weather" | "market" | "observation";

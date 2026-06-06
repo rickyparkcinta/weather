@@ -4,7 +4,8 @@ import Link from "next/link";
 import { ArrowUpRight, ExternalLink, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { formatCompactNumber, formatPercent } from "@/lib/utils";
+import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
+import { addHoursIso, formatCompactNumber, formatDateTime, formatPercent } from "@/lib/utils";
 import type { MarketEvent, MarketTimeSeriesPoint } from "@/types/domain";
 
 export function MarketDrawer({
@@ -30,6 +31,8 @@ export function MarketDrawer({
   }
 
   const history = historyQuery.data ?? [];
+  const snapshotAt = marketTimestamp(market);
+  const staleAfter = addHoursIso(snapshotAt, 24);
 
   return (
     <div
@@ -61,6 +64,11 @@ export function MarketDrawer({
           <Metric label="Volume" value={formatCompactNumber(market.volume)} />
           <Metric label="Liquidity" value={formatCompactNumber(market.liquidity)} />
         </div>
+        <div className="mt-2 grid grid-cols-2 gap-2">
+          <Metric label="Market snapshot" value={formatDateTime(snapshotAt)} />
+          <Metric label="Stale after" value={formatDateTime(staleAfter)} />
+        </div>
+        <NonAdvisoryNotice compact className="mt-4" />
         <div className="mt-4 h-48 rounded-md border border-white/10 bg-black/20 p-2">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={history}>
@@ -90,7 +98,7 @@ export function MarketDrawer({
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
           <Link href={`/markets/${market.id}`} className="inline-flex h-9 items-center gap-2 rounded-md border border-white/15 px-3 text-sm text-slate-100 hover:bg-white/8">
-            Market details
+            View market details
             <ArrowUpRight size={15} />
           </Link>
           {market.url ? (
@@ -103,6 +111,11 @@ export function MarketDrawer({
       </aside>
     </div>
   );
+}
+
+function marketTimestamp(market: MarketEvent) {
+  const fetchedAt = typeof market.raw.fetchedAt === "string" ? market.raw.fetchedAt : null;
+  return fetchedAt ?? market.updatedAt ?? market.createdAt ?? null;
 }
 
 function Metric({ label, value }: { label: string; value: string }) {

@@ -24,6 +24,20 @@ export function formatCompactNumber(value: number | null | undefined) {
   }).format(value);
 }
 
+export function formatDateTime(value: string | null | undefined) {
+  if (!value) return "n/a";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "n/a";
+  return date.toLocaleString();
+}
+
+export function addHoursIso(value: string | null | undefined, hours: number) {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return new Date(date.getTime() + hours * 3_600_000).toISOString();
+}
+
 export function toIso(value: Date | string) {
   return value instanceof Date ? value.toISOString() : value;
 }

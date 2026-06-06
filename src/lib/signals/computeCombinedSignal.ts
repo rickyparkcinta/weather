@@ -47,6 +47,14 @@ function confidenceScore(forecast: ForecastPoint[], freshness: ReturnType<typeof
   return rounded(clampProbability(base - freshnessPenalty));
 }
 
+function classifyComputedStatus(disagreement: number, confidence: number, freshness: ReturnType<typeof freshnessStatus>) {
+  if (freshness === "stale") return "stale" as const;
+  if (confidence < 0.35) return "high_uncertainty" as const;
+  if (disagreement < 0.025) return "aligned" as const;
+  if (disagreement < 0.08) return "watch" as const;
+  return "divergent" as const;
+}
+
 function findWeatherVariable(market: MarketEvent) {
   const haystack = `${market.title} ${market.category ?? ""} ${market.tags.join(" ")}`.toLowerCase();
 
@@ -127,8 +135,8 @@ export function computeCombinedSignal(input: {
       adjustedEdge: null,
       confidence: 0,
       freshnessStatus: "unknown",
-      status: "insufficient_data",
-      explanation: "Insufficient weather-specific model signal. Informational only, not financial advice.",
+      status: "unavailable",
+      explanation: "Insufficient weather-specific model signal. Research signal unavailable until event mapping and market probability are available.",
       raw: { citySlug: input.city.slug }
     };
   }
@@ -148,8 +156,8 @@ export function computeCombinedSignal(input: {
       adjustedEdge: null,
       confidence: confidenceScore(input.forecast, freshness),
       freshnessStatus: freshness,
-      status: "insufficient_data",
-      explanation: "The market appears weather-related, but no reliable model-probability proxy could be derived. Informational only, not financial advice.",
+      status: freshness === "stale" ? "stale" : "unavailable",
+      explanation: "The market appears weather-related, but no reliable forecast-model probability proxy could be derived.",
       raw: { citySlug: input.city.slug }
     };
   }
@@ -161,12 +169,7 @@ export function computeCombinedSignal(input: {
   const confidence = confidenceScore(input.forecast, freshness);
   const rawEdge = model.probability - input.market.probability;
   const disagreement = Math.abs(rawEdge);
-  const status =
-    disagreement < 0.1
-      ? "aligned"
-      : model.probability > input.market.probability
-        ? "model_above_market"
-        : "market_above_model";
+  const status = classifyComputedStatus(disagreement, confidence, freshness);
 
   return {
     cityId: input.city.id,
@@ -181,7 +184,7 @@ export function computeCombinedSignal(input: {
     confidence,
     freshnessStatus: freshness,
     status,
-    explanation: "Forecast-model proxy and market-implied probability were compared with confidence and freshness context. Informational only, not financial advice.",
+    explanation: "Forecast-model probability and market-implied probability were compared with confidence and data-freshness context.",
     computedAt: new Date().toISOString(),
     raw: { citySlug: input.city.slug }
   };

@@ -57,7 +57,6 @@ export function TopSearch({
               selectCity(matches[0]);
             }
           }}
-          aria-expanded={open}
           aria-label="Search cities"
           placeholder={`Search ${selectedCity.name}`}
           className="h-10 w-full bg-transparent text-sm text-white outline-none placeholder:text-slate-500"

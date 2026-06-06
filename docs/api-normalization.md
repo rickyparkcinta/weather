@@ -34,6 +34,17 @@ The body may also include `idempotencyKey`. If both are present, the body value 
 The adapter contract used by the route is:
 
 ```ts
+export type ForecastPointRecord = NormalizedForecastPointRecord;
+export type MarketEventRecord = NormalizedMarketEventRecord;
+export type SignalOutput = NormalizedSignalRecord;
+
+export type NormalizedRecord =
+  | NormalizedForecastRunRecord
+  | ForecastPointRecord
+  | MarketEventRecord
+  | NormalizedMarketTimeseriesRecord
+  | SignalOutput;
+
 export type ProviderAdapter = {
   id: string;
   type: "weather" | "market" | "observation";
@@ -41,9 +52,75 @@ export type ProviderAdapter = {
   fetch: (input: AdapterInput) => Promise<RawProviderPayload>;
   normalize: (payload: RawProviderPayload) => Promise<NormalizedRecord[]>;
 };
+
+export type ProviderRunLog = {
+  providerId: string;
+  providerType: "weather" | "market" | "observation";
+  adapterVersion: string;
+  idempotencyKey?: string | null;
+  fetchedAt: string;
+  staleAfter: string;
+  status: "running" | "complete" | "stale" | "failed";
+  recordsSeen: number;
+  recordsInserted: number;
+  recordsUpdated: number;
+  error?: string | null;
+  metadata: JsonRecord;
+};
 ```
 
 The current route uses a submitted-payload adapter so external bots can do provider-specific fetching outside the web request path. Future provider adapters can implement the same interface without changing normalized writes.
+
+### Validation and responses
+
+Validation rules:
+
+- `providerId` and `adapterVersion` are required strings.
+- `providerType` must be `weather`, `market`, or `observation`.
+- `fetchedAt` must be an ISO datetime when present.
+- `staleAfterMinutes` must be a positive integer up to 14 days.
+- Forecast records require `citySlug`, `provider`, `model`, `runTime`, `forecastTime`, `variable`, `value`, and `unit`.
+- Market records require `provider`, `providerEventId`, and `title`; probability, bid, and ask must be decimals from 0 to 1 when present.
+- Signal state should be `aligned`, `watch`, `divergent`, `stale`, `unavailable`, or `high_uncertainty`. Legacy statuses are accepted for compatibility and mapped before display.
+
+Success response:
+
+```json
+{
+  "data": {
+    "idempotent": false,
+    "providerRunLogId": "uuid",
+    "ingestionRunId": "uuid",
+    "status": "complete",
+    "result": {
+      "recordsSeen": 1,
+      "forecastRunsUpserted": 0,
+      "forecastPointsUpserted": 1,
+      "marketEventsUpserted": 0,
+      "marketTimeseriesUpserted": 0,
+      "marketLinksUpserted": 0,
+      "signalsInserted": 0
+    }
+  }
+}
+```
+
+Error response examples:
+
+```json
+{ "error": "Invalid ingestion run payload", "details": { "fieldErrors": {} } }
+```
+
+```json
+{
+  "error": "Ingestion run is already in progress for this idempotency key",
+  "details": { "providerRunLogId": "uuid" }
+}
+```
+
+```json
+{ "error": "Ingestion run failed", "details": "Supabase error message" }
+```
 
 ## Forecast Normalization
 
@@ -85,14 +162,14 @@ Signals compare model-probability proxies with market-implied probabilities:
 - `model_probability`
 - `market_probability`
 - `disagreement`
-- `raw_edge`: signed `model_probability - market_probability`
-- `adjusted_edge`: raw edge multiplied by confidence
+- `raw_edge`: signed probability gap, `model_probability - market_probability`
+- `adjusted_edge`: raw probability gap multiplied by confidence
 - `confidence`: normalized 0-to-1 confidence score
 - `freshness_status`: `fresh`, `aging`, `stale`, or `unknown`
-- `status`: `aligned`, `market_above_model`, `model_above_market`, or `insufficient_data`
+- `status`: `aligned`, `watch`, `divergent`, `stale`, `unavailable`, or `high_uncertainty`
 - `explanation`
 
-Signals are informational only and must not recommend trades.
+Signals explain forecast-model disagreement, market-implied probability, data freshness, and uncertainty. They are for research only and are not trading advice.
 
 ## Run Status And Idempotency
 
@@ -104,6 +181,8 @@ Signals are informational only and must not recommend trades.
 - `failed`: fetch, normalization, or write failed.
 
 Repeated requests with the same complete or stale idempotency key return the previous result instead of writing duplicate records. Repeated requests while a matching run is still `running` return `409`.
+
+If `fetchedAt + staleAfterMinutes` is already in the past, the route can still write the normalized records, but `provider_run_logs.status` is `stale` and affected signal rows are degraded to stale freshness/status.
 
 ## Canonical Map-Layer Output
 
@@ -135,4 +214,4 @@ Repeated requests with the same complete or stale idempotency key return the pre
 }
 ```
 
-Forecast features expose provider, model, variable, value, unit, confidence, freshness, forecast time, and run time. Market features expose provider, provider event ID, probability, bid, ask, volume, liquidity, status, and freshness. Signal features expose model probability, market probability, disagreement, raw edge, adjusted edge, confidence, freshness, state, and explanation.
+Forecast features expose provider, model, variable, value, unit, confidence, freshness, forecast time, and run time. Market features expose provider, provider event ID, probability, bid, ask, volume, liquidity, status, and freshness. Signal features expose model probability, market probability, disagreement, raw probability gap, confidence-adjusted gap, confidence, freshness, state, and explanation.

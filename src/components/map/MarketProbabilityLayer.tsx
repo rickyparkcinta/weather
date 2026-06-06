@@ -34,7 +34,7 @@ export function MarketProbabilityLayer({
       const element = document.createElement("button");
       element.type = "button";
       element.title = market.title;
-      element.setAttribute("aria-label", `Open market details for ${market.title}`);
+      element.setAttribute("aria-label", `View market details for ${market.title}`);
       element.className = "market-bubble";
       element.style.width = `${size}px`;
       element.style.height = `${size}px`;

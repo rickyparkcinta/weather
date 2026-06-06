@@ -293,6 +293,13 @@ async function insertSignals(
     const city = cities.get(signal.citySlug);
     if (!city) return [];
 
+    const status =
+      context.stale || signal.freshnessStatus === "stale"
+        ? "stale"
+        : signal.status === "avoid"
+          ? "high_uncertainty"
+          : signal.status;
+
     return {
       city_id: city.id,
       market_event_id: signal.providerEventId ? (marketEventIdByProviderId.get(signal.providerEventId) ?? null) : null,
@@ -304,8 +311,8 @@ async function insertSignals(
       raw_edge: signal.rawEdge ?? null,
       adjusted_edge: signal.adjustedEdge ?? null,
       confidence: signal.confidence ?? null,
-      freshness_status: signal.freshnessStatus ?? (context.stale ? "stale" : "unknown"),
-      status: context.stale ? "stale" : signal.status,
+      freshness_status: context.stale ? "stale" : (signal.freshnessStatus ?? "unknown"),
+      status,
       explanation: signal.explanation ?? null,
       raw: withAuditRaw(signal.raw, context)
     };

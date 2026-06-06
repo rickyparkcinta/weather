@@ -1,5 +1,5 @@
 import { CloudRain, Thermometer, Wind } from "lucide-react";
-import { formatPercent } from "@/lib/utils";
+import { addHoursIso, formatDateTime, formatPercent } from "@/lib/utils";
 import type { ForecastPoint } from "@/types/domain";
 
 function getVariable(points: ForecastPoint[], variable: string) {
@@ -10,6 +10,10 @@ export function ForecastSummaryCard({ forecast }: { forecast: ForecastPoint[] })
   const temperature = getVariable(forecast, "temperature_2m");
   const rain = getVariable(forecast, "precipitation_probability");
   const wind = getVariable(forecast, "wind_speed_10m");
+  const firstPoint = forecast[0] ?? null;
+  const forecastRun = firstPoint?.runTime ?? null;
+  const validTime = firstPoint?.forecastTime ?? null;
+  const staleAfter = addHoursIso(forecastRun, 24);
 
   const items = [
     {
@@ -44,6 +48,20 @@ export function ForecastSummaryCard({ forecast }: { forecast: ForecastPoint[] })
           </div>
         ))}
       </div>
+      <div className="mt-3 grid grid-cols-1 gap-2 text-[11px] text-slate-400 min-[390px]:grid-cols-3">
+        <Timestamp label="Forecast run" value={formatDateTime(forecastRun)} />
+        <Timestamp label="Valid time" value={formatDateTime(validTime)} />
+        <Timestamp label="Stale after" value={formatDateTime(staleAfter)} />
+      </div>
     </section>
+  );
+}
+
+function Timestamp({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-md border border-white/8 bg-black/16 p-2">
+      <div className="uppercase tracking-wide text-slate-500">{label}</div>
+      <div className="mt-1 font-mono text-[11px] text-slate-300">{value}</div>
+    </div>
   );
 }

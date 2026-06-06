@@ -1,3 +1,4 @@
+import { classifySignal } from "@/lib/signals/classify";
 import type { City, CombinedSignal, ForecastPoint, MarketEvent } from "@/types/domain";
 
 type LayerFeatureProperties = Record<string, string | number | boolean | null>;
@@ -53,6 +54,17 @@ function signalEdge(signal: CombinedSignal) {
   return null;
 }
 
+function addHoursIso(value: string | null | undefined, hours: number) {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return new Date(date.getTime() + hours * 3_600_000).toISOString();
+}
+
+function rawTimestamp(raw: Record<string, unknown>, key: string) {
+  return typeof raw[key] === "string" ? raw[key] : null;
+}
+
 export function buildMapLayerPayload(input: {
   city: City;
   cities: City[];
@@ -78,13 +90,16 @@ export function buildMapLayerPayload(input: {
       confidence: point.confidence,
       freshness: computeFreshness([point.createdAt, point.runTime]),
       forecastTime: point.forecastTime,
-      runTime: point.runTime
+      runTime: point.runTime,
+      staleAfter: addHoursIso(point.runTime, 24)
     });
   });
 
   const marketFeatures = input.markets.flatMap((market) => {
     const city = market.cityIds.map((id) => cityById.get(id)).find(Boolean) ?? input.city;
     if (!Number.isFinite(city.lon) || !Number.isFinite(city.lat)) return [];
+    const fetchedAt = rawTimestamp(market.raw, "fetchedAt");
+    const marketSnapshot = fetchedAt ?? market.updatedAt ?? market.createdAt ?? null;
 
     return pointFeature([city.lon, city.lat], {
       layer: "market",
@@ -98,7 +113,10 @@ export function buildMapLayerPayload(input: {
       liquidity: market.liquidity,
       volume: market.volume,
       status: market.status,
-      freshness: computeFreshness([market.updatedAt, market.createdAt, market.closeTime])
+      freshness: computeFreshness([marketSnapshot]),
+      fetchedAt,
+      marketSnapshot,
+      staleAfter: addHoursIso(marketSnapshot, 24)
     });
   });
 
@@ -109,6 +127,8 @@ export function buildMapLayerPayload(input: {
     if (!Number.isFinite(city.lon) || !Number.isFinite(city.lat)) return [];
 
     const rawEdge = signalEdge(signal);
+    const freshness = signal.freshnessStatus ?? computeFreshness([signal.computedAt]);
+    const displayState = classifySignal({ ...signal, freshnessStatus: freshness }).state;
 
     return pointFeature([city.lon, city.lat], {
       layer: "signal",
@@ -122,8 +142,10 @@ export function buildMapLayerPayload(input: {
       rawEdge,
       adjustedEdge: signal.adjustedEdge ?? (rawEdge !== null && typeof signal.confidence === "number" ? Number((rawEdge * signal.confidence).toFixed(3)) : null),
       confidence: signal.confidence ?? null,
-      freshness: signal.freshnessStatus ?? computeFreshness([signal.computedAt]),
-      state: signal.status,
+      freshness,
+      state: displayState,
+      computedAt: signal.computedAt ?? null,
+      staleAfter: addHoursIso(signal.computedAt, 24),
       explanation: signal.explanation
     });
   });

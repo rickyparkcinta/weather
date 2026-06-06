@@ -61,7 +61,12 @@ export async function POST(request: Request) {
       adjusted_edge: signal.adjustedEdge ?? null,
       confidence: signal.confidence ?? null,
       freshness_status: signal.freshnessStatus ?? "unknown",
-      status: signal.status,
+      status:
+        signal.freshnessStatus === "stale"
+          ? "stale"
+          : signal.status === "avoid"
+            ? "high_uncertainty"
+            : signal.status,
       explanation: signal.explanation ?? null,
       raw: signal.raw
     }));

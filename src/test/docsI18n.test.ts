@@ -102,7 +102,7 @@ describe("docs i18n", () => {
     expect(zhHk).toContain("POST /api/ingest/run");
     expect(zhHk).toContain("provider_run_logs");
     expect(zhHk).toContain("GET /api/map-layers");
-    expect(zhHk).toContain("原始優勢");
-    expect(zhHk).toContain("調整後優勢");
+    expect(zhHk).toContain("原始差距");
+    expect(zhHk).toContain("調整後差距");
   });
 });

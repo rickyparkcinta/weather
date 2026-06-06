@@ -48,7 +48,7 @@ export const zhHKDocsCopy: DocsCopy = {
   home: {
     title: "Weather AI 技術文件",
     intro:
-      "Weather AI 將官方預報模型輸出轉化為結構化的概率、信心與優勢訊號。系統接入數值天氣預報資料，比較模型運行，量度不確定性，驗證歷史準確度，並把原始天氣預報轉化為可供城市、事件及預測市場使用的決策級智能。",
+      "Weather AI 將官方預報模型輸出轉化為結構化的概率、信心與模型-市場差距訊號。系統接入數值天氣預報資料，比較模型運行，量度不確定性，驗證歷史準確度，並把原始天氣預報轉化為可供城市、事件及預測市場研究使用的智能。",
     technicalSummary:
       "超級電腦天氣預報由數值模型產生：模型透過資料同化估計當前大氣狀態，將地球系統切分為三維網格，按物理方程向前推演，並產生確定性及概率預報。AI 系統可透過校準模型輸出、修正偏差、偵測預報不穩定性，以及把集合資訊轉化為可行動概率，改善這個流程。",
     routesHeading: "文件路由",
@@ -63,8 +63,8 @@ export const zhHKDocsCopy: DocsCopy = {
         steps: ["50 個集合成員", "38 個預測會下雨", "12 個預測不會下雨", "降雨概率 = 76%"]
       },
       "forecast-edge": {
-        title: "預報優勢",
-        steps: ["模型概率：72%", "市場概率：58%", "原始優勢：+14 點", "信心：0.65", "調整後優勢：+9.1 點"]
+        title: "預報概率差距",
+        steps: ["模型概率：72%", "市場概率：58%", "原始差距：+14 點", "信心：0.65", "調整後差距：+9.1 點"]
       }
     }
   },
@@ -97,7 +97,7 @@ export const zhHKDocsCopy: DocsCopy = {
         { label: "市場概率", value: 59, color: "bg-cyan-300" },
         { label: "信心", value: 68, color: "bg-amber-300" }
       ],
-      adjustedEdge: "調整後優勢"
+      adjustedEdge: "調整後差距"
     },
     assimilationCycle: {
       nodes: ["背景預報", "觀測", "品質控制", "分析場", "預報模型", "短期預報"],
@@ -110,13 +110,13 @@ export const zhHKDocsCopy: DocsCopy = {
         ["事件映射", "市場規則、城市、測站、門檻、時間窗"],
         ["概率", "模型概率加上信心與品質旗標"],
         ["市場資料", "最佳買/賣價、中間價、流動性、陳舊資料檢查"],
-        ["綜合訊號", "分歧、調整後優勢及解釋狀態"]
+        ["綜合訊號", "分歧、調整後差距及解釋狀態"]
       ]
     }
   },
   dataSources: {
     title: "資料來源",
-    intro: "此應用程式是資料展示與智能介面。訊號只解釋模型與市場之間的分歧及資料品質，並非交易建議，也不代表保證獲利。",
+    intro: "此應用程式是資料展示與智能介面。訊號會解釋預報模型分歧、市場隱含概率、資料新鮮度及不確定性。它們只供研究使用，並非交易建議。",
     transparencyHeading: "透明度說明",
     notes: [
       "資料可能因供應商更新節奏、機械人故障、Supabase 複寫或 Vercel 快取行為而延遲。",
@@ -781,7 +781,7 @@ export const zhHKDocTranslations = [
             text: "AI 天氣系統從歷史模型輸出及觀測中學習大氣型態。訓練完成後，它們可快速產生預報，並越來越常與基於物理的模型並用，用於校準、後處理及快速概率指引。"
           },
           {
-            columns: ["系統類型", "優勢", "限制"],
+            columns: ["系統類型", "優點", "限制"],
             rows: [
               ["基於物理的 NWP", "建基於物理方程、營運同化及科學約束。", "運行成本高，且在未解析尺度上仍是近似。"],
               ["AI 預報模型", "推論快速、可學習型態、修正偏差，並具備降尺度潛力。", "高度依賴訓練資料、校準及型態覆蓋。"],
@@ -967,7 +967,21 @@ export const zhHKDocTranslations = [
         description: "正式應用程式接收已標準化的供應商運行，而不是面向瀏覽器的供應商專用 payload。供應商擷取可放在每小時機械人或日後伺服器 adapter，但寫入路徑保持一致。",
         blocks: [
           { title: "ProviderAdapter" },
-          { title: "POST /api/ingest/run" },
+          { title: "核心 TypeScript 記錄" },
+          {
+            title: "必要 request headers",
+            columns: ["Header", "必須", "備註"],
+            rows: [
+              ["Authorization", "是", "必須是 `Bearer ${INGESTION_SECRET}`。Bearer 憑證缺失或無效會回傳 401。"],
+              ["Content-Type", "是", "使用 `application/json`；無效 JSON 會回傳 400。"],
+              ["Idempotency-Key", "可選", "穩定運行 key；body 的 `idempotencyKey` 會優先於 header。"]
+            ]
+          },
+          { title: "POST /api/ingest/run request body 例子" },
+          { title: "Request 例子" },
+          { title: "成功 response" },
+          { title: "冪等重播 response" },
+          { title: "錯誤 response 例子" },
           {
             title: "運行處理",
             columns: ["關注點", "實作方式"],
@@ -980,6 +994,18 @@ export const zhHKDocTranslations = [
             ]
           },
           {
+            title: "驗證規則",
+            columns: ["範圍", "規則"],
+            rows: [
+              ["Provider", "`providerId` 及 `adapterVersion` 是必要字串；`providerType` 必須是 weather、market 或 observation。"],
+              ["新鮮度", "`fetchedAt` 如存在必須是 ISO datetime；`staleAfterMinutes` 必須是最多 14 日的正整數。"],
+              ["預報記錄", "必須包含 `citySlug`、`provider`、`model`、`runTime`、`forecastTime`、`variable`、`value` 及 `unit`。"],
+              ["市場記錄", "必須包含 `provider`、`providerEventId` 及 `title`；probability、bid、ask 如存在必須是 0 至 1。"],
+              ["訊號記錄", "狀態應為 aligned、watch、divergent、stale、unavailable 或 high_uncertainty。相容舊狀態會在展示前映射。"],
+              ["陳舊寫入", "如果運行已陳舊，`provider_run_logs.status` 及受影響訊號的 `freshness_status`/`status` 會寫成 stale。"]
+            ]
+          },
+          {
             title: "Adapter 邊界",
             text: "供應商專用憑證及原始 API 細節應留在 provider adapters 或每小時機械人。應用程式 runtime 儲存已標準化記錄，並提供標準 API 輸出。"
           }
@@ -987,7 +1013,7 @@ export const zhHKDocTranslations = [
       },
       {
         title: "標準儲存與地圖輸出",
-        description: "Supabase schema 儲存已標準化記錄；地圖 API 則發布預報、市場及訊號圖層，並包含信心、新鮮度、優勢及訊號狀態欄位。",
+        description: "Supabase schema 儲存已標準化記錄；地圖 API 則發布預報、市場及訊號圖層，並包含信心、新鮮度、概率差距及訊號狀態欄位。",
         blocks: [
           {
             title: "標準化寫入目標",
@@ -1001,7 +1027,7 @@ export const zhHKDocTranslations = [
               ["market_events", "儲存已標準化的 Kalshi、Polymarket 或日後市場事件，包括概率、買/賣價、流動性、狀態、標籤、城市連結及結算詳情。"],
               ["market_timeseries", "按 market event 及 timestamp 儲存市場概率快照。"],
               ["city_market_links", "把已標準化市場事件連接到一個或多個城市。"],
-              ["combined_signals", "儲存模型概率、市場概率、分歧、原始優勢、調整後優勢、信心、新鮮度狀態、訊號狀態及解釋。"]
+              ["combined_signals", "儲存模型概率、市場概率、分歧、原始差距、調整後差距、信心、新鮮度狀態、訊號狀態及解釋。"]
             ]
           },
           { title: "GET /api/map-layers" },
@@ -1027,7 +1053,7 @@ export const zhHKDocTranslations = [
     title: "預測市場天氣訊號",
     shortTitle: "預測市場",
     description: "如何在不提供交易建議的前提下，比較模型概率與市場隱含概率。",
-    keywords: ["預測市場天氣", "市場隱含概率", "預報優勢", "天氣訊號", "Polymarket", "Kalshi"],
+    keywords: ["預測市場天氣", "市場隱含概率", "預報差距", "天氣訊號", "Polymarket", "Kalshi"],
     sections: [
       {
         title: "模型-市場比較",
@@ -1037,7 +1063,7 @@ export const zhHKDocTranslations = [
           },
           {
             title: "非交易建議",
-            text: "訊號會解釋模型-市場分歧及資料品質。它們並非交易建議，也不代表保證獲利。"
+            text: "訊號會解釋預報模型分歧、市場隱含概率、資料新鮮度及不確定性。它們只供研究使用，並非交易建議。"
           },
           {
             title: "模型到市場訊號流程",
@@ -1048,8 +1074,8 @@ export const zhHKDocTranslations = [
             description: "對簡單二元合約而言，在考慮費用、價差及流動性前，價格可作為概率代理。"
           },
           {
-            title: "原始模型優勢",
-            description: "正優勢代表模型概率高於市場隱含概率。"
+            title: "原始概率差距",
+            description: "正值代表模型概率高於市場隱含概率。"
           }
         ]
       },
@@ -1057,20 +1083,20 @@ export const zhHKDocTranslations = [
         title: "風險調整訊號",
         blocks: [
           {
-            title: "預報優勢",
+            title: "預報概率差距",
             description: "信心會把原始分歧轉化為較保守的解釋性分數。"
           },
           {
-            title: "信心調整優勢",
+            title: "信心調整差距",
             description: "C 是 0 至 1 的信心評分。"
           },
           {
-            title: "流動性調整淨優勢",
-            description: "此公式是診斷框架，並非下單交易指令。"
+            title: "淨診斷差距",
+            description: "此公式是診斷框架，並非交易指令。"
           },
           {
             title: "市場中間價概率",
-            description: "使用中間價可在計算任何優勢前，降低買賣差價過闊所造成的偏差。"
+            description: "使用中間價可在計算任何差距前，降低買賣差價過闊所造成的偏差。"
           },
           {
             title: "校準 log loss",
@@ -1082,7 +1108,21 @@ export const zhHKDocTranslations = [
           },
           {
             title: "示意 Kelly 比例",
-            description: "只用作說明優勢與價格在理論上如何連接到倉位大小。這是診斷恒等式，不是調整倉位或下單交易的建議。"
+            description: "只用作說明模型概率與價格之間的理論關係。它不會出現在主要 UI，也不是建議。"
+          },
+          {
+            title: "變數、單位及假設",
+            columns: ["符號", "單位", "意思"],
+            rows: [
+              ["P_model", "0 至 1 概率", "經事件時間窗及城市/測站映射後的預報模型事件概率。"],
+              ["P_market", "0 至 1 概率", "由價格或買賣中間價得出的市場隱含概率。"],
+              ["G_raw", "概率點", "模型概率減市場隱含概率的有符號差距。"],
+              ["G_adj", "概率點", "G_raw 乘以信心 C。"],
+              ["G_net", "概率點", "扣除費用、價差/滑點及風險緩衝後的 G_adj。"],
+              ["C", "0 至 1 分數", "來自預報一致性、新鮮度及驗證背景的信心。"],
+              ["p_i", "0 至 1 概率", "第 i 個已驗證事件的預報概率。"],
+              ["o_i", "0 或 1", "第 i 個已驗證事件的結果。"]
+            ]
           },
           {
             title: "訊號狀態",
@@ -1093,7 +1133,7 @@ export const zhHKDocTranslations = [
               ["Divergent", "模型-市場差異大，且信心與資料品質可接受。"],
               ["Stale", "市場或預報資料太舊，不能比較。"],
               ["Unavailable", "缺少模型、市場或映射資料。"],
-              ["Avoid", "預報不確定性、定義風險或流動性風險太高，不適合顯示強烈解釋訊號。"]
+              ["High uncertainty", "預報不確定性、定義風險或流動性風險太高，不適合顯示強烈分歧語言。"]
             ]
           }
         ]
@@ -1114,7 +1154,7 @@ export const zhHKDocTranslations = [
           },
           {
             title: "必要語言",
-            text: "訊號會解釋模型-市場分歧及資料品質。它們並非交易建議，也不代表保證獲利。"
+            text: "訊號會解釋預報模型分歧、市場隱含概率、資料新鮮度及不確定性。它們只供研究使用，並非交易建議。"
           }
         ]
       }
@@ -1125,7 +1165,7 @@ export const zhHKDocTranslations = [
     title: "預報模型公式參考",
     shortTitle: "公式參考",
     description: "涵蓋大氣方程、數值方法、資料同化、集合、驗證及市場訊號數學的技術參考。",
-    keywords: ["天氣公式", "大氣方程", "集合公式", "驗證指標", "市場優勢公式"],
+    keywords: ["天氣公式", "大氣方程", "集合公式", "驗證指標", "市場差距公式"],
     sections: [
       {
         title: "大氣方程",
@@ -1187,18 +1227,18 @@ export const zhHKDocTranslations = [
         ]
       },
       {
-        title: "市場優勢公式",
+        title: "市場差距公式",
         blocks: [
           { title: "市場隱含概率" },
           { title: "市場中間價概率" },
-          { title: "原始優勢" },
-          { title: "信心調整優勢" },
-          { title: "淨優勢" },
+          { title: "原始概率差距" },
+          { title: "信心調整差距" },
+          { title: "淨診斷差距" },
           { title: "校準 log loss" },
           { title: "示意 Kelly 比例" },
           {
             title: "非建議邊界",
-            text: "訊號會解釋模型-市場分歧及資料品質。它們並非交易建議，也不代表保證獲利。"
+            text: "訊號會解釋預報模型分歧、市場隱含概率、資料新鮮度及不確定性。它們只供研究使用，並非交易建議。"
           }
         ]
       }
@@ -1236,7 +1276,7 @@ export const zhHKDocTranslations = [
               ["網格距離", "模型網格點之間的距離。"],
               ["初始條件", "大氣的起始狀態。"],
               ["市場概率", "由預測市場價格推斷出的概率代理。"],
-              ["模型優勢", "模型估計概率與市場隱含概率之間的差異。"],
+              ["模型-市場差距", "模型估計概率與市場隱含概率之間的差異。"],
               ["NWP", "Numerical Weather Prediction。"],
               ["參數化", "對次網格物理過程的近似。"],
               ["物理方案", "表示輻射、雲、湍流、地表交換或其他物理過程的模型元件。"],

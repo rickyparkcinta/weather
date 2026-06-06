@@ -1,9 +1,9 @@
-import type { City, ForecastPoint } from "@/types/domain";
-import type { ForecastFetchOptions, ProviderResult, WeatherProviderAdapter } from "@/providers/weather/types";
+import type { ForecastPoint } from "@/types/domain";
+import type { ProviderResult, WeatherProviderAdapter } from "@/providers/weather/types";
 
 export const ecmwfAdapter: WeatherProviderAdapter = {
   name: "ecmwf",
-  async fetchForecastForCity(_city: City, _options?: ForecastFetchOptions): Promise<ProviderResult<ForecastPoint[]>> {
+  async fetchForecastForCity(): Promise<ProviderResult<ForecastPoint[]>> {
     return {
       ok: false,
       error: {

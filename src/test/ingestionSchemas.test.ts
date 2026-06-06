@@ -58,6 +58,22 @@ describe("ingestion schemas", () => {
     expect(result.success).toBe(true);
   });
 
+  it("accepts high uncertainty signal status", () => {
+    const result = combinedSignalsIngestSchema.safeParse({
+      citySlug: "seoul",
+      signals: [
+        {
+          providerEventId: "KX",
+          status: "high_uncertainty",
+          confidence: 0.2,
+          raw: {}
+        }
+      ]
+    });
+
+    expect(result.success).toBe(true);
+  });
+
   it("accepts unified normalized ingestion runs", () => {
     const result = ingestRunSchema.safeParse({
       providerId: "hourly-bot",

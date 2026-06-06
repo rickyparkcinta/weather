@@ -127,6 +127,7 @@ export function mapCombinedSignal(row: Row): CombinedSignal {
       status === "divergent" ||
       status === "stale" ||
       status === "unavailable" ||
+      status === "high_uncertainty" ||
       status === "avoid" ||
       status === "market_above_model" ||
       status === "model_above_market" ||

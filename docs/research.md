@@ -1,6 +1,6 @@
 # Research Notes
 
-This project intentionally avoids Windy branding, proprietary assets, private APIs, scraping, and trading recommendations. The production app reads normalized Supabase records. Provider adapters are for future bot/debug use only.
+This project intentionally avoids Windy branding, proprietary assets, private APIs, scraping, and trading advice. The production app reads normalized Supabase records. Provider adapters are for future bot/debug use only.
 
 ## Library And API Evaluation
 

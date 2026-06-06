@@ -1,5 +1,5 @@
-import type { City, ForecastPoint } from "@/types/domain";
-import type { ForecastFetchOptions, ProviderResult, WeatherProviderAdapter } from "@/providers/weather/types";
+import type { ForecastPoint } from "@/types/domain";
+import type { ProviderResult, WeatherProviderAdapter } from "@/providers/weather/types";
 
 export function buildNoaaGfsNomadsUrl(runDate: string, cycle = "00") {
   const url = new URL("https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl");
@@ -15,7 +15,7 @@ export function buildNoaaGfsNomadsUrl(runDate: string, cycle = "00") {
 
 export const noaaGfsAdapter: WeatherProviderAdapter = {
   name: "noaa-gfs",
-  async fetchForecastForCity(_city: City, _options?: ForecastFetchOptions): Promise<ProviderResult<ForecastPoint[]>> {
+  async fetchForecastForCity(): Promise<ProviderResult<ForecastPoint[]>> {
     return {
       ok: false,
       error: {

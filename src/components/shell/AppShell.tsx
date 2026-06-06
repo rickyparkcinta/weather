@@ -1,10 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
+import { Activity, Gauge } from "lucide-react";
 import { ClientMap } from "@/components/map/ClientMap";
+import { ProductBrand } from "@/components/shell/ProductHeader";
 import { BottomTimeline } from "@/components/ui/BottomTimeline";
+import { DataSourceBadge } from "@/components/ui/DataSourceBadge";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { LeftCityPanel } from "@/components/ui/LeftCityPanel";
 import { LoadingSkeleton } from "@/components/ui/LoadingSkeleton";
@@ -19,6 +23,10 @@ type CityPayload = {
   markets: MarketEvent[];
   signals: CombinedSignal[];
 };
+
+const EMPTY_FORECAST: ForecastPoint[] = [];
+const EMPTY_MARKETS: MarketEvent[] = [];
+const EMPTY_SIGNALS: CombinedSignal[] = [];
 
 async function getJson<T>(url: string): Promise<T> {
   const response = await fetch(url);
@@ -95,9 +103,9 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
   const cities = citiesQuery.data ?? initialData.cities;
   const selectedData = cityQuery.data;
   const selectedCity = selectedData?.city ?? cities.find((city) => city.slug === selectedSlug) ?? initialData.selectedCity;
-  const forecast = selectedData?.forecast ?? [];
-  const markets = selectedData?.markets ?? [];
-  const signals = selectedData?.signals ?? [];
+  const forecast = selectedData?.forecast ?? EMPTY_FORECAST;
+  const markets = selectedData?.markets ?? EMPTY_MARKETS;
+  const signals = selectedData?.signals ?? EMPTY_SIGNALS;
 
   const filteredForecast = useMemo(() => {
     if (forecast.length === 0) return forecast;
@@ -118,11 +126,36 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
       />
 
       <div className="pointer-events-none absolute inset-0 z-20 grid grid-rows-[auto_minmax(0,1fr)_auto] gap-3 p-3 sm:p-4">
-        <div className="flex min-w-0 items-start justify-between gap-2 sm:gap-4">
-          <TopSearch cities={cities} selectedCity={selectedCity} onSelect={handleSelectCity} />
-          <div className="flex shrink-0 items-start gap-2 sm:flex-col sm:items-end">
-            <RightLayerPanel layers={layers} onChange={setLayers} compact className="md:hidden" />
-            <RightLayerPanel layers={layers} onChange={setLayers} className="hidden md:block" />
+        <div className="flex min-w-0 flex-col gap-2">
+          <div className="flex items-center justify-between gap-2">
+            <div className="pointer-events-auto flex h-10 items-center rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 shadow-2xl backdrop-blur-xl">
+              <ProductBrand />
+            </div>
+            <div className="pointer-events-auto flex items-center gap-2">
+              <DataSourceBadge demoMode={initialData.demoMode} className="hidden sm:inline-flex" />
+              <Link
+                href="/signals"
+                className="inline-flex h-10 items-center gap-1.5 rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 text-sm text-slate-200 shadow-2xl backdrop-blur-xl hover:bg-white/8"
+              >
+                <Activity size={15} />
+                <span className="hidden sm:inline">Signals</span>
+              </Link>
+              <Link
+                href="/admin/health"
+                aria-label="Data health"
+                className="inline-flex h-10 items-center gap-1.5 rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 text-sm text-slate-200 shadow-2xl backdrop-blur-xl hover:bg-white/8"
+              >
+                <Gauge size={15} />
+                <span className="hidden sm:inline">Health</span>
+              </Link>
+            </div>
+          </div>
+          <div className="flex min-w-0 items-start justify-between gap-2 sm:gap-4">
+            <TopSearch cities={cities} selectedCity={selectedCity} onSelect={handleSelectCity} />
+            <div className="flex shrink-0 items-start gap-2 sm:flex-col sm:items-end">
+              <RightLayerPanel layers={layers} onChange={setLayers} compact className="md:hidden" />
+              <RightLayerPanel layers={layers} onChange={setLayers} className="hidden md:block" />
+            </div>
           </div>
         </div>
 

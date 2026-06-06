@@ -98,6 +98,9 @@ export type CombinedSignalStatus =
   | "divergent"
   | "stale"
   | "unavailable"
+  | "high_uncertainty"
+  // Legacy statuses accepted from older rows and adapters. UI maps these into
+  // the neutral display states above.
   | "avoid"
   | "market_above_model"
   | "model_above_market"

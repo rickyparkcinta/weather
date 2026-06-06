@@ -240,8 +240,13 @@ export const demoSignals: CombinedSignal[] = [
     modelProbability: 0.73,
     marketProbability: 0.55,
     disagreement: 0.18,
-    status: "model_above_market",
-    explanation: "Demo model precipitation probability is higher than the market-implied probability.",
+    rawEdge: 0.18,
+    adjustedEdge: 0.124,
+    confidence: 0.69,
+    freshnessStatus: "fresh",
+    status: "divergent",
+    explanation:
+      "Forecast-model precipitation probability sits above the market-implied probability with fresh inputs.",
     computedAt: now.toISOString(),
     raw: { demo: true }
   },
@@ -254,8 +259,13 @@ export const demoSignals: CombinedSignal[] = [
     modelProbability: 0.24,
     marketProbability: 0.31,
     disagreement: 0.07,
-    status: "aligned",
-    explanation: "Demo wind-risk signal is broadly aligned with market pricing.",
+    rawEdge: -0.07,
+    adjustedEdge: -0.045,
+    confidence: 0.64,
+    freshnessStatus: "aging",
+    status: "watch",
+    explanation:
+      "Market-implied typhoon risk sits modestly above the forecast-model proxy while inputs are aging.",
     computedAt: now.toISOString(),
     raw: { demo: true }
   },
@@ -268,8 +278,13 @@ export const demoSignals: CombinedSignal[] = [
     modelProbability: 0.35,
     marketProbability: 0.46,
     disagreement: 0.11,
-    status: "market_above_model",
-    explanation: "Demo market probability is above the rough model proxy.",
+    rawEdge: -0.11,
+    adjustedEdge: -0.072,
+    confidence: 0.66,
+    freshnessStatus: "fresh",
+    status: "divergent",
+    explanation:
+      "Market-implied heat probability is above the forecast-model proxy with fresh inputs.",
     computedAt: now.toISOString(),
     raw: { demo: true }
   }

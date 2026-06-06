@@ -10,6 +10,7 @@ const signalStatus = z.enum([
   "divergent",
   "stale",
   "unavailable",
+  "high_uncertainty",
   "avoid",
   "market_above_model",
   "model_above_market",

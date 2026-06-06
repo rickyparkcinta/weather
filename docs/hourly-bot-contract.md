@@ -81,8 +81,8 @@ The web route currently uses a submitted-payload adapter. The hourly bot perform
       "adjustedEdge": 0.136,
       "confidence": 0.8,
       "freshnessStatus": "fresh",
-      "status": "model_above_market",
-      "explanation": "Forecast-model proxy is above market-implied probability. Informational only.",
+      "status": "divergent",
+      "explanation": "Forecast-model probability is above market-implied probability with fresh inputs.",
       "raw": {}
     }
   ]
@@ -207,8 +207,12 @@ Response:
       "modelProbability": 0.72,
       "marketProbability": 0.55,
       "disagreement": 0.17,
-      "status": "model_above_market",
-      "explanation": "Model precipitation probability is higher than market-implied probability.",
+      "rawEdge": 0.17,
+      "adjustedEdge": 0.136,
+      "confidence": 0.8,
+      "freshnessStatus": "fresh",
+      "status": "divergent",
+      "explanation": "Model precipitation probability is higher than market-implied probability with fresh inputs.",
       "raw": {}
     }
   ]

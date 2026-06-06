@@ -23,7 +23,7 @@ The UI reads all data from Supabase. It shows a full-screen MapLibre map, major-
 4. Vercel-hosted Next.js app reads Supabase using the anon key.
 5. UI renders city forecast signals, linked markets, probability history, and model-vs-market disagreement.
 
-The app does not scrape, does not call private APIs, and does not recommend trades.
+The app does not scrape, does not call private APIs, and does not provide trading advice.
 
 ## Environment
 
