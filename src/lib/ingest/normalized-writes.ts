@@ -162,6 +162,18 @@ async function loadMarketEvents(client: SupabaseClient, providerEventIds: string
   return new Map((result.data ?? []).map((event) => [key([String(event.provider), String(event.provider_event_id)]), event]));
 }
 
+function uniqueMarketEventIdsByProviderEventId(events: Iterable<{ id: string; provider_event_id: string }>) {
+  const byProviderEventId = new Map<string, string | null>();
+
+  for (const event of events) {
+    const providerEventId = String(event.provider_event_id);
+    const existing = byProviderEventId.get(providerEventId);
+    byProviderEventId.set(providerEventId, existing === undefined ? String(event.id) : null);
+  }
+
+  return new Map([...byProviderEventId.entries()].flatMap(([providerEventId, id]) => (id ? [[providerEventId, id] as const] : [])));
+}
+
 async function upsertMarkets(
   client: SupabaseClient,
   records: NormalizedRecord[],
@@ -257,9 +269,7 @@ async function upsertMarkets(
     marketEventsUpserted: eventRows.length,
     marketLinksUpserted: links.length,
     marketTimeseriesUpserted: timeseriesRows.length,
-    eventByProviderEventId: new Map(
-      [...eventByKey.values()].map((event) => [String(event.provider_event_id), String(event.id)])
-    )
+    eventByProviderEventId: uniqueMarketEventIdsByProviderEventId(eventByKey.values())
   };
 }
 

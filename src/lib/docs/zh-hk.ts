@@ -963,20 +963,60 @@ export const zhHKDocTranslations = [
         ]
       },
       {
-        title: "資料庫 Schema 範例",
-        description: "以下範例是文件級 schema 介面。正式 migrations 可加入 RLS、索引、約束、enums 及供應商專用原始 payload 表。",
+        title: "標準資料接入合約",
+        description: "正式應用程式接收已標準化的供應商運行，而不是面向瀏覽器的供應商專用 payload。供應商擷取可放在每小時機械人或日後伺服器 adapter，但寫入路徑保持一致。",
         blocks: [
-          { title: "forecast_runs" },
-          { title: "forecast_points" },
-          { title: "forecast_verification" },
-          { title: "weather_signals" },
-          { title: "cities" },
-          { title: "market_events" },
-          { title: "market_history" },
-          { title: "combined_signals" },
+          { title: "ProviderAdapter" },
+          { title: "POST /api/ingest/run" },
+          {
+            title: "運行處理",
+            columns: ["關注點", "實作方式"],
+            rows: [
+              ["驗證", "所有資料接入路由都需要 Authorization: Bearer INGESTION_SECRET。"],
+              ["冪等性", "路由接受 Idempotency-Key header 或 body idempotencyKey，並把它儲存在供應商運行記錄。"],
+              ["供應商運行日誌", "provider_run_logs 會記錄供應商 ID、類型、adapter 版本、擷取時間、陳舊門檻、狀態、數量、錯誤及 metadata。"],
+              ["陳舊資料", "如果 fetchedAt 加 staleAfterMinutes 已經早於當前時間，寫入仍可完成，但運行及受影響訊號會標記為 stale。"],
+              ["失敗", "擷取、標準化或寫入例外會把 provider_run_logs 及 ingestion_runs 標記為 failed，並保留可供營運者閱讀的錯誤。"]
+            ]
+          },
+          {
+            title: "Adapter 邊界",
+            text: "供應商專用憑證及原始 API 細節應留在 provider adapters 或每小時機械人。應用程式 runtime 儲存已標準化記錄，並提供標準 API 輸出。"
+          }
+        ]
+      },
+      {
+        title: "標準儲存與地圖輸出",
+        description: "Supabase schema 儲存已標準化記錄；地圖 API 則發布預報、市場及訊號圖層，並包含信心、新鮮度、優勢及訊號狀態欄位。",
+        blocks: [
+          {
+            title: "標準化寫入目標",
+            columns: ["資料表", "用途"],
+            rows: [
+              ["provider_run_logs", "稽核供應商 adapter 運行、冪等 key、狀態、新鮮度、數量、錯誤及 metadata。"],
+              ["ingestion_runs", "保留 sync 及 ingestion 操作的相容運行歷史。"],
+              ["cities", "儲存標準城市身份、座標、時區、國家 metadata 及地圖重要度。"],
+              ["forecast_runs", "儲存 provider、model、run_time、source_url、status 及運行 metadata。"],
+              ["forecast_points", "按城市儲存預報變數，包括 provider、model、run time、forecast time、value、unit、confidence 及 raw audit data。"],
+              ["market_events", "儲存已標準化的 Kalshi、Polymarket 或日後市場事件，包括概率、買/賣價、流動性、狀態、標籤、城市連結及結算詳情。"],
+              ["market_timeseries", "按 market event 及 timestamp 儲存市場概率快照。"],
+              ["city_market_links", "把已標準化市場事件連接到一個或多個城市。"],
+              ["combined_signals", "儲存模型概率、市場概率、分歧、原始優勢、調整後優勢、信心、新鮮度狀態、訊號狀態及解釋。"]
+            ]
+          },
+          { title: "GET /api/map-layers" },
+          {
+            title: "圖層屬性",
+            columns: ["圖層", "核心屬性"],
+            rows: [
+              ["預報", "provider、model、variable、value、unit、confidence、freshness、forecastTime、runTime。"],
+              ["市場", "provider、providerEventId、title、probability、bid、ask、liquidity、volume、status、freshness。"],
+              ["訊號", "modelProbability、marketProbability、disagreement、rawEdge、adjustedEdge、confidence、freshness、state、explanation。"]
+            ]
+          },
           {
             title: "營運規則",
-            text: "把原始供應商細節留在 UI 元件之外。UI 應從 API 路由或伺服器資料載入器消費已標準化的領域記錄。"
+            text: "把原始供應商細節留在 UI 元件之外。UI 會透過伺服器資料載入器及標準地圖圖層路由消費已標準化的領域記錄。"
           }
         ]
       }

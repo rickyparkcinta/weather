@@ -1214,160 +1214,132 @@ export const docs: DocPage[] = [
         ]
       },
       {
-        title: "Database Schema Examples",
-        description: "These examples are documentation-grade schema surfaces. Production migrations can add RLS, indexes, constraints, enums, and provider-specific raw payload tables.",
+        title: "Canonical Ingestion Contract",
+        description: "The production app accepts normalized provider runs, not provider-specific browser payloads. Provider fetches can live in the hourly bot or in future server adapters, but the write path stays the same.",
         blocks: [
           {
             kind: "code",
-            title: "forecast_runs",
-            language: "sql",
-            code: `create table forecast_runs (
-  id uuid primary key,
-  provider text not null,
-  model text not null,
-  run_time timestamptz not null,
-  source_url text,
-  status text not null check (status in ('queued', 'running', 'complete', 'failed')),
-  normalization_version text not null,
-  ingested_at timestamptz not null default now(),
-  created_at timestamptz not null default now(),
-  unique (provider, model, run_time, normalization_version)
-);`
+            title: "ProviderAdapter",
+            language: "ts",
+            code: `export type ProviderAdapter = {
+  id: string;
+  type: "weather" | "market" | "observation";
+  version: string;
+  fetch: (input: AdapterInput) => Promise<RawProviderPayload>;
+  normalize: (payload: RawProviderPayload) => Promise<NormalizedRecord[]>;
+};`
           },
           {
             kind: "code",
-            title: "forecast_points",
-            language: "sql",
-            code: `create table forecast_points (
-  id uuid primary key,
-  run_id uuid not null references forecast_runs(id) on delete cascade,
-  city_id uuid,
-  valid_time timestamptz not null,
-  lead_time_hours int not null,
-  variable text not null,
-  value numeric not null,
-  unit text not null,
-  latitude numeric not null,
-  longitude numeric not null,
-  quality_flags text[] not null default '{}',
-  created_at timestamptz not null default now()
-);`
+            title: "POST /api/ingest/run",
+            language: "json",
+            code: `{
+  "providerId": "hourly-bot",
+  "providerType": "weather",
+  "adapterVersion": "normalized.v1",
+  "idempotencyKey": "open-meteo-2026-06-06T00",
+  "fetchedAt": "2026-06-06T00:12:00Z",
+  "staleAfterMinutes": 180,
+  "metadata": {
+    "source": "operator-bot"
+  },
+  "records": [
+    {
+      "kind": "forecast_point",
+      "citySlug": "seoul",
+      "provider": "open-meteo",
+      "model": "best_match",
+      "runTime": "2026-06-06T00:00:00Z",
+      "forecastTime": "2026-06-06T12:00:00Z",
+      "variable": "precipitation_probability",
+      "value": 0.72,
+      "unit": "probability",
+      "confidence": 0.8,
+      "raw": {}
+    }
+  ]
+}`
+          },
+          {
+            kind: "table",
+            title: "Run handling",
+            columns: ["Concern", "Implementation"],
+            rows: [
+              ["Authentication", "All ingestion routes require Authorization: Bearer INGESTION_SECRET."],
+              ["Idempotency", "The route accepts an Idempotency-Key header or body idempotencyKey and stores it with the provider run."],
+              ["Provider execution log", "provider_run_logs records provider ID, type, adapter version, fetched time, stale threshold, status, counts, error, and metadata."],
+              ["Stale data", "If fetchedAt plus staleAfterMinutes is already in the past, the write can complete but the run and affected signal state are marked stale."],
+              ["Failure", "Fetch, normalization, or write exceptions mark provider_run_logs and ingestion_runs as failed with an operator-readable error."]
+            ]
+          },
+          {
+            kind: "callout",
+            title: "Adapter boundary",
+            text: "Provider-specific credentials and raw API quirks belong in provider adapters or the hourly bot. The application runtime stores normalized records and exposes canonical API output."
+          }
+        ]
+      },
+      {
+        title: "Canonical Storage And Map Output",
+        description: "The Supabase schema stores normalized records, while the map API publishes forecast, market, and signal layers with confidence, freshness, edge, and signal state fields.",
+        blocks: [
+          {
+            kind: "table",
+            title: "Normalized write targets",
+            columns: ["Table", "Purpose"],
+            rows: [
+              ["provider_run_logs", "Audits provider adapter runs, idempotency keys, status, freshness, counts, errors, and metadata."],
+              ["ingestion_runs", "Maintains compatibility run history for sync and ingestion operations."],
+              ["cities", "Stores canonical city identity, coordinates, timezone, country metadata, and map importance."],
+              ["forecast_runs", "Stores provider, model, run_time, source_url, status, and run metadata."],
+              ["forecast_points", "Stores city-linked forecast variables by provider, model, run time, forecast time, value, unit, confidence, and raw audit data."],
+              ["market_events", "Stores normalized Kalshi, Polymarket, or future market events with probabilities, bid/ask, liquidity, status, tags, city links, and resolution details."],
+              ["market_timeseries", "Stores market probability snapshots keyed by market event and timestamp."],
+              ["city_market_links", "Connects normalized market events to one or more cities."],
+              ["combined_signals", "Stores model probability, market probability, disagreement, raw edge, adjusted edge, confidence, freshness status, signal state, and explanation."]
+            ]
           },
           {
             kind: "code",
-            title: "forecast_verification",
-            language: "sql",
-            code: `create table forecast_verification (
-  id uuid primary key,
-  forecast_point_id uuid references forecast_points(id) on delete set null,
-  model text not null,
-  city_id uuid,
-  variable text not null,
-  lead_time_hours int not null,
-  forecast_value numeric,
-  observed_value numeric,
-  absolute_error numeric,
-  squared_error numeric,
-  bias numeric,
-  event_outcome boolean,
-  verified_at timestamptz not null default now()
-);`
+            title: "GET /api/map-layers",
+            language: "json",
+            code: `{
+  "data": {
+    "generatedAt": "2026-06-06T00:20:00Z",
+    "city": {
+      "slug": "seoul",
+      "name": "Seoul",
+      "lat": 37.5665,
+      "lon": 126.978
+    },
+    "layers": {
+      "forecast": { "type": "FeatureCollection", "features": [] },
+      "markets": { "type": "FeatureCollection", "features": [] },
+      "signals": { "type": "FeatureCollection", "features": [] }
+    },
+    "summary": {
+      "forecastPoints": 0,
+      "markets": 0,
+      "signals": 0
+    }
+  },
+  "demoMode": false
+}`
           },
           {
-            kind: "code",
-            title: "weather_signals",
-            language: "sql",
-            code: `create table weather_signals (
-  id uuid primary key,
-  city_id uuid,
-  market_event_id uuid,
-  event_type text not null,
-  model_probability numeric not null check (model_probability >= 0 and model_probability <= 1),
-  confidence numeric not null check (confidence >= 0 and confidence <= 1),
-  volatility numeric,
-  model_disagreement numeric,
-  lead_time_hours int,
-  source_run_ids uuid[] not null default '{}',
-  created_at timestamptz not null default now()
-);`
-          },
-          {
-            kind: "code",
-            title: "cities",
-            language: "sql",
-            code: `create table cities (
-  id uuid primary key,
-  slug text not null unique,
-  name text not null,
-  country_code text not null,
-  latitude numeric not null,
-  longitude numeric not null,
-  timezone text not null,
-  primary_station_id text,
-  created_at timestamptz not null default now()
-);`
-          },
-          {
-            kind: "code",
-            title: "market_events",
-            language: "sql",
-            code: `create table market_events (
-  id uuid primary key,
-  provider text not null,
-  provider_market_id text not null,
-  city_id uuid references cities(id),
-  question text not null,
-  event_type text not null,
-  threshold numeric,
-  threshold_unit text,
-  event_start timestamptz,
-  event_end timestamptz,
-  resolution_source text,
-  status text not null,
-  unique (provider, provider_market_id)
-);`
-          },
-          {
-            kind: "code",
-            title: "market_history",
-            language: "sql",
-            code: `create table market_history (
-  id uuid primary key,
-  market_event_id uuid not null references market_events(id) on delete cascade,
-  observed_at timestamptz not null,
-  yes_bid numeric,
-  yes_ask numeric,
-  yes_mid numeric,
-  last_price numeric,
-  volume numeric,
-  liquidity numeric,
-  open_interest numeric,
-  raw_status text
-);`
-          },
-          {
-            kind: "code",
-            title: "combined_signals",
-            language: "sql",
-            code: `create table combined_signals (
-  id uuid primary key,
-  weather_signal_id uuid references weather_signals(id) on delete cascade,
-  market_event_id uuid references market_events(id) on delete cascade,
-  market_snapshot_id uuid references market_history(id) on delete set null,
-  model_probability numeric not null,
-  market_probability numeric,
-  raw_edge numeric,
-  adjusted_edge numeric,
-  confidence numeric not null,
-  signal_state text not null,
-  explanation text,
-  created_at timestamptz not null default now()
-);`
+            kind: "table",
+            title: "Layer properties",
+            columns: ["Layer", "Core properties"],
+            rows: [
+              ["Forecast", "provider, model, variable, value, unit, confidence, freshness, forecastTime, runTime."],
+              ["Markets", "provider, providerEventId, title, probability, bid, ask, liquidity, volume, status, freshness."],
+              ["Signals", "modelProbability, marketProbability, disagreement, rawEdge, adjustedEdge, confidence, freshness, state, explanation."]
+            ]
           },
           {
             kind: "callout",
             title: "Operational rule",
-            text: "Keep raw provider details out of UI components. The UI should consume normalized domain records from API routes or server data loaders."
+            text: "Keep raw provider details out of UI components. The UI consumes normalized domain records through server loaders and the canonical map-layer route."
           }
         ]
       }

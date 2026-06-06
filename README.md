@@ -56,10 +56,12 @@ Supabase URL, anon key, and service role key must be configured and the migratio
 
 1. Create a Supabase project.
 2. Run `supabase/migrations/0001_init.sql`.
-3. Run `supabase/seed.sql`.
-4. Copy the project URL and anon key into Vercel.
-5. Copy the service role key into Vercel as `SUPABASE_SERVICE_ROLE_KEY`.
-6. Create a strong `INGESTION_SECRET` for the hourly bot.
+3. Run `supabase/migrations/0002_ingest_run_foundation.sql`.
+4. Run `supabase/migrations/0003_idempotency_upsert_indexes.sql`.
+5. Run `supabase/seed.sql`.
+6. Copy the project URL and anon key into Vercel.
+7. Copy the service role key into Vercel as `SUPABASE_SERVICE_ROLE_KEY`.
+8. Create a strong `INGESTION_SECRET` for the hourly bot.
 
 RLS is enabled on every table. Public anon users can only read app data tables. The service role key is required for ingestion writes and must never be exposed in browser code.
 
@@ -80,12 +82,16 @@ RLS is enabled on every table. Public anon users can only read app data tables. 
 - `GET /api/markets/[id]`
 - `GET /api/markets/[id]/history`
 - `GET /api/combined-signals?cityId=...`
+- `GET /api/map-layers?city=...`
 - `POST /api/sync/real-api`
+- `POST /api/ingest/run`
 - `POST /api/ingest/forecast`
 - `POST /api/ingest/markets`
 - `POST /api/ingest/combined-signals`
 
 Ingestion and sync routes require `Authorization: Bearer ${INGESTION_SECRET}`.
+
+`POST /api/ingest/run` is the canonical normalized ingestion endpoint for new provider adapters. It logs execution in `provider_run_logs`, supports an `Idempotency-Key` header or body `idempotencyKey`, writes forecast/market/timeseries/signal records through the shared normalized writer, and returns the write result used by the map layer API. The narrower `/api/ingest/forecast`, `/api/ingest/markets`, and `/api/ingest/combined-signals` routes are compatibility surfaces.
 
 ## Real API Sync
 
