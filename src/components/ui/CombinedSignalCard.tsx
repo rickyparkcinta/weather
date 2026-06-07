@@ -1,14 +1,24 @@
+import { WeatherImpactAgentPanel } from "@/components/signals/WeatherImpactAgentPanel";
 import { ConfidenceBadge, FreshnessBadge, SignalStateBadge } from "@/components/ui/SignalBadge";
 import { formatSignedPercent } from "@/lib/signals/classify";
 import { addHoursIso, cn, formatCompactNumber, formatDateTime, formatPercent } from "@/lib/utils";
-import type { CombinedSignal, MarketEvent } from "@/types/domain";
+import type { CombinedSignal, MarketEvent, WeatherAgentReport } from "@/types/domain";
 
-export function CombinedSignalCard({ signal, market }: { signal: CombinedSignal; market?: MarketEvent | null }) {
+export function CombinedSignalCard({
+  signal,
+  market,
+  weatherAgentReport
+}: {
+  signal: CombinedSignal;
+  market?: MarketEvent | null;
+  weatherAgentReport?: WeatherAgentReport | null;
+}) {
   const rawEdge = typeof signal.rawEdge === "number" ? signal.rawEdge : null;
   const adjustedEdge = typeof signal.adjustedEdge === "number" ? signal.adjustedEdge : null;
   const marketSnapshot = marketTimestamp(market);
   const staleAfter = addHoursIso(signal.computedAt ?? marketSnapshot, 24);
   const spread = marketSpread(market);
+  const fallback = signal.raw?.weatherImpactReport;
 
   return (
     <article className="rounded-md border border-white/12 bg-white/[0.04] p-3">
@@ -42,6 +52,8 @@ export function CombinedSignalCard({ signal, market }: { signal: CombinedSignal;
         <Stat label="Spread" value={spread} />
         <Stat label="Liquidity" value={formatCompactNumber(market?.liquidity)} />
       </div>
+
+      <WeatherImpactAgentPanel report={weatherAgentReport ?? null} compact fallback={fallback} />
     </article>
   );
 }

@@ -188,7 +188,7 @@ export async function listWeatherAgentReports(input: {
   if (input.cityId) query = query.eq("city_id", input.cityId);
   if (input.marketEventId) query = query.eq("market_event_id", input.marketEventId);
 
-  const { data, error } = await query.limit(input.limit ?? 20);
+  const { data, error } = await query.limit(input.limit ?? 200);
   if (error) {
     throw new Error(error.message);
   }
@@ -203,10 +203,11 @@ export async function getDashboardData(preferredSlug?: string): Promise<Dashboar
     cities[0] ??
     fallbackCity(preferredSlug);
 
-  const [forecast, markets, signals] = await Promise.all([
+  const [forecast, markets, signals, weatherAgentReports] = await Promise.all([
     listForecastPoints({ cityId: selectedCity.id }),
     listMarkets({ cityId: selectedCity.id }),
-    listCombinedSignals(selectedCity.id)
+    listCombinedSignals(selectedCity.id),
+    listWeatherAgentReports({ cityId: selectedCity.id, limit: 200 })
   ]);
 
   return {
@@ -215,6 +216,7 @@ export async function getDashboardData(preferredSlug?: string): Promise<Dashboar
     forecast,
     markets,
     signals,
+    weatherAgentReports,
     demoMode: usingDemoData(),
     generatedAt: new Date().toISOString()
   };

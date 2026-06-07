@@ -6,9 +6,10 @@ import { ForecastSummaryCard } from "@/components/ui/ForecastSummaryCard";
 import { MarketCard } from "@/components/ui/MarketCard";
 import { ConfidenceBadge, FreshnessBadge, SignalStateBadge } from "@/components/ui/SignalBadge";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
+import { getLatestWeatherAgentReportForSignal } from "@/lib/signals/weatherAgentReports";
 import { effectiveGap, formatSignedPercent } from "@/lib/signals/classify";
 import { cn, formatCompactNumber, formatPercent } from "@/lib/utils";
-import type { City, CombinedSignal, ForecastPoint, MarketEvent } from "@/types/domain";
+import type { City, CombinedSignal, ForecastPoint, MarketEvent, WeatherAgentReport } from "@/types/domain";
 
 function strongestSignal(signals: CombinedSignal[]): CombinedSignal | null {
   return (
@@ -31,6 +32,7 @@ export function LeftCityPanel({
   forecast,
   markets,
   signals,
+  weatherAgentReports,
   onOpenMarket,
   className
 }: {
@@ -38,6 +40,7 @@ export function LeftCityPanel({
   forecast: ForecastPoint[];
   markets: MarketEvent[];
   signals: CombinedSignal[];
+  weatherAgentReports: WeatherAgentReport[];
   onOpenMarket: (market: MarketEvent) => void;
   className?: string;
 }) {
@@ -101,6 +104,7 @@ export function LeftCityPanel({
                   key={signal.id ?? signal.marketEventId ?? signal.forecastVariable ?? "signal"}
                   signal={signal}
                   market={signal.marketEventId ? markets.find((market) => market.id === signal.marketEventId) : null}
+                  weatherAgentReport={getLatestWeatherAgentReportForSignal(signal, weatherAgentReports)}
                 />
               ))
             ) : (

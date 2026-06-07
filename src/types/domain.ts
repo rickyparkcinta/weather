@@ -135,8 +135,8 @@ export type WeatherAgentReport = {
   status: string;
   weatherSnapshot: JsonRecord;
   recommendations: unknown[];
-  rationale: unknown[];
-  riskNotes: unknown[];
+  rationale: string[];
+  riskNotes: string[];
   disclaimer: string;
   modelVersion: string;
   computedAt: string | null;
@@ -149,6 +149,7 @@ export type DashboardData = {
   forecast: ForecastPoint[];
   markets: MarketEvent[];
   signals: CombinedSignal[];
+  weatherAgentReports: WeatherAgentReport[];
   demoMode: boolean;
   generatedAt: string;
 };

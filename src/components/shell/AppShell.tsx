@@ -16,18 +16,20 @@ import { MarketDrawer } from "@/components/ui/MarketDrawer";
 import { type LayerState, RightLayerPanel } from "@/components/ui/RightLayerPanel";
 import { TopSearch } from "@/components/ui/TopSearch";
 import { appCopy, localizedPath, type AppLocale } from "@/lib/i18n";
-import type { City, CombinedSignal, DashboardData, ForecastPoint, MarketEvent } from "@/types/domain";
+import type { City, CombinedSignal, DashboardData, ForecastPoint, MarketEvent, WeatherAgentReport } from "@/types/domain";
 
 type CityPayload = {
   city: City;
   forecast: ForecastPoint[];
   markets: MarketEvent[];
   signals: CombinedSignal[];
+  weatherAgentReports: WeatherAgentReport[];
 };
 
 const EMPTY_FORECAST: ForecastPoint[] = [];
 const EMPTY_MARKETS: MarketEvent[] = [];
 const EMPTY_SIGNALS: CombinedSignal[] = [];
+const EMPTY_WEATHER_AGENT_REPORTS: WeatherAgentReport[] = [];
 
 async function getJson<T>(url: string): Promise<T> {
   const response = await fetch(url);
@@ -145,7 +147,8 @@ export function AppShell({
             city: initialData.selectedCity,
             forecast: initialData.forecast,
             markets: initialData.markets,
-            signals: initialData.signals
+            signals: initialData.signals,
+            weatherAgentReports: initialData.weatherAgentReports
           }
         : undefined
   });
@@ -183,6 +186,7 @@ export function AppShell({
   const forecast = selectedData?.forecast ?? EMPTY_FORECAST;
   const markets = selectedData?.markets ?? EMPTY_MARKETS;
   const signals = selectedData?.signals ?? EMPTY_SIGNALS;
+  const weatherAgentReports = selectedData?.weatherAgentReports ?? EMPTY_WEATHER_AGENT_REPORTS;
 
   const filteredForecast = useMemo(() => {
     if (forecast.length === 0) return forecast;
@@ -251,6 +255,7 @@ export function AppShell({
                 forecast={forecast}
                 markets={markets}
                 signals={signals}
+                weatherAgentReports={weatherAgentReports}
                 onOpenMarket={handleSelectMarket}
               />
             )}
