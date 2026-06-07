@@ -7,7 +7,7 @@ type NavKey = "map" | "signals" | "health";
 
 const NAV: { key: NavKey; label: string; href: string; icon: typeof MapIcon }[] = [
   { key: "map", label: "Map", href: "/", icon: MapIcon },
-  { key: "signals", label: "Signals", href: "/signals", icon: Activity },
+  { key: "signals", label: "Odds", href: "/signals", icon: Activity },
   { key: "health", label: "Health", href: "/admin/health", icon: Gauge }
 ];
 
@@ -20,7 +20,7 @@ export function ProductBrand({ className }: { className?: string }) {
       <span className="flex flex-col leading-none">
         <span className="text-sm font-semibold tracking-tight text-white">Weather AI</span>
         <span className="mt-0.5 text-[10px] uppercase tracking-[0.14em] text-slate-500">
-          Forecast Market Map
+          Odds Analysis Map
         </span>
       </span>
     </Link>
