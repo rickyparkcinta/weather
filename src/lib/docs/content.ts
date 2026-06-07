@@ -1,4 +1,11 @@
 import { zhHKDocTranslations, zhHKDocsCopy, zhHKSourceLinkTranslations } from "./zh-hk.ts";
+import {
+  formulaCategoryTitles,
+  getFormulaById,
+  getFormulasByCategory,
+  type FormulaCategory,
+  type FormulaId
+} from "./formulas";
 
 export type SourceId =
   | "ncei-nwp"
@@ -219,6 +226,23 @@ export const technicalSummary =
 
 const noAdviceText =
   "Signals explain forecast-model disagreement, market-implied probability, data freshness, and uncertainty. They are for research only and are not trading advice.";
+
+function formulaBlock(
+  id: FormulaId,
+  overrides: Partial<Pick<Extract<DocBlock, { kind: "formula" }>, "title" | "description">> = {}
+): Extract<DocBlock, { kind: "formula" }> {
+  const formula = getFormulaById(id);
+  return {
+    kind: "formula",
+    title: overrides.title ?? formula.title,
+    expression: formula.latex,
+    description: overrides.description ?? formula.plainEnglish
+  };
+}
+
+function formulaBlocksByCategory(category: FormulaCategory): Extract<DocBlock, { kind: "formula" }>[] {
+  return getFormulasByCategory(category).map((formula) => formulaBlock(formula.id));
+}
 
 const commonAtmosphericVariables = [
   ["T", "Temperature"],
@@ -1494,18 +1518,13 @@ export type ProviderRunLog = {
             description: "A market signal should only exist after event mapping, forecast probability, market liquidity, and data freshness checks are complete.",
             variant: "model-market-signal-flow"
           },
-          {
-            kind: "formula",
-            title: "Market-implied probability",
-            expression: "P_{market} \\approx Price",
+          formulaBlock("market-implied-probability", {
             description: "For simple binary contracts, a normalized price from 0 to 1 can be used as a market-implied probability proxy before fees, spreads, and liquidity are considered."
-          },
-          {
-            kind: "formula",
+          }),
+          formulaBlock("raw-edge", {
             title: "Raw probability gap",
-            expression: "G_{raw} = P_{model} - P_{market}",
-            description: "G_raw is measured in probability points. A positive value means the forecast-model probability is higher than the market-implied probability."
-          }
+            description: "The raw edge is measured in probability points. A positive value means the forecast-model probability is higher than the market-implied probability."
+          })
         ]
       },
       {
@@ -1517,42 +1536,26 @@ export type ProviderRunLog = {
             description: "Confidence converts raw disagreement into a more conservative explanatory score.",
             variant: "forecast-edge"
           },
-          {
-            kind: "formula",
+          formulaBlock("confidence-adjusted-edge", {
             title: "Confidence-adjusted gap",
-            expression: "G_{adj} = (P_{model} - P_{market}) \\times C",
             description: "C is a unitless confidence score from 0 to 1 based on forecast agreement, freshness, and verification context."
-          },
-          {
-            kind: "formula",
+          }),
+          formulaBlock("net-edge", {
             title: "Net diagnostic gap",
-            expression: "G_{net} = G_{adj} - Fees - Slippage - RiskBuffer",
             description: "Fees, slippage, and risk buffer are probability-point penalties. This is a diagnostic framework, not a transaction instruction."
-          },
-          {
-            kind: "formula",
-            title: "Market mid probability",
-            expression: "P_{market} = \\frac{p_{bid} + p_{ask}}{2}",
+          }),
+          formulaBlock("market-mid-probability", {
             description: "p_bid and p_ask are normalized bid and ask probabilities from 0 to 1. Using the mid probability reduces bias from a wide bid-ask spread."
-          },
-          {
-            kind: "formula",
-            title: "Calibration log loss",
-            expression: "L = -\\frac{1}{N}\\sum_{i=1}^{N}\\left[o_i \\ln p_i + (1 - o_i)\\ln(1 - p_i)\\right]",
+          }),
+          formulaBlock("calibration-log-loss", {
             description: "p_i is a forecast probability from 0 to 1, o_i is the resolved binary outcome, and N is the number of verified events."
-          },
-          {
-            kind: "formula",
-            title: "Signal threshold",
-            expression: "\\left|G_{net}\\right| > Threshold",
+          }),
+          formulaBlock("signal-threshold", {
             description: "Thresholds should be conservative and depend on data quality, market liquidity, and verification history."
-          },
-          {
-            kind: "formula",
-            title: "Illustrative Kelly fraction",
-            expression: "f^{*} = \\frac{P_{model} - P_{market}}{1 - P_{market}}",
+          }),
+          formulaBlock("illustrative-kelly-fraction", {
             description: "Shown only to illustrate a theoretical relationship between model probability and price. It is not exposed in the primary UI and is not a recommendation."
-          },
+          }),
           {
             kind: "table",
             title: "Variables, units, and assumptions",
@@ -1575,7 +1578,7 @@ export type ProviderRunLog = {
             rows: [
               ["Aligned", "Model probability and market probability are close."],
               ["Watch", "Small or moderate difference, or confidence is not strong enough."],
-              ["Divergent", "Large model-market difference with acceptable confidence and data quality."],
+              ["Divergence", "Large model-market difference with acceptable confidence and data quality."],
               ["Stale", "Market or forecast data is too old to compare."],
               ["Unavailable", "Missing model, market, or mapping data."],
               ["High uncertainty", "Forecast uncertainty, definition risk, or liquidity risk is too high for strong divergence language."]
@@ -1617,74 +1620,29 @@ export type ProviderRunLog = {
     references: ["ncei-nwp", "ecmwf-ifs", "wmo-verification"],
     sections: [
       {
-        title: "Atmospheric Equations",
-        blocks: [
-          { kind: "formula", title: "Equation of state", expression: "p = \\rho R_d T" },
-          { kind: "formula", title: "Momentum", expression: "\\frac{D\\vec{V}}{Dt} = -\\frac{1}{\\rho}\\nabla p - 2\\vec{\\Omega} \\times \\vec{V} + \\vec{g} + \\vec{F}" },
-          { kind: "formula", title: "Mass continuity", expression: "\\frac{\\partial \\rho}{\\partial t} + \\nabla \\cdot (\\rho \\vec{V}) = 0" },
-          { kind: "formula", title: "Hydrostatic balance", expression: "\\frac{\\partial p}{\\partial z} = -\\rho g" },
-          { kind: "formula", title: "Thermodynamic tendency", expression: "\\frac{DT}{Dt} = \\frac{Q}{c_p} - \\frac{\\omega}{\\rho c_p}" },
-          { kind: "formula", title: "Moisture tendency", expression: "\\frac{Dq}{Dt} = E - C + S_q" },
-          { kind: "formula", title: "Potential temperature", expression: "\\theta = T\\left(\\frac{p_0}{p}\\right)^{R_d/c_p}" },
-          { kind: "formula", title: "Clausius-Clapeyron", expression: "\\frac{d e_s}{dT} = \\frac{L_v\\, e_s}{R_v T^2}" },
-          { kind: "formula", title: "Geostrophic balance", expression: "\\vec{V}_g = \\frac{1}{\\rho f}\\,\\hat{k} \\times \\nabla p" }
-        ]
+        title: formulaCategoryTitles["atmospheric-equations"],
+        blocks: formulaBlocksByCategory("atmospheric-equations")
       },
       {
-        title: "Numerical Methods",
-        blocks: [
-          { kind: "formula", title: "Forward time step", expression: "X^{n+1} = X^n + \\Delta t F(X^n)" },
-          { kind: "formula", title: "Leapfrog scheme", expression: "X^{n+1} = X^{n-1} + 2\\Delta t\\, F(X^n)" },
-          { kind: "formula", title: "Advection", expression: "\\frac{\\partial \\phi}{\\partial t} = -\\vec{V} \\cdot \\nabla \\phi + S_\\phi" },
-          { kind: "formula", title: "Spatial derivative", expression: "\\frac{\\partial T}{\\partial x} \\approx \\frac{T_{i+1} - T_i}{\\Delta x}" },
-          { kind: "formula", title: "CFL condition", expression: "\\frac{u\\Delta t}{\\Delta x} \\le 1" },
-          { kind: "formula", title: "Diffusive stability", expression: "\\frac{\\kappa\\,\\Delta t}{(\\Delta x)^2} \\le \\frac{1}{2}" },
-          { kind: "formula", title: "Compute scaling", expression: "Cost \\propto GridCells \\times VerticalLayers \\times TimeSteps \\times EnsembleMembers" }
-        ]
+        title: formulaCategoryTitles["numerical-methods"],
+        blocks: formulaBlocksByCategory("numerical-methods")
       },
       {
-        title: "Data Assimilation",
-        blocks: [
-          { kind: "formula", title: "Variational objective", expression: "J(x) = (x - x_b)^T B^{-1}(x - x_b) + (y - H(x))^T R^{-1}(y - H(x))" },
-          { kind: "formula", title: "Analysis update", expression: "x_a = x_b + K(y - Hx_b)" },
-          { kind: "formula", title: "Kalman gain", expression: "K = BH^T(HBH^T + R)^{-1}" },
-          { kind: "formula", title: "Analysis error covariance", expression: "A = (I - KH)B" },
-          { kind: "formula", title: "4D-Var cost", expression: "J(x_0) = \\frac{1}{2}(x_0 - x_b)^T B^{-1}(x_0 - x_b) + \\frac{1}{2}\\sum_{k=0}^{K}(y_k - H_k(x_k))^T R_k^{-1}(y_k - H_k(x_k))" }
-        ]
+        title: formulaCategoryTitles["data-assimilation"],
+        blocks: formulaBlocksByCategory("data-assimilation")
       },
       {
-        title: "Ensembles",
-        blocks: [
-          { kind: "formula", title: "Ensemble mean", expression: "\\bar{x} = \\frac{1}{N}\\sum_{i=1}^{N}x_i" },
-          { kind: "formula", title: "Ensemble spread", expression: "\\sigma = \\sqrt{\\frac{1}{N-1}\\sum_{i=1}^{N}(x_i - \\bar{x})^2}" },
-          { kind: "formula", title: "Event probability", expression: "P(E) = \\frac{n_E}{N}" },
-          { kind: "formula", title: "Percentile forecast", expression: "Q_p = percentile(\\{x_1, x_2, ..., x_N\\}, p)" },
-          { kind: "formula", title: "Spread-skill", expression: "\\langle \\sigma^2 \\rangle \\approx \\langle (\\bar{x} - o)^2 \\rangle" },
-          { kind: "formula", title: "CRPS", expression: "\\mathrm{CRPS} = \\int_{-\\infty}^{\\infty}\\left(F(x) - \\mathbf{1}\\{x \\ge o\\}\\right)^2 dx" }
-        ]
+        title: formulaCategoryTitles.ensembles,
+        blocks: formulaBlocksByCategory("ensembles")
       },
       {
-        title: "Verification Metrics",
-        blocks: [
-          { kind: "formula", title: "MAE", expression: "MAE = \\frac{1}{N}\\sum_{i=1}^{N}|f_i - o_i|" },
-          { kind: "formula", title: "RMSE", expression: "RMSE = \\sqrt{\\frac{1}{N}\\sum_{i=1}^{N}(f_i - o_i)^2}" },
-          { kind: "formula", title: "Bias", expression: "Bias = \\frac{1}{N}\\sum_{i=1}^{N}(f_i - o_i)" },
-          { kind: "formula", title: "Brier Score", expression: "BS = \\frac{1}{N}\\sum_{i=1}^{N}(p_i - o_i)^2", description: "p_i is a forecast probability from 0 to 1 and o_i is the binary observed outcome." },
-          { kind: "formula", title: "Brier Skill Score", expression: "\\mathrm{BSS} = 1 - \\frac{BS}{BS_{ref}}" },
-          { kind: "formula", title: "ACC", expression: "\\mathrm{ACC} = \\frac{\\sum_i (f_i - c_i)(o_i - c_i)}{\\sqrt{\\sum_i (f_i - c_i)^2 \\, \\sum_i (o_i - c_i)^2}}" },
-          { kind: "formula", title: "Skill Score", expression: "Skill = 1 - \\frac{Score_{model}}{Score_{reference}}" }
-        ]
+        title: formulaCategoryTitles["verification-metrics"],
+        blocks: formulaBlocksByCategory("verification-metrics")
       },
       {
-        title: "Market Gap Formulas",
+        title: formulaCategoryTitles["market-gap-formulas"],
         blocks: [
-          { kind: "formula", title: "Market-implied probability", expression: "P_{market} \\approx Price", description: "Price is normalized to a 0-to-1 probability proxy before fees and spread diagnostics." },
-          { kind: "formula", title: "Market mid probability", expression: "P_{market} = \\frac{p_{bid} + p_{ask}}{2}", description: "p_bid and p_ask are normalized bid and ask probabilities from 0 to 1." },
-          { kind: "formula", title: "Raw probability gap", expression: "G_{raw} = P_{model} - P_{market}", description: "Measured in probability points; positive means the model probability is higher than the market-implied probability." },
-          { kind: "formula", title: "Confidence-adjusted gap", expression: "G_{adj} = (P_{model} - P_{market})C", description: "C is a unitless 0-to-1 confidence score." },
-          { kind: "formula", title: "Net diagnostic gap", expression: "G_{net} = G_{adj} - Fees - Slippage - RiskBuffer", description: "Fees, slippage, and risk buffer are probability-point diagnostic penalties." },
-          { kind: "formula", title: "Calibration log loss", expression: "L = -\\frac{1}{N}\\sum_{i=1}^{N}\\left[o_i \\ln p_i + (1 - o_i)\\ln(1 - p_i)\\right]", description: "p_i is a forecast probability, o_i is a binary outcome, and N is the event count." },
-          { kind: "formula", title: "Illustrative Kelly fraction", expression: "f^{*} = \\frac{P_{model} - P_{market}}{1 - P_{market}}", description: "Illustrative only; not exposed in the primary UI and not a recommendation." },
+          ...formulaBlocksByCategory("market-gap-formulas"),
           { kind: "callout", title: "Non-advice boundary", text: noAdviceText }
         ]
       }

@@ -1234,7 +1234,9 @@ export const zhHKDocTranslations = [
           { title: "原始概率差距" },
           { title: "信心調整差距" },
           { title: "淨診斷差距" },
+          { title: "信心評分" },
           { title: "校準 log loss" },
+          { title: "訊號門檻" },
           { title: "示意 Kelly 比例" },
           {
             title: "非建議邊界",

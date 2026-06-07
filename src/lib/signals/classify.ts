@@ -43,8 +43,8 @@ const STATE_META: Record<SignalState, Omit<SignalStateMeta, "state">> = {
     helpText: "The signal is useful for monitoring, but the gap is not large enough for divergent status."
   },
   divergent: {
-    label: "Divergent",
-    short: "Divergent",
+    label: "Divergence",
+    short: "Divergence",
     tone: "negative",
     description: "Forecast-model probability and market-implied probability differ materially.",
     helpText: "The probability gap is large enough to flag as divergent after confidence and freshness checks."
