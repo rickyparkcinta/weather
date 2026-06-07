@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { Activity, Gauge } from "lucide-react";
+import { Activity, BookOpen, Gauge } from "lucide-react";
 import { ClientMap } from "@/components/map/ClientMap";
 import { ProductBrand } from "@/components/shell/ProductHeader";
 import { BottomTimeline } from "@/components/ui/BottomTimeline";
@@ -139,6 +139,13 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
               >
                 <Activity size={15} />
                 <span className="hidden sm:inline">Signals</span>
+              </Link>
+              <Link
+                href="/docs"
+                className="inline-flex h-10 items-center gap-1.5 rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 text-sm text-slate-200 shadow-2xl backdrop-blur-xl hover:bg-white/8"
+              >
+                <BookOpen size={15} />
+                <span className="hidden sm:inline">Docs</span>
               </Link>
               <Link
                 href="/admin/health"
