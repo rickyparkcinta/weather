@@ -1,7 +1,7 @@
 import { jsonError, jsonOk } from "@/lib/api/responses";
 import { assertIngestionAuth } from "@/lib/ingest/auth";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
-import { syncRealApiData, type RealApiSyncOptions } from "@/lib/sync/real-api-sync";
+import { realApiSyncOptionsFromEnv, syncRealApiData, type RealApiSyncOptions } from "@/lib/sync/real-api-sync";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -21,22 +21,65 @@ function bodyOptions(input: unknown): RealApiSyncOptions {
   };
 }
 
-export async function POST(request: Request) {
-  const auth = assertIngestionAuth(request);
-  if (!auth.ok) {
-    return jsonError(auth.message, auth.status);
-  }
+function queryOptions(request: Request): RealApiSyncOptions {
+  const url = new URL(request.url);
+  const numberParam = (name: string) => {
+    const raw = url.searchParams.get(name);
+    if (!raw) return undefined;
+    const value = Number(raw);
+    return Number.isFinite(value) ? value : undefined;
+  };
+  const booleanParam = (name: string) => {
+    const raw = url.searchParams.get(name)?.toLowerCase();
+    if (!raw) return undefined;
+    if (["1", "true", "yes"].includes(raw)) return true;
+    if (["0", "false", "no"].includes(raw)) return false;
+    return undefined;
+  };
+  const marketQueries = url.searchParams.get("marketQueries")?.split(",").map((query) => query.trim()).filter(Boolean);
 
+  return {
+    cityLimit: numberParam("cityLimit"),
+    forecastDays: numberParam("forecastDays"),
+    marketLimit: numberParam("marketLimit"),
+    marketQueries: marketQueries?.length ? marketQueries : undefined,
+    includeKalshi: booleanParam("includeKalshi"),
+    includePolymarket: booleanParam("includePolymarket")
+  };
+}
+
+async function runSync(options: RealApiSyncOptions) {
   const client = getSupabaseAdminClient();
   if (!client) {
     return jsonError("Supabase admin client is not configured", 503);
   }
 
   try {
-    const payload = await request.json().catch(() => ({}));
-    const result = await syncRealApiData(client, bodyOptions(payload));
+    const result = await syncRealApiData(client, {
+      ...realApiSyncOptionsFromEnv(process.env),
+      ...options
+    });
     return jsonOk({ data: result });
   } catch (error) {
     return jsonError("Real API sync failed", 500, error instanceof Error ? error.message : error);
   }
+}
+
+export async function GET(request: Request) {
+  const auth = assertIngestionAuth(request);
+  if (!auth.ok) {
+    return jsonError(auth.message, auth.status);
+  }
+
+  return runSync(queryOptions(request));
+}
+
+export async function POST(request: Request) {
+  const auth = assertIngestionAuth(request);
+  if (!auth.ok) {
+    return jsonError(auth.message, auth.status);
+  }
+
+  const payload = await request.json().catch(() => ({}));
+  return runSync(bodyOptions(payload));
 }
