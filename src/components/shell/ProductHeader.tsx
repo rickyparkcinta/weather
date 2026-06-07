@@ -1,13 +1,14 @@
 import Link from "next/link";
-import { Activity, BookOpen, Database, DollarSign, Gauge, Map as MapIcon, Radar, ShieldCheck } from "lucide-react";
+import { Activity, BookOpen, Database, DollarSign, Gauge, Map as MapIcon, Network, Radar, ShieldCheck } from "lucide-react";
 import { DataSourceBadge } from "@/components/ui/DataSourceBadge";
 import { appCopy, localizedPath, type AppCopy, type AppLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-type NavKey = "map" | "signals" | "data" | "weather-bonds" | "pricing" | "docs" | "health";
+type NavKey = "map" | "graph" | "signals" | "data" | "weather-bonds" | "pricing" | "docs" | "health";
 
 const NAV: { key: NavKey; label: string; href: string; icon: typeof MapIcon }[] = [
   { key: "map", label: "Map", href: "/", icon: MapIcon },
+  { key: "graph", label: "Graph", href: "/graph", icon: Network },
   { key: "signals", label: "Odds", href: "/signals", icon: Activity },
   { key: "data", label: "Data", href: "/data", icon: Database },
   { key: "weather-bonds", label: "Weather bonds", href: "/weather-bonds", icon: ShieldCheck },
@@ -62,6 +63,7 @@ export function ProductHeader({
   const copy = appCopy[locale];
   const labels: Record<NavKey, string> = {
     map: copy.nav.map,
+    graph: copy.nav.graph,
     signals: copy.nav.signals,
     data: copy.nav.data,
     "weather-bonds": copy.nav.weatherBonds,

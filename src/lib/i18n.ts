@@ -11,6 +11,7 @@ export type AppCopy = {
   };
   nav: {
     map: string;
+    graph: string;
     signals: string;
     data: string;
     weatherBonds: string;
@@ -55,6 +56,7 @@ export const appCopy = {
     },
     nav: {
       map: "Map",
+      graph: "Graph",
       signals: "Odds",
       data: "Data",
       weatherBonds: "Weather bonds",
@@ -93,6 +95,7 @@ export const appCopy = {
     },
     nav: {
       map: "地圖",
+      graph: "圖譜",
       signals: "賠率",
       data: "數據",
       weatherBonds: "天氣債券",
