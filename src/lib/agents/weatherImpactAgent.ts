@@ -13,7 +13,7 @@ export type WeatherImpactAgentOptions = {
 export type WeatherImpactAgentResult = {
   scannedLinks: number;
   reportsComputed: number;
-  reportsUpserted: number;
+  reportsInserted: number;
   combinedSignalsUpdated: number;
   errors: Array<{ cityId: string; marketEventId: string; message: string }>;
 };
@@ -157,12 +157,10 @@ function compactReport(reportId: string | null, report: WeatherImpactReport) {
   };
 }
 
-async function upsertReport(client: SupabaseClient, cityId: string, marketEventId: string, report: WeatherImpactReport) {
+async function insertReport(client: SupabaseClient, cityId: string, marketEventId: string, report: WeatherImpactReport) {
   const { data, error } = await client
     .from("weather_agent_reports")
-    .upsert(rowFromReport(cityId, marketEventId, report), {
-      onConflict: "city_id,market_event_id,report_type,model_version"
-    })
+    .insert(rowFromReport(cityId, marketEventId, report))
     .select("id")
     .maybeSingle();
 
@@ -206,7 +204,7 @@ export async function runWeatherImpactAgent(
   const result: WeatherImpactAgentResult = {
     scannedLinks: links.length,
     reportsComputed: 0,
-    reportsUpserted: 0,
+    reportsInserted: 0,
     combinedSignalsUpdated: 0,
     errors: []
   };
@@ -226,8 +224,8 @@ export async function runWeatherImpactAgent(
 
       const report = buildWeatherImpactReport({ market, forecast });
       result.reportsComputed += 1;
-      const reportId = await upsertReport(client, link.cityId, link.marketEventId, report);
-      result.reportsUpserted += 1;
+      const reportId = await insertReport(client, link.cityId, link.marketEventId, report);
+      result.reportsInserted += 1;
       const updatedSignal = await updateCombinedSignalRaw(client, link.cityId, link.marketEventId, reportId, report);
       if (updatedSignal) result.combinedSignalsUpdated += 1;
     } catch (error) {
