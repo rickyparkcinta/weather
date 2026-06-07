@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { Activity, BookOpen, Gauge } from "lucide-react";
+import { Activity, BookOpen, Database, DollarSign, Gauge, ShieldCheck } from "lucide-react";
 import { ClientMap } from "@/components/map/ClientMap";
 import { ProductBrand } from "@/components/shell/ProductHeader";
 import { BottomTimeline } from "@/components/ui/BottomTimeline";
@@ -34,6 +34,71 @@ async function getJson<T>(url: string): Promise<T> {
     throw new Error(await response.text());
   }
   return response.json() as Promise<T>;
+}
+
+function MapOverlayLink({
+  href,
+  label,
+  icon: Icon
+}: {
+  href: string;
+  label: string;
+  icon: typeof Activity;
+}) {
+  return (
+    <Link
+      href={href}
+      aria-label={label}
+      className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 text-sm text-slate-200 shadow-2xl backdrop-blur-xl hover:bg-white/8"
+    >
+      <Icon size={15} />
+      <span className="hidden sm:inline">{label}</span>
+    </Link>
+  );
+}
+
+function InstitutionalOverview({
+  cityCount,
+  marketCount,
+  signalCount,
+  demoMode
+}: {
+  cityCount: number;
+  marketCount: number;
+  signalCount: number;
+  demoMode: boolean;
+}) {
+  return (
+    <section className="pointer-events-auto hidden max-w-full overflow-hidden rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 py-2 shadow-2xl backdrop-blur-xl lg:block">
+      <div className="flex min-w-0 items-center justify-between gap-4">
+        <div className="min-w-0">
+          <h1 className="truncate text-sm font-semibold text-white">Institutional weather-risk intelligence</h1>
+          <p className="mt-0.5 truncate text-xs text-slate-400">
+            Forecast probability, market-implied probability, confidence-adjusted gaps, and source freshness for weather desks, investors, insurance, energy, agriculture, and logistics.
+          </p>
+        </div>
+        <div className="hidden shrink-0 items-center gap-2 xl:flex">
+          <OverviewMetric label="Cities" value={cityCount} />
+          <OverviewMetric label="Markets" value={marketCount} />
+          <OverviewMetric label="Signals" value={signalCount} />
+          <span className="rounded-md border border-cyan-200/18 bg-cyan-300/8 px-2 py-1 text-[11px] font-medium text-cyan-50">
+            {demoMode ? "Demo dataset" : "Supabase freshness"}
+          </span>
+          <span className="rounded-md border border-emerald-200/18 bg-emerald-300/8 px-2 py-1 text-[11px] font-medium text-emerald-50">
+            Research only
+          </span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OverviewMetric({ label, value }: { label: string; value: number }) {
+  return (
+    <span className="rounded-md border border-white/10 bg-black/20 px-2 py-1 font-mono text-[11px] text-slate-200">
+      {label} {value}
+    </span>
+  );
 }
 
 export function AppShell({ initialData }: { initialData: DashboardData }) {
@@ -128,35 +193,25 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
       <div className="pointer-events-none absolute inset-0 z-20 grid grid-rows-[auto_minmax(0,1fr)_auto] gap-3 p-3 sm:p-4">
         <div className="flex min-w-0 flex-col gap-2">
           <div className="flex items-center justify-between gap-2">
-            <div className="pointer-events-auto flex h-10 items-center rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 shadow-2xl backdrop-blur-xl">
+            <div className="pointer-events-auto flex h-10 shrink-0 items-center rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 shadow-2xl backdrop-blur-xl">
               <ProductBrand />
             </div>
-            <div className="pointer-events-auto flex items-center gap-2">
+            <div className="pointer-events-auto flex min-w-0 items-center gap-2 overflow-x-auto">
               <DataSourceBadge demoMode={initialData.demoMode} className="hidden sm:inline-flex" />
-              <Link
-                href="/signals"
-                className="inline-flex h-10 items-center gap-1.5 rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 text-sm text-slate-200 shadow-2xl backdrop-blur-xl hover:bg-white/8"
-              >
-                <Activity size={15} />
-                <span className="hidden sm:inline">Signals</span>
-              </Link>
-              <Link
-                href="/docs"
-                className="inline-flex h-10 items-center gap-1.5 rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 text-sm text-slate-200 shadow-2xl backdrop-blur-xl hover:bg-white/8"
-              >
-                <BookOpen size={15} />
-                <span className="hidden sm:inline">Docs</span>
-              </Link>
-              <Link
-                href="/admin/health"
-                aria-label="Data health"
-                className="inline-flex h-10 items-center gap-1.5 rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 text-sm text-slate-200 shadow-2xl backdrop-blur-xl hover:bg-white/8"
-              >
-                <Gauge size={15} />
-                <span className="hidden sm:inline">Health</span>
-              </Link>
+              <MapOverlayLink href="/data" label="Data" icon={Database} />
+              <MapOverlayLink href="/signals" label="Signals" icon={Activity} />
+              <MapOverlayLink href="/weather-bonds" label="Weather bonds" icon={ShieldCheck} />
+              <MapOverlayLink href="/pricing" label="Pricing" icon={DollarSign} />
+              <MapOverlayLink href="/docs" label="Docs" icon={BookOpen} />
+              <MapOverlayLink href="/admin/health" label="Health" icon={Gauge} />
             </div>
           </div>
+          <InstitutionalOverview
+            cityCount={cities.length}
+            marketCount={markets.length}
+            signalCount={signals.length}
+            demoMode={initialData.demoMode}
+          />
           <div className="flex min-w-0 items-start justify-between gap-2 sm:gap-4">
             <TopSearch cities={cities} selectedCity={selectedCity} onSelect={handleSelectCity} />
             <div className="flex shrink-0 items-start gap-2 sm:flex-col sm:items-end">

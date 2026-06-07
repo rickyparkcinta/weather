@@ -149,14 +149,21 @@ export function SignalRankingView({
             {filtered.length === 0 ? (
               <EmptyState title="No signals match these filters. Adjust filters or run a live ingestion sync." />
             ) : (
-              filtered.map((row, index) => (
-                <SignalRecord
-                  key={rowKey(row, index)}
-                  row={row}
-                  rank={index + 1}
-                  demoMode={demoMode || isDemoRecord(row)}
-                />
-              ))
+              <>
+                <SignalTable rows={filtered} demoMode={demoMode} />
+                <div className="flex items-center justify-between gap-3 pt-2">
+                  <h2 className="text-sm font-semibold text-white">Signal evidence records</h2>
+                  <span className="text-xs text-slate-500">Source, formula, and calculation detail</span>
+                </div>
+                {filtered.map((row, index) => (
+                  <SignalRecord
+                    key={rowKey(row, index)}
+                    row={row}
+                    rank={index + 1}
+                    demoMode={demoMode || isDemoRecord(row)}
+                  />
+                ))}
+              </>
             )}
           </div>
         </section>
@@ -223,6 +230,111 @@ function TrustMetric({
       <div className="mt-1 font-mono text-sm">{value}</div>
     </div>
   );
+}
+
+function SignalTable({ rows, demoMode }: { rows: RankedSignal[]; demoMode: boolean }) {
+  return (
+    <section className="overflow-hidden rounded-md border border-white/10 bg-white/[0.035]">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
+        <div>
+          <h2 className="text-sm font-semibold text-white">Combined signal table</h2>
+          <p className="mt-1 text-xs text-slate-500">
+            Joined city, event, probability, freshness, and computation fields from combined signal records.
+          </p>
+        </div>
+        <Badge tone={demoMode ? "warning" : "positive"}>{demoMode ? "Demo records" : "Live records"}</Badge>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[1180px] border-collapse text-left text-sm">
+          <thead className="bg-white/[0.055] text-[11px] uppercase tracking-[0.14em] text-slate-500">
+            <tr>
+              <TableHeader>City</TableHeader>
+              <TableHeader>Event</TableHeader>
+              <TableHeader>Direction</TableHeader>
+              <TableHeader>Model probability</TableHeader>
+              <TableHeader>Market probability</TableHeader>
+              <TableHeader>Raw gap</TableHeader>
+              <TableHeader>Adjusted gap</TableHeader>
+              <TableHeader>Confidence</TableHeader>
+              <TableHeader>Freshness</TableHeader>
+              <TableHeader>Computed at</TableHeader>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, index) => (
+              <tr key={rowKey(row, index)} className="border-b border-white/8 last:border-b-0">
+                <TableCell>
+                  {row.city ? (
+                    <Link href={`/city/${row.city.slug}`} className="font-medium text-cyan-50 hover:text-white">
+                      {row.city.name}
+                    </Link>
+                  ) : (
+                    "Unavailable"
+                  )}
+                </TableCell>
+                <TableCell>
+                  {row.market ? (
+                    <Link href={`/markets/${row.market.id}`} className="line-clamp-2 text-slate-100 hover:text-white">
+                      {row.market.title}
+                    </Link>
+                  ) : (
+                    row.signal.forecastVariable ?? "Unavailable"
+                  )}
+                </TableCell>
+                <TableCell>
+                  <Badge tone={directionTone(row)}>{directionLabel(row)}</Badge>
+                </TableCell>
+                <TableCell mono>{formatProbability(row.signal.modelProbability)}</TableCell>
+                <TableCell mono>{formatProbability(row.signal.marketProbability)}</TableCell>
+                <TableCell mono>{formatSignedPoints(row.signal.rawEdge)}</TableCell>
+                <TableCell mono>{formatSignedPoints(row.signal.adjustedEdge)}</TableCell>
+                <TableCell>{formatConfidence(row.signal.confidence)}</TableCell>
+                <TableCell>{freshnessLabel(row.signal.freshnessStatus).label}</TableCell>
+                <TableCell mono>{formatUnavailableDate(row.signal.computedAt)}</TableCell>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
+function TableHeader({ children }: { children: React.ReactNode }) {
+  return <th className="border-b border-white/10 px-4 py-3 font-semibold">{children}</th>;
+}
+
+function TableCell({
+  children,
+  mono = false
+}: {
+  children: React.ReactNode;
+  mono?: boolean;
+}) {
+  return (
+    <td className={cn("px-4 py-3 align-top leading-5 text-slate-300", mono && "font-mono text-xs text-slate-200")}>
+      {children}
+    </td>
+  );
+}
+
+function directionLabel(row: RankedSignal) {
+  if (row.state === "unavailable" || row.gap === null) return "Unavailable";
+  if (row.state === "high_uncertainty" || (typeof row.confidence === "number" && row.confidence < 0.35)) {
+    return "Low confidence";
+  }
+  if (row.gap > 0.005) return "Model above market";
+  if (row.gap < -0.005) return "Market above model";
+  return "Neutral";
+}
+
+function directionTone(row: RankedSignal) {
+  const label = directionLabel(row);
+  if (label === "Model above market") return "positive";
+  if (label === "Market above model") return "negative";
+  if (label === "Low confidence") return "warning";
+  if (label === "Unavailable") return "muted";
+  return "neutral";
 }
 
 function DemoDisclosure() {

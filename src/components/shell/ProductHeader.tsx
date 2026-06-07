@@ -1,13 +1,17 @@
 import Link from "next/link";
-import { Activity, Gauge, Map as MapIcon, Radar } from "lucide-react";
+import { Activity, BookOpen, Database, DollarSign, Gauge, Map as MapIcon, Radar, ShieldCheck } from "lucide-react";
 import { DataSourceBadge } from "@/components/ui/DataSourceBadge";
 import { cn } from "@/lib/utils";
 
-type NavKey = "map" | "signals" | "health";
+type NavKey = "map" | "signals" | "data" | "weather-bonds" | "pricing" | "docs" | "health";
 
 const NAV: { key: NavKey; label: string; href: string; icon: typeof MapIcon }[] = [
   { key: "map", label: "Map", href: "/", icon: MapIcon },
   { key: "signals", label: "Odds", href: "/signals", icon: Activity },
+  { key: "data", label: "Data", href: "/data", icon: Database },
+  { key: "weather-bonds", label: "Weather bonds", href: "/weather-bonds", icon: ShieldCheck },
+  { key: "pricing", label: "Pricing", href: "/pricing", icon: DollarSign },
+  { key: "docs", label: "Docs", href: "/docs", icon: BookOpen },
   { key: "health", label: "Health", href: "/admin/health", icon: Gauge }
 ];
 
@@ -36,26 +40,26 @@ export function ProductHeader({
 }) {
   return (
     <header className="sticky top-0 z-30 border-b border-white/10 bg-[#06080b]/85 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-8">
         <ProductBrand />
-        <nav className="flex items-center gap-1" aria-label="Primary">
+        <nav className="flex min-w-0 items-center gap-1 overflow-x-auto" aria-label="Primary">
           {NAV.map((item) => (
             <Link
               key={item.key}
               href={item.href}
               aria-current={item.key === active ? "page" : undefined}
               className={cn(
-                "inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm transition",
+                "inline-flex shrink-0 items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm transition",
                 item.key === active
                   ? "bg-white/10 text-white"
                   : "text-slate-300 hover:bg-white/8 hover:text-white"
               )}
             >
               <item.icon size={15} />
-              <span className="hidden sm:inline">{item.label}</span>
+              <span className="hidden lg:inline">{item.label}</span>
             </Link>
           ))}
-          <DataSourceBadge demoMode={demoMode} className="ml-1 hidden md:inline-flex" />
+          <DataSourceBadge demoMode={demoMode} className="ml-1 hidden xl:inline-flex" />
         </nav>
       </div>
     </header>
