@@ -1,8 +1,8 @@
 # Forecast Market Map
 
-A Vercel-ready Next.js App Router application for a global prediction-market forecast map. The production app reads normalized records from Supabase Postgres, while an external hourly bot is responsible for fetching official weather and prediction-market APIs.
+A Vercel-ready Next.js App Router application for a global prediction-market forecast map. The production app reads normalized records from Supabase Postgres, while an external hourly bot or Vercel Cron job fetches official weather and prediction-market APIs.
 
-The UI reads all data from Supabase. It shows a full-screen MapLibre map, major-city search, market probability bubbles, forecast overlays, city detail panels, timeline controls, market detail pages, and admin health status.
+The UI reads all live data from Supabase. It shows a full-screen MapLibre map, major-city search, market probability bubbles, forecast overlays, city detail panels, timeline controls, market detail pages, and admin health status.
 
 ## Stack
 
@@ -17,7 +17,7 @@ The UI reads all data from Supabase. It shows a full-screen MapLibre map, major-
 
 ## Data Flow
 
-1. Built-in sync or an hourly agent bot fetches official/public APIs.
+1. Vercel Cron, built-in sync, or an hourly agent bot fetches official/public APIs.
 2. Provider records are normalized into the Supabase schema.
 3. Sync and ingestion routes write through secured server-side Supabase service role calls.
 4. Vercel-hosted Next.js app reads Supabase using the anon key.
@@ -34,6 +34,7 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 INGESTION_SECRET=
+CRON_SECRET=
 
 WINDY_API_KEY=
 KALSHI_API_KEY=
@@ -44,13 +45,22 @@ POLYMARKET_PRIVATE_KEY=
 POLYMARKET_FUNDER_ADDRESS=
 
 NEXT_PUBLIC_DEFAULT_CITY=seoul
+NEXT_PUBLIC_ENABLE_DEMO_DATA=false
 NEXT_PUBLIC_DEFAULT_MAP_ENGINE=maplibre
 NEXT_PUBLIC_DEFAULT_FORECAST_PROVIDER=supabase
 NEXT_PUBLIC_DEFAULT_MARKET_PROVIDER=supabase
 ENABLE_PROVIDER_FETCH_DEBUG=false
+REAL_API_SYNC_CITY_LIMIT=30
+REAL_API_SYNC_FORECAST_DAYS=3
+REAL_API_SYNC_MARKET_LIMIT=40
+REAL_API_SYNC_MARKET_QUERIES=weather,rain,temperature
+REAL_API_SYNC_INCLUDE_KALSHI=true
+REAL_API_SYNC_INCLUDE_POLYMARKET=true
 ```
 
-Supabase URL, anon key, and service role key must be configured and the migrations applied before the app can load data.
+Production live mode is the default. Demo fixtures are only served when `NEXT_PUBLIC_ENABLE_DEMO_DATA=true`. Set `NEXT_PUBLIC_ENABLE_DEMO_DATA=false` in Vercel to make configuration or database errors visible instead of silently falling back to demo data.
+
+Supabase URL, anon key, service role key, migrations, and seed data must be configured before the app can load live data.
 
 ## Supabase Setup
 
@@ -61,7 +71,8 @@ Supabase URL, anon key, and service role key must be configured and the migratio
 5. Run `supabase/seed.sql`.
 6. Copy the project URL and anon key into Vercel.
 7. Copy the service role key into Vercel as `SUPABASE_SERVICE_ROLE_KEY`.
-8. Create a strong `INGESTION_SECRET` for the hourly bot.
+8. Create a strong `INGESTION_SECRET` for manual ingestion calls.
+9. Create a strong `CRON_SECRET` for Vercel Cron-triggered sync calls.
 
 RLS is enabled on every table. Public anon users can only read app data tables. The service role key is required for ingestion writes and must never be exposed in browser code.
 
@@ -83,13 +94,14 @@ RLS is enabled on every table. Public anon users can only read app data tables. 
 - `GET /api/markets/[id]/history`
 - `GET /api/combined-signals?cityId=...`
 - `GET /api/map-layers?city=...`
+- `GET /api/sync/real-api`
 - `POST /api/sync/real-api`
 - `POST /api/ingest/run`
 - `POST /api/ingest/forecast`
 - `POST /api/ingest/markets`
 - `POST /api/ingest/combined-signals`
 
-Ingestion and sync routes require `Authorization: Bearer ${INGESTION_SECRET}`.
+Ingestion and sync routes require `Authorization: Bearer ${INGESTION_SECRET}` or `Authorization: Bearer ${CRON_SECRET}`.
 
 `POST /api/ingest/run` is the canonical normalized ingestion endpoint for new provider adapters. It logs execution in `provider_run_logs`, supports an `Idempotency-Key` header or body `idempotencyKey`, writes forecast/market/timeseries/signal records through the shared normalized writer, and returns the write result used by the map layer API. The narrower `/api/ingest/forecast`, `/api/ingest/markets`, and `/api/ingest/combined-signals` routes are compatibility surfaces.
 
@@ -101,7 +113,7 @@ Run a manual server-side sync after migrations and seed data are applied:
 node --experimental-strip-types scripts/sync-real-api-data.ts
 ```
 
-The sync upserts the city catalog, pulls Open-Meteo forecasts, fetches Polymarket weather/climate markets plus Kalshi public-market snapshots where available, links city-specific weather markets, writes probability history, and recomputes combined signals.
+The production deployment also includes `vercel.json`, which triggers `GET /api/sync/real-api` every hour. The sync upserts the city catalog, pulls Open-Meteo forecasts, fetches Polymarket weather/climate markets plus Kalshi public-market snapshots where available, links city-specific weather markets, writes probability history, and recomputes combined signals.
 
 Optional environment overrides:
 
@@ -129,10 +141,11 @@ Configure Supabase before running. Use `npm run dev` for local development, then
 1. Import the GitHub repository into Vercel.
 2. Set the environment variables from `.env.example`.
 3. Deploy with the default Next.js framework preset.
-4. Confirm `/admin/health` shows Supabase URL, anon key, service role key, and ingestion secret configured.
-5. Point the hourly bot at the production ingestion routes.
+4. Confirm `/admin/health` shows Supabase URL, anon key, service role key, ingestion secret, and cron secret configured.
+5. Trigger one manual sync with `POST /api/sync/real-api` or wait for the hourly cron.
+6. Confirm `/admin/health` reports `Live Supabase mode` with nonzero cities and forecast points.
 
-No long-running server process and no local filesystem persistence are required. No Vercel cron is required for the core app because the hourly bot updates Supabase externally.
+No long-running server process and no local filesystem persistence are required.
 
 See `docs/deployment-vercel.md` for a full deployment checklist.
 
