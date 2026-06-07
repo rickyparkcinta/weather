@@ -3,16 +3,18 @@ import {
   getMarketHistory,
   listCities,
   listCombinedSignals,
-  listForecastPoints
+  listForecastPoints,
+  listWeatherAgentReports
 } from "@/lib/data/queries";
 import { computeCombinedSignal } from "@/lib/signals/computeCombinedSignal";
-import type { City, CombinedSignal, MarketEvent, MarketTimeSeriesPoint } from "@/types/domain";
+import type { City, CombinedSignal, MarketEvent, MarketTimeSeriesPoint, WeatherAgentReport } from "@/types/domain";
 
 export type MarketIntel = {
   market: MarketEvent;
   history: MarketTimeSeriesPoint[];
   cities: City[];
   signal: CombinedSignal | null;
+  weatherImpactReport: WeatherAgentReport | null;
 };
 
 /**
@@ -39,6 +41,10 @@ export async function getMarketIntel(id: string): Promise<MarketIntel | null> {
   const [history, allCities] = await Promise.all([getMarketHistory(id), listCities()]);
   const cities = allCities.filter((city) => market.cityIds.includes(city.id));
   const signal = await resolveSignal(market, cities.length ? cities : allCities);
+  const reportCity = cities[0] ?? allCities.find((city) => market.cityIds.includes(city.id)) ?? null;
+  const weatherImpactReport = reportCity
+    ? (await listWeatherAgentReports({ cityId: reportCity.id, marketEventId: market.id, limit: 1 }))[0] ?? null
+    : null;
 
-  return { market, history, cities, signal };
+  return { market, history, cities, signal, weatherImpactReport };
 }

@@ -125,6 +125,24 @@ export type CombinedSignal = {
   raw?: JsonRecord;
 };
 
+export type WeatherAgentReport = {
+  id: string;
+  cityId: string | null;
+  marketEventId: string | null;
+  reportType: string;
+  score: number | null;
+  confidence: string | null;
+  status: string;
+  weatherSnapshot: JsonRecord;
+  recommendations: unknown[];
+  rationale: unknown[];
+  riskNotes: unknown[];
+  disclaimer: string;
+  modelVersion: string;
+  computedAt: string | null;
+  raw: JsonRecord;
+};
+
 export type DashboardData = {
   cities: City[];
   selectedCity: City;

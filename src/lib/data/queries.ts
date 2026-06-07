@@ -7,7 +7,7 @@ import {
   getDemoCity
 } from "@/lib/demo-data";
 import { getDefaultCitySlug, isDemoModeEnabled } from "@/lib/env";
-import { mapCity, mapCombinedSignal, mapForecastPoint, mapMarketEvent, mapMarketTimeSeriesPoint } from "@/lib/data/mappers";
+import { mapCity, mapCombinedSignal, mapForecastPoint, mapMarketEvent, mapMarketTimeSeriesPoint, mapWeatherAgentReport } from "@/lib/data/mappers";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 import type { City, DashboardData, MarketEvent } from "@/types/domain";
 
@@ -172,6 +172,28 @@ export async function listCombinedSignals(cityId?: string) {
   }
 
   return (data ?? []).map((row) => mapCombinedSignal(row));
+}
+
+export async function listWeatherAgentReports(input: {
+  cityId?: string;
+  marketEventId?: string;
+  limit?: number;
+} = {}) {
+  if (usingDemoData()) {
+    return [];
+  }
+
+  const client = requireLiveClient();
+  let query = client.from("weather_agent_reports").select("*").order("computed_at", { ascending: false });
+  if (input.cityId) query = query.eq("city_id", input.cityId);
+  if (input.marketEventId) query = query.eq("market_event_id", input.marketEventId);
+
+  const { data, error } = await query.limit(input.limit ?? 20);
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return (data ?? []).map((row) => mapWeatherAgentReport(row));
 }
 
 export async function getDashboardData(preferredSlug?: string): Promise<DashboardData> {

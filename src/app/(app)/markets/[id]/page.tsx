@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExternalLink, MapPin, ShieldAlert } from "lucide-react";
 import { ProductHeader } from "@/components/shell/ProductHeader";
+import { WeatherImpactAgentPanel } from "@/components/signals/WeatherImpactAgentPanel";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
 import { ProbabilityChart } from "@/components/ui/ProbabilityChart";
 import { ConfidenceBadge, FreshnessBadge, SignalStateBadge } from "@/components/ui/SignalBadge";
@@ -32,7 +33,7 @@ export async function MarketPageContent({
     notFound();
   }
 
-  const { market, history, cities, signal } = intel;
+  const { market, history, cities, signal, weatherImpactReport } = intel;
   const risks = settlementRisks(market, signal);
   const snapshotAt = marketTimestamp(market);
   const staleAfter = addHoursIso(signal?.computedAt ?? snapshotAt, 24);
@@ -159,6 +160,10 @@ export async function MarketPageContent({
             microstructure. They are research context only.
           </p>
         </section>
+
+        <div className="mt-6">
+          <WeatherImpactAgentPanel report={weatherImpactReport} />
+        </div>
 
         <section className="mt-6 rounded-md border border-white/12 bg-white/[0.04] p-5">
           <h2 className="text-base font-semibold text-white">Metadata</h2>

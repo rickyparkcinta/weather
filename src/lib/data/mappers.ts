@@ -3,7 +3,8 @@ import type {
   CombinedSignal,
   ForecastPoint,
   MarketEvent,
-  MarketTimeSeriesPoint
+  MarketTimeSeriesPoint,
+  WeatherAgentReport
 } from "@/types/domain";
 
 type Row = Record<string, unknown>;
@@ -27,6 +28,10 @@ function stringArray(value: unknown) {
 
 function record(value: unknown) {
   return value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
+}
+
+function array(value: unknown) {
+  return Array.isArray(value) ? value : [];
 }
 
 export function mapCity(row: Row): City {
@@ -146,6 +151,26 @@ export function mapCombinedSignal(row: Row): CombinedSignal {
         : null,
     explanation: text(row.explanation),
     computedAt: text(row.computed_at) ?? undefined,
+    raw: record(row.raw)
+  };
+}
+
+export function mapWeatherAgentReport(row: Row): WeatherAgentReport {
+  return {
+    id: String(row.id),
+    cityId: text(row.city_id),
+    marketEventId: text(row.market_event_id),
+    reportType: String(row.report_type ?? "weather_impact"),
+    score: numberOrNull(row.score),
+    confidence: text(row.confidence),
+    status: String(row.status ?? "computed"),
+    weatherSnapshot: record(row.weather_snapshot),
+    recommendations: array(row.recommendations),
+    rationale: array(row.rationale),
+    riskNotes: array(row.risk_notes),
+    disclaimer: String(row.disclaimer ?? ""),
+    modelVersion: String(row.model_version ?? "weatherbot-v1-ts"),
+    computedAt: text(row.computed_at),
     raw: record(row.raw)
   };
 }
