@@ -17,6 +17,7 @@ import { ProductHeader } from "@/components/shell/ProductHeader";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
 import { usingDemoData } from "@/lib/data/queries";
+import { appCopy, localizedPath, type AppLocale } from "@/lib/i18n";
 import { confidenceLabel, formatSignedPercent, freshnessLabel } from "@/lib/signals/classify";
 import { getRankedSignals, type RankedSignal } from "@/lib/signals/ranking";
 import { cn, formatCompactNumber, formatDateTime, formatPercent } from "@/lib/utils";
@@ -24,25 +25,29 @@ import { cn, formatCompactNumber, formatDateTime, formatPercent } from "@/lib/ut
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Odds Analysis - Weather AI",
+  title: "Odds Analysis - RiWeather",
   description:
     "Ranked prediction-market odds analysis with market price, estimated fair value, edge classification, risks, and paper-trade posture."
 };
 
 export default async function SignalsPage() {
+  return <SignalsPageContent locale="en" />;
+}
+
+export async function SignalsPageContent({ locale }: { locale: AppLocale }) {
   const demoMode = usingDemoData();
   const result = await loadSignals();
   const checkedAt = new Date().toISOString();
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="signals" demoMode={demoMode} />
+      <ProductHeader active="signals" demoMode={demoMode} locale={locale} />
       <div className="mx-auto max-w-7xl px-4 py-6 pb-16 md:px-8">
-        <NonAdvisoryNotice className="mb-4" />
+        <NonAdvisoryNotice className="mb-4" locale={locale} />
         {result.error ? (
-          <LiveDataError message={result.error} demoMode={demoMode} />
+          <LiveDataError message={result.error} demoMode={demoMode} locale={locale} />
         ) : (
-          <OddsAnalysisView signals={result.signals} demoMode={demoMode} checkedAt={checkedAt} />
+          <OddsAnalysisView signals={result.signals} demoMode={demoMode} checkedAt={checkedAt} locale={locale} />
         )}
       </div>
     </main>
@@ -63,11 +68,13 @@ async function loadSignals() {
 function OddsAnalysisView({
   signals,
   demoMode,
-  checkedAt
+  checkedAt,
+  locale
 }: {
   signals: RankedSignal[];
   demoMode: boolean;
   checkedAt: string;
+  locale: AppLocale;
 }) {
   const metrics = buildOddsMetrics(signals);
   const rankedEdges = signals.filter((row) => edgeClassification(row).rank > 0).slice(0, 8);
@@ -75,7 +82,7 @@ function OddsAnalysisView({
 
   return (
     <div className="grid gap-5">
-      <OddsHeader metrics={metrics} demoMode={demoMode} checkedAt={checkedAt} />
+      <OddsHeader metrics={metrics} demoMode={demoMode} checkedAt={checkedAt} locale={locale} />
       {demoMode ? <DemoDisclosure /> : null}
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
@@ -91,7 +98,7 @@ function OddsAnalysisView({
           ) : (
             <div className="grid gap-3">
               {rankedEdges.map((row, index) => (
-                <OddsRecord key={rowKey(row, index)} row={row} rank={index + 1} demoMode={demoMode || isDemoRecord(row)} />
+                <OddsRecord key={rowKey(row, index)} row={row} rank={index + 1} demoMode={demoMode || isDemoRecord(row)} locale={locale} />
               ))}
             </div>
           )}
@@ -100,7 +107,7 @@ function OddsAnalysisView({
         <aside className="grid gap-4 xl:sticky xl:top-20">
           <PaperTradingPanel candidates={paperCandidates} />
           <MethodPanel metrics={metrics} />
-          <SourcePanel metrics={metrics} demoMode={demoMode} />
+          <SourcePanel metrics={metrics} demoMode={demoMode} locale={locale} />
         </aside>
       </div>
     </div>
@@ -110,12 +117,16 @@ function OddsAnalysisView({
 function OddsHeader({
   metrics,
   demoMode,
-  checkedAt
+  checkedAt,
+  locale
 }: {
   metrics: OddsMetrics;
   demoMode: boolean;
   checkedAt: string;
+  locale: AppLocale;
 }) {
+  const copy = appCopy[locale];
+
   return (
     <section className="rounded-md border border-white/10 bg-[linear-gradient(135deg,rgba(8,18,28,0.94),rgba(3,7,18,0.9))] p-5">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
@@ -132,7 +143,7 @@ function OddsHeader({
         <div className="grid gap-2 sm:grid-cols-2 lg:min-w-[500px]">
           <MetricTile
             label="Mode"
-            value={demoMode ? "Demo records" : "Live Supabase"}
+            value={demoMode ? copy.status.demoRecords : copy.status.liveRecords}
             tone={demoMode ? "warning" : "positive"}
           />
           <MetricTile label="Time checked" value={formatDateTime(checkedAt)} />
@@ -154,7 +165,17 @@ function SectionHeading({ eyebrow, title, body }: { eyebrow: string; title: stri
   );
 }
 
-function OddsRecord({ row, rank, demoMode }: { row: RankedSignal; rank: number; demoMode: boolean }) {
+function OddsRecord({
+  row,
+  rank,
+  demoMode,
+  locale
+}: {
+  row: RankedSignal;
+  rank: number;
+  demoMode: boolean;
+  locale: AppLocale;
+}) {
   const classification = edgeClassification(row);
   const paper = paperTradePosture(row);
   const title = row.market?.title ?? row.signal.forecastVariable ?? "Unmapped odds signal";
@@ -222,7 +243,7 @@ function OddsRecord({ row, rank, demoMode }: { row: RankedSignal; rank: number; 
           </div>
           <div className="mt-2 text-sm leading-6 text-slate-300">
             {linkedMarketId ? (
-              <Link href={`/markets/${linkedMarketId}`} className="inline-flex items-center gap-1 text-cyan-100 hover:text-white">
+              <Link href={localizedPath(locale, `/markets/${linkedMarketId}`)} className="inline-flex items-center gap-1 text-cyan-100 hover:text-white">
                 Open linked market record
                 <ArrowUpRight size={13} />
               </Link>
@@ -294,7 +315,17 @@ function MethodPanel({ metrics }: { metrics: OddsMetrics }) {
   );
 }
 
-function SourcePanel({ metrics, demoMode }: { metrics: OddsMetrics; demoMode: boolean }) {
+function SourcePanel({
+  metrics,
+  demoMode,
+  locale
+}: {
+  metrics: OddsMetrics;
+  demoMode: boolean;
+  locale: AppLocale;
+}) {
+  const copy = appCopy[locale];
+
   return (
     <section className="rounded-md border border-white/10 bg-white/[0.035] p-4">
       <div className="flex items-center justify-between gap-3">
@@ -302,7 +333,7 @@ function SourcePanel({ metrics, demoMode }: { metrics: OddsMetrics; demoMode: bo
         <ShieldCheck size={17} className="text-cyan-100" />
       </div>
       <div className="mt-4 grid gap-2">
-        <SourceRow label="Data mode" value={demoMode ? "Demo" : "Live Supabase"} />
+        <SourceRow label="Data mode" value={demoMode ? copy.status.demoMode : copy.status.liveMode} />
         <SourceRow label="Latest computed" value={formatDateTime(metrics.latestComputedAt)} />
         <SourceRow label="Fresh / Aging / Stale" value={`${metrics.fresh} / ${metrics.aging} / ${metrics.stale}`} />
         <SourceRow label="Market providers" value={compactList(metrics.marketProviders)} />
@@ -337,20 +368,28 @@ function NoEdgeState({ signals }: { signals: number }) {
   );
 }
 
-function LiveDataError({ message, demoMode }: { message: string; demoMode: boolean }) {
+function LiveDataError({
+  message,
+  demoMode,
+  locale
+}: {
+  message: string;
+  demoMode: boolean;
+  locale: AppLocale;
+}) {
   return (
     <section className="grid gap-4 rounded-md border border-white/10 bg-white/[0.03] p-4">
       <div>
         <h1 className="text-3xl font-semibold text-white md:text-4xl">Odds Analysis</h1>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-300">
-          Live odds analysis records could not be loaded from Supabase. Demo records are only shown when NEXT_PUBLIC_ENABLE_DEMO_DATA=true.
+          Live odds analysis records could not be loaded. Demo records are only shown when NEXT_PUBLIC_ENABLE_DEMO_DATA=true.
         </p>
       </div>
       <ErrorState
         title={
           demoMode
             ? `Demo odds data could not be loaded: ${message}`
-            : `Live Supabase data is unavailable: ${message}`
+            : `Live data is unavailable: ${message}`
         }
       />
       {!demoMode ? (

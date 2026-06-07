@@ -1,8 +1,18 @@
 import { Database, FlaskConical } from "lucide-react";
+import { appCopy, type AppLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-export function DataSourceBadge({ demoMode, className }: { demoMode: boolean; className?: string }) {
+export function DataSourceBadge({
+  demoMode,
+  locale = "en",
+  className
+}: {
+  demoMode: boolean;
+  locale?: AppLocale;
+  className?: string;
+}) {
   const Icon = demoMode ? FlaskConical : Database;
+  const copy = appCopy[locale];
 
   return (
     <span
@@ -13,7 +23,7 @@ export function DataSourceBadge({ demoMode, className }: { demoMode: boolean; cl
       )}
     >
       <Icon size={14} />
-      {demoMode ? "Demo data" : "Supabase live"}
+      {demoMode ? copy.status.demoData : copy.status.liveData}
     </span>
   );
 }

@@ -1,4 +1,5 @@
 import { Info } from "lucide-react";
+import { appCopy, type AppLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 export const nonAdvisoryNoticeText =
@@ -6,11 +7,15 @@ export const nonAdvisoryNoticeText =
 
 export function NonAdvisoryNotice({
   className,
-  compact = false
+  compact = false,
+  locale = "en"
 }: {
   className?: string;
   compact?: boolean;
+  locale?: AppLocale;
 }) {
+  const copy = appCopy[locale];
+
   return (
     <aside
       className={cn(
@@ -21,7 +26,7 @@ export function NonAdvisoryNotice({
     >
       <div className="flex items-start gap-2">
         <Info size={compact ? 14 : 16} className="mt-0.5 shrink-0 text-cyan-100" />
-        <p>{nonAdvisoryNoticeText}</p>
+        <p>{locale === "en" ? nonAdvisoryNoticeText : copy.notice}</p>
       </div>
     </aside>
   );

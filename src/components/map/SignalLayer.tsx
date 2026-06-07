@@ -55,8 +55,8 @@ export function SignalLayer({
       const color = signalColor(signal);
       const element = document.createElement("button");
       element.type = "button";
-      element.title = signal.explanation ?? "Weather AI signal";
-      element.setAttribute("aria-label", market ? `View signal market details for ${market.title}` : "Weather AI signal");
+      element.title = signal.explanation ?? "RiWeather signal";
+      element.setAttribute("aria-label", market ? `View signal market details for ${market.title}` : "RiWeather signal");
       element.style.width = `${size}px`;
       element.style.height = `${size}px`;
       element.style.border = `1px solid ${color}`;

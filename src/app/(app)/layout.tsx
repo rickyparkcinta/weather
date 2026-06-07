@@ -4,11 +4,11 @@ import "../globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Weather AI · Forecast Market Map",
+    default: "RiWeather · Forecast Market Map",
     template: "%s"
   },
   description:
-    "Weather AI — a global forecast and prediction-market intelligence map. Compare official forecast signals against market-implied probability to surface probability gaps, confidence, and disagreement."
+    "RiWeather — a global forecast and prediction-market intelligence map. Compare official forecast signals against market-implied probability to surface probability gaps, confidence, and disagreement."
 };
 
 export const viewport: Viewport = {

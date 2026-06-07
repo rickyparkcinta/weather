@@ -3,7 +3,7 @@ import { Providers } from "@/app/providers";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "預報市場地圖",
+  title: "RiWeather · 預報市場地圖",
   description: "面向主要城市及預測市場的全球預報智能地圖。"
 };
 

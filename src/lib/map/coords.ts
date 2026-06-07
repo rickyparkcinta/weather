@@ -1,7 +1,7 @@
 /**
  * Defensive coordinate helpers shared by every map layer.
  *
- * Supabase data is updated hourly by an external agent bot, so we treat all
+ * live data is updated hourly by an external agent bot, so we treat all
  * coordinates as untrusted: a single NaN / null / out-of-range value passed to
  * `setLngLat` or `easeTo` throws synchronously inside a React effect and takes
  * the whole map (and often the page) down. These helpers keep that from ever

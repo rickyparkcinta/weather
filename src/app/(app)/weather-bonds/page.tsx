@@ -17,9 +17,10 @@ import { ProductHeader } from "@/components/shell/ProductHeader";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
 import { Badge } from "@/components/ui/SignalBadge";
 import { usingDemoData } from "@/lib/data/queries";
+import { localizedPath, type AppLocale } from "@/lib/i18n";
 
 export const metadata = {
-  title: "Weather-Linked Securities Research · Weather AI",
+  title: "Weather-Linked Securities Research · RiWeather",
   description:
     "Analytics for weather-linked securities, parametric weather-risk products, catastrophe/weather bonds, and research teams."
 };
@@ -66,11 +67,15 @@ const WORKFLOW_STEPS = [
 ];
 
 export default function WeatherBondsPage() {
+  return <WeatherBondsPageContent locale="en" />;
+}
+
+export function WeatherBondsPageContent({ locale }: { locale: AppLocale }) {
   const demoMode = usingDemoData();
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="weather-bonds" demoMode={demoMode} />
+      <ProductHeader active="weather-bonds" demoMode={demoMode} locale={locale} />
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 md:px-8">
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_360px] lg:items-start">
           <div>
@@ -82,7 +87,7 @@ export default function WeatherBondsPage() {
               Analytics for weather-linked securities and parametric risk research
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 md:text-base">
-              Weather AI supports research workflows for weather-linked instruments, parametric risk products,
+              RiWeather supports research workflows for weather-linked instruments, parametric risk products,
               catastrophe/weather bonds, and prediction-market weather events. The platform focuses on source quality,
               probability, definition matching, station risk, and verification.
             </p>
@@ -100,7 +105,7 @@ export default function WeatherBondsPage() {
               <div>
                 <h2 className="text-sm font-semibold text-amber-50">Research-only positioning</h2>
                 <p className="mt-2 text-sm leading-6 text-amber-50/80">
-                  Weather AI does not issue securities, structure bonds, recommend trades, or promise investment outcomes.
+                  RiWeather does not issue securities, structure bonds, recommend trades, or promise investment outcomes.
                   Outputs are analytical context for professional review.
                 </p>
               </div>
@@ -108,7 +113,7 @@ export default function WeatherBondsPage() {
           </aside>
         </section>
 
-        <NonAdvisoryNotice className="mt-8" />
+        <NonAdvisoryNotice className="mt-8" locale={locale} />
 
         <section className="mt-8">
           <SectionHeader
@@ -198,7 +203,7 @@ export default function WeatherBondsPage() {
                 Pair live signals with historical archive, station mappings, forecast verification, and market-definition notes.
               </p>
             </div>
-            <Link href="/data#request-access" className="inline-flex h-10 shrink-0 items-center gap-2 rounded-md border border-emerald-200/30 px-3 text-sm text-emerald-50 hover:bg-emerald-300/10">
+            <Link href={localizedPath(locale, "/data#request-access")} className="inline-flex h-10 shrink-0 items-center gap-2 rounded-md border border-emerald-200/30 px-3 text-sm text-emerald-50 hover:bg-emerald-300/10">
               Request data access
               <ArrowRight size={15} />
             </Link>

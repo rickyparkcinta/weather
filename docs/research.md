@@ -1,6 +1,6 @@
 # Research Notes
 
-This project intentionally avoids Windy branding, proprietary assets, private APIs, scraping, and trading advice. The production app reads normalized Supabase records. Provider adapters are for future bot/debug use only.
+This project intentionally avoids Windy branding, proprietary assets, private APIs, scraping, and trading advice. The production app reads normalized live records. Provider adapters are for future bot/debug use only.
 
 ## Library And API Evaluation
 
@@ -17,7 +17,7 @@ This project intentionally avoids Windy branding, proprietary assets, private AP
 | https://github.com/NOAA-EMC/wgrib2 | NOAA/DOC public project terms in README | Standard GRIB2 inspection/conversion utility | Native toolchain unsuitable for Vercel request path | Use in bot/worker for GFS GRIB decoding | Medium operational complexity | Bot-side only |
 | https://github.com/weather-gov/api | Public NWS API docs | US weather REST data and OpenAPI reference | US-focused; not global city model source | Optional US fallback/provider adapter | Low | Not included |
 | https://github.com/open-meteo/open-meteo | Source AGPLv3; API data CC BY 4.0 | No-key forecast API and excellent demo/fallback normalization source | Free API is non-commercial; terms must be respected for production use | Adapter implemented for optional server-side fetch/debug | Low-medium; API terms matter | Adapter included |
-| https://github.com/supabase/supabase-js | MIT | Official JS client for Supabase reads/writes | None for this stack | Primary DB client, lazily initialized | Low | Included |
+| https://github.com/supabase/supabase-js | MIT | Official JS client for managed database reads/writes | None for this stack | Primary DB client, lazily initialized | Low | Included |
 | https://github.com/supabase/ssr | MIT package | Useful for auth/cookie SSR apps | Current app does not need user auth | Add only when auth is introduced | Low | Not included |
 | https://github.com/Polymarket/clob-client-v2 | MIT | Official TypeScript CLOB client | Trading/auth SDK not needed for read-first MVP | Public Gamma/CLOB data should be normalized by bot first | Medium; market/geography rules can change | Adapter only |
 | https://github.com/Polymarket/ts-sdk | Beta/new unified SDK noted in docs/news; confirm before use | Potential future unified Polymarket API client | Newer beta surface; not necessary for MVP | Revisit after stability | High until stable | Not included |

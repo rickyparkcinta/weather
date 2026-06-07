@@ -8,7 +8,7 @@ const copy = getDocsCopy(locale);
 export const metadata: Metadata = {
   title: copy.metadata.homeTitle,
   description: copy.metadata.homeDescription,
-  keywords: ["Weather AI 文件", "預報市場智能", "數值天氣預報", "集合預報", "天氣資料管線"],
+  keywords: ["RiWeather 文件", "預報市場智能", "數值天氣預報", "集合預報", "天氣資料管線"],
   alternates: {
     canonical: docsHref(locale),
     languages: getDocsAlternates()

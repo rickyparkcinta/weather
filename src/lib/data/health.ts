@@ -114,7 +114,7 @@ export async function getHealthReport(): Promise<HealthReport> {
   if (!supabaseConfigured && !isDemoModeEnabled()) {
     warnings.push({
       level: "error",
-      message: "Live mode is enabled, but Supabase URL or anon key is missing."
+      message: "Live mode is enabled, but public database connection settings are missing."
     });
   }
   if (supabaseConfigured && !serviceRoleConfigured) {
@@ -133,7 +133,7 @@ export async function getHealthReport(): Promise<HealthReport> {
     warnings.push({ level: "error", message: `Live data read failed: ${error}` });
   }
   if (supabaseReachable) {
-    if (cities.count === 0) warnings.push({ level: "error", message: "No cities found in Supabase. Seed the cities table." });
+    if (cities.count === 0) warnings.push({ level: "error", message: "No cities found in the live database. Seed the cities table." });
     if (forecast.count === 0) warnings.push({ level: "error", message: "No forecast points found. Run a forecast ingestion." });
     if (markets.count === 0) warnings.push({ level: "warn", message: "No market events found. Run a market sync." });
     if (signals.count === 0) warnings.push({ level: "warn", message: "No combined signals computed yet." });
@@ -150,8 +150,8 @@ export async function getHealthReport(): Promise<HealthReport> {
   }
 
   const env: EnvCheck[] = [
-    { key: "NEXT_PUBLIC_SUPABASE_URL", label: "Supabase URL", configured: Boolean(getEnv("NEXT_PUBLIC_SUPABASE_URL")), required: true },
-    { key: "NEXT_PUBLIC_SUPABASE_ANON_KEY", label: "Supabase anon key", configured: Boolean(getEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY")), required: true },
+    { key: "NEXT_PUBLIC_SUPABASE_URL", label: "Public database URL", configured: Boolean(getEnv("NEXT_PUBLIC_SUPABASE_URL")), required: true },
+    { key: "NEXT_PUBLIC_SUPABASE_ANON_KEY", label: "Public database key", configured: Boolean(getEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY")), required: true },
     { key: "SUPABASE_SERVICE_ROLE_KEY", label: "Service role key (server only)", configured: serviceRoleConfigured, required: true },
     { key: "INGESTION_SECRET", label: "Ingestion secret", configured: Boolean(getEnv("INGESTION_SECRET")), required: true },
     { key: "CRON_SECRET", label: "Vercel cron secret", configured: Boolean(getEnv("CRON_SECRET")), required: false },

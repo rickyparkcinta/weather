@@ -2,7 +2,7 @@
 
 ## Checklist
 
-1. Create a Supabase project.
+1. Create and configure the managed database project.
 2. Apply `supabase/migrations/0001_init.sql`.
 3. Apply `supabase/seed.sql`.
 4. Import the GitHub repository into Vercel.
@@ -46,7 +46,7 @@ Optional built-in sync variables:
 - No long-running process is required.
 - No filesystem persistence is required.
 - No Vercel cron is required for core behavior.
-- Supabase clients are lazily initialized so missing env vars surface as a clear runtime error rather than a crash at import time.
+- Database clients are lazily initialized so missing env vars surface as a clear runtime error rather than a crash at import time.
 
 ## Tile Provider Note
 

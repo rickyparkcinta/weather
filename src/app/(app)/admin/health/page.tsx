@@ -1,25 +1,31 @@
 import { CheckCircle2, CircleAlert, CircleX, Database, MinusCircle } from "lucide-react";
 import { ProductHeader } from "@/components/shell/ProductHeader";
 import { getHealthReport, type Warning } from "@/lib/data/health";
+import { appCopy, type AppLocale } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Data Health · Weather AI",
-  description: "Supabase status, ingestion freshness, env configuration, and operator guidance."
+  title: "Data Health · RiWeather",
+  description: "Live data status, ingestion freshness, env configuration, and operator guidance."
 };
 
 export default async function AdminHealthPage() {
+  return <AdminHealthPageContent locale="en" />;
+}
+
+export async function AdminHealthPageContent({ locale }: { locale: AppLocale }) {
   const report = await getHealthReport();
+  const copy = appCopy[locale];
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="health" demoMode={report.demoMode} />
+      <ProductHeader active="health" demoMode={report.demoMode} locale={locale} />
       <div className="mx-auto max-w-5xl px-4 pb-16 pt-6 md:px-8">
         <div className="py-4">
           <h1 className="text-2xl font-semibold text-white md:text-3xl">Data Health</h1>
           <p className="mt-2 text-sm text-slate-400">
-            Operational status for the Weather AI pipeline. Secret values are never shown — only whether
+            Operational status for the RiWeather pipeline. Secret values are never shown - only whether
             each variable is configured.
           </p>
         </div>
@@ -32,15 +38,15 @@ export default async function AdminHealthPage() {
               : "border-emerald-300/25 bg-emerald-400/[0.06] text-emerald-100"
           }`}
         >
-          <Database size={18} />
+            <Database size={18} />
           <div>
             <div className="text-sm font-semibold">
-              {report.demoMode ? "Demo mode" : "Live Supabase mode"}
+              {report.demoMode ? copy.status.demoMode : copy.status.liveMode}
             </div>
             <div className="text-xs opacity-80">
               {report.demoMode
                 ? "Serving built-in demo fixtures. Live data is not currently active."
-                : "Serving live data from Supabase."}
+                : "Serving live data."}
             </div>
           </div>
         </div>
@@ -138,7 +144,7 @@ export default async function AdminHealthPage() {
               <Code>/api/sync/real-api</Code> with the ingestion secret.
             </li>
             <li>
-              Set <Code>NEXT_PUBLIC_ENABLE_DEMO_DATA=false</Code> to force live data once Supabase is
+              Set <Code>NEXT_PUBLIC_ENABLE_DEMO_DATA=false</Code> to force live data once the database is
               populated.
             </li>
           </ol>

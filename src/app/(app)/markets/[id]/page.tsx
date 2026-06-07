@@ -7,6 +7,7 @@ import { ProbabilityChart } from "@/components/ui/ProbabilityChart";
 import { ConfidenceBadge, FreshnessBadge, SignalStateBadge } from "@/components/ui/SignalBadge";
 import { getMarketIntel } from "@/lib/data/market-intel";
 import { usingDemoData } from "@/lib/data/queries";
+import { localizedPath, type AppLocale } from "@/lib/i18n";
 import { formatSignedPercent } from "@/lib/signals/classify";
 import { addHoursIso, formatCompactNumber, formatDateTime, formatPercent } from "@/lib/utils";
 import type { CombinedSignal, MarketEvent } from "@/types/domain";
@@ -14,6 +15,16 @@ import type { CombinedSignal, MarketEvent } from "@/types/domain";
 export const dynamic = "force-dynamic";
 
 export default async function MarketPage({ params }: { params: Promise<{ id: string }> }) {
+  return <MarketPageContent params={params} locale="en" />;
+}
+
+export async function MarketPageContent({
+  params,
+  locale
+}: {
+  params: Promise<{ id: string }>;
+  locale: AppLocale;
+}) {
   const { id } = await params;
   const intel = await getMarketIntel(id);
 
@@ -28,9 +39,9 @@ export default async function MarketPage({ params }: { params: Promise<{ id: str
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="signals" demoMode={usingDemoData()} />
+      <ProductHeader active="signals" demoMode={usingDemoData()} locale={locale} />
       <div className="mx-auto max-w-5xl px-4 pb-16 pt-6 md:px-8">
-        <Link href="/signals" className="text-xs text-slate-400 hover:text-slate-200">
+        <Link href={localizedPath(locale, "/signals")} className="text-xs text-slate-400 hover:text-slate-200">
           ← Back to signals
         </Link>
 
@@ -68,7 +79,7 @@ export default async function MarketPage({ params }: { params: Promise<{ id: str
           </div>
         </section>
 
-        <NonAdvisoryNotice className="mt-4" />
+        <NonAdvisoryNotice className="mt-4" locale={locale} />
 
         {/* Probability-gap diagnostics */}
         <section className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -116,7 +127,7 @@ export default async function MarketPage({ params }: { params: Promise<{ id: str
                 cities.map((city) => (
                   <Link
                     key={city.id}
-                    href={`/city/${city.slug}`}
+                    href={localizedPath(locale, `/city/${city.slug}`)}
                     className="flex items-center justify-between rounded-md border border-white/10 bg-black/20 px-3 py-2 text-sm text-slate-200 hover:border-cyan-200/35 hover:bg-white/5"
                   >
                     <span>{city.name}</span>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Activity, BookOpen, Database, DollarSign, Gauge, Map as MapIcon, Radar, ShieldCheck } from "lucide-react";
 import { DataSourceBadge } from "@/components/ui/DataSourceBadge";
+import { appCopy, localizedPath, type AppCopy, type AppLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type NavKey = "map" | "signals" | "data" | "weather-bonds" | "pricing" | "docs" | "health";
@@ -15,16 +16,34 @@ const NAV: { key: NavKey; label: string; href: string; icon: typeof MapIcon }[] 
   { key: "health", label: "Health", href: "/admin/health", icon: Gauge }
 ];
 
-export function ProductBrand({ className }: { className?: string }) {
+export function ProductBrand({
+  className,
+  locale = "en"
+}: {
+  className?: string;
+  locale?: AppLocale;
+}) {
+  return <ProductBrandView className={className} locale={locale} copy={appCopy[locale]} />;
+}
+
+function ProductBrandView({
+  className,
+  locale,
+  copy
+}: {
+  className?: string;
+  locale: AppLocale;
+  copy: AppCopy;
+}) {
   return (
-    <Link href="/" className={cn("group inline-flex items-center gap-2", className)} aria-label="Weather AI home">
+    <Link href={localizedPath(locale, "/")} className={cn("group inline-flex items-center gap-2", className)} aria-label={copy.brand.aria}>
       <span className="flex h-8 w-8 items-center justify-center rounded-md border border-cyan-300/30 bg-cyan-300/10 text-cyan-200 shadow-[0_0_20px_rgba(55,194,255,0.25)]">
         <Radar size={17} />
       </span>
       <span className="flex flex-col leading-none">
-        <span className="text-sm font-semibold tracking-tight text-white">Weather AI</span>
+        <span className="text-sm font-semibold tracking-tight text-white">{copy.brand.name}</span>
         <span className="mt-0.5 text-[10px] uppercase tracking-[0.14em] text-slate-500">
-          Odds Analysis Map
+          {copy.brand.tagline}
         </span>
       </span>
     </Link>
@@ -33,20 +52,33 @@ export function ProductBrand({ className }: { className?: string }) {
 
 export function ProductHeader({
   active,
-  demoMode
+  demoMode,
+  locale = "en"
 }: {
   active: NavKey;
   demoMode: boolean;
+  locale?: AppLocale;
 }) {
+  const copy = appCopy[locale];
+  const labels: Record<NavKey, string> = {
+    map: copy.nav.map,
+    signals: copy.nav.signals,
+    data: copy.nav.data,
+    "weather-bonds": copy.nav.weatherBonds,
+    pricing: copy.nav.pricing,
+    docs: copy.nav.docs,
+    health: copy.nav.health
+  };
+
   return (
     <header className="sticky top-0 z-30 border-b border-white/10 bg-[#06080b]/85 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-8">
-        <ProductBrand />
+        <ProductBrandView locale={locale} copy={copy} />
         <nav className="flex min-w-0 items-center gap-1 overflow-x-auto" aria-label="Primary">
           {NAV.map((item) => (
             <Link
               key={item.key}
-              href={item.href}
+              href={localizedPath(locale, item.href)}
               aria-current={item.key === active ? "page" : undefined}
               className={cn(
                 "inline-flex shrink-0 items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm transition",
@@ -56,10 +88,10 @@ export function ProductHeader({
               )}
             >
               <item.icon size={15} />
-              <span className="hidden lg:inline">{item.label}</span>
+              <span className="hidden lg:inline">{labels[item.key] ?? item.label}</span>
             </Link>
           ))}
-          <DataSourceBadge demoMode={demoMode} className="ml-1 hidden xl:inline-flex" />
+          <DataSourceBadge demoMode={demoMode} locale={locale} className="ml-1 hidden xl:inline-flex" />
         </nav>
       </div>
     </header>

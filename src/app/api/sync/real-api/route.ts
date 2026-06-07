@@ -51,7 +51,7 @@ function queryOptions(request: Request): RealApiSyncOptions {
 async function runSync(options: RealApiSyncOptions) {
   const client = getSupabaseAdminClient();
   if (!client) {
-    return jsonError("Supabase admin client is not configured", 503);
+    return jsonError("Live data write client is not configured", 503);
   }
 
   try {

@@ -13,7 +13,7 @@ The bot should fetch official/public APIs, normalize records, and submit payload
 
 `POST /api/ingest/run`
 
-Use this endpoint for the real product path. It accepts normalized records from a provider adapter, records the provider execution in `provider_run_logs`, writes to the canonical Supabase tables, and produces map-ready forecast, market, and signal data for `GET /api/map-layers`.
+Use this endpoint for the real product path. It accepts normalized records from a provider adapter, records the provider execution in `provider_run_logs`, writes to the canonical live tables, and produces map-ready forecast, market, and signal data for `GET /api/map-layers`.
 
 Required adapter interface:
 

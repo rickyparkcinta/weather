@@ -15,6 +15,7 @@ import { LoadingSkeleton } from "@/components/ui/LoadingSkeleton";
 import { MarketDrawer } from "@/components/ui/MarketDrawer";
 import { type LayerState, RightLayerPanel } from "@/components/ui/RightLayerPanel";
 import { TopSearch } from "@/components/ui/TopSearch";
+import { appCopy, localizedPath, type AppLocale } from "@/lib/i18n";
 import type { City, CombinedSignal, DashboardData, ForecastPoint, MarketEvent } from "@/types/domain";
 
 type CityPayload = {
@@ -61,31 +62,35 @@ function InstitutionalOverview({
   cityCount,
   marketCount,
   signalCount,
-  demoMode
+  demoMode,
+  locale
 }: {
   cityCount: number;
   marketCount: number;
   signalCount: number;
   demoMode: boolean;
+  locale: AppLocale;
 }) {
+  const copy = appCopy[locale];
+
   return (
     <section className="pointer-events-auto hidden max-w-full overflow-hidden rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 py-2 shadow-2xl backdrop-blur-xl lg:block">
       <div className="flex min-w-0 items-center justify-between gap-4">
         <div className="min-w-0">
-          <h1 className="truncate text-sm font-semibold text-white">Institutional weather-risk intelligence</h1>
+          <h1 className="truncate text-sm font-semibold text-white">{copy.shell.overviewTitle}</h1>
           <p className="mt-0.5 truncate text-xs text-slate-400">
-            Forecast probability, market-implied probability, confidence-adjusted gaps, and source freshness for weather desks, investors, insurance, energy, agriculture, and logistics.
+            {copy.shell.overviewBody}
           </p>
         </div>
         <div className="hidden shrink-0 items-center gap-2 xl:flex">
-          <OverviewMetric label="Cities" value={cityCount} />
-          <OverviewMetric label="Markets" value={marketCount} />
-          <OverviewMetric label="Signals" value={signalCount} />
+          <OverviewMetric label={copy.shell.cities} value={cityCount} />
+          <OverviewMetric label={copy.shell.markets} value={marketCount} />
+          <OverviewMetric label={copy.shell.signals} value={signalCount} />
           <span className="rounded-md border border-cyan-200/18 bg-cyan-300/8 px-2 py-1 text-[11px] font-medium text-cyan-50">
-            {demoMode ? "Demo dataset" : "Supabase freshness"}
+            {demoMode ? copy.shell.demoDataset : copy.shell.liveFreshness}
           </span>
           <span className="rounded-md border border-emerald-200/18 bg-emerald-300/8 px-2 py-1 text-[11px] font-medium text-emerald-50">
-            Research only
+            {copy.shell.researchOnly}
           </span>
         </div>
       </div>
@@ -101,8 +106,15 @@ function OverviewMetric({ label, value }: { label: string; value: number }) {
   );
 }
 
-export function AppShell({ initialData }: { initialData: DashboardData }) {
+export function AppShell({
+  initialData,
+  locale = "en"
+}: {
+  initialData: DashboardData;
+  locale?: AppLocale;
+}) {
   const router = useRouter();
+  const copy = appCopy[locale];
   const [selectedSlug, setSelectedSlug] = useState(initialData.selectedCity.slug);
   const [selectedMarket, setSelectedMarket] = useState<MarketEvent | null>(null);
   const [timeline, setTimeline] = useState(2);
@@ -112,9 +124,9 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
     (city: City) => {
       setSelectedSlug(city.slug);
       setSelectedMarket(null);
-      router.push(`/city/${city.slug}`, { scroll: false });
+      router.push(localizedPath(locale, `/city/${city.slug}`), { scroll: false });
     },
-    [router]
+    [locale, router]
   );
   const handleSelectMarket = useCallback((market: MarketEvent) => setSelectedMarket(market), []);
 
@@ -194,16 +206,16 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
         <div className="flex min-w-0 flex-col gap-2">
           <div className="flex items-center justify-between gap-2">
             <div className="pointer-events-auto flex h-10 shrink-0 items-center rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 shadow-2xl backdrop-blur-xl">
-              <ProductBrand />
+              <ProductBrand locale={locale} />
             </div>
             <div className="pointer-events-auto flex min-w-0 items-center gap-2 overflow-x-auto">
-              <DataSourceBadge demoMode={initialData.demoMode} className="hidden sm:inline-flex" />
-              <MapOverlayLink href="/data" label="Data" icon={Database} />
-              <MapOverlayLink href="/signals" label="Signals" icon={Activity} />
-              <MapOverlayLink href="/weather-bonds" label="Weather bonds" icon={ShieldCheck} />
-              <MapOverlayLink href="/pricing" label="Pricing" icon={DollarSign} />
-              <MapOverlayLink href="/docs" label="Docs" icon={BookOpen} />
-              <MapOverlayLink href="/admin/health" label="Health" icon={Gauge} />
+              <DataSourceBadge demoMode={initialData.demoMode} locale={locale} className="hidden sm:inline-flex" />
+              <MapOverlayLink href={localizedPath(locale, "/data")} label={copy.nav.data} icon={Database} />
+              <MapOverlayLink href={localizedPath(locale, "/signals")} label={copy.nav.signals} icon={Activity} />
+              <MapOverlayLink href={localizedPath(locale, "/weather-bonds")} label={copy.nav.weatherBonds} icon={ShieldCheck} />
+              <MapOverlayLink href={localizedPath(locale, "/pricing")} label={copy.nav.pricing} icon={DollarSign} />
+              <MapOverlayLink href={localizedPath(locale, "/docs")} label={copy.nav.docs} icon={BookOpen} />
+              <MapOverlayLink href={localizedPath(locale, "/admin/health")} label={copy.nav.health} icon={Gauge} />
             </div>
           </div>
           <InstitutionalOverview
@@ -211,6 +223,7 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
             marketCount={markets.length}
             signalCount={signals.length}
             demoMode={initialData.demoMode}
+            locale={locale}
           />
           <div className="flex min-w-0 items-start justify-between gap-2 sm:gap-4">
             <TopSearch cities={cities} selectedCity={selectedCity} onSelect={handleSelectCity} />
@@ -225,7 +238,7 @@ export function AppShell({ initialData }: { initialData: DashboardData }) {
           <div className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-[430px] lg:inset-x-auto lg:bottom-auto lg:left-0 lg:top-0 lg:mx-0">
             {cityQuery.isError ? (
               <div className="pointer-events-auto w-full">
-                <ErrorState title="Unable to load city intelligence." />
+                <ErrorState title={copy.shell.unableToLoadCity} />
               </div>
             ) : cityQuery.isLoading ? (
               <div className="pointer-events-auto w-full rounded-md border border-white/12 bg-[var(--panel)] p-4">

@@ -1,10 +1,10 @@
 # API Normalization
 
-The app uses camelCase TypeScript domain types in `src/types/domain.ts` and snake_case Supabase columns in SQL.
+The app uses camelCase TypeScript domain types in `src/types/domain.ts` and snake_case managed database columns in SQL.
 
 ## Canonical Ingestion Run
 
-`POST /api/ingest/run` is the preferred product ingestion surface. It accepts a provider-normalized run, validates each record with Zod, logs the run in `provider_run_logs`, writes normalized records into Supabase, and returns the canonical write result.
+`POST /api/ingest/run` is the preferred product ingestion surface. It accepts a provider-normalized run, validates each record with Zod, logs the run in `provider_run_logs`, writes normalized records into the live database, and returns the canonical write result.
 
 All ingestion calls require:
 
@@ -119,7 +119,7 @@ Error response examples:
 ```
 
 ```json
-{ "error": "Ingestion run failed", "details": "Supabase error message" }
+{ "error": "Ingestion run failed", "details": "database error message" }
 ```
 
 ## Forecast Normalization

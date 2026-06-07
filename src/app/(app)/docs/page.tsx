@@ -8,7 +8,7 @@ const copy = getDocsCopy(locale);
 export const metadata: Metadata = {
   title: copy.metadata.homeTitle,
   description: copy.metadata.homeDescription,
-  keywords: ["Weather AI docs", "forecast market intelligence", "numerical weather prediction", "ensemble forecasting", "weather data pipeline"],
+  keywords: ["RiWeather docs", "forecast market intelligence", "numerical weather prediction", "ensemble forecasting", "weather data pipeline"],
   alternates: {
     canonical: "/docs",
     languages: getDocsAlternates()

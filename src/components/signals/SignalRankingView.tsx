@@ -193,7 +193,7 @@ function TrustHeader({ demoMode, metrics }: { demoMode: boolean; metrics: Dashbo
         <div className="grid gap-2 sm:grid-cols-2 lg:min-w-[480px]">
           <TrustMetric
             label="Mode"
-            value={demoMode ? "Demo mode" : "Live Supabase mode"}
+            value={demoMode ? "Demo mode" : "Live mode"}
             tone={demoMode ? "warning" : "positive"}
           />
           <TrustMetric label="Last computed" value={formatUnavailableDate(metrics.latestComputedAt)} />
@@ -363,10 +363,10 @@ function DataProvenancePanel({
         <div>
           <h2 className="text-lg font-semibold text-white">Data provenance</h2>
           <p className="mt-1 text-sm leading-6 text-slate-400">
-            Records are rendered from normalized Supabase tables and joined to available city, forecast, and market context.
+            Records are rendered from normalized live tables and joined to available city, forecast, and market context.
           </p>
         </div>
-        <Badge tone={demoMode ? "warning" : "positive"}>{demoMode ? "Demo" : "Live Supabase"}</Badge>
+        <Badge tone={demoMode ? "warning" : "positive"}>{demoMode ? "Demo" : "Live"}</Badge>
       </div>
 
       <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
@@ -638,7 +638,7 @@ function SourceRecordDetails({
         <SourceField label="forecastProvider" value={forecast?.provider ?? rawString(signal.raw, ["forecastProvider", "provider", "source"])} />
         <SourceField label="forecastModel" value={forecast?.model ?? rawString(signal.raw, ["forecastModel", "model"])} />
         <SourceField label="marketProvider" value={market?.provider ?? rawString(signal.raw, ["marketProvider"])} />
-        <SourceField label="recordMode" value={demoMode ? "Demo" : "Live Supabase"} />
+        <SourceField label="recordMode" value={demoMode ? "Demo" : "Live"} />
       </dl>
     </details>
   );

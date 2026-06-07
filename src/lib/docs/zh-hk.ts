@@ -17,20 +17,20 @@ export const zhHKSourceLinkTranslations: Partial<Record<SourceId, Partial<Source
 export const zhHKDocsCopy: DocsCopy = {
   localeName: "繁體中文（香港）",
   metadata: {
-    homeTitle: "Weather AI 文件 | 預報市場地圖",
+    homeTitle: "RiWeather 文件 | 預報市場地圖",
     homeDescription:
-      "Weather AI 的技術文件，涵蓋天氣預報模型、資料接入、Supabase 架構、地圖圖層、預測市場訊號、驗證與信心評分。",
-    homeOpenGraphDescription: "Weather AI、預報模型、驗證及市場訊號工作流程的技術文件。",
+      "RiWeather 的技術文件，涵蓋天氣預報模型、資料接入、託管資料庫架構、地圖圖層、預測市場訊號、驗證與信心評分。",
+    homeOpenGraphDescription: "RiWeather、預報模型、驗證及市場訊號工作流程的技術文件。",
     notFoundTitle: "文件 | 預報市場地圖",
     pageTitleSuffix: "預報市場地圖",
-    pageOpenGraphSuffix: "Weather AI 文件",
+    pageOpenGraphSuffix: "RiWeather 文件",
     dataSourcesTitle: "資料來源 | 預報市場地圖",
-    dataSourcesDescription: "Weather AI 的資料來源透明度說明，涵蓋預報供應商、市場供應商、Supabase 儲存及資料接入工作。"
+    dataSourcesDescription: "RiWeather 的資料來源透明度說明，涵蓋預報供應商、市場供應商、託管資料庫儲存及資料接入工作。"
   },
   shell: {
     map: "地圖",
     dataSources: "資料來源",
-    docsBadge: "Weather AI 文件",
+    docsBadge: "RiWeather 文件",
     technicalReference: "技術參考",
     forecastIntelligence: "預報智能",
     marketSignals: "市場訊號",
@@ -46,9 +46,9 @@ export const zhHKDocsCopy: DocsCopy = {
     }
   },
   home: {
-    title: "Weather AI 技術文件",
+    title: "RiWeather 技術文件",
     intro:
-      "Weather AI 將官方預報模型輸出轉化為結構化的概率、信心與模型-市場差距訊號。系統接入數值天氣預報資料，比較模型運行，量度不確定性，驗證歷史準確度，並把原始天氣預報轉化為可供城市、事件及預測市場研究使用的智能。",
+      "RiWeather 將官方預報模型輸出轉化為結構化的概率、信心與模型-市場差距訊號。系統接入數值天氣預報資料，比較模型運行，量度不確定性，驗證歷史準確度，並把原始天氣預報轉化為可供城市、事件及預測市場研究使用的智能。",
     technicalSummary:
       "超級電腦天氣預報由數值模型產生：模型透過資料同化估計當前大氣狀態，將地球系統切分為三維網格，按物理方程向前推演，並產生確定性及概率預報。AI 系統可透過校準模型輸出、修正偏差、偵測預報不穩定性，以及把集合資訊轉化為可行動概率，改善這個流程。",
     routesHeading: "文件路由",
@@ -119,15 +119,15 @@ export const zhHKDocsCopy: DocsCopy = {
     intro: "此應用程式是資料展示與智能介面。訊號會解釋預報模型分歧、市場隱含概率、資料新鮮度及不確定性。它們只供研究使用，並非交易建議。",
     transparencyHeading: "透明度說明",
     notes: [
-      "資料可能因供應商更新節奏、機械人故障、Supabase 複寫或 Vercel 快取行為而延遲。",
+      "資料可能因供應商更新節奏、機械人故障、託管資料庫複寫或 Vercel 快取行為而延遲。",
       "預報模型輸出屬概率性質，不同模型或運行之間可以有分歧。",
       "市場資料反映成交價格與訂單簿，而非已驗證事實。",
       "市場存取、展示及交易可能受當地法律或供應商規則限制。"
     ],
     sources: [
       {
-        name: "Supabase Postgres",
-        body: "主要應用程式資料庫。Vercel app 會從 Supabase 讀取已標準化的城市、預報、市場、歷史及綜合訊號記錄。"
+        name: "managed Postgres",
+        body: "主要應用程式資料庫。Vercel app 會從託管資料庫讀取已標準化的城市、預報、市場、歷史及綜合訊號記錄。"
       },
       {
         name: "每小時代理機械人",
@@ -151,7 +151,7 @@ export const zhHKDocTranslations = [
     title: "天氣預測概覽",
     shortTitle: "概覽",
     description: "從觀測到概率天氣與市場智能的端到端預報鏈。",
-    keywords: ["天氣預測", "NWP", "預報流程", "預報智能", "Weather AI"],
+    keywords: ["天氣預測", "NWP", "預報流程", "預報智能", "RiWeather"],
     sections: [
       {
         title: "現代預報",
@@ -849,7 +849,7 @@ export const zhHKDocTranslations = [
             text: "驗證會把預報輸出與實際發生的情況比較。沒有驗證，平台無法知道哪些模型、預報時效、變數或城市可靠。"
           },
           {
-            title: "Weather AI 平台應追蹤",
+            title: "RiWeather 平台應追蹤",
             items: [
               "按城市、變數、提前時間及季節判斷哪個模型最佳。",
               "哪些模型在特定天氣型態下表現最佳。",
@@ -920,13 +920,13 @@ export const zhHKDocTranslations = [
     title: "天氣資料管線",
     shortTitle: "資料管線",
     description: "面向正式環境的管線，用於接入官方預報、市場、訊號及驗證資料。",
-    keywords: ["天氣資料管線", "預報資料庫", "Supabase 架構", "預報資料接入", "市場訊號"],
+    keywords: ["天氣資料管線", "預報資料庫", "託管資料庫架構", "預報資料接入", "市場訊號"],
     sections: [
       {
         title: "建議管線",
         blocks: [
           {
-            text: "正式 Weather AI 系統應把預報視為結構化時間序列資料。收集、標準化、儲存、訊號計算、驗證及展示應分成不同層。"
+            text: "正式 RiWeather 系統應把預報視為結構化時間序列資料。收集、標準化、儲存、訊號計算、驗證及展示應分成不同層。"
           },
           {
             title: "預報資料管線",
@@ -1013,7 +1013,7 @@ export const zhHKDocTranslations = [
       },
       {
         title: "標準儲存與地圖輸出",
-        description: "Supabase schema 儲存已標準化記錄；地圖 API 則發布預報、市場及訊號圖層，並包含信心、新鮮度、概率差距及訊號狀態欄位。",
+        description: "database schema 儲存已標準化記錄；地圖 API 則發布預報、市場及訊號圖層，並包含信心、新鮮度、概率差距及訊號狀態欄位。",
         blocks: [
           {
             title: "標準化寫入目標",
@@ -1251,7 +1251,7 @@ export const zhHKDocTranslations = [
     title: "詞彙表",
     shortTitle: "詞彙表",
     description: "平台各處使用的天氣、模型、驗證及市場術語定義。",
-    keywords: ["Weather AI 詞彙表", "預報術語", "NWP 詞彙表", "市場訊號詞彙表"],
+    keywords: ["RiWeather 詞彙表", "預報術語", "NWP 詞彙表", "市場訊號詞彙表"],
     sections: [
       {
         title: "核心術語",

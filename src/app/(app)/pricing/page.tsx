@@ -15,9 +15,10 @@ import { ProductHeader } from "@/components/shell/ProductHeader";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
 import { Badge } from "@/components/ui/SignalBadge";
 import { usingDemoData } from "@/lib/data/queries";
+import { localizedPath, type AppLocale } from "@/lib/i18n";
 
 export const metadata = {
-  title: "Pricing · Weather AI",
+  title: "Pricing · RiWeather",
   description:
     "Research, professional, data API, and enterprise pricing structure for weather-risk intelligence and data access."
 };
@@ -67,11 +68,15 @@ const MATRIX = [
 ];
 
 export default function PricingPage() {
+  return <PricingPageContent locale="en" />;
+}
+
+export function PricingPageContent({ locale }: { locale: AppLocale }) {
   const demoMode = usingDemoData();
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="pricing" demoMode={demoMode} />
+      <ProductHeader active="pricing" demoMode={demoMode} locale={locale} />
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 md:px-8">
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_360px] lg:items-start">
           <div>
@@ -104,7 +109,7 @@ export default function PricingPage() {
           </aside>
         </section>
 
-        <NonAdvisoryNotice className="mt-8" />
+        <NonAdvisoryNotice className="mt-8" locale={locale} />
 
         <section className="mt-8 grid gap-4 lg:grid-cols-4">
           {TIERS.map((tier) => {
@@ -131,7 +136,7 @@ export default function PricingPage() {
                   ))}
                 </ul>
                 <Link
-                  href={tier.name === "Enterprise" ? "/data#request-access" : "/data"}
+                  href={tier.name === "Enterprise" ? localizedPath(locale, "/data#request-access") : localizedPath(locale, "/data")}
                   className="mt-5 inline-flex h-10 items-center justify-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-100 hover:bg-white/8"
                 >
                   {tier.name === "Enterprise" ? "Request access" : "View data"}
@@ -182,7 +187,7 @@ export default function PricingPage() {
                 CSV/Parquet delivery, procurement review, and weather-linked research workflows.
               </p>
             </div>
-            <Link href="/data#request-access" className="inline-flex h-10 shrink-0 items-center gap-2 rounded-md border border-emerald-200/30 px-3 text-sm text-emerald-50 hover:bg-emerald-300/10">
+            <Link href={localizedPath(locale, "/data#request-access")} className="inline-flex h-10 shrink-0 items-center gap-2 rounded-md border border-emerald-200/30 px-3 text-sm text-emerald-50 hover:bg-emerald-300/10">
               Request data access
               <ArrowRight size={15} />
             </Link>

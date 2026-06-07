@@ -22,12 +22,13 @@ import {
   listMarkets,
   usingDemoData
 } from "@/lib/data/queries";
+import { appCopy, localizedPath, type AppLocale } from "@/lib/i18n";
 import { formatDateTime } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Weather Data API · Weather AI",
+  title: "Weather Data API · RiWeather",
   description:
     "Forecast points, market events, market time series, combined signals, freshness, and provenance for professional weather-risk data buyers."
 };
@@ -125,12 +126,17 @@ type DataMetrics = {
 };
 
 export default async function DataPage() {
+  return <DataPageContent locale="en" />;
+}
+
+export async function DataPageContent({ locale }: { locale: AppLocale }) {
   const demoMode = usingDemoData();
   const metrics = await loadDataMetrics();
+  const copy = appCopy[locale];
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="data" demoMode={demoMode} />
+      <ProductHeader active="data" demoMode={demoMode} locale={locale} />
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 md:px-8">
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_360px] lg:items-start">
           <div>
@@ -142,11 +148,11 @@ export default async function DataPage() {
               Weather-risk data API for professional desks
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 md:text-base">
-              Weather AI packages official forecast-model output and market-implied pricing into structured city-level data:
+              RiWeather packages official forecast-model output and market-implied pricing into structured city-level data:
               probabilities, confidence scores, model-market gaps, freshness status, and source provenance.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Badge tone={demoMode ? "warning" : "positive"}>{demoMode ? "Demo dataset" : "Supabase live"}</Badge>
+              <Badge tone={demoMode ? "warning" : "positive"}>{demoMode ? copy.shell.demoDataset : copy.status.liveData}</Badge>
               <Badge tone="neutral">Official/public APIs</Badge>
               <Badge tone="positive">Run logs</Badge>
               <Badge tone="muted">Research only</Badge>
@@ -191,17 +197,17 @@ export default async function DataPage() {
           })}
         </section>
 
-        <NonAdvisoryNotice className="mt-8" />
+        <NonAdvisoryNotice className="mt-8" locale={locale} />
 
         <section className="mt-8">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="text-2xl font-semibold text-white">API-style tables</h2>
               <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
-                The public UI reads anon-safe Supabase records. Ingestion writes stay server-side through protected endpoints.
+                The public UI reads anon-safe live records. Ingestion writes stay server-side through protected endpoints.
               </p>
             </div>
-            <Link href="/admin/health" className="inline-flex h-10 items-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-200 hover:bg-white/8">
+            <Link href={localizedPath(locale, "/admin/health")} className="inline-flex h-10 items-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-200 hover:bg-white/8">
               <KeyRound size={15} />
               Health checks
             </Link>
@@ -228,11 +234,11 @@ export default async function DataPage() {
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
-              <Link href="/pricing" className="inline-flex h-10 items-center gap-2 rounded-md border border-emerald-200/30 px-3 text-sm text-emerald-50 hover:bg-emerald-300/10">
+              <Link href={localizedPath(locale, "/pricing")} className="inline-flex h-10 items-center gap-2 rounded-md border border-emerald-200/30 px-3 text-sm text-emerald-50 hover:bg-emerald-300/10">
                 View pricing
                 <ArrowRight size={15} />
               </Link>
-              <Link href="/weather-bonds" className="inline-flex h-10 items-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-100 hover:bg-white/8">
+              <Link href={localizedPath(locale, "/weather-bonds")} className="inline-flex h-10 items-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-100 hover:bg-white/8">
                 Weather-linked research
               </Link>
             </div>
@@ -278,7 +284,7 @@ async function loadDataMetrics(): Promise<DataMetrics> {
     return {
       counts: { cities: null, forecast: null, markets: null, signals: null },
       latestSignalAt: null,
-      error: error instanceof Error ? error.message : "Unable to read Supabase metrics."
+      error: error instanceof Error ? error.message : "Unable to read live metrics."
     };
   }
 }

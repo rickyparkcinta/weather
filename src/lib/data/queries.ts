@@ -19,7 +19,7 @@ function requireLiveClient() {
   const client = getSupabaseServerClient();
   if (!client) {
     throw new Error(
-      "Live Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, or explicitly set NEXT_PUBLIC_ENABLE_DEMO_DATA=true for demo mode."
+      "Live data is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, or explicitly set NEXT_PUBLIC_ENABLE_DEMO_DATA=true for demo mode."
     );
   }
 
