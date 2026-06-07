@@ -505,7 +505,7 @@ function paperTradePosture(row: RankedSignal) {
   const edge = edgeClassification(row);
   const gap = row.gap ?? 0;
   const confidence = row.confidence ?? 0;
-  const missingLiquidity = row.market?.liquidity === null && row.market?.volume === null;
+  const missingLiquidity = !row.market || (row.market.liquidity === null && row.market.volume === null);
 
   if (edge.rank < 2 || confidence < 0.35) {
     return {
