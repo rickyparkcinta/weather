@@ -2,7 +2,7 @@ import { Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const nonAdvisoryNoticeText =
-  "Signals explain forecast-model disagreement, market-implied probability, data freshness, and uncertainty. They are for research only and are not trading advice.";
+  "Odds analysis compares market-implied probability, estimated fair value, data freshness, and uncertainty for research and paper trading only. It is not financial, gambling, or investment advice, and the app does not place bets or submit orders.";
 
 export function NonAdvisoryNotice({
   className,
