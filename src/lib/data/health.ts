@@ -50,20 +50,28 @@ async function latestRow(table: string, orderColumn: string): Promise<Record<str
   }
 }
 
+async function safeCount<T>(load: () => Promise<T[]>) {
+  try {
+    return { count: (await load()).length, error: null as string | null };
+  } catch (error) {
+    return { count: 0, error: error instanceof Error ? error.message : String(error) };
+  }
+}
+
 export async function getHealthReport(): Promise<HealthReport> {
   const demoMode = usingDemoData();
   const supabaseConfigured = Boolean(getEnv("NEXT_PUBLIC_SUPABASE_URL") && getEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"));
   const serviceRoleConfigured = Boolean(getEnv("SUPABASE_SERVICE_ROLE_KEY"));
 
   const [cities, forecast, markets, signals] = await Promise.all([
-    listCities(),
-    listForecastPoints({}),
-    listMarkets(),
-    listCombinedSignals()
+    safeCount(() => listCities()),
+    safeCount(() => listForecastPoints({})),
+    safeCount(() => listMarkets()),
+    safeCount(() => listCombinedSignals())
   ]);
 
-  // A read that succeeds outside demo mode means live data is reachable.
-  const supabaseReachable = supabaseConfigured && !demoMode;
+  const liveReadErrors = [cities.error, forecast.error, markets.error, signals.error].filter((error): error is string => Boolean(error));
+  const supabaseReachable = supabaseConfigured && !demoMode && liveReadErrors.length === 0;
 
   const [ingestion, forecastRun, market] = supabaseReachable
     ? await Promise.all([
@@ -100,7 +108,13 @@ export async function getHealthReport(): Promise<HealthReport> {
   if (demoMode) {
     warnings.push({
       level: "warn",
-      message: "Running on demo data. Configure Supabase and run an ingestion sync to go live."
+      message: "Running on explicitly enabled demo data. Set NEXT_PUBLIC_ENABLE_DEMO_DATA=false for production."
+    });
+  }
+  if (!supabaseConfigured && !isDemoModeEnabled()) {
+    warnings.push({
+      level: "error",
+      message: "Live mode is enabled, but Supabase URL or anon key is missing."
     });
   }
   if (supabaseConfigured && !serviceRoleConfigured) {
@@ -109,11 +123,20 @@ export async function getHealthReport(): Promise<HealthReport> {
       message: "Service role key is missing. Ingestion and sync routes cannot write data."
     });
   }
+  if (!getEnv("INGESTION_SECRET") && !getEnv("CRON_SECRET")) {
+    warnings.push({
+      level: "warn",
+      message: "No ingestion or cron secret is configured. Sync routes cannot be triggered securely."
+    });
+  }
+  for (const error of liveReadErrors) {
+    warnings.push({ level: "error", message: `Live data read failed: ${error}` });
+  }
   if (supabaseReachable) {
-    if (cities.length === 0) warnings.push({ level: "error", message: "No cities found in Supabase. Seed the cities table." });
-    if (forecast.length === 0) warnings.push({ level: "error", message: "No forecast points found. Run a forecast ingestion." });
-    if (markets.length === 0) warnings.push({ level: "warn", message: "No market events found. Run a market sync." });
-    if (signals.length === 0) warnings.push({ level: "warn", message: "No combined signals computed yet." });
+    if (cities.count === 0) warnings.push({ level: "error", message: "No cities found in Supabase. Seed the cities table." });
+    if (forecast.count === 0) warnings.push({ level: "error", message: "No forecast points found. Run a forecast ingestion." });
+    if (markets.count === 0) warnings.push({ level: "warn", message: "No market events found. Run a market sync." });
+    if (signals.count === 0) warnings.push({ level: "warn", message: "No combined signals computed yet." });
 
     for (const run of runs) {
       const age = hoursSince(run.at);
@@ -131,6 +154,7 @@ export async function getHealthReport(): Promise<HealthReport> {
     { key: "NEXT_PUBLIC_SUPABASE_ANON_KEY", label: "Supabase anon key", configured: Boolean(getEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY")), required: true },
     { key: "SUPABASE_SERVICE_ROLE_KEY", label: "Service role key (server only)", configured: serviceRoleConfigured, required: true },
     { key: "INGESTION_SECRET", label: "Ingestion secret", configured: Boolean(getEnv("INGESTION_SECRET")), required: true },
+    { key: "CRON_SECRET", label: "Vercel cron secret", configured: Boolean(getEnv("CRON_SECRET")), required: false },
     { key: "NEXT_PUBLIC_DEFAULT_CITY", label: "Default city slug", configured: Boolean(getEnv("NEXT_PUBLIC_DEFAULT_CITY")), required: false },
     { key: "NEXT_PUBLIC_ENABLE_DEMO_DATA", label: "Demo data flag", configured: Boolean(getEnv("NEXT_PUBLIC_ENABLE_DEMO_DATA")), required: false }
   ];
@@ -141,10 +165,10 @@ export async function getHealthReport(): Promise<HealthReport> {
     supabaseReachable,
     serviceRoleConfigured,
     counts: {
-      cities: cities.length,
-      forecast: forecast.length,
-      markets: markets.length,
-      signals: signals.length
+      cities: cities.count,
+      forecast: forecast.count,
+      markets: markets.count,
+      signals: signals.count
     },
     runs,
     warnings,
