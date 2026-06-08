@@ -227,6 +227,243 @@ export const technicalSummary =
 const noAdviceText =
   "Signals explain forecast-model disagreement, market-implied probability, data freshness, and uncertainty. They are for research only and are not trading advice.";
 
+function platformDoc(input: {
+  slug: string;
+  title: string;
+  shortTitle: string;
+  description: string;
+  keywords: string[];
+  lead: string;
+  rows: string[][];
+  blocks?: DocBlock[];
+}): DocPage {
+  return {
+    slug: input.slug,
+    title: input.title,
+    shortTitle: input.shortTitle,
+    description: input.description,
+    group: "Platform Architecture",
+    keywords: input.keywords,
+    references: ["open-meteo", "polymarket-api", "kalshi-api", "wmo-verification"],
+    sections: [
+      {
+        title: "Operational Contract",
+        blocks: [
+          { kind: "lead", text: input.lead },
+          {
+            kind: "table",
+            columns: ["Area", "Requirement"],
+            rows: input.rows
+          },
+          { kind: "callout", title: "Non-advice boundary", text: noAdviceText },
+          ...(input.blocks ?? [])
+        ]
+      }
+    ]
+  };
+}
+
+const terminalDocs: DocPage[] = [
+  platformDoc({
+    slug: "intro",
+    title: "RiWeather Product Intro",
+    shortTitle: "Intro",
+    description: "High-level product architecture for the weather prediction-market terminal.",
+    keywords: ["weather market terminal", "forecast intelligence", "prediction market platform"],
+    lead: "RiWeather is a weather-market intelligence terminal that joins official observations, forecast models, settlement-source metadata, market-implied probabilities, calibration, and research-only explanations.",
+    rows: [
+      ["Primary view", "Global map, city command/search, market cards, right-side terminal panel, and source freshness badges."],
+      ["Data contract", "City, forecast, market, signal, settlement, calibration, provider-health, and alert records are normalized before UI rendering."],
+      ["Mode separation", "Demo mode uses fixtures; production mode reads Supabase and provider adapters."]
+    ]
+  }),
+  platformDoc({
+    slug: "weather-market-terminal",
+    title: "Weather Market Terminal",
+    shortTitle: "Terminal",
+    description: "Dashboard, search, map signals, city detail, market detail, stale data, and demo/production behavior.",
+    keywords: ["global weather dashboard", "city search", "market search", "weather market cards"],
+    lead: "The terminal presents city-level weather forecasts and prediction-market diagnostics with compact data-density, visible freshness, and keyboard-friendly navigation.",
+    rows: [
+      ["Dashboard", "Major cities, linked markets, probability gaps, provider status dots, and last-updated timestamps."],
+      ["Search", "City search and market search resolve to normalized city and market records, not provider-specific routes."],
+      ["Stale state", "Forecast, market, station, and provider records expose fresh, aging, stale, or unknown status."]
+    ]
+  }),
+  platformDoc({
+    slug: "settlement-sources",
+    title: "Settlement Sources",
+    shortTitle: "Settlement",
+    description: "Official provider, station, alias, city-link, and market-rule mapping.",
+    keywords: ["settlement station", "official source", "market resolution source", "station metadata"],
+    lead: "Every weather market should resolve to an explicit source: station code, station name, provider, timezone, event window, last observation, and confidence.",
+    rows: [
+      ["Station system", "settlement_stations, settlement_station_aliases, official_source_providers, city_station_links."],
+      ["Market rules", "market_settlement_rules stores event window, variable, operator, threshold, source confidence, and notes."],
+      ["Risk display", "Distance from city center, stale source status, and provider status are visible in the market detail page."]
+    ]
+  }),
+  platformDoc({
+    slug: "model-stack",
+    title: "Model Stack",
+    shortTitle: "Model Stack",
+    description: "Forecast model blending, cluster means, spread, trend, and fallback hierarchy.",
+    keywords: ["forecast model stack", "model blending", "forecast spread", "run volatility"],
+    lead: "The model stack converts raw forecast points and model members into a blended value with spread, trend, volatility, and station adjustments.",
+    rows: [
+      ["Inputs", "Open-Meteo, NOAA/NWS, METAR, GFS-style, ECMWF-style, national providers, and manual adapters."],
+      ["Diagnostics", "Raw model value, cluster mean, model spread, run-to-run volatility, recent trend, official observation correction."],
+      ["Fallbacks", "Model hierarchy remains explicit so unavailable providers degrade gracefully."]
+    ]
+  }),
+  platformDoc({
+    slug: "dynamic-error-balancing",
+    title: "Dynamic Error Balancing",
+    shortTitle: "DEB",
+    description: "Original Dynamic Error Balancing model-weighting implementation.",
+    keywords: ["dynamic error balancing", "model weights", "lead time skill", "provider freshness"],
+    lead: "Dynamic Error Balancing weights each model member by recent error skill, lead-time skill, provider freshness, and volatility penalties.",
+    rows: [
+      ["Recent error", "Lower recent error increases model weight."],
+      ["Lead-time skill", "Model skill is lead-time aware, so short-range and longer-range forecasts can be weighted differently."],
+      ["Freshness and volatility", "Stale providers and unstable run-to-run changes are penalized."]
+    ],
+    blocks: [
+      {
+        kind: "formula",
+        title: "Dynamic weight",
+        expression: "w_i = \\frac{s_{error,i}\\,s_{lead,i}\\,s_{fresh,i}\\,p_{vol,i}}{\\sum_j s_{error,j}\\,s_{lead,j}\\,s_{fresh,j}\\,p_{vol,j}}",
+        description: "Weights are normalized across available model members."
+      }
+    ]
+  }),
+  platformDoc({
+    slug: "probability-calibration",
+    title: "Probability Calibration",
+    shortTitle: "Calibration",
+    description: "Calibration methods, Brier score, reliability bins, and versioning.",
+    keywords: ["probability calibration", "Brier score", "reliability bins", "EMOS"],
+    lead: "Calibration converts raw model probabilities into versioned, auditable probability estimates with uncertainty and verification context.",
+    rows: [
+      ["Methods", "legacy_normal, recent_bias_correction, model_skill_weighting, and EMOS shadow interfaces."],
+      ["Metrics", "Brier score, reliability bins, historical error, and CRPS placeholders."],
+      ["UI fields", "Calibration method, version, model mean, calibrated mean, sigma, historical error, and Brier score."]
+    ]
+  }),
+  platformDoc({
+    slug: "temperature-buckets",
+    title: "Temperature Buckets",
+    shortTitle: "Buckets",
+    description: "Exact, range, above-or-equal, below-or-equal, overlap, and impossible-bucket handling.",
+    keywords: ["temperature bucket", "bucket parser", "bucket probability", "overlap detection"],
+    lead: "Temperature market rules are parsed into normalized buckets so probabilities can be calculated and warnings can be shown before display.",
+    rows: [
+      ["Bucket kinds", "exact, range, above_or_equal, below_or_equal."],
+      ["Warnings", "Bucket overlap and impossible bucket warnings are computed before rendering."],
+      ["Probability", "A Gaussian approximation maps model mean and sigma into bucket probability for diagnostics."]
+    ]
+  }),
+  platformDoc({
+    slug: "model-vs-market-edge",
+    title: "Model vs Market Edge",
+    shortTitle: "Model vs Market",
+    description: "Research-only model probability versus market probability formulas.",
+    keywords: ["model probability", "market probability", "market edge", "confidence adjusted probability"],
+    lead: "The platform shows model-over-market, market-over-model, neutral, or uncertainty labels. It does not show trading instructions.",
+    rows: [
+      ["Formula", "market_probability = market_price; raw_edge = model_probability - market_probability."],
+      ["Confidence", "adjusted_edge = raw_edge * confidence."],
+      ["Penalties", "net_edge = adjusted_edge - fees - slippage - risk_buffer."]
+    ],
+    blocks: [
+      {
+        kind: "formula",
+        title: "Net diagnostic gap",
+        expression: "G_{net} = (P_{model} - P_{market})C - F - S - R",
+        description: "F, S, and R represent fees, slippage, and risk buffer in probability points."
+      }
+    ]
+  }),
+  platformDoc({
+    slug: "realtime-cadence",
+    title: "Realtime Cadence",
+    shortTitle: "Realtime",
+    description: "Supabase Realtime events, reconnect state, polling fallback, and snapshot cache.",
+    keywords: ["Supabase Realtime", "polling fallback", "stale state", "localStorage cache"],
+    lead: "Realtime updates are optional. When disabled or unavailable, the client falls back to polling every 60 seconds and keeps a last-good snapshot key.",
+    rows: [
+      ["Events", "observation, forecast, probability, market price, provider status, and city summary patches."],
+      ["Fallback", "Polling cadence is 60 seconds."],
+      ["Persistence", "The browser can cache the last good snapshot in localStorage."]
+    ]
+  }),
+  platformDoc({
+    slug: "provider-health",
+    title: "Provider Health",
+    shortTitle: "Provider Health",
+    description: "Provider status, ingestion freshness, failed jobs, stale warnings, and adapters.",
+    keywords: ["provider health", "ingestion status", "weather providers", "market provider"],
+    lead: "Provider health records expose last success, last attempt, stale-after, latency, error, and status across weather, market, observation, cache, AI, and payments layers.",
+    rows: [
+      ["Adapters", "Open-Meteo, NOAA/NWS, METAR, GFS-style, ECMWF-style, national, and manual provider boundaries."],
+      ["Ops", "/api/providers/status and /ops display freshness, failures, and provider configuration state."],
+      ["Safety", "Private provider URLs are not hardcoded unless public and documented."]
+    ]
+  }),
+  platformDoc({
+    slug: "verification",
+    title: "Verification",
+    shortTitle: "Verification",
+    description: "Verification result storage, skill scores, Brier score, and CRPS placeholders.",
+    keywords: ["forecast verification", "model skill score", "Brier score", "CRPS"],
+    lead: "Verification compares forecast probabilities and model values against observed settlement outcomes and station observations.",
+    rows: [
+      ["Tables", "verification_results, model_skill_scores, calibration_runs, calibration_parameters."],
+      ["Scores", "Brier score and historical absolute error are available now; CRPS is reserved as a placeholder."],
+      ["Feedback", "Recent error and lead-time skill flow back into Dynamic Error Balancing weights."]
+    ]
+  }),
+  platformDoc({
+    slug: "alerts",
+    title: "Alerts",
+    shortTitle: "Alerts",
+    description: "Web, email-compatible, Telegram-compatible, and webhook-compatible alert framework.",
+    keywords: ["weather alerts", "market edge alerts", "provider outage", "Telegram alert"],
+    lead: "Alerts are framework-level events for monitoring data and probability conditions. They do not trigger automatic trading.",
+    rows: [
+      ["Types", "Probability thresholds, market-gap thresholds, station updates, forecast-run changes, provider outage, stale settlement source."],
+      ["Channels", "web, email-compatible, Telegram-compatible, and webhook-compatible abstractions."],
+      ["Boundary", "Automatic trading is intentionally not implemented."]
+    ]
+  }),
+  platformDoc({
+    slug: "api",
+    title: "API",
+    shortTitle: "API",
+    description: "Bot, extension, status, health, market, city, and ingestion endpoints.",
+    keywords: ["weather market API", "bot API", "extension API", "ops API"],
+    lead: "APIs return normalized JSON suitable for the terminal, Telegram-formatting clients, browser extensions, ops dashboards, and ingestion workers.",
+    rows: [
+      ["Bot", "/api/bot/city, /api/bot/market, /api/bot/deb, /api/bot/top-signals, /api/bot/system-status."],
+      ["Extension", "/api/extension/market-summary, /api/extension/city-summary, /api/extension/edge-summary."],
+      ["Ops", "/healthz, /api/system/status, /api/ingestion/status, /api/providers/status, /api/cache/status."]
+    ]
+  }),
+  platformDoc({
+    slug: "ops",
+    title: "Ops",
+    shortTitle: "Ops",
+    description: "Operator dashboard for provider health, ingestion, cache, stale records, and alert rules.",
+    keywords: ["ops dashboard", "system status", "cache status", "payments ops"],
+    lead: "The ops surface is an internal dashboard for freshness, health, cache, alert, calibration, verification, and payment-skeleton state.",
+    rows: [
+      ["Page", "/ops shows provider health, ingestion logs, runtime state, alerts, stale placeholders, and latest calibration/verification labels."],
+      ["Payments", "/ops/payments shows subscription plan and entitlement skeleton state."],
+      ["Health", "/admin/health remains the lower-level configuration and database health page."]
+    ]
+  })
+];
+
 function formulaBlock(
   id: FormulaId,
   overrides: Partial<Pick<Extract<DocBlock, { kind: "formula" }>, "title" | "description">> = {}
@@ -259,6 +496,7 @@ const commonAtmosphericVariables = [
 ];
 
 export const docs: DocPage[] = [
+  ...terminalDocs,
   {
     slug: "weather-prediction-overview",
     title: "Weather Prediction Overview",

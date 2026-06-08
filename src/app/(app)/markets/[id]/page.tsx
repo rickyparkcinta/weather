@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExternalLink, MapPin, ShieldAlert } from "lucide-react";
+import {
+  CalibrationPanel,
+  ExplanationPanel,
+  ModelStackPanel,
+  ProbabilityPanel,
+  SettlementPanel
+} from "@/components/intel/MarketIntelligencePanels";
 import { ProductHeader } from "@/components/shell/ProductHeader";
 import { WeatherImpactAgentPanel } from "@/components/signals/WeatherImpactAgentPanel";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
@@ -33,7 +40,7 @@ export async function MarketPageContent({
     notFound();
   }
 
-  const { market, history, cities, signal, weatherImpactReport } = intel;
+  const { market, history, cities, signal, weatherImpactReport, settlement, modelStack, probability, calibration, explanation } = intel;
   const risks = settlementRisks(market, signal);
   const snapshotAt = marketTimestamp(market);
   const staleAfter = addHoursIso(signal?.computedAt ?? snapshotAt, 24);
@@ -108,6 +115,14 @@ export async function MarketPageContent({
           <Metric label="Stale after" value={formatDateTime(staleAfter)} />
           <Metric label="Spread" value={marketSpread(market)} />
         </section>
+
+        <div className="mt-6 grid gap-6">
+          <SettlementPanel settlement={settlement} />
+          <ProbabilityPanel probability={probability} />
+          <ModelStackPanel modelStack={modelStack} />
+          <CalibrationPanel calibration={calibration} />
+          <ExplanationPanel explanation={explanation} />
+        </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
           <section className="rounded-md border border-white/12 bg-white/[0.04] p-5 lg:col-span-2">

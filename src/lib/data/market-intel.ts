@@ -6,8 +6,24 @@ import {
   listForecastPoints,
   listWeatherAgentReports
 } from "@/lib/data/queries";
+import { buildStructuredWeatherExplanation } from "@/lib/intel/analysis";
+import { summarizeCalibration } from "@/lib/intel/calibration";
+import { computeDynamicErrorBalancing, forecastPointsToModelMembers } from "@/lib/intel/model-stack";
+import { parseTemperatureBuckets, summarizeProbability } from "@/lib/intel/probability";
+import { resolveSettlementSource } from "@/lib/intel/settlement";
 import { computeCombinedSignal } from "@/lib/signals/computeCombinedSignal";
-import type { City, CombinedSignal, MarketEvent, MarketTimeSeriesPoint, WeatherAgentReport } from "@/types/domain";
+import type {
+  CalibrationSummary,
+  City,
+  CombinedSignal,
+  DynamicErrorBalancingResult,
+  MarketEvent,
+  MarketTimeSeriesPoint,
+  ProbabilitySummary,
+  SettlementSourceSummary,
+  StructuredWeatherExplanation,
+  WeatherAgentReport
+} from "@/types/domain";
 
 export type MarketIntel = {
   market: MarketEvent;
@@ -15,6 +31,11 @@ export type MarketIntel = {
   cities: City[];
   signal: CombinedSignal | null;
   weatherImpactReport: WeatherAgentReport | null;
+  settlement: SettlementSourceSummary | null;
+  modelStack: DynamicErrorBalancingResult;
+  probability: ProbabilitySummary;
+  calibration: CalibrationSummary;
+  explanation: StructuredWeatherExplanation | null;
 };
 
 /**
@@ -45,6 +66,41 @@ export async function getMarketIntel(id: string): Promise<MarketIntel | null> {
   const weatherImpactReport = reportCity
     ? (await listWeatherAgentReports({ cityId: reportCity.id, marketEventId: market.id, limit: 1 }))[0] ?? null
     : null;
+  const forecast = reportCity ? await listForecastPoints({ cityId: reportCity.id }) : [];
+  const settlement = reportCity ? resolveSettlementSource(reportCity, market) : null;
+  const modelStack = computeDynamicErrorBalancing({
+    members: forecastPointsToModelMembers(forecast),
+    officialObservationValue: settlement?.station.lastObservedValue,
+    settlementStationAdjustment: 0,
+    cityToStationAdjustment: 0
+  });
+  const calibration = summarizeCalibration({ forecast, signal, method: "legacy_normal", version: "cal-v1-shadow" });
+  const buckets = parseTemperatureBuckets(market.title);
+  const probability = summarizeProbability({
+    rawModelProbability: signal?.modelProbability ?? null,
+    calibratedModelProbability:
+      typeof signal?.modelProbability === "number" && typeof calibration.calibratedMean === "number"
+        ? Math.max(0, Math.min(1, calibration.calibratedMean))
+        : signal?.modelProbability ?? null,
+    ensembleProbability: signal?.modelProbability ?? null,
+    bucketMean: modelStack.blendedValue,
+    bucketSigma: modelStack.modelSpread,
+    buckets,
+    marketProbability: signal?.marketProbability ?? market.probability,
+    confidence: signal?.confidence ?? 0.55,
+    fees: 0,
+    slippage: typeof market.bid === "number" && typeof market.ask === "number" ? Math.abs(market.ask - market.bid) / 2 : 0,
+    riskBuffer: 0.01
+  });
+  const explanation = settlement
+    ? buildStructuredWeatherExplanation({
+        market,
+        signal,
+        settlement,
+        modelStack,
+        calibration
+      })
+    : null;
 
-  return { market, history, cities, signal, weatherImpactReport };
+  return { market, history, cities, signal, weatherImpactReport, settlement, modelStack, probability, calibration, explanation };
 }

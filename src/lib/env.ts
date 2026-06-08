@@ -4,7 +4,10 @@ export function getEnv(name: string) {
 }
 
 export function isDemoModeEnabled() {
-  return process.env.NEXT_PUBLIC_ENABLE_DEMO_DATA?.toLowerCase() === "true";
+  return (
+    process.env.NEXT_PUBLIC_ENABLE_DEMO_DATA?.toLowerCase() === "true" ||
+    process.env.ENABLE_DEMO_MODE?.toLowerCase() === "true"
+  );
 }
 
 export function isLiveModeForced() {
