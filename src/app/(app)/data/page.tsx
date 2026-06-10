@@ -207,10 +207,20 @@ export async function DataPageContent({ locale }: { locale: AppLocale }) {
                 The public UI reads anon-safe live records. Ingestion writes stay server-side through protected endpoints.
               </p>
             </div>
-            <Link href={localizedPath(locale, "/admin/health")} className="inline-flex h-10 items-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-200 hover:bg-white/8">
-              <KeyRound size={15} />
-              Health checks
-            </Link>
+            <div className="flex flex-wrap gap-2">
+              <Link href={localizedPath(locale, "/docs/api")} className="inline-flex h-10 items-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-200 hover:bg-white/8">
+                <FileJson size={15} />
+                API docs
+              </Link>
+              <Link href={localizedPath(locale, "/docs/data-sources")} className="inline-flex h-10 items-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-200 hover:bg-white/8">
+                <Database size={15} />
+                Data sources
+              </Link>
+              <Link href={localizedPath(locale, "/admin/health")} className="inline-flex h-10 items-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-200 hover:bg-white/8">
+                <KeyRound size={15} />
+                Health checks
+              </Link>
+            </div>
           </div>
           <div className="mt-4 grid gap-3">
             {DATASETS.map((dataset) => (

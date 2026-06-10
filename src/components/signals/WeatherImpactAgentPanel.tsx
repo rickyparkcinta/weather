@@ -9,7 +9,7 @@ import { cn, formatDateTime } from "@/lib/utils";
 import type { WeatherAgentReport } from "@/types/domain";
 
 export const WEATHER_IMPACT_AGENT_DISCLAIMER =
-  "Decision support only. Weather AI does not place bets, connect wallets, submit trades, or automate wagering.";
+  "Decision support only. Order routing is not enabled in this build; current views are research and analytics only.";
 
 type ReportView = {
   score: number | null;

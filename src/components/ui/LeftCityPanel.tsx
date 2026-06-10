@@ -7,6 +7,7 @@ import { MarketCard } from "@/components/ui/MarketCard";
 import { ConfidenceBadge, FreshnessBadge, SignalStateBadge } from "@/components/ui/SignalBadge";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
 import { getLatestWeatherAgentReportForSignal } from "@/lib/signals/weatherAgentReports";
+import { localizedPath, type AppLocale } from "@/lib/i18n";
 import { effectiveGap, formatSignedPercent } from "@/lib/signals/classify";
 import { cn, formatCompactNumber, formatPercent } from "@/lib/utils";
 import type { City, CombinedSignal, ForecastPoint, MarketEvent, WeatherAgentReport } from "@/types/domain";
@@ -34,7 +35,8 @@ export function LeftCityPanel({
   signals,
   weatherAgentReports,
   onOpenMarket,
-  className
+  className,
+  locale = "en"
 }: {
   city: City;
   forecast: ForecastPoint[];
@@ -43,6 +45,7 @@ export function LeftCityPanel({
   weatherAgentReports: WeatherAgentReport[];
   onOpenMarket: (market: MarketEvent) => void;
   className?: string;
+  locale?: AppLocale;
 }) {
   const top = strongestSignal(signals);
   const topMarket = top?.marketEventId
@@ -68,13 +71,21 @@ export function LeftCityPanel({
               {city.country} · {city.region ?? "Global"} · pop {formatCompactNumber(city.population)}
             </p>
           </div>
-          <Link
-            href={`/city/${city.slug}`}
-            aria-label={`Open ${city.name} city page`}
-            className="shrink-0 rounded-md border border-white/15 px-3 py-2 text-xs text-slate-200 hover:bg-white/8"
-          >
-            City page
-          </Link>
+          <div className="flex shrink-0 items-start gap-1.5">
+            <Link
+              href={localizedPath(locale, `/city/${city.slug}`)}
+              aria-label={`Open ${city.name} city page`}
+              className="rounded-md border border-white/15 px-3 py-2 text-xs text-slate-200 hover:bg-white/8"
+            >
+              City page
+            </Link>
+            <Link
+              href={localizedPath(locale, "/signals")}
+              className="rounded-md border border-white/15 px-3 py-2 text-xs text-slate-200 hover:bg-white/8"
+            >
+              All signals
+            </Link>
+          </div>
         </div>
         {/* Signal-quality summary */}
         <div className="mt-3 flex flex-wrap items-center gap-1.5">
@@ -89,7 +100,7 @@ export function LeftCityPanel({
       </div>
       <div className="max-h-[54dvh] space-y-4 overflow-y-auto p-3 sm:p-4 lg:max-h-[calc(100dvh-272px)]">
         <ForecastSummaryCard forecast={forecast} />
-        <NonAdvisoryNotice compact />
+        <NonAdvisoryNotice compact locale={locale} />
         {top ? <TopDivergenceCard signal={top} market={topMarket} onOpenMarket={onOpenMarket} /> : null}
 
         <section>

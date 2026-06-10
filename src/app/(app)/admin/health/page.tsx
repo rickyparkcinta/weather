@@ -1,4 +1,5 @@
-import { CheckCircle2, CircleAlert, CircleX, Database, MinusCircle } from "lucide-react";
+import Link from "next/link";
+import { BookOpen, CheckCircle2, CircleAlert, CircleX, CreditCard, Database, MinusCircle, ServerCog } from "lucide-react";
 import { ProductHeader } from "@/components/shell/ProductHeader";
 import { getHealthReport, type Warning } from "@/lib/data/health";
 import { appCopy, type AppLocale } from "@/lib/i18n";
@@ -22,12 +23,28 @@ export async function AdminHealthPageContent({ locale }: { locale: AppLocale }) 
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
       <ProductHeader active="health" demoMode={report.demoMode} locale={locale} />
       <div className="mx-auto max-w-5xl px-4 pb-16 pt-6 md:px-8">
-        <div className="py-4">
-          <h1 className="text-2xl font-semibold text-white md:text-3xl">Data Health</h1>
-          <p className="mt-2 text-sm text-slate-400">
-            Operational status for the RiWeather pipeline. Secret values are never shown - only whether
-            each variable is configured.
-          </p>
+        <div className="flex flex-col gap-4 py-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h1 className="text-2xl font-semibold text-white md:text-3xl">Data Health</h1>
+            <p className="mt-2 text-sm text-slate-400">
+              Operational status for the RiWeather pipeline. Secret values are never shown - only whether
+              each variable is configured.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Link href="/ops" className="inline-flex h-10 items-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-200 hover:bg-white/8">
+              <ServerCog size={15} />
+              Ops console
+            </Link>
+            <Link href="/ops/payments" className="inline-flex h-10 items-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-200 hover:bg-white/8">
+              <CreditCard size={15} />
+              Payments ops
+            </Link>
+            <Link href="/docs/ops" className="inline-flex h-10 items-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-200 hover:bg-white/8">
+              <BookOpen size={15} />
+              Ops docs
+            </Link>
+          </div>
         </div>
 
         {/* Mode banner */}

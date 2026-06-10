@@ -42,6 +42,10 @@ export function GraphLegend({
           );
         })}
       </ul>
+      <p className="mt-2 border-t border-slate-200 pt-2 text-[10px] leading-4 text-slate-500">
+        Nodes are entities in the weather-market pipeline. Edges link related entities; edge weight reflects
+        relationship confidence. Click a type to show or hide it.
+      </p>
     </div>
   );
 }

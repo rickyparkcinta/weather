@@ -5,15 +5,18 @@ import { ArrowUpRight, ExternalLink, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
+import { localizedPath, type AppLocale } from "@/lib/i18n";
 import { addHoursIso, formatCompactNumber, formatDateTime, formatPercent } from "@/lib/utils";
 import type { MarketEvent, MarketTimeSeriesPoint } from "@/types/domain";
 
 export function MarketDrawer({
   market,
-  onClose
+  onClose,
+  locale = "en"
 }: {
   market: MarketEvent | null;
   onClose: () => void;
+  locale?: AppLocale;
 }) {
   const historyQuery = useQuery({
     queryKey: ["market-history", market?.id],
@@ -68,7 +71,7 @@ export function MarketDrawer({
           <Metric label="Market snapshot" value={formatDateTime(snapshotAt)} />
           <Metric label="Stale after" value={formatDateTime(staleAfter)} />
         </div>
-        <NonAdvisoryNotice compact className="mt-4" />
+        <NonAdvisoryNotice compact className="mt-4" locale={locale} />
         <div className="mt-4 h-48 rounded-md border border-white/10 bg-black/20 p-2">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={history}>
@@ -97,7 +100,7 @@ export function MarketDrawer({
           ))}
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
-          <Link href={`/markets/${market.id}`} className="inline-flex h-9 items-center gap-2 rounded-md border border-white/15 px-3 text-sm text-slate-100 hover:bg-white/8">
+          <Link href={localizedPath(locale, `/markets/${market.id}`)} className="inline-flex h-9 items-center gap-2 rounded-md border border-white/15 px-3 text-sm text-slate-100 hover:bg-white/8">
             View market details
             <ArrowUpRight size={15} />
           </Link>

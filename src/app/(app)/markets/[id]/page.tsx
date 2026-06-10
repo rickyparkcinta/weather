@@ -10,6 +10,7 @@ import {
 } from "@/components/intel/MarketIntelligencePanels";
 import { ProductHeader } from "@/components/shell/ProductHeader";
 import { WeatherImpactAgentPanel } from "@/components/signals/WeatherImpactAgentPanel";
+import { ExecutionReadinessPanel } from "@/components/ui/ExecutionReadinessPanel";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
 import { ProbabilityChart } from "@/components/ui/ProbabilityChart";
 import { ConfidenceBadge, FreshnessBadge, SignalStateBadge } from "@/components/ui/SignalBadge";
@@ -88,6 +89,8 @@ export async function MarketPageContent({
         </section>
 
         <NonAdvisoryNotice className="mt-4" locale={locale} />
+
+        <ExecutionReadinessPanel className="mt-4" providerUrl={market.url} provider={market.provider} />
 
         {/* Probability-gap diagnostics */}
         <section className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

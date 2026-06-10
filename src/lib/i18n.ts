@@ -85,7 +85,7 @@ export const appCopy = {
       liveRecords: "Live records"
     },
     notice:
-      "Odds analysis compares market-implied probability, estimated fair value, data freshness, and uncertainty for research and paper trading only. It is not financial, gambling, or investment advice, and the app does not place bets or submit orders."
+      "Odds analysis compares market-implied probability, estimated fair value, data freshness, and uncertainty for research and paper trading only. It is not financial, gambling, or investment advice. Order routing is not enabled in this build; current views are research and analytics only."
   },
   "zh-HK": {
     brand: {
@@ -124,6 +124,6 @@ export const appCopy = {
       liveRecords: "即時記錄"
     },
     notice:
-      "賠率分析只比較市場隱含概率、估算公允值、資料新鮮度及不確定性，僅供研究及模擬交易用途。這不是金融、博彩或投資建議，本應用不會下注或提交交易指令。"
+      "賠率分析只比較市場隱含概率、估算公允值、資料新鮮度及不確定性，僅供研究及模擬交易用途。這不是金融、博彩或投資建議。此版本未啟用下單功能，目前所有畫面僅提供研究與分析。"
   }
 } as const satisfies Record<AppLocale, AppCopy>;

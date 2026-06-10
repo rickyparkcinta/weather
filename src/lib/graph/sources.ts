@@ -1,5 +1,4 @@
 import {
-  demoCities,
   demoForecast,
   demoMarkets,
   demoSignals

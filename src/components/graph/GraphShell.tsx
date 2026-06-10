@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2, Network, TriangleAlert } from "lucide-react";
 import type { GraphCanvasApi } from "@/components/graph/GraphCanvas";
@@ -19,7 +20,7 @@ import {
   type GraphNodeType,
   type RelationshipGraphResponse
 } from "@/lib/graph/types";
-import type { AppLocale } from "@/lib/i18n";
+import { localizedPath, type AppLocale } from "@/lib/i18n";
 import { formatDateTime } from "@/lib/utils";
 
 const GraphCanvas = dynamic(() => import("@/components/graph/GraphCanvas"), {
@@ -226,8 +227,8 @@ export function GraphShell({
     <main className="flex h-[100dvh] flex-col overflow-hidden bg-[#06080b]">
       <ProductHeader active="graph" demoMode={demoMode} locale={locale} />
 
-      <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-[#070b10] px-4 py-2 md:px-6">
-        <div className="flex items-center gap-1">
+      <div className="flex items-center justify-between gap-3 overflow-x-auto border-b border-white/10 bg-[#070b10] px-4 py-2 md:px-6">
+        <div className="flex shrink-0 items-center gap-1">
           <TabButton active={tab === "graph"} onClick={() => setTab("graph")}>
             <Network size={14} /> Graph
           </TabButton>
@@ -235,15 +236,23 @@ export function GraphShell({
             Workbench
           </TabButton>
         </div>
-        {data ? (
-          <div className="hidden items-center gap-2 font-mono text-[11px] text-slate-400 sm:flex">
-            <Stat label="nodes" value={`${visibleNodeCount}/${data.stats.nodeCount}`} />
-            <Stat label="edges" value={String(data.stats.edgeCount)} />
-            <Stat label="fresh" value={String(data.stats.freshSignals)} />
-            <Stat label="stale" value={String(data.stats.staleSignals)} />
-            <Stat label="latest run" value={formatDateTime(data.stats.latestRunAt)} />
-          </div>
-        ) : null}
+        <div className="flex shrink-0 items-center gap-2">
+          {data ? (
+            <div className="hidden items-center gap-2 font-mono text-[11px] text-slate-400 lg:flex">
+              <Stat label="nodes" value={`${visibleNodeCount}/${data.stats.nodeCount}`} />
+              <Stat label="edges" value={String(data.stats.edgeCount)} />
+              <Stat label="fresh" value={String(data.stats.freshSignals)} />
+              <Stat label="stale" value={String(data.stats.staleSignals)} />
+              <Stat label="latest run" value={formatDateTime(data.stats.latestRunAt)} />
+            </div>
+          ) : null}
+          <nav aria-label="Graph context" className="flex items-center gap-1 text-xs">
+            <ContextLink href={localizedPath(locale, "/")}>Map</ContextLink>
+            <ContextLink href={localizedPath(locale, "/signals")}>Signals</ContextLink>
+            <ContextLink href={localizedPath(locale, "/data")}>Data</ContextLink>
+            <ContextLink href={localizedPath(locale, "/docs")}>Docs</ContextLink>
+          </nav>
+        </div>
       </div>
 
       {tab === "graph" ? (
@@ -356,6 +365,14 @@ function TabButton({
   );
 }
 
+function ContextLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link href={href} className="rounded-md px-2 py-1.5 text-slate-400 transition hover:bg-white/8 hover:text-white">
+      {children}
+    </Link>
+  );
+}
+
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <span className="rounded border border-white/10 bg-black/30 px-2 py-1">
@@ -377,6 +394,14 @@ function GraphErrorOverlay({ message, inline = false }: { message?: string; inli
         Configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, or set
         NEXT_PUBLIC_ENABLE_DEMO_DATA=true for a non-live demo dataset.
       </p>
+      <div className="pointer-events-auto mt-3 flex flex-wrap gap-2 text-xs">
+        <Link href="/admin/health" className="rounded-md border border-white/15 px-2.5 py-1.5 text-slate-200 hover:bg-white/8">
+          Open data health
+        </Link>
+        <Link href="/docs/ops" className="rounded-md border border-white/15 px-2.5 py-1.5 text-slate-200 hover:bg-white/8">
+          Setup docs
+        </Link>
+      </div>
     </div>
   );
 

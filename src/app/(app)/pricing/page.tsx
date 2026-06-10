@@ -106,6 +106,13 @@ export function PricingPageContent({ locale }: { locale: AppLocale }) {
               <MiniMetric icon={<Download size={15} />} label="Delivery" value="UI, API, CSV, Parquet" />
               <MiniMetric icon={<ShieldCheck size={15} />} label="Usage" value="Research analytics only" />
             </div>
+            <Link
+              href="/account"
+              className="mt-4 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-white/12 px-3 text-sm text-slate-200 hover:bg-white/8"
+            >
+              <Users size={15} />
+              Subscription status
+            </Link>
           </aside>
         </section>
 
@@ -176,6 +183,15 @@ export function PricingPageContent({ locale }: { locale: AppLocale }) {
               </tbody>
             </table>
           </div>
+        </section>
+
+        <section className="mt-8 rounded-md border border-white/10 bg-white/[0.035] p-5">
+          <h2 className="text-base font-semibold text-white">Future monetization note</h2>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+            Future execution features may support builder-code-attributed order routing where permitted, with builder-fee
+            disclosure shown before any order preview. Trading is not enabled in this build, and current plans price data
+            and analytics access only.
+          </p>
         </section>
 
         <section id="enterprise" className="mt-8 rounded-md border border-emerald-300/18 bg-emerald-300/[0.055] p-5">

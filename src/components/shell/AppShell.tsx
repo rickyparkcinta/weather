@@ -110,10 +110,12 @@ function OverviewMetric({ label, value }: { label: string; value: number }) {
 
 export function AppShell({
   initialData,
-  locale = "en"
+  locale = "en",
+  requestedSlug
 }: {
   initialData: DashboardData;
   locale?: AppLocale;
+  requestedSlug?: string;
 }) {
   const router = useRouter();
   const copy = appCopy[locale];
@@ -241,9 +243,23 @@ export function AppShell({
 
         <div className="relative min-h-0">
           <div className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-[430px] lg:inset-x-auto lg:bottom-auto lg:left-0 lg:top-0 lg:mx-0">
+            {requestedSlug && requestedSlug !== initialData.selectedCity.slug && selectedSlug === initialData.selectedCity.slug ? (
+              <div className="pointer-events-auto mb-2 rounded-md border border-amber-300/25 bg-amber-400/10 p-3 text-xs leading-5 text-amber-50 shadow-2xl backdrop-blur-xl">
+                No tracked city matches “{requestedSlug}”. Showing {initialData.selectedCity.name} instead.
+              </div>
+            ) : null}
             {cityQuery.isError ? (
               <div className="pointer-events-auto w-full">
-                <ErrorState title={copy.shell.unableToLoadCity} />
+                <ErrorState title={copy.shell.unableToLoadCity}>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    <Link href={localizedPath(locale, "/admin/health")} className="rounded-md border border-white/15 px-2.5 py-1.5 text-slate-100 hover:bg-white/8">
+                      {copy.nav.health}
+                    </Link>
+                    <Link href="/docs/ops" className="rounded-md border border-white/15 px-2.5 py-1.5 text-slate-100 hover:bg-white/8">
+                      {copy.nav.docs}
+                    </Link>
+                  </div>
+                </ErrorState>
               </div>
             ) : cityQuery.isLoading ? (
               <div className="pointer-events-auto w-full rounded-md border border-white/12 bg-[var(--panel)] p-4">
@@ -257,6 +273,7 @@ export function AppShell({
                 signals={signals}
                 weatherAgentReports={weatherAgentReports}
                 onOpenMarket={handleSelectMarket}
+                locale={locale}
               />
             )}
           </div>
@@ -273,7 +290,7 @@ export function AppShell({
         </div>
       </div>
 
-      <MarketDrawer market={selectedMarket} onClose={() => setSelectedMarket(null)} />
+      <MarketDrawer market={selectedMarket} onClose={() => setSelectedMarket(null)} locale={locale} />
     </main>
   );
 }

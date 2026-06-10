@@ -14,7 +14,6 @@ import {
   type GraphEdgeType,
   type GraphFreshness,
   type GraphNode,
-  type GraphNodeType,
   type RelationshipGraph,
   type RelationshipGraphResponse,
   type WorkbenchConsoleLine,

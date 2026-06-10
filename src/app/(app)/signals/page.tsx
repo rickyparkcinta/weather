@@ -9,6 +9,7 @@ import {
   Database,
   FileText,
   Gauge,
+  Lock,
   Scale,
   ShieldCheck,
   TrendingUp
@@ -45,7 +46,7 @@ export async function SignalsPageContent({ locale }: { locale: AppLocale }) {
       <div className="mx-auto max-w-7xl px-4 py-6 pb-16 md:px-8">
         <NonAdvisoryNotice className="mb-4" locale={locale} />
         {result.error ? (
-          <LiveDataError message={result.error} demoMode={demoMode} locale={locale} />
+          <LiveDataError message={result.error} demoMode={demoMode} />
         ) : (
           <OddsAnalysisView signals={result.signals} demoMode={demoMode} checkedAt={checkedAt} locale={locale} />
         )}
@@ -131,9 +132,15 @@ function OddsHeader({
     <section className="rounded-md border border-white/10 bg-[linear-gradient(135deg,rgba(8,18,28,0.94),rgba(3,7,18,0.9))] p-5">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-md border border-emerald-200/15 bg-emerald-300/8 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-100">
-            <Scale size={14} />
-            Odds analysis
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-2 rounded-md border border-emerald-200/15 bg-emerald-300/8 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-100">
+              <Scale size={14} />
+              Odds analysis
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-md border border-white/12 bg-white/[0.04] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
+              <Lock size={13} />
+              Research only · Execution disabled
+            </span>
           </div>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-5xl">Odds Analysis</h1>
           <p className="mt-3 text-sm leading-6 text-slate-300 md:text-base md:leading-7">
@@ -251,7 +258,19 @@ function OddsRecord({
               "No linked market record is available for this signal."
             )}
           </div>
-          <p className="mt-2 text-xs leading-5 text-slate-500">This link opens analysis context only. The app does not place bets or submit orders.</p>
+          {linkedMarketId ? (
+            <button
+              type="button"
+              disabled
+              aria-disabled="true"
+              title="Order routing is not enabled in this build."
+              className="mt-3 inline-flex h-9 cursor-not-allowed items-center gap-2 rounded-md border border-white/12 bg-white/[0.04] px-3 text-xs text-slate-500"
+            >
+              <Lock size={13} />
+              Trade — coming soon
+            </button>
+          ) : null}
+          <p className="mt-2 text-xs leading-5 text-slate-500">This link opens analysis context only. Order routing is not enabled in this build.</p>
         </div>
       </div>
     </article>
@@ -370,12 +389,10 @@ function NoEdgeState({ signals }: { signals: number }) {
 
 function LiveDataError({
   message,
-  demoMode,
-  locale
+  demoMode
 }: {
   message: string;
   demoMode: boolean;
-  locale: AppLocale;
 }) {
   return (
     <section className="grid gap-4 rounded-md border border-white/10 bg-white/[0.03] p-4">

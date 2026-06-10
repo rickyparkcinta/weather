@@ -2,8 +2,7 @@ import { Info } from "lucide-react";
 import { appCopy, type AppLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-export const nonAdvisoryNoticeText =
-  "Odds analysis compares market-implied probability, estimated fair value, data freshness, and uncertainty for research and paper trading only. It is not financial, gambling, or investment advice, and the app does not place bets or submit orders.";
+export const nonAdvisoryNoticeText = appCopy.en.notice;
 
 export function NonAdvisoryNotice({
   className,
@@ -26,7 +25,7 @@ export function NonAdvisoryNotice({
     >
       <div className="flex items-start gap-2">
         <Info size={compact ? 14 : 16} className="mt-0.5 shrink-0 text-cyan-100" />
-        <p>{locale === "en" ? nonAdvisoryNoticeText : copy.notice}</p>
+        <p>{copy.notice}</p>
       </div>
     </aside>
   );
