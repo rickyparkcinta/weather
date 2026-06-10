@@ -426,7 +426,7 @@ export function DocsShell({
     <main className="min-h-screen bg-[#06080b] text-slate-100">
       <div className="border-b border-white/10 bg-black/20">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 md:px-8">
-          <Link href="/" className="inline-flex items-center gap-2 rounded-md border border-white/15 px-3 py-2 text-sm text-slate-200 hover:bg-white/8">
+          <Link href={locale === "en" ? "/map" : "/zh-HK"} className="inline-flex items-center gap-2 rounded-md border border-white/15 px-3 py-2 text-sm text-slate-200 hover:bg-white/8">
             <Map size={16} />
             {copy.shell.map}
           </Link>

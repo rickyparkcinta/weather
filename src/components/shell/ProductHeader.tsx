@@ -1,13 +1,14 @@
 import Link from "next/link";
-import { Activity, BookOpen, Database, DollarSign, Gauge, Map as MapIcon, Network, Radar, ShieldCheck } from "lucide-react";
+import { Activity, BookOpen, Database, DollarSign, Gauge, LayoutGrid, Map as MapIcon, Network, Radar, ShieldCheck } from "lucide-react";
 import { DataSourceBadge } from "@/components/ui/DataSourceBadge";
 import { appCopy, localizedPath, type AppCopy, type AppLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-type NavKey = "map" | "graph" | "signals" | "data" | "weather-bonds" | "pricing" | "docs" | "health";
+type NavKey = "markets" | "map" | "graph" | "signals" | "data" | "weather-bonds" | "pricing" | "docs" | "health";
 
 const NAV: { key: NavKey; label: string; href: string; icon: typeof MapIcon }[] = [
-  { key: "map", label: "Map", href: "/", icon: MapIcon },
+  { key: "markets", label: "Markets", href: "/", icon: LayoutGrid },
+  { key: "map", label: "Map", href: "/map", icon: MapIcon },
   { key: "graph", label: "Graph", href: "/graph", icon: Network },
   { key: "signals", label: "Odds", href: "/signals", icon: Activity },
   { key: "data", label: "Data", href: "/data", icon: Database },
@@ -43,7 +44,7 @@ function ProductBrandView({
       </span>
       <span className="flex flex-col leading-none">
         <span className="text-sm font-semibold tracking-tight text-white">{copy.brand.name}</span>
-        <span className="mt-0.5 text-[10px] uppercase tracking-[0.14em] text-slate-500">
+        <span className="mt-0.5 whitespace-nowrap text-[10px] uppercase tracking-[0.14em] text-slate-500">
           {copy.brand.tagline}
         </span>
       </span>
@@ -61,7 +62,17 @@ export function ProductHeader({
   locale?: AppLocale;
 }) {
   const copy = appCopy[locale];
+  // The mobile-first markets dashboard exists for the default locale only;
+  // zh-HK keeps the map as its locale home, so its nav omits "markets" and
+  // keeps the map link pointing at the locale root.
+  const navItems =
+    locale === "en"
+      ? NAV
+      : NAV.filter((item) => item.key !== "markets").map((item) =>
+          item.key === "map" ? { ...item, href: "/" } : item
+        );
   const labels: Record<NavKey, string> = {
+    markets: copy.nav.markets,
     map: copy.nav.map,
     graph: copy.nav.graph,
     signals: copy.nav.signals,
@@ -77,7 +88,7 @@ export function ProductHeader({
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-8">
         <ProductBrandView locale={locale} copy={copy} />
         <nav className="flex min-w-0 items-center gap-1 overflow-x-auto" aria-label="Primary">
-          {NAV.map((item) => (
+          {navItems.map((item) => (
             <Link
               key={item.key}
               href={localizedPath(locale, item.href)}

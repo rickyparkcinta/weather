@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { Activity, BookOpen, Database, DollarSign, Gauge, Network, ShieldCheck } from "lucide-react";
+import { Activity, BookOpen, Database, DollarSign, Gauge, LayoutGrid, Network, ShieldCheck } from "lucide-react";
 import { ClientMap } from "@/components/map/ClientMap";
 import { ProductBrand } from "@/components/shell/ProductHeader";
 import { BottomTimeline } from "@/components/ui/BottomTimeline";
@@ -216,6 +216,7 @@ export function AppShell({
             </div>
             <div className="pointer-events-auto flex min-w-0 items-center gap-2 overflow-x-auto">
               <DataSourceBadge demoMode={initialData.demoMode} locale={locale} className="hidden sm:inline-flex" />
+              {locale === "en" ? <MapOverlayLink href="/" label={copy.nav.markets} icon={LayoutGrid} /> : null}
               <MapOverlayLink href={localizedPath(locale, "/graph")} label={copy.nav.graph} icon={Network} />
               <MapOverlayLink href={localizedPath(locale, "/data")} label={copy.nav.data} icon={Database} />
               <MapOverlayLink href={localizedPath(locale, "/signals")} label={copy.nav.signals} icon={Activity} />

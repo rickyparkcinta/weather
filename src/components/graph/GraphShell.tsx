@@ -247,7 +247,7 @@ export function GraphShell({
             </div>
           ) : null}
           <nav aria-label="Graph context" className="flex items-center gap-1 text-xs">
-            <ContextLink href={localizedPath(locale, "/")}>Map</ContextLink>
+            <ContextLink href={locale === "en" ? "/map" : localizedPath(locale, "/")}>Map</ContextLink>
             <ContextLink href={localizedPath(locale, "/signals")}>Signals</ContextLink>
             <ContextLink href={localizedPath(locale, "/data")}>Data</ContextLink>
             <ContextLink href={localizedPath(locale, "/docs")}>Docs</ContextLink>

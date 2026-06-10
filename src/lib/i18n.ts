@@ -10,6 +10,7 @@ export type AppCopy = {
     tagline: string;
   };
   nav: {
+    markets: string;
     map: string;
     graph: string;
     signals: string;
@@ -55,6 +56,7 @@ export const appCopy = {
       tagline: "Odds Analysis Map"
     },
     nav: {
+      markets: "Markets",
       map: "Map",
       graph: "Graph",
       signals: "Odds",
@@ -94,6 +96,7 @@ export const appCopy = {
       tagline: "賠率分析地圖"
     },
     nav: {
+      markets: "市場",
       map: "地圖",
       graph: "圖譜",
       signals: "賠率",

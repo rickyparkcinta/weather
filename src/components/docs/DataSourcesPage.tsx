@@ -8,7 +8,7 @@ export function DataSourcesPage({ locale }: { locale: DocsLocale }) {
   return (
     <main className="min-h-screen bg-[#06080b] px-4 py-6 text-slate-100 md:px-8">
       <div className="mx-auto max-w-4xl">
-        <Link href="/" className="inline-flex items-center gap-2 rounded-md border border-white/15 px-3 py-2 text-sm text-slate-200 hover:bg-white/8">
+        <Link href={locale === "en" ? "/map" : "/zh-HK"} className="inline-flex items-center gap-2 rounded-md border border-white/15 px-3 py-2 text-sm text-slate-200 hover:bg-white/8">
           <ArrowLeft size={16} />
           {copy.shell.map}
         </Link>
