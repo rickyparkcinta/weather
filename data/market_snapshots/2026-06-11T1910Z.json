@@ -1,0 +1,15 @@
+{
+  "timestamp_utc": "2026-06-11T19:10:58Z",
+  "timestamp_hkt": "2026-06-12T03:10:58+08:00",
+  "mode": "paper_trading_only",
+  "real_execution": false,
+  "top_edges": [
+    {"rank": 1, "market": "NYC KLGA Jun 12 92-93F YES", "observed_price": "25c buy Yes; 24% displayed", "implied_probability": 0.25, "estimated_fair_value_range": [0.36, 0.46], "confidence": "low-to-medium-low", "paper_action": "opened PT-20260611-119"},
+    {"rank": 2, "market": "Chicago KORD Jun 12 80-81F YES", "observed_price": "36c buy Yes; 34% displayed", "implied_probability": 0.36, "estimated_fair_value_range": [0.42, 0.54], "confidence": "medium-low", "paper_action": "opened PT-20260611-120"},
+    {"rank": 3, "market": "London EGLC Jun 12 23C YES", "observed_price": "13c buy Yes; 12% displayed", "implied_probability": 0.13, "estimated_fair_value_range": [0.24, 0.36], "confidence": "low-to-medium-low", "paper_action": "maintain existing London exposure only"},
+    {"rank": 4, "market": "Houston KHOU Jun 12 92-93F YES", "observed_price": "26c buy Yes; 25% displayed", "implied_probability": 0.26, "estimated_fair_value_range": [0.36, 0.46], "confidence": "medium-low", "paper_action": "maintain PT-20260611-114/PT-20260611-116"},
+    {"rank": 5, "market": "HKO Jun 12 29C YES", "observed_price": "35c buy Yes; 35% displayed", "implied_probability": 0.35, "estimated_fair_value_range": [0.40, 0.50], "confidence": "medium-low", "paper_action": "maintain PT-20260611-117"}
+  ],
+  "recommended_paper_trades": ["PT-20260611-119", "PT-20260611-120"],
+  "sources": ["Polymarket", "NWS", "Met Office", "HKO"]
+}
