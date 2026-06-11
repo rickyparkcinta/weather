@@ -19,6 +19,15 @@ export type AppCopy = {
     pricing: string;
     docs: string;
     health: string;
+    ops: string;
+    account: string;
+  };
+  sidebar: {
+    openMenu: string;
+    closeMenu: string;
+    navigation: string;
+    language: string;
+    languageNames: Record<AppLocale, string>;
   };
   shell: {
     overviewTitle: string;
@@ -26,17 +35,13 @@ export type AppCopy = {
     cities: string;
     markets: string;
     signals: string;
-    demoDataset: string;
     liveFreshness: string;
     researchOnly: string;
     unableToLoadCity: string;
   };
   status: {
-    demoData: string;
     liveData: string;
-    demoMode: string;
     liveMode: string;
-    demoRecords: string;
     liveRecords: string;
   };
   notice: string;
@@ -46,6 +51,27 @@ export function localizedPath(locale: AppLocale, path: string) {
   if (locale === defaultAppLocale) return path;
   if (path === "/") return `/${locale}`;
   return `/${locale}${path}`;
+}
+
+// Route sections that exist under /zh-HK. Anything else (e.g. /ops, /account)
+// falls back to the locale root when switching languages.
+const zhHkSections = ["admin", "city", "data", "docs", "graph", "markets", "pricing", "signals", "weather-bonds"];
+
+export function switchLocalePath(pathname: string, target: AppLocale): string {
+  const current: AppLocale = pathname === "/zh-HK" || pathname.startsWith("/zh-HK/") ? "zh-HK" : "en";
+  if (current === target) return pathname;
+
+  if (target === "zh-HK") {
+    // The zh-HK locale home is the map view.
+    if (pathname === "/" || pathname === "/map") return "/zh-HK";
+    const section = pathname.split("/")[1];
+    return zhHkSections.includes(section) ? `/zh-HK${pathname}` : "/zh-HK";
+  }
+
+  const stripped = pathname.slice("/zh-HK".length);
+  // The zh-HK root is the map; its en equivalent lives at /map.
+  if (stripped === "" || stripped === "/") return "/map";
+  return stripped;
 }
 
 export const appCopy = {
@@ -64,7 +90,19 @@ export const appCopy = {
       weatherBonds: "Weather bonds",
       pricing: "Pricing",
       docs: "Docs",
-      health: "Health"
+      health: "Health",
+      ops: "Ops",
+      account: "Account"
+    },
+    sidebar: {
+      openMenu: "Open menu",
+      closeMenu: "Close menu",
+      navigation: "Navigation",
+      language: "Language",
+      languageNames: {
+        en: "English",
+        "zh-HK": "繁體中文（香港）"
+      }
     },
     shell: {
       overviewTitle: "Institutional weather-risk intelligence",
@@ -73,17 +111,13 @@ export const appCopy = {
       cities: "Cities",
       markets: "Markets",
       signals: "Signals",
-      demoDataset: "Demo dataset",
       liveFreshness: "Live freshness",
       researchOnly: "Research only",
       unableToLoadCity: "Unable to load city intelligence."
     },
     status: {
-      demoData: "Demo data",
       liveData: "Live data",
-      demoMode: "Demo mode",
       liveMode: "Live mode",
-      demoRecords: "Demo records",
       liveRecords: "Live records"
     },
     notice:
@@ -104,7 +138,19 @@ export const appCopy = {
       weatherBonds: "天氣債券",
       pricing: "價格",
       docs: "文件",
-      health: "狀態"
+      health: "狀態",
+      ops: "營運",
+      account: "帳戶"
+    },
+    sidebar: {
+      openMenu: "開啟選單",
+      closeMenu: "關閉選單",
+      navigation: "導覽",
+      language: "語言",
+      languageNames: {
+        en: "English",
+        "zh-HK": "繁體中文（香港）"
+      }
     },
     shell: {
       overviewTitle: "機構級天氣風險智能",
@@ -113,17 +159,13 @@ export const appCopy = {
       cities: "城市",
       markets: "市場",
       signals: "訊號",
-      demoDataset: "示範資料集",
       liveFreshness: "即時新鮮度",
       researchOnly: "僅供研究",
       unableToLoadCity: "無法載入城市智能。"
     },
     status: {
-      demoData: "示範數據",
       liveData: "即時數據",
-      demoMode: "示範模式",
       liveMode: "即時模式",
-      demoRecords: "示範記錄",
       liveRecords: "即時記錄"
     },
     notice:

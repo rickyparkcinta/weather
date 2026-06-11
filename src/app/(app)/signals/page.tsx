@@ -17,7 +17,6 @@ import {
 import { ProductHeader } from "@/components/shell/ProductHeader";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
-import { usingDemoData } from "@/lib/data/queries";
 import { appCopy, localizedPath, type AppLocale } from "@/lib/i18n";
 import { confidenceLabel, formatSignedPercent, freshnessLabel } from "@/lib/signals/classify";
 import { getRankedSignals, type RankedSignal } from "@/lib/signals/ranking";
@@ -36,19 +35,18 @@ export default async function SignalsPage() {
 }
 
 export async function SignalsPageContent({ locale }: { locale: AppLocale }) {
-  const demoMode = usingDemoData();
   const result = await loadSignals();
   const checkedAt = new Date().toISOString();
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="signals" demoMode={demoMode} locale={locale} />
+      <ProductHeader locale={locale} />
       <div className="mx-auto max-w-7xl px-4 py-6 pb-16 md:px-8">
         <NonAdvisoryNotice className="mb-4" locale={locale} />
         {result.error ? (
-          <LiveDataError message={result.error} demoMode={demoMode} />
+          <LiveDataError message={result.error} />
         ) : (
-          <OddsAnalysisView signals={result.signals} demoMode={demoMode} checkedAt={checkedAt} locale={locale} />
+          <OddsAnalysisView signals={result.signals} checkedAt={checkedAt} locale={locale} />
         )}
       </div>
     </main>
@@ -68,12 +66,10 @@ async function loadSignals() {
 
 function OddsAnalysisView({
   signals,
-  demoMode,
   checkedAt,
   locale
 }: {
   signals: RankedSignal[];
-  demoMode: boolean;
   checkedAt: string;
   locale: AppLocale;
 }) {
@@ -83,8 +79,7 @@ function OddsAnalysisView({
 
   return (
     <div className="grid gap-5">
-      <OddsHeader metrics={metrics} demoMode={demoMode} checkedAt={checkedAt} locale={locale} />
-      {demoMode ? <DemoDisclosure /> : null}
+      <OddsHeader metrics={metrics} checkedAt={checkedAt} locale={locale} />
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
         <section className="min-w-0 space-y-4">
@@ -99,7 +94,7 @@ function OddsAnalysisView({
           ) : (
             <div className="grid gap-3">
               {rankedEdges.map((row, index) => (
-                <OddsRecord key={rowKey(row, index)} row={row} rank={index + 1} demoMode={demoMode || isDemoRecord(row)} locale={locale} />
+                <OddsRecord key={rowKey(row, index)} row={row} rank={index + 1} locale={locale} />
               ))}
             </div>
           )}
@@ -108,7 +103,7 @@ function OddsAnalysisView({
         <aside className="grid gap-4 xl:sticky xl:top-20">
           <PaperTradingPanel candidates={paperCandidates} />
           <MethodPanel metrics={metrics} />
-          <SourcePanel metrics={metrics} demoMode={demoMode} locale={locale} />
+          <SourcePanel metrics={metrics} locale={locale} />
         </aside>
       </div>
     </div>
@@ -117,12 +112,10 @@ function OddsAnalysisView({
 
 function OddsHeader({
   metrics,
-  demoMode,
   checkedAt,
   locale
 }: {
   metrics: OddsMetrics;
-  demoMode: boolean;
   checkedAt: string;
   locale: AppLocale;
 }) {
@@ -148,11 +141,7 @@ function OddsHeader({
           </p>
         </div>
         <div className="grid gap-2 sm:grid-cols-2 lg:min-w-[500px]">
-          <MetricTile
-            label="Mode"
-            value={demoMode ? copy.status.demoRecords : copy.status.liveRecords}
-            tone={demoMode ? "warning" : "positive"}
-          />
+          <MetricTile label="Mode" value={copy.status.liveRecords} tone="positive" />
           <MetricTile label="Time checked" value={formatDateTime(checkedAt)} />
           <MetricTile label="Strong / Moderate" value={`${metrics.strong} / ${metrics.moderate}`} />
           <MetricTile label="Signals / Cities" value={`${metrics.total} / ${metrics.cityCount}`} />
@@ -175,12 +164,10 @@ function SectionHeading({ eyebrow, title, body }: { eyebrow: string; title: stri
 function OddsRecord({
   row,
   rank,
-  demoMode,
   locale
 }: {
   row: RankedSignal;
   rank: number;
-  demoMode: boolean;
   locale: AppLocale;
 }) {
   const classification = edgeClassification(row);
@@ -202,7 +189,6 @@ function OddsRecord({
             <Badge tone={freshnessLabel(row.signal.freshnessStatus).tone}>{freshnessLabel(row.signal.freshnessStatus).label}</Badge>
             <Badge tone={confidenceLabel(row.signal.confidence).tone}>{confidenceLabel(row.signal.confidence).label} confidence</Badge>
             {row.eventType ? <Badge tone="muted">{row.eventType}</Badge> : null}
-            {demoMode ? <Badge tone="warning">Demo</Badge> : null}
           </div>
           <h3 className="mt-3 text-lg font-semibold leading-7 text-white">{title}</h3>
           <p className="mt-1 text-sm leading-6 text-slate-400">
@@ -336,11 +322,9 @@ function MethodPanel({ metrics }: { metrics: OddsMetrics }) {
 
 function SourcePanel({
   metrics,
-  demoMode,
   locale
 }: {
   metrics: OddsMetrics;
-  demoMode: boolean;
   locale: AppLocale;
 }) {
   const copy = appCopy[locale];
@@ -352,22 +336,13 @@ function SourcePanel({
         <ShieldCheck size={17} className="text-cyan-100" />
       </div>
       <div className="mt-4 grid gap-2">
-        <SourceRow label="Data mode" value={demoMode ? copy.status.demoMode : copy.status.liveMode} />
+        <SourceRow label="Data mode" value={copy.status.liveMode} />
         <SourceRow label="Latest computed" value={formatDateTime(metrics.latestComputedAt)} />
         <SourceRow label="Fresh / Aging / Stale" value={`${metrics.fresh} / ${metrics.aging} / ${metrics.stale}`} />
         <SourceRow label="Market providers" value={compactList(metrics.marketProviders)} />
         <SourceRow label="Forecast providers" value={compactList(metrics.forecastProviders)} />
       </div>
     </section>
-  );
-}
-
-function DemoDisclosure() {
-  return (
-    <aside className="flex items-start gap-3 rounded-md border border-amber-300/25 bg-amber-300/10 p-4 text-sm leading-6 text-amber-50">
-      <AlertTriangle size={18} className="mt-0.5 shrink-0" />
-      <span>Demo data is enabled. These records are not live market odds or live forecast evidence.</span>
-    </aside>
   );
 }
 
@@ -387,33 +362,19 @@ function NoEdgeState({ signals }: { signals: number }) {
   );
 }
 
-function LiveDataError({
-  message,
-  demoMode
-}: {
-  message: string;
-  demoMode: boolean;
-}) {
+function LiveDataError({ message }: { message: string }) {
   return (
     <section className="grid gap-4 rounded-md border border-white/10 bg-white/[0.03] p-4">
       <div>
         <h1 className="text-3xl font-semibold text-white md:text-4xl">Odds Analysis</h1>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-300">
-          Live odds analysis records could not be loaded. Demo records are only shown when NEXT_PUBLIC_ENABLE_DEMO_DATA=true.
+          Live odds analysis records could not be loaded.
         </p>
       </div>
-      <ErrorState
-        title={
-          demoMode
-            ? `Demo odds data could not be loaded: ${message}`
-            : `Live data is unavailable: ${message}`
-        }
-      />
-      {!demoMode ? (
-        <div className="rounded-md border border-amber-300/20 bg-amber-300/8 p-4 text-sm leading-6 text-amber-50">
-          No demo fallback was used. Configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, or explicitly enable demo mode for non-live records.
-        </div>
-      ) : null}
+      <ErrorState title={`Live data is unavailable: ${message}`} />
+      <div className="rounded-md border border-amber-300/20 bg-amber-300/8 p-4 text-sm leading-6 text-amber-50">
+        Configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, then run the real API sync.
+      </div>
     </section>
   );
 }
@@ -618,10 +579,6 @@ function riskItems(row: RankedSignal) {
 
 function rowKey(row: RankedSignal, index: number) {
   return row.signal.id ?? `${row.signal.cityId}-${row.signal.marketEventId ?? index}`;
-}
-
-function isDemoRecord(row: RankedSignal) {
-  return row.signal.raw?.demo === true || row.market?.raw.demo === true || row.forecast?.raw.demo === true;
 }
 
 function rawString(raw: Record<string, unknown> | undefined, keys: string[]) {

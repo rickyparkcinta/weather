@@ -8,7 +8,7 @@ export async function GET() {
     const health = await getHealthReport();
     return jsonOk({
       ok: health.warnings.every((warning) => warning.level !== "error"),
-      mode: health.demoMode ? "demo" : "production",
+      mode: "production",
       counts: health.counts,
       generatedAt: new Date().toISOString()
     });

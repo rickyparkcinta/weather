@@ -1,5 +1,4 @@
 import { listCities } from "@/lib/data/queries";
-import { isDemoModeEnabled } from "@/lib/env";
 import {
   type GraphForecastRun,
   listCityMarketLinks,
@@ -85,7 +84,6 @@ export async function buildRelationshipGraph(
 ): Promise<RelationshipGraphResponse> {
   const opts = { ...DEFAULTS, ...options };
   const generatedAt = new Date().toISOString();
-  const demoMode = isDemoModeEnabled();
 
   const allCities = await listCities();
   const cities = allCities.slice(0, opts.cityLimit);
@@ -567,11 +565,10 @@ export async function buildRelationshipGraph(
     lastSuccessfulSync: lastSuccessfulSync ?? latestRunAt,
     nodeCount: nodeList.length,
     edgeCount: edgeList.length,
-    providerCount: nodeList.filter((node) => node.type === "provider").length,
-    demoMode
+    providerCount: nodeList.filter((node) => node.type === "provider").length
   });
 
-  return { ...graph, workbench, generatedAt, demoMode };
+  return { ...graph, workbench, generatedAt };
 }
 
 const RISK_PRODUCTS: Array<{ id: string; label: string; summary: string; stride: number; take: number }> = [
@@ -653,7 +650,6 @@ type WorkbenchInput = {
   nodeCount: number;
   edgeCount: number;
   providerCount: number;
-  demoMode: boolean;
 };
 
 function buildWorkbenchReport(input: WorkbenchInput): WorkbenchReport {
@@ -710,7 +706,7 @@ function buildWorkbenchReport(input: WorkbenchInput): WorkbenchReport {
   });
 
   const consoleLines: WorkbenchConsoleLine[] = [
-    line(0, "info", `relationship-graph build started${input.demoMode ? " (demo dataset)" : ""}`),
+    line(0, "info", "relationship-graph build started"),
     line(1, "info", `cities: loaded ${input.cityCount} tracked cities by importance_score`),
     line(2, "info", `forecast: ${input.forecastRunCount} runs · ${input.forecastPointsLoaded} points aggregated server-side`),
     line(3, "info", `markets: ${input.marketsLinked} weather markets linked to scope`),

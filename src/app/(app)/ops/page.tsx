@@ -17,7 +17,7 @@ export default async function OpsPage() {
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="health" demoMode={status.mode === "demo"} />
+      <ProductHeader />
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-6 md:px-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>

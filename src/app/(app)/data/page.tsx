@@ -19,8 +19,7 @@ import {
   listCities,
   listCombinedSignals,
   listForecastPoints,
-  listMarkets,
-  usingDemoData
+  listMarkets
 } from "@/lib/data/queries";
 import { appCopy, localizedPath, type AppLocale } from "@/lib/i18n";
 import { formatDateTime } from "@/lib/utils";
@@ -130,13 +129,12 @@ export default async function DataPage() {
 }
 
 export async function DataPageContent({ locale }: { locale: AppLocale }) {
-  const demoMode = usingDemoData();
   const metrics = await loadDataMetrics();
   const copy = appCopy[locale];
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="data" demoMode={demoMode} locale={locale} />
+      <ProductHeader locale={locale} />
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 md:px-8">
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_360px] lg:items-start">
           <div>
@@ -152,7 +150,7 @@ export async function DataPageContent({ locale }: { locale: AppLocale }) {
               probabilities, confidence scores, model-market gaps, freshness status, and source provenance.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Badge tone={demoMode ? "warning" : "positive"}>{demoMode ? copy.shell.demoDataset : copy.status.liveData}</Badge>
+              <Badge tone="positive">{copy.status.liveData}</Badge>
               <Badge tone="neutral">Official/public APIs</Badge>
               <Badge tone="positive">Run logs</Badge>
               <Badge tone="muted">Research only</Badge>

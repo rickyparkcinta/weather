@@ -45,7 +45,6 @@ POLYMARKET_PRIVATE_KEY=
 POLYMARKET_FUNDER_ADDRESS=
 
 NEXT_PUBLIC_DEFAULT_CITY=seoul
-NEXT_PUBLIC_ENABLE_DEMO_DATA=false
 NEXT_PUBLIC_DEFAULT_MAP_ENGINE=maplibre
 NEXT_PUBLIC_DEFAULT_FORECAST_PROVIDER=supabase
 NEXT_PUBLIC_DEFAULT_MARKET_PROVIDER=supabase
@@ -58,7 +57,7 @@ REAL_API_SYNC_INCLUDE_KALSHI=true
 REAL_API_SYNC_INCLUDE_POLYMARKET=true
 ```
 
-Production live mode is the default. Demo fixtures are only served when `NEXT_PUBLIC_ENABLE_DEMO_DATA=true`. Set `NEXT_PUBLIC_ENABLE_DEMO_DATA=false` in Vercel to make configuration or database errors visible instead of silently falling back to demo data.
+The app serves live data only. Configuration or database errors surface directly instead of falling back to fixture data.
 
 Public database URL, anon key, service role key, migrations, and seed data must be configured before the app can load live data.
 

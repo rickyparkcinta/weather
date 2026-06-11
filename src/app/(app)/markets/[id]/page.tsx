@@ -15,7 +15,6 @@ import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
 import { ProbabilityChart } from "@/components/ui/ProbabilityChart";
 import { ConfidenceBadge, FreshnessBadge, SignalStateBadge } from "@/components/ui/SignalBadge";
 import { getMarketIntel } from "@/lib/data/market-intel";
-import { usingDemoData } from "@/lib/data/queries";
 import { localizedPath, type AppLocale } from "@/lib/i18n";
 import { formatSignedPercent } from "@/lib/signals/classify";
 import { addHoursIso, formatCompactNumber, formatDateTime, formatPercent } from "@/lib/utils";
@@ -48,7 +47,7 @@ export async function MarketPageContent({
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="signals" demoMode={usingDemoData()} locale={locale} />
+      <ProductHeader locale={locale} />
       <div className="mx-auto max-w-5xl px-4 pb-16 pt-6 md:px-8">
         <Link href={localizedPath(locale, "/signals")} className="text-xs text-slate-400 hover:text-slate-200">
           ← Back to signals

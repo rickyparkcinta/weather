@@ -1,9 +1,4 @@
-import {
-  demoForecast,
-  demoMarkets,
-  demoSignals
-} from "@/lib/demo-data";
-import { getDefaultCitySlug, isDemoModeEnabled } from "@/lib/env";
+import { getDefaultCitySlug } from "@/lib/env";
 import { mapCombinedSignal, mapMarketEvent } from "@/lib/data/mappers";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 import type { CombinedSignal, ForecastRun, MarketEvent } from "@/types/domain";
@@ -12,20 +7,14 @@ import type { CombinedSignal, ForecastRun, MarketEvent } from "@/types/domain";
  * Graph-specific data access.
  *
  * These helpers keep queries capped and aggregated server-side so the
- * relationship graph stays responsive even against large tables. Every helper
- * mirrors the demo/live split used by {@link import("@/lib/data/queries")} so
- * the graph renders in demo mode without Supabase.
+ * relationship graph stays responsive even against large tables.
  */
-
-function usingDemoData() {
-  return isDemoModeEnabled();
-}
 
 function requireLiveClient() {
   const client = getSupabaseServerClient();
   if (!client) {
     throw new Error(
-      "Live data is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, or set NEXT_PUBLIC_ENABLE_DEMO_DATA=true for demo mode."
+      "Live data is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY."
     );
   }
   return client;
@@ -104,10 +93,6 @@ function mapForecastRunRow(row: Record<string, unknown>): GraphForecastRun {
  * the "latest provider runs" default scope.
  */
 export async function listRecentForecastRuns(limit = 40): Promise<GraphForecastRun[]> {
-  if (usingDemoData()) {
-    return synthesizeDemoForecastRuns();
-  }
-
   const client = requireLiveClient();
   const { data, error } = await client
     .from("forecast_runs")
@@ -129,21 +114,6 @@ export async function listRecentForecastRuns(limit = 40): Promise<GraphForecastR
  */
 export async function listForecastCoverage(cityIds: string[], pointCap = 2000): Promise<ForecastCoverageRow[]> {
   if (cityIds.length === 0) return [];
-
-  if (usingDemoData()) {
-    return aggregateCoverage(
-      demoForecast
-        .filter((point) => cityIds.includes(point.cityId))
-        .map((point) => ({
-          cityId: point.cityId,
-          variable: point.variable,
-          provider: point.provider,
-          model: point.model,
-          confidence: point.confidence,
-          runTime: point.runTime
-        }))
-    );
-  }
 
   const client = requireLiveClient();
   const { data, error } = await client
@@ -224,10 +194,6 @@ function aggregateCoverage(rows: RawCoverage[]): ForecastCoverageRow[] {
 export async function listMarketsLinkedToCities(cityIds: string[], limit = 80): Promise<MarketEvent[]> {
   if (cityIds.length === 0) return [];
 
-  if (usingDemoData()) {
-    return demoMarkets.filter((market) => market.cityIds.some((id) => cityIds.includes(id))).slice(0, limit);
-  }
-
   const client = requireLiveClient();
   const { data, error } = await client
     .from("market_events")
@@ -246,19 +212,6 @@ export async function listMarketsLinkedToCities(cityIds: string[], limit = 80): 
 /** City-market links for the in-scope cities (relevance-weighted edges). */
 export async function listCityMarketLinks(cityIds: string[], limit = 300): Promise<GraphCityMarketLink[]> {
   if (cityIds.length === 0) return [];
-
-  if (usingDemoData()) {
-    return demoMarkets.flatMap((market) =>
-      market.cityIds
-        .filter((cityId) => cityIds.includes(cityId))
-        .map((cityId) => ({
-          cityId,
-          marketEventId: market.id,
-          relevanceScore: 0.8,
-          linkReason: "tag-overlap"
-        }))
-    );
-  }
 
   const client = requireLiveClient();
   const { data, error } = await client
@@ -282,10 +235,6 @@ export async function listCityMarketLinks(cityIds: string[], limit = 300): Promi
 
 /** Latest combined signals (capped), newest first, in domain shape. */
 export async function listRecentCombinedSignals(limit = 120): Promise<CombinedSignal[]> {
-  if (usingDemoData()) {
-    return demoSignals;
-  }
-
   const client = requireLiveClient();
   const { data, error } = await client
     .from("combined_signals")
@@ -303,15 +252,10 @@ export async function listRecentCombinedSignals(limit = 120): Promise<CombinedSi
 }
 
 /**
- * Operational provider run logs for the Workbench panel. Falls back to a small
- * synthesized set in demo mode and returns an empty list if the table is not
- * present yet (older databases).
+ * Operational provider run logs for the Workbench panel. Returns an empty
+ * list if the table is not present yet (older databases).
  */
 export async function listProviderRunLogs(limit = 60): Promise<GraphProviderRunLog[]> {
-  if (usingDemoData()) {
-    return synthesizeDemoRunLogs();
-  }
-
   const client = getSupabaseServerClient();
   if (!client) return [];
 
@@ -346,65 +290,6 @@ export async function listProviderRunLogs(limit = 60): Promise<GraphProviderRunL
 
 export function getGraphDefaultCitySlug() {
   return getDefaultCitySlug();
-}
-
-// --- Demo synthesis -------------------------------------------------------
-
-function synthesizeDemoForecastRuns(): GraphForecastRun[] {
-  const runTime = demoForecast[0]?.runTime ?? new Date("2026-06-05T00:00:00.000Z").toISOString();
-  // Models match the demo forecast-coverage model so provider → run → model →
-  // variable chains join the core graph instead of forming orphan clusters.
-  return [
-    {
-      id: "10000000-0000-4000-8000-000000000001",
-      provider: "demo",
-      model: "blended-gfs-ecmwf",
-      runTime,
-      status: "complete",
-      sourceUrl: null
-    },
-    {
-      id: "10000000-0000-4000-8000-000000000002",
-      provider: "openmeteo",
-      model: "blended-gfs-ecmwf",
-      runTime,
-      status: "complete",
-      sourceUrl: "https://open-meteo.com/"
-    },
-    {
-      id: "10000000-0000-4000-8000-000000000003",
-      provider: "ecmwf",
-      model: "blended-gfs-ecmwf",
-      runTime,
-      status: "complete",
-      sourceUrl: "https://www.ecmwf.int/"
-    }
-  ];
-}
-
-function synthesizeDemoRunLogs(): GraphProviderRunLog[] {
-  const runTime = demoForecast[0]?.runTime ?? new Date("2026-06-05T00:00:00.000Z").toISOString();
-  const providers: Array<[string, string]> = [
-    ["openmeteo", "weather"],
-    ["ecmwf", "weather"],
-    ["kalshi", "market"],
-    ["polymarket", "market"]
-  ];
-
-  return providers.map(([providerId, providerType], index) => ({
-    id: `60000000-0000-4000-8000-${(index + 1).toString().padStart(12, "0")}`,
-    providerId,
-    providerType,
-    adapterVersion: "demo-1.0.0",
-    status: index === 3 ? "stale" : "complete",
-    startedAt: runTime,
-    finishedAt: runTime,
-    recordsSeen: 120 + index * 18,
-    recordsInserted: 40 + index * 6,
-    recordsUpdated: 12 + index * 3,
-    staleAfter: null,
-    error: null
-  }));
 }
 
 export type { ForecastRun };

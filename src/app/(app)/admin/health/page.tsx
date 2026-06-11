@@ -21,7 +21,7 @@ export async function AdminHealthPageContent({ locale }: { locale: AppLocale }) 
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="health" demoMode={report.demoMode} locale={locale} />
+      <ProductHeader locale={locale} />
       <div className="mx-auto max-w-5xl px-4 pb-16 pt-6 md:px-8">
         <div className="flex flex-col gap-4 py-4 md:flex-row md:items-end md:justify-between">
           <div>
@@ -48,23 +48,11 @@ export async function AdminHealthPageContent({ locale }: { locale: AppLocale }) 
         </div>
 
         {/* Mode banner */}
-        <div
-          className={`flex items-center gap-3 rounded-md border p-4 ${
-            report.demoMode
-              ? "border-amber-300/25 bg-amber-400/[0.06] text-amber-100"
-              : "border-emerald-300/25 bg-emerald-400/[0.06] text-emerald-100"
-          }`}
-        >
+        <div className="flex items-center gap-3 rounded-md border border-emerald-300/25 bg-emerald-400/[0.06] p-4 text-emerald-100">
             <Database size={18} />
           <div>
-            <div className="text-sm font-semibold">
-              {report.demoMode ? copy.status.demoMode : copy.status.liveMode}
-            </div>
-            <div className="text-xs opacity-80">
-              {report.demoMode
-                ? "Serving built-in demo fixtures. Live data is not currently active."
-                : "Serving live data."}
-            </div>
+            <div className="text-sm font-semibold">{copy.status.liveMode}</div>
+            <div className="text-xs opacity-80">Serving live data.</div>
           </div>
         </div>
 
@@ -159,10 +147,6 @@ export async function AdminHealthPageContent({ locale }: { locale: AppLocale }) 
             <li>
               Populate live data with <Code>pnpm sync:real-api</Code> or by POSTing to{" "}
               <Code>/api/sync/real-api</Code> with the ingestion secret.
-            </li>
-            <li>
-              Set <Code>NEXT_PUBLIC_ENABLE_DEMO_DATA=false</Code> to force live data once the database is
-              populated.
             </li>
           </ol>
         </section>

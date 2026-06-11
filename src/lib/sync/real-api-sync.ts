@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { demoCities } from "../demo-data.ts";
+import { CITY_CATALOG } from "../cities.ts";
 import { mapCity, mapMarketEvent } from "../data/mappers.ts";
 import { computeCombinedSignal } from "../signals/computeCombinedSignal.ts";
 import { kalshiAdapter } from "../../providers/markets/kalshi.ts";
@@ -127,7 +127,7 @@ export function realApiSyncOptionsFromEnv(env: Record<string, string | undefined
 }
 
 function cityCatalogRows() {
-  return demoCities.map((city) => ({
+  return CITY_CATALOG.map((city) => ({
     slug: city.slug,
     name: city.name,
     country: city.country,

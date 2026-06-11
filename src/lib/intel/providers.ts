@@ -1,5 +1,5 @@
 import { getEnv } from "@/lib/env";
-import type { IngestionLog, ProviderHealth } from "@/types/domain";
+import type { ProviderHealth } from "@/types/domain";
 
 export type WeatherProviderAdapter = {
   id: string;
@@ -82,8 +82,8 @@ function statusFromFreshness(lastSuccessAt: string | null, staleAfter: string | 
 }
 
 export function buildProviderHealth(input: Partial<ProviderHealth> & Pick<ProviderHealth, "providerId" | "name" | "providerType">): ProviderHealth {
-  const lastSuccessAt = input.lastSuccessAt ?? new Date(Date.now() - 45 * 60_000).toISOString();
-  const staleAfter = input.staleAfter ?? new Date(Date.now() + 75 * 60_000).toISOString();
+  const lastSuccessAt = input.lastSuccessAt ?? null;
+  const staleAfter = input.staleAfter ?? null;
   return {
     providerId: input.providerId,
     name: input.name,
@@ -98,59 +98,34 @@ export function buildProviderHealth(input: Partial<ProviderHealth> & Pick<Provid
   };
 }
 
-export function listDemoProviderHealth(): ProviderHealth[] {
+/**
+ * Provider registry health derived from configuration only. Timestamps,
+ * latency, and freshness stay null until a real run log backs them; status is
+ * "unknown" rather than a claimed "online" for adapters that have never run.
+ */
+export function listProviderHealth(): ProviderHealth[] {
   return [
-    ...weatherProviderAdapters.map((adapter, index) =>
+    ...weatherProviderAdapters.map((adapter) =>
       buildProviderHealth({
         providerId: adapter.id,
         name: adapter.name,
         providerType: adapter.providerType,
-        status: adapter.configured ? "online" : "unknown",
-        latencyMs: 120 + index * 24
+        status: "unknown"
       })
     ),
     buildProviderHealth({
-      providerId: "polymarket-style",
-      name: "Polymarket-style market adapter",
+      providerId: "polymarket",
+      name: "Polymarket market adapter",
       providerType: "market",
-      status: getEnv("MARKET_PROVIDER_KEYS") || getEnv("POLYMARKET_API_KEY") ? "online" : "unknown",
-      latencyMs: 210
+      status: "unknown",
+      error: getEnv("MARKET_PROVIDER_KEYS") || getEnv("POLYMARKET_API_KEY") ? null : "Market provider keys are not configured."
     }),
     buildProviderHealth({
       providerId: "supabase-realtime",
       name: "Supabase Realtime",
       providerType: "cache",
-      status: getEnv("ENABLE_REALTIME") === "true" ? "online" : "unknown",
-      latencyMs: null
+      status: "unknown",
+      error: getEnv("ENABLE_REALTIME") === "true" ? null : "Realtime updates are not enabled."
     })
-  ];
-}
-
-export function buildDemoIngestionLogs(): IngestionLog[] {
-  return [
-    {
-      id: "ingest-open-meteo-demo",
-      providerId: "open-meteo",
-      jobType: "forecast_points",
-      status: "complete",
-      startedAt: new Date(Date.now() - 72 * 60_000).toISOString(),
-      finishedAt: new Date(Date.now() - 70 * 60_000).toISOString(),
-      recordsSeen: 320,
-      recordsInserted: 120,
-      recordsUpdated: 200,
-      error: null
-    },
-    {
-      id: "ingest-market-demo",
-      providerId: "polymarket-style",
-      jobType: "market_prices",
-      status: "complete",
-      startedAt: new Date(Date.now() - 49 * 60_000).toISOString(),
-      finishedAt: new Date(Date.now() - 47 * 60_000).toISOString(),
-      recordsSeen: 44,
-      recordsInserted: 8,
-      recordsUpdated: 36,
-      error: null
-    }
   ];
 }

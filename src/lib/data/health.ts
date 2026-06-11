@@ -1,5 +1,5 @@
-import { listCities, listCombinedSignals, listForecastPoints, listMarkets, usingDemoData } from "@/lib/data/queries";
-import { getEnv, isDemoModeEnabled } from "@/lib/env";
+import { listCities, listCombinedSignals, listForecastPoints, listMarkets } from "@/lib/data/queries";
+import { getEnv } from "@/lib/env";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -15,7 +15,6 @@ export type RunInfo = {
 export type Warning = { level: "warn" | "error"; message: string };
 
 export type HealthReport = {
-  demoMode: boolean;
   supabaseConfigured: boolean;
   supabaseReachable: boolean;
   serviceRoleConfigured: boolean;
@@ -59,7 +58,6 @@ async function safeCount<T>(load: () => Promise<T[]>) {
 }
 
 export async function getHealthReport(): Promise<HealthReport> {
-  const demoMode = usingDemoData();
   const supabaseConfigured = Boolean(getEnv("NEXT_PUBLIC_SUPABASE_URL") && getEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"));
   const serviceRoleConfigured = Boolean(getEnv("SUPABASE_SERVICE_ROLE_KEY"));
 
@@ -71,7 +69,7 @@ export async function getHealthReport(): Promise<HealthReport> {
   ]);
 
   const liveReadErrors = [cities.error, forecast.error, markets.error, signals.error].filter((error): error is string => Boolean(error));
-  const supabaseReachable = supabaseConfigured && !demoMode && liveReadErrors.length === 0;
+  const supabaseReachable = supabaseConfigured && liveReadErrors.length === 0;
 
   const [ingestion, forecastRun, market] = supabaseReachable
     ? await Promise.all([
@@ -85,7 +83,7 @@ export async function getHealthReport(): Promise<HealthReport> {
     {
       label: "Latest ingestion run",
       at: (ingestion?.finished_at as string) ?? (ingestion?.started_at as string) ?? null,
-      status: (ingestion?.status as string) ?? (demoMode ? "demo" : "none"),
+      status: (ingestion?.status as string) ?? "none",
       detail: ingestion
         ? `${ingestion.source ?? "unknown"} · seen ${ingestion.records_seen ?? 0} · inserted ${ingestion.records_inserted ?? 0}`
         : "No ingestion runs recorded."
@@ -93,28 +91,22 @@ export async function getHealthReport(): Promise<HealthReport> {
     {
       label: "Latest forecast run",
       at: (forecastRun?.run_time as string) ?? null,
-      status: (forecastRun?.status as string) ?? (demoMode ? "demo" : "none"),
+      status: (forecastRun?.status as string) ?? "none",
       detail: forecastRun ? `${forecastRun.provider ?? "?"} / ${forecastRun.model ?? "?"}` : "No forecast runs recorded."
     },
     {
       label: "Latest market update",
       at: (market?.updated_at as string) ?? null,
-      status: market ? (market.status as string) ?? "active" : demoMode ? "demo" : "none",
+      status: market ? (market.status as string) ?? "active" : "none",
       detail: market ? `${market.provider ?? "?"} · ${market.title ?? ""}`.slice(0, 80) : "No market events recorded."
     }
   ];
 
   const warnings: Warning[] = [];
-  if (demoMode) {
-    warnings.push({
-      level: "warn",
-      message: "Running on explicitly enabled demo data. Set NEXT_PUBLIC_ENABLE_DEMO_DATA=false for production."
-    });
-  }
-  if (!supabaseConfigured && !isDemoModeEnabled()) {
+  if (!supabaseConfigured) {
     warnings.push({
       level: "error",
-      message: "Live mode is enabled, but public database connection settings are missing."
+      message: "Public database connection settings are missing."
     });
   }
   if (supabaseConfigured && !serviceRoleConfigured) {
@@ -156,19 +148,16 @@ export async function getHealthReport(): Promise<HealthReport> {
     { key: "WEATHER_PROVIDER_KEYS", label: "Weather provider keys", configured: Boolean(getEnv("WEATHER_PROVIDER_KEYS")), required: false },
     { key: "MARKET_PROVIDER_KEYS", label: "Market provider keys", configured: Boolean(getEnv("MARKET_PROVIDER_KEYS")), required: false },
     { key: "AI_PROVIDER_KEY", label: "AI provider key", configured: Boolean(getEnv("AI_PROVIDER_KEY")), required: false },
-    { key: "ENABLE_DEMO_MODE", label: "Demo mode alias", configured: Boolean(getEnv("ENABLE_DEMO_MODE")), required: false },
     { key: "ENABLE_REALTIME", label: "Realtime updates", configured: Boolean(getEnv("ENABLE_REALTIME")), required: false },
     { key: "ENABLE_PAYMENTS", label: "Payments skeleton", configured: Boolean(getEnv("ENABLE_PAYMENTS")), required: false },
     { key: "ENABLE_ALERTS", label: "Alert framework", configured: Boolean(getEnv("ENABLE_ALERTS")), required: false },
     { key: "OPS_ADMIN_EMAILS", label: "Ops admin emails", configured: Boolean(getEnv("OPS_ADMIN_EMAILS")), required: false },
     { key: "INGESTION_SECRET", label: "Ingestion secret", configured: Boolean(getEnv("INGESTION_SECRET")), required: true },
     { key: "CRON_SECRET", label: "Vercel cron secret", configured: Boolean(getEnv("CRON_SECRET")), required: false },
-    { key: "NEXT_PUBLIC_DEFAULT_CITY", label: "Default city slug", configured: Boolean(getEnv("NEXT_PUBLIC_DEFAULT_CITY")), required: false },
-    { key: "NEXT_PUBLIC_ENABLE_DEMO_DATA", label: "Demo data flag", configured: Boolean(getEnv("NEXT_PUBLIC_ENABLE_DEMO_DATA")), required: false }
+    { key: "NEXT_PUBLIC_DEFAULT_CITY", label: "Default city slug", configured: Boolean(getEnv("NEXT_PUBLIC_DEFAULT_CITY")), required: false }
   ];
 
   return {
-    demoMode: isDemoModeEnabled() || demoMode,
     supabaseConfigured,
     supabaseReachable,
     serviceRoleConfigured,

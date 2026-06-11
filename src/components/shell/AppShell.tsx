@@ -2,10 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { Activity, BookOpen, Database, DollarSign, Gauge, LayoutGrid, Network, ShieldCheck } from "lucide-react";
 import { ClientMap } from "@/components/map/ClientMap";
+import { GlobalSidebar } from "@/components/shell/GlobalSidebar";
 import { ProductBrand } from "@/components/shell/ProductHeader";
 import { BottomTimeline } from "@/components/ui/BottomTimeline";
 import { DataSourceBadge } from "@/components/ui/DataSourceBadge";
@@ -39,38 +38,15 @@ async function getJson<T>(url: string): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-function MapOverlayLink({
-  href,
-  label,
-  icon: Icon
-}: {
-  href: string;
-  label: string;
-  icon: typeof Activity;
-}) {
-  return (
-    <Link
-      href={href}
-      aria-label={label}
-      className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 text-sm text-slate-200 shadow-2xl backdrop-blur-xl hover:bg-white/8"
-    >
-      <Icon size={15} />
-      <span className="hidden sm:inline">{label}</span>
-    </Link>
-  );
-}
-
 function InstitutionalOverview({
   cityCount,
   marketCount,
   signalCount,
-  demoMode,
   locale
 }: {
   cityCount: number;
   marketCount: number;
   signalCount: number;
-  demoMode: boolean;
   locale: AppLocale;
 }) {
   const copy = appCopy[locale];
@@ -89,7 +65,7 @@ function InstitutionalOverview({
           <OverviewMetric label={copy.shell.markets} value={marketCount} />
           <OverviewMetric label={copy.shell.signals} value={signalCount} />
           <span className="rounded-md border border-cyan-200/18 bg-cyan-300/8 px-2 py-1 text-[11px] font-medium text-cyan-50">
-            {demoMode ? copy.shell.demoDataset : copy.shell.liveFreshness}
+            {copy.shell.liveFreshness}
           </span>
           <span className="rounded-md border border-emerald-200/18 bg-emerald-300/8 px-2 py-1 text-[11px] font-medium text-emerald-50">
             {copy.shell.researchOnly}
@@ -117,7 +93,6 @@ export function AppShell({
   locale?: AppLocale;
   requestedSlug?: string;
 }) {
-  const router = useRouter();
   const copy = appCopy[locale];
   const [selectedSlug, setSelectedSlug] = useState(initialData.selectedCity.slug);
   const [selectedMarket, setSelectedMarket] = useState<MarketEvent | null>(null);
@@ -128,9 +103,11 @@ export function AppShell({
     (city: City) => {
       setSelectedSlug(city.slug);
       setSelectedMarket(null);
-      router.push(localizedPath(locale, `/city/${city.slug}`), { scroll: false });
+      // Shallow URL update: keeps the city link shareable without a server
+      // navigation, which re-rendered the whole map and made the page jump.
+      window.history.replaceState(null, "", localizedPath(locale, `/city/${city.slug}`));
     },
-    [locale, router]
+    [locale]
   );
   const handleSelectMarket = useCallback((market: MarketEvent) => setSelectedMarket(market), []);
 
@@ -211,26 +188,18 @@ export function AppShell({
       <div className="pointer-events-none absolute inset-0 z-20 grid grid-rows-[auto_minmax(0,1fr)_auto] gap-3 p-3 sm:p-4">
         <div className="flex min-w-0 flex-col gap-2">
           <div className="flex items-center justify-between gap-2">
-            <div className="pointer-events-auto flex h-10 shrink-0 items-center rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 shadow-2xl backdrop-blur-xl">
-              <ProductBrand locale={locale} />
+            <div className="pointer-events-auto flex shrink-0 items-center gap-2">
+              <GlobalSidebar locale={locale} className="bg-[var(--panel-strong)] shadow-2xl backdrop-blur-xl" />
+              <div className="flex h-10 items-center rounded-md border border-white/12 bg-[var(--panel-strong)] px-3 shadow-2xl backdrop-blur-xl">
+                <ProductBrand locale={locale} />
+              </div>
             </div>
-            <div className="pointer-events-auto flex min-w-0 items-center gap-2 overflow-x-auto">
-              <DataSourceBadge demoMode={initialData.demoMode} locale={locale} className="hidden sm:inline-flex" />
-              {locale === "en" ? <MapOverlayLink href="/" label={copy.nav.markets} icon={LayoutGrid} /> : null}
-              <MapOverlayLink href={localizedPath(locale, "/graph")} label={copy.nav.graph} icon={Network} />
-              <MapOverlayLink href={localizedPath(locale, "/data")} label={copy.nav.data} icon={Database} />
-              <MapOverlayLink href={localizedPath(locale, "/signals")} label={copy.nav.signals} icon={Activity} />
-              <MapOverlayLink href={localizedPath(locale, "/weather-bonds")} label={copy.nav.weatherBonds} icon={ShieldCheck} />
-              <MapOverlayLink href={localizedPath(locale, "/pricing")} label={copy.nav.pricing} icon={DollarSign} />
-              <MapOverlayLink href={localizedPath(locale, "/docs")} label={copy.nav.docs} icon={BookOpen} />
-              <MapOverlayLink href={localizedPath(locale, "/admin/health")} label={copy.nav.health} icon={Gauge} />
-            </div>
+            <DataSourceBadge locale={locale} className="pointer-events-auto hidden shrink-0 sm:inline-flex" />
           </div>
           <InstitutionalOverview
             cityCount={cities.length}
             marketCount={markets.length}
             signalCount={signals.length}
-            demoMode={initialData.demoMode}
             locale={locale}
           />
           <div className="flex min-w-0 items-start justify-between gap-2 sm:gap-4">

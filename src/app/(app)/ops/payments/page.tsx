@@ -1,6 +1,5 @@
 import { CreditCard, Database, KeyRound } from "lucide-react";
 import { ProductHeader } from "@/components/shell/ProductHeader";
-import { getSystemStatus } from "@/lib/data/intelligence";
 import { getEnv } from "@/lib/env";
 import { subscriptionPlans } from "@/lib/intel/payments";
 
@@ -12,12 +11,11 @@ export const metadata = {
 };
 
 export default async function OpsPaymentsPage() {
-  const status = await getSystemStatus();
   const paymentsEnabled = getEnv("ENABLE_PAYMENTS") === "true";
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="health" demoMode={status.mode === "demo"} />
+      <ProductHeader />
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 md:px-8">
         <div>
           <h1 className="text-2xl font-semibold text-white md:text-3xl">Payments Ops</h1>

@@ -31,6 +31,7 @@ import {
   type SourceId
 } from "@/lib/docs/content";
 import { DocsSidebar } from "@/components/docs/DocsSidebar";
+import { GlobalSidebar } from "@/components/shell/GlobalSidebar";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
 
 function MathFormula({ expression }: { expression: string }) {
@@ -426,10 +427,13 @@ export function DocsShell({
     <main className="min-h-screen bg-[#06080b] text-slate-100">
       <div className="border-b border-white/10 bg-black/20">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 md:px-8">
-          <Link href={locale === "en" ? "/map" : "/zh-HK"} className="inline-flex items-center gap-2 rounded-md border border-white/15 px-3 py-2 text-sm text-slate-200 hover:bg-white/8">
-            <Map size={16} />
-            {copy.shell.map}
-          </Link>
+          <div className="flex items-center gap-3">
+            <GlobalSidebar locale={locale} />
+            <Link href={locale === "en" ? "/map" : "/zh-HK"} className="inline-flex items-center gap-2 rounded-md border border-white/15 px-3 py-2 text-sm text-slate-200 hover:bg-white/8">
+              <Map size={16} />
+              {copy.shell.map}
+            </Link>
+          </div>
           <div className="flex flex-wrap items-center justify-end gap-2">
             <Link
               href={docsDataSourcesHref(locale)}

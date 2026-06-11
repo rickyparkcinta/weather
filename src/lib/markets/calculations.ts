@@ -8,10 +8,10 @@ import type {
 } from "@/lib/markets/types";
 
 /**
- * Demo execution-cost assumptions used when an event does not carry real
+ * Estimated execution-cost assumptions used when an event does not carry real
  * values yet. Replace with provider data once live fee/slippage feeds exist.
  */
-export const DEMO_COSTS = {
+export const DEFAULT_COSTS = {
   fees: 0.01,
   slippage: 0.01,
   riskBuffer: 0.005
@@ -44,9 +44,9 @@ export function calculateNetEdge(
   costs: { fees?: number; slippage?: number; riskBuffer?: number } = {}
 ) {
   const totalCosts =
-    (costs.fees ?? DEMO_COSTS.fees) +
-    (costs.slippage ?? DEMO_COSTS.slippage) +
-    (costs.riskBuffer ?? DEMO_COSTS.riskBuffer);
+    (costs.fees ?? DEFAULT_COSTS.fees) +
+    (costs.slippage ?? DEFAULT_COSTS.slippage) +
+    (costs.riskBuffer ?? DEFAULT_COSTS.riskBuffer);
   const magnitude = Math.max(0, Math.abs(adjustedEdge) - totalCosts);
   if (magnitude === 0) return 0;
   return adjustedEdge < 0 ? -magnitude : magnitude;

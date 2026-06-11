@@ -132,25 +132,31 @@ export function MarketDetail({
               mono
               valueClass={edgeTextColor(event.adjustedEdge)}
             />
-            <DetailCell label="Net edge (demo costs)" value={formatEdge(event.netEdge)} mono valueClass={edgeTextColor(event.netEdge)} />
+            <DetailCell label="Net edge (est. costs)" value={formatEdge(event.netEdge)} mono valueClass={edgeTextColor(event.netEdge)} />
             <DetailCell label="Confidence" value={formatProbability(event.confidence)} mono />
           </div>
-          <Meter label="Model disagreement" value={event.modelDisagreement} />
-          <Meter label="Run-to-run volatility" value={event.volatility} />
-          <div className="mt-2 text-xs text-slate-400">
-            Recent model trend: <span className="font-medium text-slate-200">{event.modelTrend}</span>
-          </div>
+          {typeof event.modelDisagreement === "number" ? <Meter label="Model disagreement" value={event.modelDisagreement} /> : null}
+          {typeof event.volatility === "number" ? <Meter label="Run-to-run volatility" value={event.volatility} /> : null}
+          {event.modelTrend ? (
+            <div className="mt-2 text-xs text-slate-400">
+              Recent model trend: <span className="font-medium text-slate-200">{event.modelTrend}</span>
+            </div>
+          ) : null}
         </Section>
 
         {/* Model inputs */}
         <Section title="Model inputs">
-          <div className="flex flex-wrap gap-1.5">
-            {event.forecastModels.map((model) => (
-              <span key={model} className="rounded-full border border-white/12 bg-black/22 px-2 py-1 text-[11px] leading-none text-slate-200">
-                {model}
-              </span>
-            ))}
-          </div>
+          {event.forecastModels?.length ? (
+            <div className="flex flex-wrap gap-1.5">
+              {event.forecastModels.map((model) => (
+                <span key={model} className="rounded-full border border-white/12 bg-black/22 px-2 py-1 text-[11px] leading-none text-slate-200">
+                  {model}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="text-xs text-slate-500">Model provenance is not attached to this signal yet.</p>
+          )}
           {event.source ? <p className="mt-2 text-xs text-slate-500">Market source: {event.source}</p> : null}
         </Section>
 
@@ -183,7 +189,7 @@ export function MarketDetail({
           </div>
           <p className="mt-2 text-xs leading-5 text-slate-500">
             Execution costs always shrink net edge toward zero, for both long and short reads. Fees, slippage, and risk
-            buffer use demo values until live execution data is wired.
+            buffer use estimated values until live execution data is wired.
           </p>
           <ul className="mt-2 grid gap-1 text-xs leading-5 text-slate-500">
             {HELPER_COPY.map((line) => (
@@ -201,10 +207,10 @@ function collectRiskNotes(event: EnrichedCityMarketEvent): string[] {
   if (event.confidence < 0.35) {
     notes.push("Confidence is below the Avoid threshold (35%), so the displayed edge is not actionable.");
   }
-  if (event.modelDisagreement >= 0.3) {
+  if ((event.modelDisagreement ?? 0) >= 0.3) {
     notes.push("Forecast models disagree materially on this event; treat the AI probability as a wide estimate.");
   }
-  if (event.volatility >= 0.35) {
+  if ((event.volatility ?? 0) >= 0.35) {
     notes.push("Recent forecast runs have been volatile; the probability may shift on the next model cycle.");
   }
   if ((event.liquidity ?? 0) < 20000) {

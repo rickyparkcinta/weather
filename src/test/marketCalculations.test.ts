@@ -13,8 +13,7 @@ import {
   sortEvents,
   summarizeEvents
 } from "@/lib/markets/calculations";
-import { buildMockCityMarketEvents } from "@/lib/markets/mock-data";
-import type { CityMarketEvent, SignalLabel } from "@/lib/markets/types";
+import type { CityMarketEvent } from "@/lib/markets/types";
 
 const NOW = new Date("2026-06-11T12:00:00.000Z");
 
@@ -134,6 +133,10 @@ describe("filterEvents", () => {
     expect(filterEvents(events, { minEdge: 0.15 })).toHaveLength(0);
     expect(filterEvents(events, { minConfidence: 0.7 }).map((event) => event.id)).toEqual(["london-wind"]);
   });
+
+  it("respects DEFAULT_MARKET_FILTERS as a no-op filter", () => {
+    expect(filterEvents(events, DEFAULT_MARKET_FILTERS)).toHaveLength(events.length);
+  });
 });
 
 describe("sortEvents", () => {
@@ -185,45 +188,5 @@ describe("summarizeEvents", () => {
     expect(summary.strongLongCount).toBe(1);
     expect(summary.averageEdge).toBeCloseTo(0.14);
     expect(summary.averageConfidence).toBeCloseTo(0.675);
-  });
-});
-
-describe("mock data", () => {
-  const events = enrichEvents(buildMockCityMarketEvents(NOW));
-
-  it("includes at least 12 events with unique ids and valid probabilities", () => {
-    expect(events.length).toBeGreaterThanOrEqual(12);
-    expect(new Set(events.map((event) => event.id)).size).toBe(events.length);
-    for (const event of events) {
-      expect(event.marketProbability).toBeGreaterThan(0);
-      expect(event.marketProbability).toBeLessThan(1);
-      expect(event.aiProbability).toBeGreaterThan(0);
-      expect(event.aiProbability).toBeLessThan(1);
-      expect(event.confidence).toBeGreaterThan(0);
-      expect(event.confidence).toBeLessThanOrEqual(1);
-      expect(event.forecastModels.length).toBeGreaterThan(0);
-      expect(new Date(event.updatedAt).getTime()).toBeLessThanOrEqual(NOW.getTime());
-    }
-  });
-
-  it("covers every signal label and multiple categories", () => {
-    const signals = new Set(events.map((event) => event.signal));
-    const expected: SignalLabel[] = ["Strong Long", "Weak Long", "Neutral", "Weak Short", "Strong Short", "Avoid"];
-    for (const label of expected) {
-      expect(signals.has(label)).toBe(true);
-    }
-    expect(new Set(events.map((event) => event.eventCategory)).size).toBeGreaterThanOrEqual(5);
-  });
-
-  it("matches the Seoul example from the product spec", () => {
-    const seoul = events.find((event) => event.id === "wm-seoul-rain-10mm");
-    expect(seoul?.signal).toBe("Strong Long");
-    expect(formatEdge(seoul!.edge)).toBe("+14 pts");
-    expect(formatProbability(seoul!.marketProbability)).toBe("58%");
-    expect(formatProbability(seoul!.aiProbability)).toBe("72%");
-  });
-
-  it("respects DEFAULT_MARKET_FILTERS as a no-op filter", () => {
-    expect(filterEvents(events, DEFAULT_MARKET_FILTERS)).toHaveLength(events.length);
   });
 });

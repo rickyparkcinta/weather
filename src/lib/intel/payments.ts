@@ -25,9 +25,10 @@ export const subscriptionPlans: SubscriptionPlan[] = [
   }
 ];
 
-export function getDemoSubscription(userId = "demo-user"): UserSubscription {
+/** Default plan assignment until real auth/billing identifies the user. */
+export function getDefaultSubscription(userId = "local-user"): UserSubscription {
   return {
-    id: "sub-demo",
+    id: "sub-default",
     userId,
     planId: "free-research",
     status: "active",

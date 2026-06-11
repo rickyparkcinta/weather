@@ -21,8 +21,7 @@ export async function GET(request: Request) {
       telegram: {
         title: `${summary.city.name} weather market brief`,
         lines: summary.markets.slice(0, 5).map((market) => `${market.title}: ${market.modelProbability ?? "n/a"} model / ${market.marketProbability ?? "n/a"} market`)
-      },
-      demoMode: summary.demoMode
+      }
     });
   } catch (error) {
     return jsonError("Failed to load bot city payload", 500, error instanceof Error ? error.message : error);

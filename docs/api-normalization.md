@@ -209,8 +209,7 @@ If `fetchedAt + staleAfterMinutes` is already in the past, the route can still w
       "markets": 0,
       "signals": 0
     }
-  },
-  "demoMode": false
+  }
 }
 ```
 

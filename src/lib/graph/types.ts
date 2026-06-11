@@ -102,7 +102,6 @@ export type WorkbenchReport = {
 export type RelationshipGraphResponse = RelationshipGraph & {
   workbench: WorkbenchReport;
   generatedAt: string;
-  demoMode: boolean;
 };
 
 export type GraphNodeTypeMeta = {

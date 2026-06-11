@@ -1,5 +1,5 @@
 import { jsonError, jsonOk } from "@/lib/api/responses";
-import { listMarkets, usingDemoData } from "@/lib/data/queries";
+import { listMarkets } from "@/lib/data/queries";
 
 export const dynamic = "force-dynamic";
 
@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     const category = url.searchParams.get("category") ?? undefined;
 
     const markets = await listMarkets({ cityId, provider, category });
-    return jsonOk({ data: markets, demoMode: usingDemoData() });
+    return jsonOk({ data: markets });
   } catch (error) {
     return jsonError("Failed to load markets", 500, error instanceof Error ? error.message : error);
   }

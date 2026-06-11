@@ -37,12 +37,14 @@ export type CityMarketEvent = {
   marketProbability: number;
   aiProbability: number;
   confidence: number;
-  /** Run-to-run forecast volatility, 0 (steady) to 1 (very volatile). */
-  volatility: number;
-  /** Cross-model disagreement, 0 (consensus) to 1 (split). */
-  modelDisagreement: number;
-  modelTrend: ModelTrend;
-  forecastModels: string[];
+  /** Run-to-run forecast volatility, 0 (steady) to 1 (very volatile). Unset until a live source exists. */
+  volatility?: number;
+  /** Cross-model disagreement, 0 (consensus) to 1 (split). Unset when the signal carries no disagreement. */
+  modelDisagreement?: number;
+  /** Unset until a live trend source exists. */
+  modelTrend?: ModelTrend;
+  /** Unset until model provenance is attached to live signals. */
+  forecastModels?: string[];
   liquidity?: number;
   fees?: number;
   slippage?: number;
@@ -57,7 +59,7 @@ export type CityMarketEventDerived = {
   edge: number;
   /** Confidence-adjusted edge: edge × confidence. */
   adjustedEdge: number;
-  /** Net edge after demo fees, slippage, and risk buffer. */
+  /** Net edge after estimated fees, slippage, and risk buffer. */
   netEdge: number;
   signal: SignalLabel;
 };

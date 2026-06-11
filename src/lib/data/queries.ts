@@ -1,40 +1,20 @@
-import {
-  demoCities,
-  demoForecast,
-  demoMarkets,
-  demoSignals,
-  demoTimeseries,
-  getDemoCity
-} from "@/lib/demo-data";
-import { getDefaultCitySlug, isDemoModeEnabled } from "@/lib/env";
+import { getDefaultCitySlug } from "@/lib/env";
 import { mapCity, mapCombinedSignal, mapForecastPoint, mapMarketEvent, mapMarketTimeSeriesPoint, mapWeatherAgentReport } from "@/lib/data/mappers";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 import type { City, DashboardData, MarketEvent } from "@/types/domain";
-
-function fallbackCity(slug?: string) {
-  return getDemoCity(slug || getDefaultCitySlug());
-}
 
 function requireLiveClient() {
   const client = getSupabaseServerClient();
   if (!client) {
     throw new Error(
-      "Live data is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, or explicitly set NEXT_PUBLIC_ENABLE_DEMO_DATA=true for demo mode."
+      "Live data is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY."
     );
   }
 
   return client;
 }
 
-export function usingDemoData() {
-  return isDemoModeEnabled();
-}
-
 export async function listCities(): Promise<City[]> {
-  if (usingDemoData()) {
-    return demoCities;
-  }
-
   const client = requireLiveClient();
   const { data, error } = await client.from("cities").select("*").order("importance_score", { ascending: false });
   if (error) {
@@ -45,10 +25,6 @@ export async function listCities(): Promise<City[]> {
 }
 
 export async function getCityBySlug(slug: string): Promise<City | null> {
-  if (usingDemoData()) {
-    return demoCities.find((city) => city.slug === slug) ?? null;
-  }
-
   const client = requireLiveClient();
   const { data, error } = await client.from("cities").select("*").eq("slug", slug).maybeSingle();
   if (error) {
@@ -64,14 +40,6 @@ export async function listForecastPoints(input: {
   from?: string;
   to?: string;
 }) {
-  if (usingDemoData()) {
-    return demoForecast
-      .filter((point) => !input.cityId || point.cityId === input.cityId)
-      .filter((point) => !input.variable || point.variable === input.variable)
-      .filter((point) => !input.from || point.forecastTime >= input.from)
-      .filter((point) => !input.to || point.forecastTime <= input.to);
-  }
-
   const client = requireLiveClient();
   let query = client.from("forecast_points").select("*").order("forecast_time", { ascending: true });
   if (input.cityId) query = query.eq("city_id", input.cityId);
@@ -92,13 +60,6 @@ export async function listMarkets(input: {
   provider?: string;
   category?: string;
 } = {}): Promise<MarketEvent[]> {
-  if (usingDemoData()) {
-    return demoMarkets
-      .filter((market) => !input.cityId || market.cityIds.includes(input.cityId))
-      .filter((market) => !input.provider || market.provider === input.provider)
-      .filter((market) => !input.category || market.category === input.category);
-  }
-
   const client = requireLiveClient();
   let query = client.from("market_events").select("*").order("volume", { ascending: false, nullsFirst: false });
   if (input.cityId) query = query.contains("city_ids", [input.cityId]);
@@ -114,10 +75,6 @@ export async function listMarkets(input: {
 }
 
 export async function getMarketById(id: string) {
-  if (usingDemoData()) {
-    return demoMarkets.find((market) => market.id === id || market.providerEventId === id) ?? null;
-  }
-
   const client = requireLiveClient();
   const { data, error } = await client
     .from("market_events")
@@ -138,10 +95,6 @@ export async function getMarketHistory(id: string) {
     return [];
   }
 
-  if (usingDemoData()) {
-    return demoTimeseries.filter((point) => point.marketEventId === market.id);
-  }
-
   const client = requireLiveClient();
   const { data, error } = await client
     .from("market_timeseries")
@@ -158,10 +111,6 @@ export async function getMarketHistory(id: string) {
 }
 
 export async function listCombinedSignals(cityId?: string) {
-  if (usingDemoData()) {
-    return demoSignals.filter((signal) => !cityId || signal.cityId === cityId);
-  }
-
   const client = requireLiveClient();
   let query = client.from("combined_signals").select("*").order("computed_at", { ascending: false });
   if (cityId) query = query.eq("city_id", cityId);
@@ -179,10 +128,6 @@ export async function listWeatherAgentReports(input: {
   marketEventId?: string;
   limit?: number;
 } = {}) {
-  if (usingDemoData()) {
-    return [];
-  }
-
   const client = requireLiveClient();
   let query = client.from("weather_agent_reports").select("*").order("computed_at", { ascending: false });
   if (input.cityId) query = query.eq("city_id", input.cityId);
@@ -199,9 +144,11 @@ export async function listWeatherAgentReports(input: {
 export async function getDashboardData(preferredSlug?: string): Promise<DashboardData> {
   const cities = await listCities();
   const selectedCity =
-    cities.find((city) => city.slug === (preferredSlug || getDefaultCitySlug())) ??
-    cities[0] ??
-    fallbackCity(preferredSlug);
+    cities.find((city) => city.slug === (preferredSlug || getDefaultCitySlug())) ?? cities[0];
+
+  if (!selectedCity) {
+    throw new Error("No cities are available. Run the real API sync to populate the database.");
+  }
 
   const [forecast, markets, signals, weatherAgentReports] = await Promise.all([
     listForecastPoints({ cityId: selectedCity.id }),
@@ -217,7 +164,6 @@ export async function getDashboardData(preferredSlug?: string): Promise<Dashboar
     markets,
     signals,
     weatherAgentReports,
-    demoMode: usingDemoData(),
     generatedAt: new Date().toISOString()
   };
 }

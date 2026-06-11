@@ -3,7 +3,7 @@ import { evaluateOperationalAlerts } from "@/lib/intel/alerts";
 import { summarizeCalibration } from "@/lib/intel/calibration";
 import { computeDynamicErrorBalancing, forecastPointsToModelMembers } from "@/lib/intel/model-stack";
 import { calculateBucketProbabilities, calculateMarketEdge, parseTemperatureBuckets, summarizeProbability } from "@/lib/intel/probability";
-import { listDemoProviderHealth } from "@/lib/intel/providers";
+import { listProviderHealth } from "@/lib/intel/providers";
 import { getRealtimeStatus } from "@/lib/intel/realtime";
 import { resolveSettlementSource } from "@/lib/intel/settlement";
 import { fixtureCities, fixtureForecast, fixtureMarkets } from "@/test/fixtures";
@@ -67,7 +67,7 @@ describe("weather market intelligence helpers", () => {
   });
 
   it("exposes provider health, calibration, alerts, and realtime fallback", () => {
-    const providers = listDemoProviderHealth();
+    const providers = listProviderHealth();
     const calibration = summarizeCalibration({ verification: [{ probability: 0.8, outcome: 1 }, { probability: 0.3, outcome: 0 }] });
     const realtime = getRealtimeStatus();
     const alerts = evaluateOperationalAlerts({ providers: [{ ...providers[0], status: "degraded" }], settlements: [] });

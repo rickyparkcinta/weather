@@ -150,7 +150,6 @@ export type DashboardData = {
   markets: MarketEvent[];
   signals: CombinedSignal[];
   weatherAgentReports: WeatherAgentReport[];
-  demoMode: boolean;
   generatedAt: string;
 };
 

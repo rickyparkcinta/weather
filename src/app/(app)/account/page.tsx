@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { CheckCircle2, CreditCard, KeyRound, ShieldCheck } from "lucide-react";
 import { ProductHeader } from "@/components/shell/ProductHeader";
-import { usingDemoData } from "@/lib/data/queries";
-import { checkEntitlement, getDemoSubscription, subscriptionPlans } from "@/lib/intel/payments";
+import { checkEntitlement, getDefaultSubscription, subscriptionPlans } from "@/lib/intel/payments";
 import { localizedPath } from "@/lib/i18n";
 
 export const metadata = {
@@ -11,7 +10,7 @@ export const metadata = {
 };
 
 export default function AccountPage() {
-  const subscription = getDemoSubscription();
+  const subscription = getDefaultSubscription();
   const plan = subscriptionPlans.find((item) => item.id === subscription.planId) ?? subscriptionPlans[0];
   const checks = ["terminal.read", "api.summary", "alerts.manage", "ops.read", "providers.private"].map((entitlement) =>
     checkEntitlement(subscription, entitlement)
@@ -19,7 +18,7 @@ export default function AccountPage() {
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="pricing" demoMode={usingDemoData()} />
+      <ProductHeader />
       <div className="mx-auto max-w-5xl px-4 pb-16 pt-6 md:px-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>

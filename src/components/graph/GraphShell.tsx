@@ -82,7 +82,6 @@ export function GraphShell({
   const data = query.data ?? initialData ?? null;
   const nodes = useMemo(() => data?.nodes ?? [], [data]);
   const edges = useMemo(() => data?.edges ?? [], [data]);
-  const demoMode = data?.demoMode ?? false;
 
   const nodeById = useMemo(() => new Map(nodes.map((node) => [node.id, node] as const)), [nodes]);
 
@@ -225,7 +224,7 @@ export function GraphShell({
 
   return (
     <main className="flex h-[100dvh] flex-col overflow-hidden bg-[#06080b]">
-      <ProductHeader active="graph" demoMode={demoMode} locale={locale} />
+      <ProductHeader locale={locale} />
 
       <div className="flex items-center justify-between gap-3 overflow-x-auto border-b border-white/10 bg-[#070b10] px-4 py-2 md:px-6">
         <div className="flex shrink-0 items-center gap-1">
@@ -323,7 +322,6 @@ export function GraphShell({
             <Workbench
               report={data.workbench}
               stats={data.stats}
-              demoMode={demoMode}
               generatedAt={data.generatedAt}
               onRebuild={() => query.refetch()}
               rebuilding={query.isFetching}
@@ -391,8 +389,7 @@ function GraphErrorOverlay({ message, inline = false }: { message?: string; inli
         {message ?? "The relationship graph could not be built."}
       </p>
       <p className="mt-2 text-xs leading-5 text-slate-500">
-        Configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, or set
-        NEXT_PUBLIC_ENABLE_DEMO_DATA=true for a non-live demo dataset.
+        Configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.
       </p>
       <div className="pointer-events-auto mt-3 flex flex-wrap gap-2 text-xs">
         <Link href="/admin/health" className="rounded-md border border-white/15 px-2.5 py-1.5 text-slate-200 hover:bg-white/8">

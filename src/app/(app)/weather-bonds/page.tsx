@@ -16,7 +16,6 @@ import {
 import { ProductHeader } from "@/components/shell/ProductHeader";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
 import { Badge } from "@/components/ui/SignalBadge";
-import { usingDemoData } from "@/lib/data/queries";
 import { localizedPath, type AppLocale } from "@/lib/i18n";
 
 export const metadata = {
@@ -71,11 +70,9 @@ export default function WeatherBondsPage() {
 }
 
 export function WeatherBondsPageContent({ locale }: { locale: AppLocale }) {
-  const demoMode = usingDemoData();
-
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
-      <ProductHeader active="weather-bonds" demoMode={demoMode} locale={locale} />
+      <ProductHeader locale={locale} />
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 md:px-8">
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_360px] lg:items-start">
           <div>

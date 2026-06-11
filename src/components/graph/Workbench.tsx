@@ -23,14 +23,12 @@ function MetricTile({ label, value }: { label: string; value: string }) {
 export function Workbench({
   report,
   stats,
-  demoMode,
   generatedAt,
   onRebuild,
   rebuilding
 }: {
   report: WorkbenchReport;
   stats: GraphStats;
-  demoMode: boolean;
   generatedAt: string;
   onRebuild: () => void;
   rebuilding: boolean;
@@ -107,7 +105,7 @@ export function Workbench({
               Latest run: <span className="font-mono text-slate-200">{formatDateTime(stats.latestRunAt)}</span>
             </div>
             <div className="mt-1">
-              Mode: <span className="font-mono text-slate-200">{demoMode ? "demo dataset" : "live"}</span>
+              Mode: <span className="font-mono text-slate-200">live</span>
             </div>
           </div>
         </section>

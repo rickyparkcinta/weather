@@ -17,8 +17,7 @@ export async function GET(request: Request) {
         markets: data.markets,
         signals: data.signals,
         generatedAt: data.generatedAt
-      }),
-      demoMode: data.demoMode
+      })
     });
   } catch (error) {
     return jsonError("Failed to build map-layer output", 500, error instanceof Error ? error.message : error);

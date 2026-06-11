@@ -274,14 +274,14 @@ const terminalDocs: DocPage[] = [
     rows: [
       ["Primary view", "Global map, city command/search, market cards, right-side terminal panel, and source freshness badges."],
       ["Data contract", "City, forecast, market, signal, settlement, calibration, provider-health, and alert records are normalized before UI rendering."],
-      ["Mode separation", "Demo mode uses fixtures; production mode reads Supabase and provider adapters."]
+      ["Data source", "All views read live Supabase tables populated by provider adapters; there is no fixture mode."]
     ]
   }),
   platformDoc({
     slug: "weather-market-terminal",
     title: "Weather Market Terminal",
     shortTitle: "Terminal",
-    description: "Dashboard, search, map signals, city detail, market detail, stale data, and demo/production behavior.",
+    description: "Dashboard, search, map signals, city detail, market detail, and stale-data behavior.",
     keywords: ["global weather dashboard", "city search", "market search", "weather market cards"],
     lead: "The terminal presents city-level weather forecasts and prediction-market diagnostics with compact data-density, visible freshness, and keyboard-friendly navigation.",
     rows: [
@@ -1706,8 +1706,7 @@ export type ProviderRunLog = {
       "markets": 0,
       "signals": 0
     }
-  },
-  "demoMode": false
+  }
 }`
           },
           {
