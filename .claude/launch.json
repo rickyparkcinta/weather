@@ -7,6 +7,14 @@
       "runtimeArgs": ["dev"],
       "port": 3000,
       "autoPort": true
+    },
+    {
+      "name": "bet",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["-C", "/Users/ricky/Documents/Bet", "dev"],
+      "env": { "NEXT_DISABLE_TURBOPACK_FS_CACHE": "true", "PATH": "/Users/ricky/Library/pnpm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin" },
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }
