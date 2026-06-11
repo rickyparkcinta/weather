@@ -1,0 +1,3 @@
+id,timestamp_utc,market,stance,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,simulated_size_usd,confidence,status
+PT-20260611-119,2026-06-11T19:10:58Z,"Polymarket NYC KLGA Jun 12 highest temperature 92-93F",YES,0.25,0.25,0.36,0.46,5,low-to-medium-low,open
+PT-20260611-120,2026-06-11T19:10:58Z,"Polymarket Chicago KORD Jun 12 highest temperature 80-81F",YES,0.36,0.36,0.42,0.54,5,medium-low,open
