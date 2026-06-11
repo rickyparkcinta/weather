@@ -14,7 +14,14 @@ export async function POST(request: Request) {
     return jsonError("Live data write client is not configured", 503);
   }
 
-  const payload = combinedSignalsIngestSchema.safeParse(await request.json());
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return jsonError("Invalid JSON combined-signals payload", 400);
+  }
+
+  const payload = combinedSignalsIngestSchema.safeParse(body);
   if (!payload.success) {
     return jsonError("Invalid combined-signals payload", 400, payload.error.flatten());
   }

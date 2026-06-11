@@ -131,15 +131,54 @@ export default async function OpsPage() {
 
         <section className="mt-8 grid gap-4 md:grid-cols-3">
           <Detail label="Failed jobs" value={String(status.ingestion.filter((log) => log.status === "failed").length)} />
-          <Detail label="Stale cities" value="reserved for live freshness query" />
-          <Detail label="Stale markets" value="reserved for live freshness query" />
-          <Detail label="Latest calibration run" value="cal-v1-shadow" />
-          <Detail label="Latest verification run" value="verification placeholder" />
-          <Detail label="Alert channels" value="web, email, telegram, webhook" />
+          <Detail label="Stale cities" value="not yet tracked — reserved for live freshness query" />
+          <Detail label="Stale markets" value="not yet tracked — reserved for live freshness query" />
+          <Detail label="Calibration" value="cal-v1-shadow (shadow mode — not fit on live verification)" />
+          <Detail label="Verification" value="planned — no live runs yet" />
+          <Detail label="Alert channels" value="framework only — no delivery channels wired" />
+        </section>
+
+        <section className="mt-8 rounded-md border border-white/12 bg-white/[0.04]">
+          <SectionHeader
+            title="Capability Status"
+            description="What is live versus partial, shadow, planned, framework-only, or not implemented in this build."
+          />
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+              <thead className="bg-white/[0.055] text-[11px] uppercase tracking-wide text-slate-500">
+                <tr>
+                  <th className="px-4 py-3">Capability</th>
+                  <th className="px-4 py-3">Status</th>
+                  <th className="px-4 py-3">Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {status.capabilities.map((capability) => (
+                  <tr key={capability.key} className="border-t border-white/8 align-top">
+                    <td className="px-4 py-3 font-medium text-white">{capability.label}</td>
+                    <td className="px-4 py-3"><CapabilityPill status={capability.status} /></td>
+                    <td className="px-4 py-3 text-slate-400">{capability.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
       </div>
     </main>
   );
+}
+
+function CapabilityPill({ status }: { status: string }) {
+  const classes =
+    status === "live"
+      ? "border-emerald-300/25 bg-emerald-300/10 text-emerald-100"
+      : status === "partial" || status === "shadow"
+        ? "border-amber-300/25 bg-amber-300/10 text-amber-100"
+        : status === "not-implemented"
+          ? "border-red-300/25 bg-red-300/10 text-red-100"
+          : "border-white/15 bg-white/8 text-slate-300";
+  return <span className={`whitespace-nowrap rounded-full border px-2 py-1 text-xs ${classes}`}>{status}</span>;
 }
 
 function SectionHeader({ title, description }: { title: string; description: string }) {

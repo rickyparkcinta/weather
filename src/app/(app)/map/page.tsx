@@ -1,5 +1,6 @@
 import { AppShell } from "@/components/shell/AppShell";
-import { getDashboardData } from "@/lib/data/queries";
+import { DataUnavailableScreen } from "@/components/ui/DataUnavailableScreen";
+import { loadDashboardData } from "@/lib/data/queries";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +11,9 @@ export const metadata = {
 };
 
 export default async function MapPage() {
-  const data = await getDashboardData();
-  return <AppShell initialData={data} />;
+  const result = await loadDashboardData();
+  if (!result.ok) {
+    return <DataUnavailableScreen reason={result.reason} />;
+  }
+  return <AppShell initialData={result.data} />;
 }

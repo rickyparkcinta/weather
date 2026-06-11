@@ -2,6 +2,8 @@ import { z } from "zod";
 import type { MarketEvent } from "@/types/domain";
 import type { MarketFetchOptions, MarketProviderAdapter, MarketProviderResult } from "@/providers/markets/types";
 
+const PROVIDER_FETCH_TIMEOUT_MS = 15_000;
+
 const gammaMarketSchema = z.object({
   id: z.union([z.string(), z.number()]),
   question: z.string().optional(),
@@ -129,7 +131,7 @@ export async function fetchPolymarketEventsByTag(tagSlug: string, limit = 50): P
   url.searchParams.set("tag_slug", tagSlug);
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, { signal: AbortSignal.timeout(PROVIDER_FETCH_TIMEOUT_MS) });
     if (!response.ok) {
       return { ok: false, error: { code: "polymarket_events_http", message: `Polymarket events returned ${response.status}`, retryable: response.status >= 500 } };
     }
@@ -150,7 +152,7 @@ export const polymarketAdapter: MarketProviderAdapter = {
     if (options?.query) url.searchParams.set("search", options.query);
 
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { signal: AbortSignal.timeout(PROVIDER_FETCH_TIMEOUT_MS) });
       if (!response.ok) {
         return { ok: false, error: { code: "polymarket_http", message: `Polymarket returned ${response.status}`, retryable: response.status >= 500 } };
       }

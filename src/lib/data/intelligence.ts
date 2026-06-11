@@ -2,6 +2,7 @@ import { getHealthReport } from "@/lib/data/health";
 import { getMarketIntel } from "@/lib/data/market-intel";
 import { getCityBySlug, listCities, listCombinedSignals, listForecastPoints, listMarkets } from "@/lib/data/queries";
 import { defaultAlertRules, evaluateOperationalAlerts } from "@/lib/intel/alerts";
+import { listCapabilities } from "@/lib/intel/capabilities";
 import { listProviderHealth, weatherProviderAdapters } from "@/lib/intel/providers";
 import { getRealtimeStatus } from "@/lib/intel/realtime";
 import { resolveSettlementSource } from "@/lib/intel/settlement";
@@ -176,6 +177,7 @@ export async function getSystemStatus() {
     realtime: cache.realtime,
     alerts,
     alertRules: defaultAlertRules,
+    capabilities: listCapabilities(),
     topSignals,
     generatedAt: new Date().toISOString()
   };

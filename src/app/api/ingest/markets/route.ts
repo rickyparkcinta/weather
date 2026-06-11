@@ -14,7 +14,14 @@ export async function POST(request: Request) {
     return jsonError("Live data write client is not configured", 503);
   }
 
-  const payload = marketsIngestSchema.safeParse(await request.json());
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return jsonError("Invalid JSON markets payload", 400);
+  }
+
+  const payload = marketsIngestSchema.safeParse(body);
   if (!payload.success) {
     return jsonError("Invalid markets payload", 400, payload.error.flatten());
   }

@@ -2,6 +2,8 @@ import { z } from "zod";
 import type { City, ForecastPoint } from "@/types/domain";
 import type { ForecastFetchOptions, ProviderResult, WeatherProviderAdapter } from "@/providers/weather/types";
 
+const PROVIDER_FETCH_TIMEOUT_MS = 15_000;
+
 const openMeteoHourlySchema = z.object({
   hourly: z
     .object({
@@ -51,7 +53,7 @@ export const openMeteoAdapter: WeatherProviderAdapter = {
     if (options?.to) url.searchParams.set("end_date", options.to.slice(0, 10));
 
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { signal: AbortSignal.timeout(PROVIDER_FETCH_TIMEOUT_MS) });
       if (!response.ok) {
         return { ok: false, error: { code: "open_meteo_http", message: `Open-Meteo returned ${response.status}`, retryable: response.status >= 500 } };
       }

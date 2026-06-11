@@ -1,4 +1,4 @@
-import { jsonError, jsonOk } from "@/lib/api/responses";
+import { jsonError, jsonOk, SHORT_CACHE_HEADERS } from "@/lib/api/responses";
 import { getDashboardData } from "@/lib/data/queries";
 import { buildMapLayerPayload } from "@/lib/map/layers";
 
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
         signals: data.signals,
         generatedAt: data.generatedAt
       })
-    });
+    }, { headers: SHORT_CACHE_HEADERS });
   } catch (error) {
     return jsonError("Failed to build map-layer output", 500, error instanceof Error ? error.message : error);
   }

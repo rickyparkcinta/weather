@@ -14,7 +14,14 @@ export async function POST(request: Request) {
     return jsonError("Live data write client is not configured", 503);
   }
 
-  const payload = forecastIngestSchema.safeParse(await request.json());
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return jsonError("Invalid JSON forecast payload", 400);
+  }
+
+  const payload = forecastIngestSchema.safeParse(body);
   if (!payload.success) {
     return jsonError("Invalid forecast payload", 400, payload.error.flatten());
   }

@@ -64,14 +64,12 @@ Public database URL, anon key, service role key, migrations, and seed data must 
 ## Database Setup
 
 1. Create and configure the managed database project.
-2. Run `supabase/migrations/0001_init.sql`.
-3. Run `supabase/migrations/0002_ingest_run_foundation.sql`.
-4. Run `supabase/migrations/0003_idempotency_upsert_indexes.sql`.
-5. Run `supabase/seed.sql`.
-6. Copy the project URL and anon key into Vercel.
-7. Copy the service role key into Vercel as `SUPABASE_SERVICE_ROLE_KEY`.
-8. Create a strong `INGESTION_SECRET` for manual ingestion calls.
-9. Create a strong `CRON_SECRET` for Vercel Cron-triggered sync calls.
+2. Run every file in `supabase/migrations/` in order (`0001_init.sql` through `0006_weather_market_intelligence.sql`).
+3. Run `supabase/seed.sql`.
+4. Copy the project URL and anon key into Vercel.
+5. Copy the service role key into Vercel as `SUPABASE_SERVICE_ROLE_KEY`.
+6. Create a strong `INGESTION_SECRET` for manual ingestion calls.
+7. Create a strong `CRON_SECRET` for Vercel Cron-triggered sync calls.
 
 RLS is enabled on every table. Public anon users can only read app data tables. The service role key is required for ingestion writes and must never be exposed in browser code.
 
@@ -118,7 +116,7 @@ Run a manual server-side sync after migrations and seed data are applied:
 node --experimental-strip-types scripts/sync-real-api-data.ts
 ```
 
-The production deployment also includes `vercel.json`, which triggers `GET /api/sync/real-api` every hour. The sync upserts the city catalog, pulls Open-Meteo forecasts, fetches Polymarket weather/climate markets plus Kalshi public-market snapshots where available, links city-specific weather markets, writes probability history, and recomputes combined signals.
+The production deployment also includes `vercel.json`, which triggers `GET /api/sync/real-api` once a day at 00:00 UTC (adjust the cron schedule for fresher data). The sync upserts the city catalog, pulls Open-Meteo forecasts, fetches Polymarket weather/climate markets plus Kalshi public-market snapshots where available, links city-specific weather markets, writes probability history, and recomputes combined signals.
 
 Optional environment overrides:
 
@@ -131,15 +129,18 @@ Optional environment overrides:
 
 ## Development
 
+This repository uses pnpm:
+
 ```bash
-npm install
-npm run dev
-npm run test
-npm run typecheck
-npm run build
+pnpm install
+pnpm dev
+pnpm test
+pnpm lint
+pnpm typecheck
+pnpm build
 ```
 
-Configure managed database before running. Use `npm run dev` for local development, then `npm run build` before deployment.
+Configure the managed database before running. Use `pnpm dev` for local development, then `pnpm build` before deployment.
 
 ## Vercel Deployment
 
@@ -147,10 +148,19 @@ Configure managed database before running. Use `npm run dev` for local developme
 2. Set the environment variables from `.env.example`.
 3. Deploy with the default Next.js framework preset.
 4. Confirm `/admin/health` shows Public database URL, anon key, service role key, ingestion secret, and cron secret configured.
-5. Trigger one manual sync with `POST /api/sync/real-api` or wait for the hourly cron.
+5. Trigger one manual sync with `POST /api/sync/real-api` or wait for the daily cron.
 6. Confirm `/admin/health` reports `Live mode` with nonzero cities and forecast points.
 
 No long-running server process and no local filesystem persistence are required.
+
+## Production Behavior
+
+- `GET /healthz` returns 200 with `ok`/`reachable` flags for uptime checks, and 503 only when the database is unconfigured or unreachable. Empty-data conditions stay 200 with `ok: false` and warnings on `/admin/health`.
+- Dashboard pages render a clean "not configured" / "no data yet" / "temporarily unavailable" screen instead of crashing when the database is missing or empty.
+- `/ops` includes a Capability Status table marking every subsystem as live, partial, shadow, planned, framework-only, or not implemented. Automatic trading is not implemented; the product is research-only and non-advisory.
+- Public read APIs send `Cache-Control: public, s-maxage=60`; status and health APIs send `no-store`.
+- All outbound provider fetches (Open-Meteo, Polymarket, Kalshi) carry a 15-second timeout and return structured, retry-safe errors.
+- Ingestion/sync routes require a bearer secret compared in constant time.
 
 See `docs/deployment-vercel.md` for a full deployment checklist.
 

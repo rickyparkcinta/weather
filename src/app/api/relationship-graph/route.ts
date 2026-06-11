@@ -1,4 +1,4 @@
-import { jsonError, jsonOk } from "@/lib/api/responses";
+import { jsonError, jsonOk, SHORT_CACHE_HEADERS } from "@/lib/api/responses";
 import { buildRelationshipGraph } from "@/lib/graph/build";
 
 export const dynamic = "force-dynamic";
@@ -20,7 +20,7 @@ export async function GET(request: Request) {
       forecastRunLimit: parsePositiveInt(params.get("forecastRunLimit"), 40, 200)
     });
 
-    return jsonOk(graph);
+    return jsonOk(graph, { headers: SHORT_CACHE_HEADERS });
   } catch (error) {
     return jsonError(
       "Failed to build relationship graph",

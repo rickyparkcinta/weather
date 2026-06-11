@@ -1,6 +1,7 @@
 import { Radar } from "lucide-react";
 import { MarketFeed } from "@/components/markets/MarketFeed";
 import { ProductHeader } from "@/components/shell/ProductHeader";
+import { ErrorState } from "@/components/ui/ErrorState";
 import { NonAdvisoryNotice } from "@/components/ui/NonAdvisoryNotice";
 import { enrichEvents } from "@/lib/markets/calculations";
 import { listLiveCityMarketEvents } from "@/lib/markets/live";
@@ -14,7 +15,14 @@ export const metadata = {
 };
 
 export default async function HomePage() {
-  const events = enrichEvents(await listLiveCityMarketEvents());
+  let events: ReturnType<typeof enrichEvents> = [];
+  let loadError: string | null = null;
+  try {
+    events = enrichEvents(await listLiveCityMarketEvents());
+  } catch {
+    loadError =
+      "Live market data is unavailable right now. The database may not be configured or reachable — check the data health page for details.";
+  }
 
   return (
     <main className="min-h-[100dvh] bg-[#06080b] text-slate-100">
@@ -49,7 +57,7 @@ export default async function HomePage() {
         <NonAdvisoryNotice className="mt-4" />
 
         <div className="mt-4">
-          <MarketFeed events={events} />
+          {loadError ? <ErrorState title={loadError} /> : <MarketFeed events={events} />}
         </div>
       </div>
     </main>

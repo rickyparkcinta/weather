@@ -2,6 +2,8 @@ import { z } from "zod";
 import type { MarketEvent } from "@/types/domain";
 import type { MarketFetchOptions, MarketProviderAdapter, MarketProviderResult } from "@/providers/markets/types";
 
+const PROVIDER_FETCH_TIMEOUT_MS = 15_000;
+
 const kalshiMarketSchema = z.object({
   ticker: z.string(),
   title: z.string(),
@@ -80,7 +82,7 @@ export const kalshiAdapter: MarketProviderAdapter = {
     if (options?.query) url.searchParams.set("search", options.query);
 
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { signal: AbortSignal.timeout(PROVIDER_FETCH_TIMEOUT_MS) });
       if (!response.ok) {
         return { ok: false, error: { code: "kalshi_http", message: `Kalshi returned ${response.status}`, retryable: response.status >= 500 } };
       }

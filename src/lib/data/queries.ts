@@ -74,19 +74,32 @@ export async function listMarkets(input: {
   return (data ?? []).map((row) => mapMarketEvent(row));
 }
 
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export async function getMarketById(id: string) {
   const client = requireLiveClient();
-  const { data, error } = await client
-    .from("market_events")
-    .select("*")
-    .or(`id.eq.${id},provider_event_id.eq.${id}`)
-    .maybeSingle();
 
+  // Look up by primary key only when the id is a valid UUID; otherwise treat it
+  // as a provider event id. Interpolating arbitrary input into a PostgREST
+  // `or()` filter string would allow filter injection and fails with a
+  // Postgres type error for non-UUID ids.
+  if (UUID_PATTERN.test(id)) {
+    const { data, error } = await client.from("market_events").select("*").eq("id", id).maybeSingle();
+    if (error) {
+      throw new Error(error.message);
+    }
+    if (data) {
+      return mapMarketEvent(data);
+    }
+  }
+
+  const { data, error } = await client.from("market_events").select("*").eq("provider_event_id", id).limit(1);
   if (error) {
     throw new Error(error.message);
   }
 
-  return data ? mapMarketEvent(data) : null;
+  const row = data?.[0];
+  return row ? mapMarketEvent(row) : null;
 }
 
 export async function getMarketHistory(id: string) {
@@ -139,6 +152,43 @@ export async function listWeatherAgentReports(input: {
   }
 
   return (data ?? []).map((row) => mapWeatherAgentReport(row));
+}
+
+export type DashboardDataResult =
+  | { ok: true; data: DashboardData }
+  | { ok: false; reason: "unconfigured" | "empty" | "read_failed"; message: string };
+
+/**
+ * Non-throwing wrapper around getDashboardData so dashboard pages can render
+ * a clean setup/empty screen instead of an error boundary when the database
+ * is unconfigured or has not been seeded yet.
+ */
+export async function loadDashboardData(preferredSlug?: string): Promise<DashboardDataResult> {
+  if (!getSupabaseServerClient()) {
+    return {
+      ok: false,
+      reason: "unconfigured",
+      message: "The live database connection is not configured for this deployment."
+    };
+  }
+
+  try {
+    const cities = await listCities();
+    if (cities.length === 0) {
+      return {
+        ok: false,
+        reason: "empty",
+        message: "The database is reachable but has no cities yet. Run the real API sync to populate it."
+      };
+    }
+    return { ok: true, data: await getDashboardData(preferredSlug) };
+  } catch (error) {
+    return {
+      ok: false,
+      reason: "read_failed",
+      message: error instanceof Error ? error.message : "Live data read failed."
+    };
+  }
 }
 
 export async function getDashboardData(preferredSlug?: string): Promise<DashboardData> {
