@@ -1,0 +1,17 @@
+{
+  "timestamp_utc": "2026-06-11T20:10:00Z",
+  "timestamp_hkt": "2026-06-12T04:10:00+08:00",
+  "mode": "paper_trading_only",
+  "real_execution": false,
+  "recommended_paper_trades": [],
+  "top_edges": [
+    {"rank": 1, "market": "London EGLC Jun 12 23C YES", "observed_price": "13c buy Yes; 12% displayed", "fair_value": "24-36%", "confidence": "low-to-medium-low", "paper_action": "maintain existing only"},
+    {"rank": 2, "market": "NYC KLGA Jun 12 92-93F YES", "observed_price": "27c buy Yes; 26% displayed", "fair_value": "36-46%", "confidence": "low-to-medium-low", "paper_action": "maintain PT-20260611-119"},
+    {"rank": 3, "market": "Houston KHOU Jun 12 92-93F YES", "observed_price": "27c buy Yes; 26% displayed", "fair_value": "36-46%", "confidence": "medium-low", "paper_action": "maintain PT-20260611-114/PT-20260611-116"},
+    {"rank": 4, "market": "Chicago KORD Jun 12 80-81F YES", "observed_price": "35c buy Yes; 35% displayed", "fair_value": "42-54%", "confidence": "medium-low", "paper_action": "maintain PT-20260611-120"},
+    {"rank": 5, "market": "Hong Kong Observatory Jun 12 29C YES", "observed_price": "34c buy Yes; 34% displayed", "fair_value": "40-50%", "confidence": "medium-low", "paper_action": "maintain PT-20260611-117"},
+    {"rank": 6, "market": "Atlanta KATL Jun 12 92-93F YES", "observed_price": "42c buy Yes; 41% displayed", "fair_value": "46-56%", "confidence": "low-to-medium-low", "paper_action": "watch only"}
+  ],
+  "maintained_positions": ["PT-20260611-113", "PT-20260611-114", "PT-20260611-115", "PT-20260611-116", "PT-20260611-117", "PT-20260611-118", "PT-20260611-119", "PT-20260611-120"],
+  "risks": ["exact-bucket weather risk", "wide spreads", "station-source mismatch", "London Celsius-source conflict", "HKO one-decimal settlement", "concentrated Jun 12 paper exposure"]
+}
