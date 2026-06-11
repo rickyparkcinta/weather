@@ -1,0 +1,96 @@
+{
+  "timestamp_utc": "2026-06-11T23:13:42Z",
+  "timestamp_hkt": "2026-06-12T07:13:42+08:00",
+  "scheduled_invocation_hkt": "2026-06-12T07:07:01+08:00",
+  "mode": "paper_trading_only",
+  "real_execution": false,
+  "markets_monitored": [
+    "Polymarket Houston/KHOU Jun 12 highest temperature",
+    "Polymarket London/EGLC Jun 12 highest temperature",
+    "Polymarket NYC/KLGA Jun 12 highest temperature",
+    "Polymarket Hong Kong Observatory Jun 12 highest temperature",
+    "Polymarket Atlanta/KATL Jun 12 highest temperature",
+    "Polymarket Chicago/KORD Jun 12 highest temperature",
+    "Polymarket Miami/KMIA Jun 12 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Houston KHOU Jun 12 92-93F YES",
+      "observed_price": "24c buy Yes; 22% displayed",
+      "implied_probability": 0.24,
+      "estimated_fair_value_range": [0.38, 0.48],
+      "estimated_edge_range": [0.14, 0.24],
+      "confidence": "medium-low",
+      "paper_action": "Maintain PT-20260611-114/PT-20260611-116 only; no duplicate."
+    },
+    {
+      "rank": 2,
+      "market": "London EGLC Jun 12 23C YES",
+      "observed_price": "15c buy Yes; 15% displayed",
+      "implied_probability": 0.15,
+      "estimated_fair_value_range": [0.26, 0.38],
+      "estimated_edge_range": [0.11, 0.23],
+      "confidence": "low-to-medium-low",
+      "paper_action": "Maintain existing London positions; no duplicate."
+    },
+    {
+      "rank": 3,
+      "market": "NYC KLGA Jun 12 92-93F YES",
+      "observed_price": "20c buy Yes; 20% displayed",
+      "implied_probability": 0.20,
+      "estimated_fair_value_range": [0.30, 0.40],
+      "estimated_edge_range": [0.10, 0.20],
+      "confidence": "low-to-medium-low",
+      "paper_action": "Maintain PT-20260611-119 only; no duplicate."
+    },
+    {
+      "rank": 4,
+      "market": "Hong Kong Observatory Jun 12 29C YES",
+      "observed_price": "30c buy Yes; 30% displayed",
+      "implied_probability": 0.30,
+      "estimated_fair_value_range": [0.38, 0.48],
+      "estimated_edge_range": [0.08, 0.18],
+      "confidence": "medium-low",
+      "paper_action": "Maintain PT-20260611-117 only; no duplicate."
+    },
+    {
+      "rank": 5,
+      "market": "Atlanta KATL Jun 12 92-93F YES",
+      "observed_price": "40c buy Yes; 40% displayed",
+      "implied_probability": 0.40,
+      "estimated_fair_value_range": [0.46, 0.56],
+      "estimated_edge_range": [0.06, 0.16],
+      "confidence": "low-to-medium-low",
+      "paper_action": "Watch only; no new entry."
+    },
+    {
+      "rank": 6,
+      "market": "Chicago KORD Jun 12 80-81F YES",
+      "observed_price": "45c buy Yes; 43% displayed",
+      "implied_probability": 0.45,
+      "estimated_fair_value_range": [0.43, 0.53],
+      "estimated_edge_range": [-0.02, 0.08],
+      "confidence": "medium-low",
+      "paper_action": "Maintain PT-20260611-120 only."
+    }
+  ],
+  "recommended_paper_trades": [],
+  "maintained_positions": [
+    "PT-20260611-113",
+    "PT-20260611-114",
+    "PT-20260611-115",
+    "PT-20260611-116",
+    "PT-20260611-117",
+    "PT-20260611-118",
+    "PT-20260611-119",
+    "PT-20260611-120"
+  ],
+  "risks": [
+    "Exact-bucket weather markets can flip on a one-degree station print.",
+    "Displayed probabilities and buy quotes imply meaningful spreads in several buckets.",
+    "NWS and Met Office forecasts may not match Wunderground final station history.",
+    "HKO one-decimal daily max creates a fragile 29C/30C boundary.",
+    "Jun 12 paper exposure is concentrated, so duplicate adds remain capped."
+  ]
+}
