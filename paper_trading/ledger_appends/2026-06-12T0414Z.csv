@@ -1,0 +1,3 @@
+timestamp_utc,trade_id,market,stance,entry_price,implied_probability,estimated_fair_value,simulated_size_usd,confidence,status
+2026-06-12T04:14:16Z,PT-20260612-123,"Kalshi NYC/Central Park Jun 12 2026 daily high temperature 94-95F",YES,0.28,0.28,0.36-0.46,5,low-to-medium-low,open
+2026-06-12T04:14:16Z,PT-20260612-124,"Polymarket London/EGLC Jun 13 2026 highest temperature 23C",YES,0.25,0.25,0.32-0.44,5,low-to-medium-low,open
