@@ -1,0 +1,86 @@
+{
+  "time_checked_utc": "2026-06-12T06:13:18Z",
+  "time_checked_hkt": "2026-06-12T14:13:18+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_or_bets_executed": false,
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Chicago/KORD Jun 13 84-85F YES",
+      "current_price": "37c buy yes",
+      "implied_probability": 0.37,
+      "estimated_fair_value_range": [0.45, 0.57],
+      "estimated_edge_range_pp": [8, 20],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge; no duplicate",
+      "paper_action": "maintain PT-20260612-122 only"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket London/EGLC Jun 13 23C YES",
+      "current_price": "23c buy yes",
+      "implied_probability": 0.23,
+      "estimated_fair_value_range": [0.31, 0.43],
+      "estimated_edge_range_pp": [8, 20],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge; no duplicate",
+      "paper_action": "maintain PT-20260612-124 only"
+    },
+    {
+      "rank": 3,
+      "market": "Kalshi NYC/Central Park Jun 12 94-95F YES",
+      "current_price": "28c yes",
+      "implied_probability": 0.28,
+      "estimated_fair_value_range": [0.35, 0.45],
+      "estimated_edge_range_pp": [7, 17],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge; no duplicate",
+      "paper_action": "maintain PT-20260612-123 only"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_price": "35c buy yes",
+      "implied_probability": 0.35,
+      "estimated_fair_value_range": [0.42, 0.52],
+      "estimated_edge_range_pp": [7, 17],
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only",
+      "paper_action": "no entry; thin/wide depth"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket NYC/KLGA Jun 13 88-89F YES",
+      "current_price": "39c buy yes",
+      "implied_probability": 0.39,
+      "estimated_fair_value_range": [0.40, 0.48],
+      "estimated_edge_range_pp": [1, 9],
+      "confidence": "low",
+      "classification": "weak watch-only",
+      "paper_action": "no entry"
+    }
+  ],
+  "new_paper_trades": [],
+  "maintenance_updates": [
+    {
+      "paper_trade_ids": ["PT-20260611-117", "PT-20260612-125"],
+      "market": "Polymarket Hong Kong Observatory Jun 12 29C YES",
+      "status": "open/adverse-watch",
+      "reason": "HKO regional readings showed HK Observatory at 30.4C with 30.4C as the maximum since midnight."
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026",
+    "https://polymarket.com/es/event/highest-temperature-in-chicago-on-june-13-2026",
+    "https://polymarket.com/zh/event/highest-temperature-in-houston-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-nyc-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-12-2026",
+    "https://kalshi.com/markets/kxhighny/highest-temperature-in-nyc/kxhighny-26jun12",
+    "https://forecast.weather.gov/MapClick.php?lat=40.76514834741937&lon=-73.9849843124752",
+    "https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://weather.metoffice.gov.uk/forecast/u10j124jp",
+    "https://www.hko.gov.hk/textonly/v2/forecast/text_readings_e.htm"
+  ]
+}
