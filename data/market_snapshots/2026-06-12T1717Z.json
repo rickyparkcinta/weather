@@ -1,0 +1,117 @@
+{
+  "timestamp_utc": "2026-06-12T17:17:22Z",
+  "timestamp_hkt": "2026-06-13T01:17:23+08:00",
+  "scheduled_invocation_hkt": "2026-06-13T01:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Houston/KHOU Jun 13 highest temperature",
+    "Polymarket London/EGLC Jun 13 highest temperature",
+    "Polymarket NYC/KLGA Jun 13 highest temperature",
+    "Polymarket Chicago/KORD Jun 13 highest temperature",
+    "Polymarket Miami/KMIA Jun 13 highest temperature",
+    "Polymarket Atlanta/KATL Jun 13 highest temperature",
+    "Polymarket Hong Kong Observatory Jun 13 highest temperature",
+    "Kalshi NYC/Central Park Jun 12 daily high temperature maintenance"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_price": "displayed 27%; buy Yes 28c; buy No 75c; 90-91F leader 37%",
+      "target_bucket_volume_usd": 442,
+      "implied_probability": 0.28,
+      "estimated_fair_value_range": [0.34, 0.44],
+      "estimated_edge_range": [0.06, 0.16],
+      "confidence": "low",
+      "classification": "moderate fresh paper edge",
+      "paper_action": "open PT-20260612-127",
+      "simulated_size_usd": 5
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket London/EGLC Jun 13 23C YES",
+      "current_price": "displayed 28%; buy Yes 29c; 22C leader 43%",
+      "implied_probability": 0.29,
+      "estimated_fair_value_range": [0.35, 0.45],
+      "estimated_edge_range": [0.06, 0.16],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "maintain PT-20260612-124"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket NYC/KLGA Jun 13 88-89F YES",
+      "current_price": "displayed 35%; buy Yes 35c; 90-91F leader 38%",
+      "implied_probability": 0.35,
+      "estimated_fair_value_range": [0.39, 0.49],
+      "estimated_edge_range": [0.04, 0.14],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "maintain PT-20260612-126"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Chicago/KORD Jun 13 84-85F YES",
+      "current_price": "displayed 39%; buy Yes 40c; 86-87F at 26%",
+      "implied_probability": 0.40,
+      "estimated_fair_value_range": [0.40, 0.50],
+      "estimated_edge_range": [0.00, 0.10],
+      "confidence": "low-to-medium-low",
+      "classification": "weak-to-moderate represented edge",
+      "paper_action": "maintain PT-20260612-122"
+    }
+  ],
+  "paper_trades_recommended": [
+    {
+      "id": "PT-20260612-127",
+      "market": "Polymarket Houston/Hobby Jun 13 92-93F highest temperature YES",
+      "stance": "YES",
+      "entry_price": 0.28,
+      "implied_probability": 0.28,
+      "estimated_fair_low": 0.34,
+      "estimated_fair_high": 0.44,
+      "simulated_size_usd": 5,
+      "confidence": "low",
+      "status": "open",
+      "thesis": "NWS KHOU high near 93F versus market center around 90-91F creates a small exact-bucket discrepancy after the quote fell to 28c.",
+      "invalidation_risks": [
+        "KHOU settles 90-91F or 88-89F due cloud, sea-breeze, or shower timing",
+        "NWS forecast is high relative to other public forecast sources",
+        "station overshoots into 94-95F",
+        "browser-readable quote is stale",
+        "thin liquidity distorts the displayed edge"
+      ]
+    }
+  ],
+  "watchlist_no_entry": [
+    {
+      "market": "Polymarket Miami/KMIA Jun 13 90-91F YES",
+      "current_price": "37% displayed; buy Yes 38c",
+      "note": "live but too thin after sea-breeze/thunderstorm and adjacent-bucket risk"
+    },
+    {
+      "market": "Polymarket Atlanta/KATL Jun 13 92-93F YES",
+      "current_price": "45% displayed; buy Yes 47c",
+      "note": "near fair after adjacent 90-91F and 94-95F risks"
+    },
+    {
+      "market": "Polymarket Hong Kong Observatory Jun 13",
+      "current_price": "30C 39% / buy Yes 40c; 31C 35% / buy Yes 36c",
+      "note": "HKO range 27-31C with showers leaves 30C and 31C both live"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-nyc-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-miami-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-13-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/zipcity.php?inputstring=KATL",
+    "https://weather.metoffice.gov.uk/forecast/u10j124jp",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm"
+  ]
+}
