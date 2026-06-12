@@ -1,0 +1,2 @@
+id,timestamp_utc,market,stance,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,simulated_size_usd,confidence,status
+PT-20260612-121,2026-06-12T02:13:37Z,"Polymarket NYC/KLGA Jun 12 2026 highest temperature 92-93F YES",YES,0.17,0.17,0.27,0.37,5,low-to-medium-low,open
