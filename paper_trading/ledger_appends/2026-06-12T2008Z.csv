@@ -1,0 +1,2 @@
+timestamp_utc,id,market,stance,simulated_size_usd,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,confidence,status
+2026-06-12T20:08:19Z,PT-20260612-128,Polymarket Chicago/KORD Jun 13 86-87F YES,YES,5,0.26,0.26,0.38,0.48,low-to-medium-low,open
