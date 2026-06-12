@@ -1,0 +1,2 @@
+timestamp_utc,id,market,stance,simulated_size_usd,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,confidence,status
+2026-06-12T05:13:05Z,PT-20260612-125,Polymarket Hong Kong Observatory Jun 12 29C YES,YES,5,0.31,0.31,0.42,0.52,low-to-medium-low,open
