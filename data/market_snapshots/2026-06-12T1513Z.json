@@ -1,0 +1,87 @@
+{
+  "timestamp_utc": "2026-06-12T15:13:31Z",
+  "timestamp_hkt": "2026-06-12T23:13:31+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket NYC/KLGA Jun 13 highest temperature",
+    "Polymarket Chicago/KORD Jun 13 highest temperature",
+    "Polymarket Houston/KHOU Jun 13 highest temperature",
+    "Polymarket London/EGLC Jun 13 highest temperature",
+    "Polymarket Atlanta/KATL Jun 13 highest temperature",
+    "Polymarket Miami/KMIA Jun 13 highest temperature",
+    "Polymarket Hong Kong Observatory Jun 13 highest temperature",
+    "Kalshi NYC/Central Park Jun 12 daily high temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_price": "displayed about 32%; clean bid/ask not verified",
+      "implied_probability": 0.32,
+      "estimated_fair_value_range": [0.40, 0.50],
+      "estimated_edge_range": [0.08, 0.18],
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only",
+      "paper_action": "no_entry"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket London/EGLC Jun 13 23C YES",
+      "current_price": "last clean 23c context",
+      "implied_probability": 0.23,
+      "estimated_fair_value_range": [0.30, 0.40],
+      "estimated_edge_range": [0.07, 0.17],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "maintain PT-20260612-124"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Chicago/KORD Jun 13 84-85F YES",
+      "current_price": "displayed about 40%",
+      "implied_probability": 0.40,
+      "estimated_fair_value_range": [0.43, 0.54],
+      "estimated_edge_range": [0.03, 0.14],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "maintain PT-20260612-122"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket NYC/KLGA Jun 13 88-89F YES",
+      "current_price": "last clean 36c context; current exact depth not verified",
+      "implied_probability": 0.36,
+      "estimated_fair_value_range": [0.40, 0.50],
+      "estimated_edge_range": [0.04, 0.14],
+      "confidence": "low",
+      "classification": "represented edge / quote-quality capped",
+      "paper_action": "maintain PT-20260612-126"
+    }
+  ],
+  "paper_trades_recommended": [],
+  "maintenance_updates": [
+    {
+      "paper_trade_id": "PT-20260612-123",
+      "status": "open/adverse-watch",
+      "note": "Kalshi NYC/Central Park Jun 12 94-95F YES fell to 9% / Yes 10c; Central Park was 80.1F at 10:51 EDT after morning rain."
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/weather",
+    "https://polymarket.com/es/event/highest-temperature-in-houston-on-june-13-2026",
+    "https://polymarket.com/es/event/highest-temperature-in-chicago-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026",
+    "https://polymarket.com/zh/event/highest-temperature-in-atlanta-on-june-13-2026",
+    "https://polymarket.com/zh/event/highest-temperature-in-miami-on-june-13-2026",
+    "https://kalshi.com/markets/kxhighny/highest-temperature-in-nyc/kxhighny-26jun12",
+    "https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/zipcity.php?inputstring=KATL",
+    "https://forecast.weather.gov/MapClick.php?lat=25.79056&lon=-80.31639",
+    "https://forecast.weather.gov/data/obhistory/KNYC.html",
+    "https://weather.metoffice.gov.uk/forecast/u10j124jp",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm"
+  ]
+}
