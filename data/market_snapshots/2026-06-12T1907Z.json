@@ -1,0 +1,130 @@
+{
+  "timestamp_utc": "2026-06-12T19:07:50Z",
+  "timestamp_hkt": "2026-06-13T03:07:50+08:00",
+  "scheduled_invocation_hkt": "2026-06-13T03:07:00+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Chicago/KORD Jun 13 highest temperature",
+    "Polymarket Houston/KHOU Jun 13 highest temperature",
+    "Polymarket London/EGLC Jun 13 highest temperature",
+    "Polymarket NYC/KLGA Jun 13 highest temperature",
+    "Polymarket Miami/KMIA Jun 13 highest temperature",
+    "Polymarket Atlanta/KATL Jun 13 highest temperature",
+    "Polymarket Hong Kong Observatory Jun 13 highest temperature",
+    "Broader Polymarket temperature board context"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Chicago/KORD Jun 13 86-87F YES",
+      "current_price": "displayed about 25%; 84-85F leader about 39%; direct buy quote not cleanly captured",
+      "event_volume_usd_context": 4300,
+      "event_liquidity_usd_context": 25300,
+      "implied_probability": 0.25,
+      "estimated_fair_value_range": [
+        0.34,
+        0.44
+      ],
+      "estimated_edge_range": [
+        0.09,
+        0.19
+      ],
+      "confidence": "low",
+      "classification": "moderate watch-only edge",
+      "paper_action": "no new paper entry; mark PT-20260612-122 weakened/adverse-watch"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_price": "displayed 27%; buy Yes 28c; buy No 74c; 90-91F leader 43%",
+      "target_bucket_volume_usd": 599,
+      "implied_probability": 0.28,
+      "estimated_fair_value_range": [
+        0.34,
+        0.44
+      ],
+      "estimated_edge_range": [
+        0.06,
+        0.16
+      ],
+      "confidence": "low",
+      "classification": "moderate represented edge",
+      "paper_action": "maintain PT-20260612-127 only"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket London/EGLC Jun 13 23C YES",
+      "current_price": "displayed 34%; buy Yes 35c; buy No 67c; 22C leader 39%",
+      "target_bucket_volume_usd": 3880,
+      "implied_probability": 0.35,
+      "estimated_fair_value_range": [
+        0.37,
+        0.47
+      ],
+      "estimated_edge_range": [
+        0.02,
+        0.12
+      ],
+      "confidence": "low-to-medium-low",
+      "classification": "weak-to-moderate represented edge",
+      "paper_action": "maintain PT-20260612-124 only"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket NYC/KLGA Jun 13 88-89F YES",
+      "current_price": "displayed 36%; buy Yes 36c; buy No 65c; 90-91F leader 39%",
+      "target_bucket_volume_usd": 1012,
+      "implied_probability": 0.36,
+      "estimated_fair_value_range": [
+        0.36,
+        0.46
+      ],
+      "estimated_edge_range": [
+        0.0,
+        0.10
+      ],
+      "confidence": "low-to-medium-low",
+      "classification": "weak represented edge",
+      "paper_action": "maintain PT-20260612-126 only"
+    }
+  ],
+  "paper_trades_recommended": [],
+  "maintenance_actions": [
+    "Maintain PT-20260612-127 Houston/KHOU Jun 13 92-93F YES",
+    "Maintain PT-20260612-124 London/EGLC Jun 13 23C YES",
+    "Maintain PT-20260612-126 NYC/KLGA Jun 13 88-89F YES; note edge narrowed",
+    "Mark PT-20260612-122 Chicago/KORD Jun 13 84-85F YES weakened/adverse-watch"
+  ],
+  "watchlist_no_entry": [
+    {
+      "market": "Polymarket Miami/KMIA Jun 13",
+      "current_price": "88-89F led near 49% on prediction page",
+      "note": "NWS high near 91F with 40% afternoon thunderstorm risk; 90-91F requires clean direct quote before any paper entry"
+    },
+    {
+      "market": "Polymarket Atlanta/KATL Jun 13",
+      "current_price": "fresh direct quote not captured",
+      "note": "no entry due stale quote context and adjacent-bucket risk"
+    },
+    {
+      "market": "Polymarket Hong Kong Observatory Jun 13",
+      "current_price": "31C displayed 38% / buy Yes 39c; 30C displayed 32% / buy Yes 33c",
+      "note": "HKO 27-31C forecast with showers leaves 30C and 31C live; no clear edge"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-nyc-on-june-13-2026",
+    "https://polymarket.com/es/event/highest-temperature-in-chicago-on-june-13-2026",
+    "https://polymarket.com/predictions/miami",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-13-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?lat=25.79056&lon=-80.31639",
+    "https://weather.metoffice.gov.uk/forecast/u10j124jp",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm"
+  ]
+}
