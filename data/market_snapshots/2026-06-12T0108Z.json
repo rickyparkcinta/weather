@@ -1,0 +1,90 @@
+{
+  "timestamp_utc": "2026-06-12T01:08:21Z",
+  "timestamp_hkt": "2026-06-12T09:08:21+08:00",
+  "scheduled_invocation_hkt": "2026-06-12T09:07:01+08:00",
+  "mode": "paper_trading_only",
+  "real_execution": false,
+  "markets_monitored": [
+    "Polymarket London/EGLC Jun 12 highest temperature",
+    "Polymarket Houston/KHOU Jun 12 highest temperature",
+    "Polymarket NYC/KLGA Jun 12 highest temperature",
+    "Polymarket Hong Kong Observatory Jun 12 highest temperature",
+    "Polymarket Atlanta/KATL Jun 12 highest temperature",
+    "Polymarket Chicago/KORD Jun 12 highest temperature",
+    "Polymarket Miami/KMIA Jun 12 highest temperature"
+  ],
+  "quote_quality_note": "NYC direct Jun 12 92-93F depth did not refresh cleanly, so that edge uses last-clean context and is confidence-capped.",
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "London EGLC Jun 12 23C YES",
+      "observed_price": "15% displayed; Buy Yes 15c",
+      "implied_probability": 0.15,
+      "estimated_fair_value_range": [0.25, 0.37],
+      "estimated_edge_range": [0.10, 0.22],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "Maintain PT-20260611-115/PT-20260611-118 only; no duplicate."
+    },
+    {
+      "rank": 2,
+      "market": "Houston KHOU Jun 12 92-93F YES",
+      "observed_price": "26% displayed; Buy Yes 26c",
+      "implied_probability": 0.26,
+      "estimated_fair_value_range": [0.36, 0.46],
+      "estimated_edge_range": [0.10, 0.20],
+      "confidence": "medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "Maintain PT-20260611-114/PT-20260611-116 only; no duplicate."
+    },
+    {
+      "rank": 3,
+      "market": "NYC KLGA Jun 12 92-93F YES",
+      "observed_price": "last clean context about 20c; direct depth not cleanly refreshed",
+      "implied_probability": 0.20,
+      "estimated_fair_value_range": [0.28, 0.38],
+      "estimated_edge_range": [0.08, 0.18],
+      "confidence": "low",
+      "classification": "weak-to-moderate represented edge, quote-quality capped",
+      "paper_action": "Maintain PT-20260611-119 only; no duplicate."
+    }
+  ],
+  "watch_no_edge": [
+    {
+      "market": "Hong Kong Observatory Jun 12 highest temperature",
+      "observed_price": "30C 35% displayed / Buy Yes 36c; 29C 32% displayed / Buy Yes 32c",
+      "reason": "HKO updated Jun 12 forecast to 26-30C; 29C thesis is now near-fair/adverse-watch and 30C is not cheap enough for a hedge."
+    },
+    {
+      "market": "Atlanta KATL Jun 12 92-93F YES",
+      "observed_price": "51% displayed; Buy Yes 51c",
+      "reason": "NWS high near 93F supports the bucket, but the market repriced close to fair."
+    }
+  ],
+  "recommended_paper_trades": [],
+  "maintained_positions": [
+    "PT-20260611-113",
+    "PT-20260611-114",
+    "PT-20260611-115",
+    "PT-20260611-116",
+    "PT-20260611-117",
+    "PT-20260611-118",
+    "PT-20260611-119",
+    "PT-20260611-120"
+  ],
+  "risks": [
+    "Exact-bucket weather markets can flip on a one-degree station print.",
+    "Some current prices are displayed Polymarket probabilities rather than verified executable depth.",
+    "NWS and Met Office forecasts may not match Wunderground final station histories.",
+    "HKO one-decimal daily max creates a fragile 29C/30C boundary.",
+    "Jun 12 paper exposure is concentrated, so duplicate adds remain capped."
+  ],
+  "repo_updates": [
+    "odds/latest.md",
+    "odds/history/2026-06-12T0108Z.md",
+    "alerts/2026-06-12T0108Z.md",
+    "data/market_snapshots/2026-06-12T0108Z.json",
+    "paper_trading/maintenance/2026-06-12T0108Z.md"
+  ],
+  "real_bets_or_trades_executed": false
+}
