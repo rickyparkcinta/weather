@@ -1,0 +1,92 @@
+{
+  "timestamp_utc": "2026-06-12T22:08:07Z",
+  "timestamp_hkt": "2026-06-13T06:08:07+08:00",
+  "scheduled_invocation_hkt": "2026-06-13T06:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Chicago/KORD Jun 13 highest temperature",
+    "Polymarket Houston/KHOU Jun 13 highest temperature",
+    "Polymarket London/EGLC Jun 13 highest temperature",
+    "Polymarket NYC/KLGA Jun 13 highest temperature",
+    "Polymarket Miami/KMIA Jun 13 highest temperature",
+    "Polymarket Atlanta/KATL Jun 13 highest temperature",
+    "Polymarket Hong Kong Observatory Jun 13 highest temperature",
+    "Broader Polymarket weather-board context"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Chicago/KORD Jun 13 86-87F YES",
+      "current_price": "displayed 29%; buy Yes 30c; buy No 72c; 84-85F leader 45%",
+      "target_bucket_volume_usd": 619,
+      "implied_probability": 0.30,
+      "estimated_fair_value_range": [0.40, 0.50],
+      "estimated_edge_range": [0.10, 0.20],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "maintain PT-20260612-128 only; keep PT-20260612-122 weakened/adverse-watch"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_price": "displayed 27%; buy Yes 28c; buy No 75c; 90-91F leader 47%",
+      "event_volume_usd": 6097,
+      "target_bucket_volume_usd": 896,
+      "implied_probability": 0.28,
+      "estimated_fair_value_range": [0.34, 0.44],
+      "estimated_edge_range": [0.06, 0.16],
+      "confidence": "low",
+      "classification": "moderate represented edge",
+      "paper_action": "maintain PT-20260612-127 and PT-20260612-129 only; no duplicate above below-24c trigger"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket London/EGLC Jun 13 23C YES",
+      "current_price": "displayed 35%; buy Yes 36c; buy No 67c; 22C leader 39%",
+      "event_volume_usd": 42490,
+      "target_bucket_volume_usd": 4291,
+      "implied_probability": 0.36,
+      "estimated_fair_value_range": [0.38, 0.48],
+      "estimated_edge_range": [0.02, 0.12],
+      "confidence": "low-to-medium-low",
+      "classification": "weak-to-moderate represented edge",
+      "paper_action": "maintain PT-20260612-124 only"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket NYC/KLGA Jun 13 88-89F YES",
+      "current_price": "displayed 40%; buy Yes 41c; buy No 62c; 90-91F second at 34%",
+      "target_bucket_volume_usd": 1227,
+      "implied_probability": 0.41,
+      "estimated_fair_value_range": [0.42, 0.50],
+      "estimated_edge_range": [0.01, 0.09],
+      "confidence": "low-to-medium-low",
+      "classification": "weak represented edge",
+      "paper_action": "maintain PT-20260612-126 only"
+    }
+  ],
+  "paper_trades_recommended": [],
+  "maintenance": [
+    "No new paper-only entry.",
+    "Maintain PT-20260612-128 Chicago/KORD Jun 13 86-87F YES.",
+    "Keep PT-20260612-122 Chicago/KORD Jun 13 84-85F YES weakened/adverse-watch.",
+    "Maintain PT-20260612-127 and PT-20260612-129 Houston/KHOU Jun 13 92-93F YES.",
+    "Maintain PT-20260612-124 London/EGLC Jun 13 23C YES.",
+    "Maintain PT-20260612-126 NYC/KLGA Jun 13 88-89F YES."
+  ],
+  "no_entry_watch": [
+    "Miami/KMIA Jun 13 90-91F: plausible but not clearly cheap after storm timing and exact-bucket risk.",
+    "Atlanta/KATL Jun 13 92-93F: close to fair against NWS high near 93F.",
+    "Hong Kong Observatory Jun 13: 29C/30C/31C split remains source- and rain-sensitive; no single bucket clearly cheap."
+  ],
+  "repo_log_update": [
+    "updated odds/latest.md",
+    "created odds/history/2026-06-12T2208Z.md",
+    "created alerts/2026-06-12T2208Z.md",
+    "created data/market_snapshots/2026-06-12T2208Z.json",
+    "created paper_trading/maintenance/2026-06-12T2208Z.md",
+    "updated rolling local paper-trading log, summaries, watchlist, edge notes, and repo working notes",
+    "no ledger append because no new paper position was opened"
+  ]
+}
