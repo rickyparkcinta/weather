@@ -1,0 +1,150 @@
+{
+  "timestamp_utc": "2026-06-12T07:13:49Z",
+  "timestamp_hkt": "2026-06-12T15:13:49+0800",
+  "scheduled_invocation_hkt": "2026-06-12T15:07:01+0800",
+  "mode": "paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Jun 13 Chicago/KORD highest temperature",
+    "Polymarket Jun 13 London/EGLC highest temperature",
+    "Polymarket Jun 13 Houston/KHOU highest temperature",
+    "Polymarket Jun 13 NYC/KLGA highest temperature",
+    "Polymarket Jun 13 Atlanta/KATL highest temperature",
+    "Polymarket Jun 13 Miami/KMIA highest temperature",
+    "Polymarket Jun 12 and Jun 13 Hong Kong Observatory highest temperature",
+    "Kalshi Jun 12 NYC/Central Park highest temperature",
+    "Kalshi Jun 12 Chicago/Midway highest temperature",
+    "Existing open paper-trading positions"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Chicago/KORD Jun 13 84-85F YES",
+      "current_price": "37c",
+      "displayed_probability": 0.33,
+      "implied_probability": 0.37,
+      "estimated_fair_value_range": [0.43, 0.55],
+      "estimated_edge_range": [0.06, 0.18],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge / no duplicate",
+      "key_reasoning": "NWS O'Hare-area forecast centers Saturday near 85F, keeping 84-85F source-aligned while the market sits in the low/mid-30s.",
+      "liquidity_practicality": "Young/thin Polymarket board; current buy is above PT-20260612-122's 36c entry.",
+      "action": "maintain PT-20260612-122 only"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket London/EGLC Jun 13 23C YES",
+      "current_price": "23c",
+      "displayed_probability": 0.23,
+      "implied_probability": 0.23,
+      "estimated_fair_value_range": [0.30, 0.40],
+      "estimated_edge_range": [0.07, 0.17],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge / no duplicate",
+      "key_reasoning": "Met Office London City Airport still supports a Saturday maximum near 23C, while the market keeps 22C as favorite.",
+      "liquidity_practicality": "Exact-Celsius and settlement-source risk remain high; existing PT-20260612-124 exposure blocks a duplicate.",
+      "action": "maintain PT-20260612-124 only"
+    },
+    {
+      "rank": 3,
+      "market": "Kalshi NYC/Central Park Jun 12 94-95F YES",
+      "current_price": "29c",
+      "displayed_probability": 0.27,
+      "implied_probability": 0.29,
+      "estimated_fair_value_range": [0.35, 0.45],
+      "estimated_edge_range": [0.06, 0.16],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge / no duplicate",
+      "key_reasoning": "NWS Central Park/Manhattan still supports a Friday high near 95F under Heat Advisory context.",
+      "liquidity_practicality": "Already represented by PT-20260612-123 from 28c; no add at a slightly worse price.",
+      "action": "maintain PT-20260612-123 only"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_price": "35c",
+      "displayed_probability": 0.32,
+      "implied_probability": 0.35,
+      "estimated_fair_value_range": [0.42, 0.52],
+      "estimated_edge_range": [0.07, 0.17],
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only",
+      "key_reasoning": "NWS Hobby forecast shows Saturday mostly sunny with a high near 93F and heat index near 102F.",
+      "liquidity_practicality": "Visible volume/depth remains very thin and the spread is wide.",
+      "action": "watch only"
+    }
+  ],
+  "watchlist_no_fresh_edge": [
+    {
+      "market": "Polymarket NYC/KLGA Jun 13 88-89F YES",
+      "current_price": "about 42c",
+      "estimated_fair_value_range": [0.40, 0.48],
+      "reason": "Close to fair after spread despite NWS high near 88F."
+    },
+    {
+      "market": "Polymarket Atlanta/KATL Jun 13 92-93F YES",
+      "current_price": "about 41%-43c",
+      "estimated_fair_value_range": [0.40, 0.50],
+      "reason": "Adjacent 90-91F and 94-95F risks keep it near fair."
+    },
+    {
+      "market": "Polymarket Miami/KMIA Jun 13 90-91F YES",
+      "current_price": "about 35%-39c",
+      "estimated_fair_value_range": [0.35, 0.45],
+      "reason": "Sea-breeze/storm and 88-89F risk block a fresh entry."
+    },
+    {
+      "market": "Polymarket HKO Jun 13 30C/31C cluster",
+      "current_price": "low/mid-30s",
+      "estimated_fair_value_range": [0.30, 0.40],
+      "reason": "HKO forecast allows 31C, but 30C and 31C appear similarly priced with no clean edge."
+    },
+    {
+      "market": "Polymarket HKO Jun 12 29C YES",
+      "current_price": "adverse maintenance",
+      "reason": "Official provisional HKO readings showed the Observatory at 30.4C and same-day maximum 30.4C."
+    }
+  ],
+  "recommended_paper_trades": [],
+  "paper_book_updates": [
+    "Maintain PT-20260612-122 Chicago/KORD Jun 13 84-85F YES; open, still positive but no duplicate above 36c entry.",
+    "Maintain PT-20260612-124 London/EGLC Jun 13 23C YES; open, still positive but settlement-risk capped.",
+    "Maintain PT-20260612-123 Kalshi NYC/Central Park Jun 12 94-95F YES; open, still positive but no duplicate above entry.",
+    "Maintain PT-20260612-125 and PT-20260611-117 HKO Jun 12 29C YES as open/adverse-watch after HKO exceeded 30C.",
+    "Maintain PT-20260612-121 and prior NYC/KLGA Jun 12 92-93F exposure; hot-tail and station-rule risk remain."
+  ],
+  "risks": [
+    "Exact weather buckets can flip on a one-degree or one-tenth-degree station move.",
+    "Young Jun 13 Polymarket boards are thin and can move sharply on small orders.",
+    "Wunderground/settlement histories can differ from nearby NWS point forecasts and provisional station observations.",
+    "Kalshi and Polymarket use different station definitions for New York and Chicago.",
+    "HKO Jun 12 29C is adverse unless final settlement data differs from provisional HKO readings.",
+    "Storm timing, sea breeze, lake breeze, and late-day clearing can shift exact temperature buckets by one adjacent band."
+  ],
+  "sources": [
+    "https://polymarket.com/weather/high-temperature",
+    "https://polymarket.com/es/event/highest-temperature-in-chicago-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026",
+    "https://polymarket.com/zh/event/highest-temperature-in-houston-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-nyc-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-miami-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-12-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-13-2026",
+    "https://kalshi.com/markets/kxhighny/highest-temperature-in-nyc/kxhighny-26jun12",
+    "https://kalshi.com/markets/kxhighchi/highest-temperature-in-chicago/kxhighchi-26jun12",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/MapClick.php?lat=40.76514834741937&lon=-73.9849843124752",
+    "https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88",
+    "https://weather.metoffice.gov.uk/forecast/u10j124jp",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/text_readings_e.htm"
+  ],
+  "repo_updates": [
+    "odds/latest.md",
+    "odds/history/2026-06-12T0713Z.md",
+    "alerts/2026-06-12T0713Z.md",
+    "data/market_snapshots/2026-06-12T0713Z.json",
+    "paper_trading/maintenance/2026-06-12T0713Z.md"
+  ]
+}
