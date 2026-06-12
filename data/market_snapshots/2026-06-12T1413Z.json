@@ -1,0 +1,136 @@
+{
+  "timestamp_utc": "2026-06-12T14:13:46Z",
+  "timestamp_hkt": "2026-06-12T22:13:46+08:00",
+  "mode": "analysis_alerting_and_paper_trading_only",
+  "real_trades_or_bets_executed": false,
+  "markets_monitored": [
+    "Polymarket NYC/KLGA Jun 13 highest temperature",
+    "Polymarket Chicago/KORD Jun 13 highest temperature",
+    "Polymarket Houston/KHOU Jun 13 highest temperature",
+    "Polymarket London/EGLC Jun 13 highest temperature",
+    "Polymarket Atlanta/KATL Jun 13 highest temperature",
+    "Polymarket Miami/KMIA Jun 13 highest temperature",
+    "Polymarket Hong Kong Observatory Jun 13 highest temperature",
+    "Kalshi NYC/Central Park Jun 12 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket NYC/KLGA Jun 13 88-89F YES",
+      "current_display_probability": 0.36,
+      "buy_yes_price": 0.36,
+      "buy_no_price": 0.65,
+      "implied_probability": 0.36,
+      "estimated_fair_low": 0.42,
+      "estimated_fair_high": 0.52,
+      "estimated_edge_low": 0.06,
+      "estimated_edge_high": 0.16,
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge / no duplicate",
+      "paper_action": "maintain PT-20260612-126 only",
+      "key_risk": "90-91F adjacent miss, exact station bucket, duplicate exposure"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket London/EGLC Jun 13 23C YES",
+      "current_display_probability": 0.23,
+      "buy_yes_price": 0.23,
+      "buy_no_price": 0.78,
+      "implied_probability": 0.23,
+      "estimated_fair_low": 0.30,
+      "estimated_fair_high": 0.40,
+      "estimated_edge_low": 0.07,
+      "estimated_edge_high": 0.17,
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge / no duplicate",
+      "paper_action": "maintain PT-20260612-124 only",
+      "key_risk": "exact-Celsius settlement and 22C verification risk"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_display_probability": 0.34,
+      "buy_yes_price": 0.35,
+      "buy_no_price": 0.67,
+      "implied_probability": 0.35,
+      "estimated_fair_low": 0.40,
+      "estimated_fair_high": 0.50,
+      "estimated_edge_low": 0.05,
+      "estimated_edge_high": 0.15,
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only",
+      "paper_action": "watch only",
+      "key_risk": "35c/67c spread, thin target-bucket volume, 90-91F adjacent miss"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Chicago/KORD Jun 13 84-85F YES",
+      "current_display_probability": 0.40,
+      "buy_yes_price": 0.40,
+      "buy_no_price": 0.61,
+      "implied_probability": 0.40,
+      "estimated_fair_low": 0.43,
+      "estimated_fair_high": 0.54,
+      "estimated_edge_low": 0.03,
+      "estimated_edge_high": 0.14,
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge / no duplicate",
+      "paper_action": "maintain PT-20260612-122 only",
+      "key_risk": "price above 36c paper entry, thin target-bucket volume, 82-83F or 86-87F adjacent miss"
+    }
+  ],
+  "no_entry_watchlist": [
+    {
+      "market": "Polymarket Atlanta/KATL Jun 13 92-93F YES",
+      "display_probability": 0.45,
+      "buy_yes_price": 0.47,
+      "buy_no_price": 0.56,
+      "estimated_fair_range": "40%-50%",
+      "reason": "near fair after spread and adjacent-bucket risk"
+    },
+    {
+      "market": "Polymarket Miami/KMIA Jun 13 90-91F YES",
+      "display_probability": 0.37,
+      "buy_yes_price": 0.37,
+      "buy_no_price": 0.64,
+      "estimated_fair_range": "37%-47%",
+      "reason": "NWS high near 91F, but sea-breeze and 30% thunderstorm risk keep 88-89F live"
+    },
+    {
+      "market": "Polymarket HKO Jun 13 30C/31C cluster",
+      "display_probability_context": "30C at 37% / Buy Yes 38c; 31C at 35% / Buy Yes 36c",
+      "reason": "HKO 27-31C range with showers/thunderstorms gives no clean single-bucket edge"
+    },
+    {
+      "market": "Kalshi NYC/Central Park Jun 12 94-95F YES",
+      "last_verified_quote_time_utc": "2026-06-12T11:10:36Z",
+      "last_verified_yes_price": 0.41,
+      "last_verified_no_price": 0.61,
+      "reason": "direct current refresh blocked; stale quote not used for fresh exposure"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "maintained_paper_positions": [
+    "PT-20260612-126",
+    "PT-20260612-122",
+    "PT-20260612-124",
+    "PT-20260612-123"
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-nyc-on-june-13-2026",
+    "https://polymarket.com/es/event/highest-temperature-in-chicago-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-miami-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-13-2026",
+    "https://kalshi.com/markets/kxhighny/highest-temperature-in-nyc/kxhighny-26jun12",
+    "https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/zipcity.php?inputstring=KATL",
+    "https://forecast.weather.gov/MapClick.php?lat=25.79056&lon=-80.31639",
+    "https://weather.metoffice.gov.uk/forecast/u10j124jp",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm"
+  ]
+}
