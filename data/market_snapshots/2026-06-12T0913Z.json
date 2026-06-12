@@ -1,0 +1,76 @@
+{
+  "timestamp_utc": "2026-06-12T09:13:42Z",
+  "timestamp_hkt": "2026-06-12 17:13:42 HKT",
+  "mode": "paper_trading_only",
+  "real_trades_executed": false,
+  "markets": [
+    {
+      "market": "Polymarket Chicago/KORD Jun 13 highest temperature 84-85F YES",
+      "observed_price": "Buy Yes 37c",
+      "implied_probability": 0.37,
+      "estimated_fair_value": "44%-55%",
+      "edge_pp": "+7 to +18",
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "action": "maintain PT-20260612-122"
+    },
+    {
+      "market": "Polymarket Houston/KHOU Jun 13 highest temperature 92-93F YES",
+      "observed_price": "Buy Yes 35c",
+      "implied_probability": 0.35,
+      "estimated_fair_value": "43%-53%",
+      "edge_pp": "+8 to +18",
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only",
+      "action": "watch only"
+    },
+    {
+      "market": "Polymarket NYC/KLGA Jun 13 highest temperature 88-89F YES",
+      "observed_price": "Buy Yes 37c",
+      "implied_probability": 0.37,
+      "estimated_fair_value": "43%-53%",
+      "edge_pp": "+6 to +16",
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "action": "maintain PT-20260612-126"
+    },
+    {
+      "market": "Polymarket London/EGLC Jun 13 highest temperature 23C YES",
+      "observed_price": "Buy Yes 23c",
+      "implied_probability": 0.23,
+      "estimated_fair_value": "28%-38%",
+      "edge_pp": "+5 to +15",
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "action": "maintain PT-20260612-124"
+    },
+    {
+      "market": "Kalshi NYC/Central Park Jun 12 highest temperature 94-95F YES",
+      "observed_price": "Yes 35c",
+      "implied_probability": 0.35,
+      "estimated_fair_value": "38%-48%",
+      "edge_pp": "+3 to +13",
+      "confidence": "low-to-medium-low",
+      "classification": "mild-to-moderate represented edge",
+      "action": "maintain PT-20260612-123"
+    }
+  ],
+  "new_paper_trades": [],
+  "sources": [
+    "https://polymarket.com/weather/high-temperature",
+    "https://polymarket.com/event/highest-temperature-in-nyc-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026",
+    "https://kalshi.com/markets/kxhighny/highest-temperature-in-nyc/kxhighny-26jun12",
+    "https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/MapClick.php?textField1=40.78&textField2=-73.97",
+    "https://forecast.weather.gov/zipcity.php?inputstring=KATL",
+    "https://forecast.weather.gov/MapClick.php?lat=25.79056&lon=-80.31639",
+    "https://www.accuweather.com/en/us/central-park/10028/weather-forecast/2627448",
+    "https://weather.metoffice.gov.uk/",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm"
+  ]
+}
