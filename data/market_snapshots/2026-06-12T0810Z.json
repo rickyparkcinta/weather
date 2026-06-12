@@ -1,0 +1,118 @@
+{
+  "timestamp_utc": "2026-06-12T08:10:45Z",
+  "timestamp_hkt": "2026-06-12T16:10:45+0800",
+  "scheduled_invocation_hkt": "2026-06-12T16:07:02+0800",
+  "mode": "paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Jun 13 NYC/KLGA highest temperature",
+    "Polymarket Jun 13 Chicago/KORD highest temperature",
+    "Polymarket Jun 13 Houston/KHOU highest temperature",
+    "Polymarket Jun 13 London/EGLC highest temperature",
+    "Polymarket Jun 13 Atlanta/KATL highest temperature",
+    "Polymarket Jun 13 Miami/KMIA highest temperature",
+    "Polymarket Jun 13 Hong Kong Observatory highest temperature",
+    "Kalshi Jun 12 NYC/Central Park highest temperature",
+    "Existing open paper-trading positions"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket NYC/KLGA Jun 13 88-89F YES",
+      "current_price": "37c",
+      "displayed_probability": 0.36,
+      "implied_probability": 0.37,
+      "estimated_fair_value_range": [0.43, 0.53],
+      "estimated_edge_range": [0.06, 0.16],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate fresh edge",
+      "key_reasoning": "NWS LaGuardia shows a sunny Saturday high near 89F while the Polymarket KLGA-resolved bucket softened to 37c.",
+      "liquidity_practicality": "Event volume about $2.3K; still young/exact-bucket, so size is tiny.",
+      "action": "opened PT-20260612-126"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Chicago/KORD Jun 13 84-85F YES",
+      "current_price": "37c",
+      "displayed_probability": 0.33,
+      "implied_probability": 0.37,
+      "estimated_fair_value_range": [0.43, 0.55],
+      "estimated_edge_range": [0.06, 0.18],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge / no duplicate",
+      "key_reasoning": "NWS O'Hare centers Saturday near 85F.",
+      "liquidity_practicality": "Already represented by PT-20260612-122 from 36c.",
+      "action": "maintain only"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_price": "35c",
+      "displayed_probability": 0.31,
+      "implied_probability": 0.35,
+      "estimated_fair_value_range": [0.42, 0.52],
+      "estimated_edge_range": [0.07, 0.17],
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only",
+      "key_reasoning": "NWS Hobby shows Saturday high near 93F while 90-91F remains market leader.",
+      "liquidity_practicality": "Thin/wide visible depth.",
+      "action": "watch only"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket London/EGLC Jun 13 23C YES",
+      "current_price": "23c",
+      "displayed_probability": 0.23,
+      "implied_probability": 0.23,
+      "estimated_fair_value_range": [0.30, 0.40],
+      "estimated_edge_range": [0.07, 0.17],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge / no duplicate",
+      "key_reasoning": "Met Office regional guidance lists Saturday max 23C while the market keeps 22C as leader.",
+      "liquidity_practicality": "Exact-Celsius and Wunderground risk; already represented by PT-20260612-124.",
+      "action": "maintain only"
+    },
+    {
+      "rank": 5,
+      "market": "Kalshi NYC/Central Park Jun 12 94-95F YES",
+      "current_price": "35c",
+      "displayed_probability": 0.36,
+      "implied_probability": 0.35,
+      "estimated_fair_value_range": [0.38, 0.48],
+      "estimated_edge_range": [0.03, 0.13],
+      "confidence": "low-to-medium-low",
+      "classification": "mild-to-moderate represented edge / no duplicate",
+      "key_reasoning": "NWS Central Park/Manhattan still supports a Friday high near 95F, but the market repriced from the 28c entry.",
+      "liquidity_practicality": "Already represented by PT-20260612-123.",
+      "action": "maintain only"
+    }
+  ],
+  "recommended_paper_trades": [
+    {
+      "id": "PT-20260612-126",
+      "market": "Polymarket NYC/KLGA Jun 13 highest temperature 88-89F YES",
+      "stance": "YES",
+      "simulated_size_usd": 5,
+      "entry_price": 0.37,
+      "implied_probability": 0.37,
+      "estimated_fair_value_range": [0.43, 0.53],
+      "confidence": "low-to-medium-low",
+      "status": "open"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/weather/high-temperature",
+    "https://polymarket.com/event/highest-temperature-in-nyc-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026",
+    "https://kalshi.com/markets/kxhighny/highest-temperature-in-nyc/kxhighny-26jun12",
+    "https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/MapClick.php?lat=40.76514834741937&lon=-73.9849843124752",
+    "https://weather.metoffice.gov.uk/forecast/u10j124jp",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/text_readings_e.htm"
+  ]
+}
