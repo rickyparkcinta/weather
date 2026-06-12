@@ -1,0 +1,2 @@
+timestamp_utc,id,market,stance,simulated_size_usd,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,confidence,status
+2026-06-12T17:17:22Z,PT-20260612-127,Polymarket Houston/KHOU Jun 13 92-93F YES,YES,5,0.28,0.28,0.34,0.44,low,open
