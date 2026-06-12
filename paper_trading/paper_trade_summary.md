@@ -2,6 +2,8 @@
 
 This file tracks simulated paper positions only. It is not a record of real bets or trades.
 
+- 2026-06-12 09:13 UTC: No new paper-only position opened. Chicago/KORD Jun 13 84-85F YES remains positive at 37c versus fair 44%-55%, but current price is above PT-20260612-122's 36c entry. Houston/KHOU Jun 13 92-93F YES is the best unrepresented raw gap at 35c versus fair 43%-53%, but remains watch-only because visible depth is thin/wide. NYC/KLGA Jun 13 88-89F YES is still positive at 37c versus fair 43%-53%, maintain PT-20260612-126 only. London/EGLC Jun 13 23C YES is positive at 23c versus fair 28%-38%, maintain PT-20260612-124 only. Kalshi NYC/Central Park Jun 12 94-95F YES remains represented at 35c versus fair 38%-48%.
+
 - 2026-06-12 03:07 UTC: Opened PT-20260612-122 on Chicago/KORD Jun 13 84-85F YES at 36c, $5 simulated notional. Fair estimate 42-54%, low-to-medium-low confidence. This is a tiny forward-day exact-bucket position after NWS O'Hare centered Saturday near 84F while readable market context stayed in the mid-30s. Keep sizing capped because the market is young, exact-bucket miss risk is high, and forecast updates can move the center into 82-83F or 86-87F quickly.
 
 - 2026-06-12 02:13 UTC: Opened PT-20260612-121 on NYC/KLGA Jun 12 92-93F YES at 17c, $5 simulated notional. Fair estimate 27-37%, low-to-medium-low confidence. This was a tiny add-on after the direct bucket fell below the prior fair range while NWS LaGuardia still centered Friday near 93F. No further duplicate unless direct depth refreshes materially below 17c or the 94-97F hot-tail weakens.
