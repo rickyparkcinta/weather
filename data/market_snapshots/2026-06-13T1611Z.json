@@ -1,0 +1,111 @@
+{
+  "timestamp_utc": "2026-06-13T16:11:38Z",
+  "timestamp_hkt": "2026-06-14T00:11:39+08:00",
+  "scheduled_invocation_hkt": "2026-06-14T00:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Houston/KHOU Jun 13 high temp",
+    "Polymarket Houston/KHOU Jun 14 high temp",
+    "Polymarket Dallas/KDAL Jun 13 high temp",
+    "Polymarket Dallas/KDAL Jun 14 high temp",
+    "Polymarket Los Angeles/KLAX Jun 13 high temp",
+    "Polymarket Los Angeles/KLAX Jun 14 high temp",
+    "Polymarket NYC/KLGA Jun 14 high temp",
+    "Polymarket Chicago/KORD Jun 13 carried context",
+    "Polymarket London/EGLC Jun 13 carried context",
+    "Kalshi Houston Jun 13 daily high",
+    "Kalshi LA Jun 13 daily high"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Los Angeles/KLAX Jun 13 highest temperature",
+      "contract": "74-75F YES",
+      "current_price": "4.3% displayed / Buy Yes 6.0c",
+      "cross_market": "Kalshi LA 74-75F 34% / Yes 34c",
+      "implied_probability": 0.06,
+      "estimated_fair_value_range": [0.08, 0.18],
+      "estimated_edge_range_pp": [2, 12],
+      "confidence": "low",
+      "classification": "moderate raw, represented/source-conflicted",
+      "action": "maintain only"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Dallas/KDAL Jun 14 highest temperature",
+      "contract": "92-93F YES",
+      "current_price": "11.4% displayed / Buy Yes 11.7c",
+      "implied_probability": 0.117,
+      "estimated_fair_value_range": [0.15, 0.27],
+      "estimated_edge_range_pp": [3, 15],
+      "confidence": "low",
+      "classification": "watch-only",
+      "action": "no paper entry"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Los Angeles/KLAX Jun 14 highest temperature",
+      "contract": "70-71F YES",
+      "current_price": "16% displayed / Buy Yes 18c",
+      "implied_probability": 0.18,
+      "estimated_fair_value_range": [0.20, 0.32],
+      "estimated_edge_range_pp": [2, 14],
+      "confidence": "low",
+      "classification": "represented forward-day edge",
+      "action": "maintain PT-20260613-138 only"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Houston/KHOU Jun 13 highest temperature",
+      "contract": "92-93F YES",
+      "current_price": "59% displayed / Buy Yes 62c",
+      "cross_market": "Kalshi Houston 92-93F 69% / Yes 71c",
+      "implied_probability": 0.62,
+      "estimated_fair_value_range": [0.60, 0.72],
+      "estimated_edge_range_pp": [-2, 10],
+      "confidence": "low-to-medium-low",
+      "classification": "represented, close to fair",
+      "action": "maintain only"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket NYC/KLGA Jun 14 highest temperature",
+      "contract": "88-89F YES",
+      "current_price": "38% displayed / Buy Yes 38c",
+      "implied_probability": 0.38,
+      "estimated_fair_value_range": [0.34, 0.46],
+      "estimated_edge_range_pp": [-4, 8],
+      "confidence": "low",
+      "classification": "represented, near-fair to mildly positive",
+      "action": "maintain PT-20260613-130 only"
+    }
+  ],
+  "paper_trades_opened": [],
+  "recommended_paper_trades": [],
+  "maintenance_notes": [
+    "No new paper-only position opened.",
+    "LA/KLAX Jun 13 74-75F remains a raw discrepancy but is already represented and source-conflicted.",
+    "Dallas/KDAL Jun 14 92-93F is the best fresh watch-only candidate but does not clear storm/liquidity risk.",
+    "Houston/KHOU Jun 13 92-93F has mostly repriced and should not be duplicated at 62c.",
+    "Dallas/KDAL Jun 13 96-97F is weaker/adverse-watch unless late-day heating confirms 96F+."
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-14-2026",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-14-2026",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-14-2026",
+    "https://polymarket.com/event/highest-temperature-in-nyc-on-june-14-2026",
+    "https://kalshi.com/markets/kxhighthou/daily-high-temperature-houston/kxhighthou-26jun13",
+    "https://kalshi.com/markets/kxhighlax/highest-temperature-in-los-angeles/kxhighlax-26jun13",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://tgftp.nws.noaa.gov/weather/current/KHOU.html",
+    "https://forecast.weather.gov/zipcity.php?inputstring=dallas%2CTX",
+    "https://tgftp.nws.noaa.gov/weather/current/KDAL.html",
+    "https://forecast.weather.gov/MapClick.php?lat=33.9425&lon=-118.409",
+    "https://www.wunderground.com/weather/us/ca/los-angeles-international/KLAX",
+    "https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88"
+  ]
+}
