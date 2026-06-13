@@ -1,116 +1,111 @@
 # Odds Market Snapshot
 
 ## Time Checked
-- UTC: 2026-06-12 22:08:07
-- HKT: 2026-06-13 06:08:07
-- Scheduled invocation: 2026-06-13 06:07:01 HKT
+
+- UTC: 2026-06-13 01:10:34
+- HKT: 2026-06-13 09:10:34
+- Scheduled invocation: 2026-06-13 09:07:02 HKT
 - Mode: analysis, alerting, and paper trading only. No real bets or trades executed.
 
 ## Markets Monitored
+
 - Polymarket Jun 13 highest-temperature markets: Chicago/O'Hare KORD, Houston/Hobby KHOU, London City Airport/EGLC, NYC/LaGuardia KLGA, Miami/KMIA, Atlanta/KATL, and Hong Kong Observatory.
-- Broader Polymarket weather-board context where surfaced during the scan.
-- Official forecast/current-weather evidence: NWS KORD, KHOU, KLGA, KMIA, KATL; Met Office London City Airport; HKO 9-day forecast and current weather API.
-- Maintenance checks on open Jun 13 paper positions: PT-20260612-122, PT-20260612-124, PT-20260612-126, PT-20260612-127, PT-20260612-128, and PT-20260612-129.
+- Official weather evidence: NWS KORD, KHOU, KLGA, and KMIA point forecasts; Met Office London City Airport; HKO 9-day forecast API.
+- Open paper-trade maintenance: PT-20260612-122, PT-20260612-124, PT-20260612-126, PT-20260612-127, PT-20260612-128, and PT-20260612-129.
 
 ## Top Edges
 
 ### 1. Polymarket Chicago/KORD Jun 13 86-87F YES
-- Current market: 84-85F leads at 45%; 86-87F is 29% displayed / Buy Yes 30c / Buy No 72c.
-- Implied probability: 30% using Buy Yes.
-- Estimated fair value: 40%-50%.
-- Estimated edge: +10 to +20 percentage points before exact-bucket and liquidity penalties.
+
+- Current market: 84-85F leads around 40%-41%; 86-87F around 32% displayed / Buy Yes around 33c; 82-83F around 18%; 88-89F around 8%.
+- Implied probability: about 33% using the visible Buy Yes quote.
+- Estimated fair value: 38%-48%.
+- Estimated edge: +5 to +15 percentage points before exact-bucket and liquidity penalties.
 - Confidence: low-to-medium-low.
 - Classification: moderate represented edge / no duplicate.
-- Key reasoning: NWS O'Hare shows Saturday sunny with a high near 86F and southwest gusts up to 25 mph. That keeps the 86-87F bucket live despite the market still making 84-85F the favorite. The price has moved against the 26c PT-20260612-128 entry, so this is maintenance rather than a fresh add.
-- Liquidity/practicality: target-bucket volume is thin at about $619; exact-bucket risk remains high.
-- Action: maintain PT-20260612-128 only. Keep PT-20260612-122 Chicago 84-85F YES weakened/adverse-watch.
+- Key reasoning: NWS O'Hare still shows Saturday sunny with a high near 86F, keeping the 86-87F bucket live while the market continues to favor 84-85F. The quote is now above PT-20260612-128's 26c entry, so this is maintenance rather than fresh exposure.
+- Liquidity/practicality: target-bucket depth remains thin and the exact-bucket miss path is large.
+- Action: maintain PT-20260612-128 only. Keep PT-20260612-122 Chicago/KORD 84-85F YES weakened/adverse-watch.
 
 ### 2. Polymarket Houston/KHOU Jun 13 92-93F YES
-- Current market: 90-91F leads at 47%; 92-93F is 27% displayed / Buy Yes 28c / Buy No 75c.
-- Implied probability: 28% using Buy Yes.
-- Estimated fair value: 34%-44%.
-- Estimated edge: +6 to +16 percentage points before exact-bucket and liquidity penalties.
+
+- Current market: 90-91F leads around 42%-44%; 92-93F around 33%-35%; 88-89F around 16%-17%; 94-95F around 8%-9%.
+- Implied probability: about 33%-35%.
+- Estimated fair value: 38%-48%.
+- Estimated edge: +3 to +15 percentage points before exact-bucket and liquidity penalties.
 - Confidence: low.
 - Classification: moderate represented edge / no duplicate.
-- Key reasoning: NWS Houston Hobby still shows Saturday mostly sunny with a high near 93F, while Polymarket remains centered one bucket lower at 90-91F. The market also notes model/forecast disagreement around 91-92F and elevated 88-89F downside, so confidence stays capped.
-- Liquidity/practicality: event volume is about $6.1K and target-bucket volume is about $896; Yes/No spread remains wide.
-- Action: maintain PT-20260612-127 and PT-20260612-129 only. No add because the quote is worse than the 26c add-on and does not meet the below-24c duplicate threshold.
+- Key reasoning: NWS Hobby still shows mostly sunny with a high near 93F and heat index values near 102, but the market remains centered on the cooler 90-91F bucket. The current price is above both open paper entries at 28c and 26c.
+- Liquidity/practicality: target-bucket depth remains thin and exact-bucket risk is high.
+- Action: maintain PT-20260612-127 and PT-20260612-129 only. No duplicate above the below-24c trigger.
 
 ### 3. Polymarket London/EGLC Jun 13 23C YES
-- Current market: 22C leads at 39%; 23C is 35% displayed / Buy Yes 36c / Buy No 67c.
-- Implied probability: 36% using Buy Yes.
-- Estimated fair value: 38%-48%.
-- Estimated edge: +2 to +12 percentage points.
+
+- Current market: 22C leads around 39%-41%; 23C around 34%-35%.
+- Implied probability: about 34%-35%.
+- Estimated fair value: 36%-46%.
+- Estimated edge: +1 to +12 percentage points.
 - Confidence: low-to-medium-low.
 - Classification: weak-to-moderate represented edge / no duplicate.
-- Key reasoning: Met Office London City Airport still lists Saturday maximum daytime temperature at 23C, and Polymarket's own market context clusters the outcome tightly around 22C/23C. The market has mostly caught up from the 25c PT-20260612-124 entry.
-- Liquidity/practicality: event volume is about $42.5K, but exact-Celsius and Wunderground station-history risk cap sizing.
+- Key reasoning: Met Office London City Airport daily forecast supports 23C, but the hourly table leaves 22C live depending on settlement source and rounding. Current price is above PT-20260612-124's 25c entry.
 - Action: maintain PT-20260612-124 only.
 
 ### 4. Polymarket NYC/KLGA Jun 13 88-89F YES
-- Current market: 88-89F leads at 40%; Buy Yes 41c / Buy No 62c. 90-91F is second at 34% / Buy Yes 35c.
-- Implied probability: 41% using Buy Yes.
-- Estimated fair value: 42%-50%.
-- Estimated edge: +1 to +9 percentage points.
+
+- Current market: 88-89F leads around 44%-50%; 90-91F around 26%-32%; 86-87F around 19%; 92-93F around 6%.
+- Implied probability: about 44%-50%.
+- Estimated fair value: 42%-52%.
+- Estimated edge: roughly -8 to +8 percentage points.
 - Confidence: low-to-medium-low.
-- Classification: weak represented edge / no duplicate.
-- Key reasoning: NWS LaGuardia shows Saturday sunny with a high near 89F, supporting the 88-89F bucket. Current pricing is now close to fair and above the 37c PT-20260612-126 entry.
-- Liquidity/practicality: event volume is modest, and exact-bucket risk around 90F remains meaningful.
+- Classification: near fair / represented no-add.
+- Key reasoning: NWS LaGuardia supports a high near 89F, but the market has largely caught up.
 - Action: maintain PT-20260612-126 only.
 
 ## Watchlist / No Fresh Edge
-- Polymarket Miami/KMIA Jun 13: 88-89F leads at 50% / Buy Yes 51c, while 90-91F is 40% / Buy Yes 41c. NWS Miami International shows Saturday high near 91F with 40% afternoon showers/thunderstorms. The 90-91F bucket is plausible but not clearly cheap after storm timing and exact-bucket risk.
-- Polymarket Atlanta/KATL Jun 13: 92-93F leads at 55% / Buy Yes 57c, while NWS Hartsfield-Jackson shows Saturday high near 93F with only a 20% afternoon storm chance. The main bucket looks close to fair after spread, with 94-95F overshoot still live.
-- Polymarket Hong Kong Observatory Jun 13: 29C leads at 33% / Buy Yes 34c, followed by 30C at 29% / Buy Yes 30c and 31C at 25% / Buy Yes 25c. HKO forecasts 26-30C with heavy showers/thunderstorms early, and the 06:00 HKT live table showed 27C at the Observatory plus Amber Rainstorm and Thunderstorm warnings. No single bucket is clearly mispriced.
-- Broader Polymarket temperature board: no stronger evidence-supported add surfaced during this pass.
+
+- Miami/KMIA Jun 13: 90-91F appears around 47%-48% against NWS high near 90F with afternoon shower/thunderstorm risk. No clean edge after sea-breeze and exact-bucket risk.
+- Atlanta/KATL Jun 13: 92-93F was around 56%-57% in the public market surface against official context near 92-93F. Close to fair after 94-95F overshoot and storm-timing risk.
+- Hong Kong Observatory Jun 13: 29C was around 41% and 30C around 35%; HKO forecast max is 30C with showers and thunderstorms. The 28/29/30C cluster is too live for a single-bucket paper entry.
 
 ## Recommended Paper Trades
 
 No new paper trade is recommended this run.
 
-Maintained or updated existing open paper positions:
-- PT-20260612-128: Chicago/KORD Jun 13 86-87F YES at 26c; maintain, no duplicate at 30c.
-- PT-20260612-122: Chicago/KORD Jun 13 84-85F YES at 36c; keep weakened/adverse-watch.
-- PT-20260612-127: Houston/KHOU Jun 13 92-93F YES at 28c; maintain.
-- PT-20260612-129: Houston/KHOU Jun 13 92-93F YES at 26c; maintain, no duplicate above the below-24c trigger.
-- PT-20260612-124: London/EGLC Jun 13 23C YES at 25c; maintain.
-- PT-20260612-126: NYC/KLGA Jun 13 88-89F YES at 37c; maintain, now near fair.
+Maintenance only:
 
-No real bet or trade was executed.
+- Maintain PT-20260612-128 Chicago/KORD Jun 13 86-87F YES from 26c.
+- Maintain PT-20260612-122 Chicago/KORD Jun 13 84-85F YES from 36c as weakened/adverse-watch.
+- Maintain PT-20260612-127 and PT-20260612-129 Houston/KHOU Jun 13 92-93F YES from 28c and 26c.
+- Maintain PT-20260612-124 London/EGLC Jun 13 23C YES from 25c.
+- Maintain PT-20260612-126 NYC/KLGA Jun 13 88-89F YES from 37c.
 
 ## Risks and Invalidation Factors
-- Exact weather buckets can flip on a one-degree station move.
-- Chicago's 86F-centered forecast can still settle 84-85F if the station underheats, or 88F+ if southwest flow overperforms.
-- Houston remains source-disagreed between market consensus near 90-91F and NWS Hobby guidance near 93F.
-- London can verify 22C even when the Met Office daily card says 23C if the settlement station history rounds lower.
-- NYC is close to fair and can miss into 90-91F with slightly stronger heating.
-- Miami and Atlanta have official-forecast support near the main bucket, but market prices already reflect most of it.
-- HKO is highly sensitive to early heavy showers, later clearing, and one-decimal daily-max resolution.
-- Low target-bucket volume and wide Yes/No spreads make most apparent edges impractical beyond tiny paper sizing.
+
+- Exact-bucket risk dominates these weather markets; a one-degree miss can erase the modeled edge.
+- Chicago can still settle 84-85F if station heating underperforms the 86F point forecast, or 88F+ if mixing runs hotter.
+- Houston can settle 90-91F if the cooler market center is right or if KHOU underperforms the point forecast.
+- London can settle 22C despite the daily 23C forecast because the hourly table and exact-Celsius settlement source are tight.
+- NYC is now near fair because the market already reflects the 89F forecast.
+- Miami, Atlanta, and HKO are vulnerable to showers, sea-breeze/storm timing, and settlement-source rounding.
+- Public market pages can lag or disagree across localized surfaces; confidence is reduced where direct depth was not cleanly refreshed.
 
 ## Sources Used
-- Polymarket Chicago Jun 13: https://polymarket.com/event/highest-temperature-in-chicago-on-june-13-2026
-- Polymarket Houston Jun 13: https://polymarket.com/event/highest-temperature-in-houston-on-june-13-2026
-- Polymarket London Jun 13: https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026
-- Polymarket NYC Jun 13: https://polymarket.com/event/highest-temperature-in-nyc-on-june-13-2026
-- Polymarket Miami Jun 13: https://polymarket.com/event/highest-temperature-in-miami-on-june-13-2026
-- Polymarket Atlanta Jun 13: https://polymarket.com/event/highest-temperature-in-atlanta-on-june-13-2026
-- Polymarket Hong Kong Jun 13: https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-13-2026
-- NWS Chicago O'Hare/KORD: https://forecast.weather.gov/MapClick.php?lat=41.97959000000003&lon=-87.90445999999997
-- NWS Houston Hobby/KHOU: https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28
-- NWS LaGuardia/KLGA: https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88
-- NWS Miami International/KMIA: https://forecast.weather.gov/MapClick.php?lat=25.79056&lon=-80.31639
-- NWS Hartsfield-Jackson/KATL: https://forecast.weather.gov/MapClick.php?lat=33.64028&lon=-84.42694
-- Met Office London City Airport: https://weather.metoffice.gov.uk/forecast/u10j124jp
-- HKO 9-day forecast: https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm
-- HKO current weather API: https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en
+
+- Polymarket public market surfaces and search snippets for Jun 13 weather contracts: Chicago, Houston, London, NYC, Miami, Atlanta, and Hong Kong.
+- NWS Chicago/O'Hare forecast: https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9
+- NWS Houston Hobby forecast: https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28
+- NWS LaGuardia forecast: https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88
+- NWS Miami forecast: https://forecast.weather.gov/MapClick.php?textField1=25.77&textField2=-80.20
+- Met Office London City Airport forecast: https://weather.metoffice.gov.uk/forecast/u10j124jp
+- HKO 9-day forecast API: https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=en
 
 ## Repo Log Update
-- Updated odds/latest.md.
-- Created odds/history/2026-06-12T2208Z.md.
-- Created alerts/2026-06-12T2208Z.md.
-- Created data/market_snapshots/2026-06-12T2208Z.json.
-- Created paper_trading/maintenance/2026-06-12T2208Z.md.
-- Updated the rolling paper-trading log, paper-trading summaries, watchlist, edge notes, and repo working notes.
-- No ledger append or new paper-trading entry was created because no fresh paper position cleared the entry threshold.
-- No real-money execution files, wallet connections, orders, or betting actions were created.
+
+- Updated `odds/latest.md`.
+- Created `odds/history/2026-06-13T0110Z.md`.
+- Created `alerts/2026-06-13T0110Z.md`.
+- Created `data/market_snapshots/2026-06-13T0110Z.json`.
+- Created `paper_trading/maintenance/2026-06-13T0110Z.md`.
+- Appended maintenance rows to `paper_trading/paper_trade_log.md`.
+- Updated paper-trading summary, watchlist, edge notes, and repo working notes.
+- No paper-trading ledger append was created because no new paper position was opened.
