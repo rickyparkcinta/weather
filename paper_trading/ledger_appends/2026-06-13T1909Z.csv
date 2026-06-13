@@ -1,0 +1,2 @@
+timestamp_utc,id,platform,market,contract,stance,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,simulated_size_usd,confidence,status
+2026-06-13T19:09:08Z,PT-20260613-141,Polymarket,Chicago/KORD Jun 14 2026 highest temperature,70-71F YES,BUY_YES,0.30,0.30,0.36,0.46,5,low-to-medium-low,open
