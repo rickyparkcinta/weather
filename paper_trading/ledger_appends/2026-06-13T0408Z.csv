@@ -1,0 +1,2 @@
+timestamp_utc,id,market,stance,simulated_size_usd,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,confidence,status
+2026-06-13T04:08:26Z,PT-20260613-130,Polymarket NYC/KLGA Jun 14 88-89F YES,YES,5,0.18,0.18,0.31,0.41,low-to-medium-low,open
