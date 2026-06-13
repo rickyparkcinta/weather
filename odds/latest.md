@@ -2,98 +2,93 @@
 
 ## Time Checked
 
-- UTC: 2026-06-13 07:12:00
-- HKT: 2026-06-13 15:12:00
-- Scheduled invocation: 2026-06-13 15:07:01 HKT
+- UTC: 2026-06-13 08:16:00
+- HKT: 2026-06-13 16:16:00
+- Scheduled invocation: 2026-06-13 16:07:01 HKT
 - Mode: analysis, alerting, and paper trading only. No real bets or trades executed.
 
 ## Markets Monitored
 
-- Polymarket highest-temperature markets: Houston/Hobby KHOU Jun 13 and Jun 14, Chicago/O'Hare KORD Jun 13, NYC/LaGuardia KLGA Jun 14, London City Airport/EGLC Jun 13, Miami/KMIA Jun 13, Atlanta/KATL Jun 13, and Hong Kong Observatory Jun 13.
-- Cross-market checks: Kalshi Houston daily-high market and Robinhood Atlanta daily-high thresholds.
-- Official weather evidence: NWS Houston Hobby/KHOU, NWS Chicago O'Hare/KORD, and NWS LaGuardia/KLGA point forecasts and observations.
+- Polymarket highest-temperature markets: London/EGLC Jun 13, Houston/KHOU Jun 13 and Jun 14, Chicago/KORD Jun 13, Miami/KMIA Jun 13, Atlanta/KATL Jun 13, Hong Kong Observatory Jun 13, and NYC/KLGA Jun 14 maintenance context.
+- Cross-market checks: Kalshi Houston Jun 13 daily-high buckets.
+- Official weather evidence: Met Office London City Airport; NWS Houston Hobby, Chicago O'Hare, LaGuardia, and Miami point forecasts/observations; HKO forecast context.
 
 ## Top Edges
 
-1. Polymarket Houston/KHOU Jun 13 92-93F YES
-   - Current price: Polymarket 28% / Buy Yes 28c; Kalshi comparable Houston 92-93F 65% / Yes 62c.
-   - Estimated fair value: 45%-55%.
-   - Estimated edge: +17 to +27 percentage points before penalties.
+1. Polymarket London/EGLC Jun 13 23C YES
+   - Current price: 23C 19% / Buy Yes 19c; 22C leads at 44% / Buy Yes 45c.
+   - Estimated fair value: 28%-38%.
+   - Estimated edge: +9 to +19 percentage points before penalties.
    - Confidence: low-to-medium-low.
-   - Classification: strong raw source-disagreement edge; moderate practical edge.
-   - Key reasoning: direct NWS KHOU guidance shows a high near 93F while Polymarket still favors 90-91F.
-   - Action: opened PT-20260613-131, $5 simulated YES at 28c.
+   - Classification: moderate addable edge.
+   - Key reasoning: Met Office London City Airport still lists Saturday max 23C, but hourly guidance peaks at 22C, keeping sizing tiny.
+   - Action: opened PT-20260613-132, $5 simulated YES at 19c.
 
-2. Polymarket Chicago/KORD Jun 13 86-87F YES
-   - Current price: 29% / Buy Yes near 30c.
-   - Estimated fair value: 35%-43%.
-   - Estimated edge: +5 to +13 percentage points.
+2. Polymarket Houston/KHOU Jun 13 92-93F YES
+   - Current price: Polymarket 32% / Buy Yes 33c; Kalshi comparable Houston 92-93F 65% / Yes 62c.
+   - Estimated fair value: 42%-52%.
+   - Estimated edge: +9 to +19 percentage points.
+   - Confidence: low.
+   - Action: maintain PT-20260612-127, PT-20260612-129, and PT-20260613-131 only.
+
+3. Polymarket Chicago/KORD Jun 13 86-87F YES
+   - Current price: 32% / Buy Yes 33c.
+   - Estimated fair value: 37%-47%.
+   - Estimated edge: +4 to +14 percentage points.
    - Confidence: low-to-medium-low.
    - Action: maintain PT-20260612-128 only; keep PT-20260612-122 weakened/adverse-watch.
 
-3. Polymarket NYC/KLGA Jun 14 88-89F YES
-   - Current price: about 28% / Buy Yes 28c.
-   - Estimated fair value: 32%-42%.
-   - Estimated edge: +4 to +14 percentage points.
-   - Confidence: low-to-medium-low.
-   - Action: maintain PT-20260613-130 only.
-
 4. Polymarket Houston/KHOU Jun 14 92-93F YES
-   - Current price: 15% / Buy Yes 15c.
+   - Current price: 15% / Buy Yes 16c.
    - Estimated fair value: 20%-30%.
-   - Estimated edge: +5 to +15 percentage points.
+   - Estimated edge: +4 to +14 percentage points.
    - Confidence: low.
    - Action: watch only due thin target volume and Sunday storm risk.
-
-5. Polymarket London/EGLC Jun 13 23C YES
-   - Current price: about 30%; 22C leads around 44%.
-   - Estimated fair value: 32%-40%.
-   - Estimated edge: +2 to +10 percentage points.
-   - Confidence: low.
-   - Action: maintain PT-20260612-124 only.
 
 ## Recommended Paper Trades
 
 Opened one new simulated paper trade:
 
-- PT-20260613-131: YES on Polymarket Houston/KHOU Jun 13 highest temperature 92-93F at 28c, $5 simulated notional, low-to-medium-low confidence.
+- PT-20260613-132: YES on Polymarket London/EGLC Jun 13 highest temperature 23C at 19c, $5 simulated notional, low-to-medium-low confidence.
 
 No real bets or trades were executed.
 
 ## Risks and Invalidation Factors
 
 - Exact-bucket risk dominates.
+- London 23C is supported by the daily Met Office max, but the hourly table peaks at 22C.
 - Houston source/rule mismatch is substantial: Kalshi uses NWS climate data while Polymarket uses Wunderground/KHOU.
 - Polymarket public pages can lag or disagree; direct API access from the workspace was blocked.
-- Chicago forecast pages conflict around 84F versus 86F.
 - Houston Jun 14 can miss low if storms develop earlier.
-- NYC Jun 14 can miss low under thicker cloud or showers.
-- London exact-Celsius settlement remains fragile.
+- Chicago can still settle 84-85F if heating underperforms.
 
 ## Sources Used
 
+- https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026
+- https://weather.metoffice.gov.uk/forecast/u10j124jp
+- https://tgftp.nws.noaa.gov/weather/current/EGLC.html
 - https://polymarket.com/event/highest-temperature-in-houston-on-june-13-2026
 - https://kalshi.com/markets/kxhighthou/daily-high-temperature-houston/kxhighthou-26jun13
 - https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28
 - https://tgftp.nws.noaa.gov/weather/current/KHOU.html
 - https://polymarket.com/event/highest-temperature-in-chicago-on-june-13-2026
 - https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9
-- https://polymarket.com/event/highest-temperature-in-nyc-on-june-14-2026
-- https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88
+- https://tgftp.nws.noaa.gov/weather/current/KORD.html
 - https://polymarket.com/event/highest-temperature-in-houston-on-june-14-2026
-- https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026
+- https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88
 - https://polymarket.com/event/highest-temperature-in-miami-on-june-13-2026
+- https://forecast.weather.gov/MapClick.php?textField1=25.77&textField2=-80.20
 - https://polymarket.com/event/highest-temperature-in-atlanta-on-june-13-2026
-- https://robinhood.com/us/en/prediction-markets/climate/events/atlanta-daily-temperature-high-june-13-2026-jun-13-2026/
+- https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm
 
 ## Repo Log Update
 
 - Updated odds/latest.md.
-- Created odds/history/2026-06-13T0712Z.md.
-- Created alerts/2026-06-13T0712Z.md.
-- Created data/market_snapshots/2026-06-13T0712Z.json.
-- Created paper_trading/entries/PT-20260613-131.md.
-- Created paper_trading/ledger_appends/2026-06-13T0712Z.csv.
-- Created paper_trading/maintenance/2026-06-13T0712Z.md.
-- Updated rolling paper-trading summaries and logs.
+- Created odds/history/2026-06-13T0816Z.md.
+- Created alerts/2026-06-13T0816Z.md.
+- Created data/market_snapshots/2026-06-13T0816Z.json.
+- Created paper_trading/entries/PT-20260613-132.md.
+- Created paper_trading/ledger_appends/2026-06-13T0816Z.csv.
+- Created paper_trading/maintenance/2026-06-13T0816Z.md.
+- Updated rolling paper-trading summaries and logs in the durable workspace.
 - No real bets or trades were executed.
