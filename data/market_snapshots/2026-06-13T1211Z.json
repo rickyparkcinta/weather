@@ -1,0 +1,64 @@
+{
+  "time_checked_utc": "2026-06-13T12:11:27Z",
+  "time_checked_hkt": "2026-06-13T20:11:27+08:00",
+  "scheduled_invocation_hkt": "2026-06-13T20:07:00+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_or_bets_executed": false,
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_price": "22% displayed; Buy Yes 23c",
+      "estimated_fair_value_range": [0.30, 0.42],
+      "confidence": "low",
+      "paper_action": "maintain existing paper entries only"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Dallas/KDAL Jun 13 96-97F YES",
+      "current_price": "8% displayed; Buy Yes 9.8c",
+      "estimated_fair_value_range": [0.16, 0.28],
+      "confidence": "low",
+      "paper_action": "maintain PT-20260613-133 only"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Houston/KHOU Jun 14 92-93F YES",
+      "current_price": "14% displayed; Buy Yes 15c",
+      "estimated_fair_value_range": [0.22, 0.34],
+      "confidence": "low",
+      "paper_action": "watch only; no new simulated trade"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Los Angeles/KLAX Jun 14 70-71F YES",
+      "current_price": "18% displayed; Buy Yes 19c",
+      "estimated_fair_value_range": [0.26, 0.38],
+      "confidence": "low",
+      "paper_action": "maintain PT-20260613-138 only"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket Los Angeles/KLAX Jun 13 74-75F YES",
+      "current_price": "8% displayed; Buy Yes 9c on direct event page",
+      "estimated_fair_value_range": [0.16, 0.28],
+      "confidence": "low",
+      "paper_action": "maintain PT-20260613-134 and PT-20260613-136 only"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "sources": [
+    "https://polymarket.com/weather/high-temperature",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-14-2026",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-14-2026",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-14-2026",
+    "https://kalshi.com/markets/kxhighthou/daily-high-temperature-houston/kxhighthou-26jun13",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/MapClick.php?lat=32.85416&lon=-96.85506",
+    "https://forecast.weather.gov/MapClick.php?lat=33.9435&lon=-118.4086",
+    "https://weather.metoffice.gov.uk/forecast/u10j124jp"
+  ]
+}
