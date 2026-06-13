@@ -1,0 +1,135 @@
+{
+  "timestamp_utc": "2026-06-13T09:12:27Z",
+  "timestamp_hkt": "2026-06-13T17:12:27+08:00",
+  "scheduled_invocation_hkt": "2026-06-13T17:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_bets_or_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Dallas/KDAL Jun 13 highest temperature",
+    "Polymarket Los Angeles/KLAX Jun 13 highest temperature",
+    "Polymarket Houston/KHOU Jun 13 highest temperature",
+    "Polymarket Houston/KHOU Jun 14 highest temperature",
+    "Polymarket Chicago/KORD Jun 13 highest temperature",
+    "Polymarket London/EGLC Jun 13 highest temperature",
+    "Polymarket Hong Kong Observatory Jun 13 highest temperature",
+    "Polymarket Miami/KMIA Jun 13 highest temperature",
+    "Polymarket Atlanta/KATL Jun 13 highest temperature",
+    "Polymarket broad high-temperature page",
+    "Kalshi Houston Jun 13 comparable high-temperature bucket",
+    "Robinhood Miami Jun 13 threshold contracts"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Dallas/KDAL Jun 13 96-97F YES",
+      "current_price": "5%; Buy Yes 4.9c; 94-95F 45%; 92-93F 40%",
+      "implied_probability": "4.9%-5%",
+      "estimated_fair_value": "22%-34%",
+      "estimated_edge_percentage_points": "+17 to +29",
+      "confidence": "low",
+      "classification": "strong raw edge; moderate practical edge",
+      "paper_action": "open PT-20260613-133, $5 simulated YES at 4.9c"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Los Angeles/KLAX Jun 13 74-75F YES",
+      "current_price": "24%; Buy Yes 25c; 72-73F 53%",
+      "implied_probability": "24%-25%",
+      "estimated_fair_value": "36%-46%",
+      "estimated_edge_percentage_points": "+11 to +21",
+      "confidence": "low-to-medium-low",
+      "classification": "moderate addable edge",
+      "paper_action": "open PT-20260613-134, $5 simulated YES at 25c"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_price": "28%-33% quote-quality-capped context",
+      "implied_probability": "28%-33%",
+      "estimated_fair_value": "42%-52%",
+      "estimated_edge_percentage_points": "+9 to +24",
+      "confidence": "low",
+      "classification": "strong raw source-disagreement edge; represented practical edge",
+      "paper_action": "maintain PT-20260612-127, PT-20260612-129, and PT-20260613-131 only"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Chicago/KORD Jun 13 86-87F YES",
+      "current_price": "34%; 84-85F leads at 40%",
+      "implied_probability": "34%",
+      "estimated_fair_value": "38%-48%",
+      "estimated_edge_percentage_points": "+4 to +14",
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "maintain PT-20260612-128 only"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket London/EGLC Jun 13 23C YES",
+      "current_price": "23C 34%; 22C 39%",
+      "implied_probability": "34%",
+      "estimated_fair_value": "28%-38%",
+      "estimated_edge_percentage_points": "near fair to mildly positive",
+      "confidence": "low-to-medium-low",
+      "classification": "represented maintenance only",
+      "paper_action": "maintain PT-20260612-124 and PT-20260613-132"
+    }
+  ],
+  "recommended_paper_trades": [
+    {
+      "id": "PT-20260613-133",
+      "market": "Polymarket Dallas/KDAL Jun 13 highest temperature 96-97F YES",
+      "stance": "YES",
+      "simulated_size_usd": 5,
+      "entry_price": 0.049,
+      "estimated_fair_value": "22%-34%",
+      "confidence": "low",
+      "status": "open"
+    },
+    {
+      "id": "PT-20260613-134",
+      "market": "Polymarket Los Angeles/KLAX Jun 13 highest temperature 74-75F YES",
+      "stance": "YES",
+      "simulated_size_usd": 5,
+      "entry_price": 0.25,
+      "estimated_fair_value": "36%-46%",
+      "confidence": "low-to-medium-low",
+      "status": "open"
+    }
+  ],
+  "maintenance_positions": [
+    "PT-20260612-127",
+    "PT-20260612-129",
+    "PT-20260613-131",
+    "PT-20260612-128",
+    "PT-20260612-122",
+    "PT-20260612-124",
+    "PT-20260613-132",
+    "PT-20260613-130",
+    "PT-20260612-126"
+  ],
+  "key_risks": [
+    "Exact-bucket risk",
+    "Polymarket public page disagreement",
+    "Direct API access blocked from workspace",
+    "Dallas NWS-vs-Wunderground/consumer forecast conflict",
+    "KLAX marine layer and sea-breeze timing",
+    "Houston Kalshi/Polymarket settlement-source mismatch",
+    "London daily-versus-hourly Met Office conflict",
+    "Hong Kong market-surface conflict"
+  ],
+  "sources": [
+    "https://polymarket.com/weather/high-temperature",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-13-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=32.85416&lon=-96.85506",
+    "https://tgftp.nws.noaa.gov/weather/current/KDAL.html",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-13-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=33.9425&lon=-118.409",
+    "https://tgftp.nws.noaa.gov/weather/current/KLAX.html",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/MapClick.php?lat=41.9796&lon=-87.9045",
+    "https://weather.metoffice.gov.uk/forecast/u10j124jp",
+    "https://www.hko.gov.hk/textonly/v2/forecast/local.htm",
+    "https://robinhood.com/us/en/prediction-markets/climate/events/miami-daily-temperature-high-june-13-2026-jun-13-2026/"
+  ]
+}
