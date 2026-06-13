@@ -1,0 +1,97 @@
+{
+  "timestamp_utc": "2026-06-13T15:11:36Z",
+  "timestamp_hkt": "2026-06-13T23:11:36+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Houston/KHOU Jun 13 high temp",
+    "Polymarket Houston/KHOU Jun 14 high temp",
+    "Polymarket Dallas/KDAL Jun 13 high temp",
+    "Polymarket Dallas/KDAL Jun 14 high temp",
+    "Polymarket Los Angeles/KLAX Jun 13 high temp",
+    "Polymarket Los Angeles/KLAX Jun 14 high temp",
+    "Polymarket Chicago/KORD Jun 13 high temp",
+    "Polymarket London/EGLC Jun 13 high temp",
+    "Polymarket NYC/KLGA Jun 14 carried context",
+    "Kalshi Houston Jun 13 daily high",
+    "Coinbase/Robinhood weather-market context"
+  ],
+  "top_edges": [
+    {
+      "market": "Polymarket Houston/KHOU Jun 13 highest temperature",
+      "contract": "92-93F YES",
+      "current_price": "39% displayed / Buy Yes 40c",
+      "cross_market": "Kalshi Houston 92-93F 66% / Yes 65c",
+      "implied_probability": 0.40,
+      "estimated_fair_value_range": [0.43, 0.55],
+      "estimated_edge_range_pp": [3, 15],
+      "confidence": "low",
+      "classification": "moderate represented",
+      "action": "maintain only"
+    },
+    {
+      "market": "Polymarket Dallas/KDAL Jun 13 highest temperature",
+      "contract": "96-97F YES",
+      "current_price": "7% displayed / Buy Yes 8.9c",
+      "implied_probability": 0.089,
+      "estimated_fair_value_range": [0.14, 0.26],
+      "estimated_edge_range_pp": [5, 17],
+      "confidence": "low",
+      "classification": "moderate represented",
+      "action": "maintain PT-20260613-133 only"
+    },
+    {
+      "market": "Polymarket Dallas/KDAL Jun 14 highest temperature",
+      "contract": "92-93F YES",
+      "current_price": "12% displayed / Buy Yes 12c",
+      "implied_probability": 0.12,
+      "estimated_fair_value_range": [0.16, 0.28],
+      "estimated_edge_range_pp": [4, 16],
+      "confidence": "low",
+      "classification": "watch-only",
+      "action": "no paper entry"
+    },
+    {
+      "market": "Polymarket Los Angeles/KLAX Jun 14 highest temperature",
+      "contract": "70-71F YES",
+      "current_price": "16% displayed / Buy Yes 18c",
+      "implied_probability": 0.18,
+      "estimated_fair_value_range": [0.20, 0.32],
+      "estimated_edge_range_pp": [2, 14],
+      "confidence": "low",
+      "classification": "represented forward-day edge, source-conflicted",
+      "action": "maintain PT-20260613-138 only"
+    },
+    {
+      "market": "Polymarket Los Angeles/KLAX Jun 13 highest temperature",
+      "contract": "74-75F YES",
+      "current_price": "4% displayed / Buy Yes 6.0c",
+      "implied_probability": 0.06,
+      "estimated_fair_value_range": [0.06, 0.14],
+      "estimated_edge_range_pp": [0, 8],
+      "confidence": "low",
+      "classification": "weak represented",
+      "action": "maintain only"
+    }
+  ],
+  "paper_trades_opened": [],
+  "recommended_paper_trades": [],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-14-2026",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-14-2026",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-14-2026",
+    "https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026",
+    "https://kalshi.com/markets/kxhighthou/daily-high-temperature-houston/kxhighthou-26jun13",
+    "https://www.coinbase.com/predictions/weather",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/data/obhistory/KHOU.html",
+    "https://forecast.weather.gov/MapClick.php?FcstType=text&lat=32.7831&lg=english&lon=-96.8067",
+    "https://tgftp.nws.noaa.gov/weather/current/KDAL.html",
+    "https://forecast.weather.gov/zipcity.php?inputstring=dallas%2CTX",
+    "https://forecast.weather.gov/MapClick.php?lat=33.9425&lon=-118.409",
+    "https://forecast.weather.gov/data/obhistory/KLAX.html"
+  ]
+}
