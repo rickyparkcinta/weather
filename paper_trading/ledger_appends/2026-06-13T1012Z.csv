@@ -1,0 +1,5 @@
+timestamp_utc,id,market,stance,simulated_size_usd,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,confidence,status
+2026-06-13T10:12:09Z,PT-20260613-135,Polymarket Houston/KHOU Jun 13 92-93F YES,YES,5,0.20,0.20,0.37,0.49,low,open
+2026-06-13T10:12:09Z,PT-20260613-136,Polymarket Los Angeles/KLAX Jun 13 74-75F YES,YES,5,0.12,0.12,0.28,0.40,low,open
+2026-06-13T10:12:09Z,PT-20260613-137,Polymarket London/EGLC Jun 13 23C YES,YES,5,0.08,0.08,0.16,0.28,low,open
+2026-06-13T10:12:09Z,PT-20260613-138,Polymarket Los Angeles/KLAX Jun 14 70-71F YES,YES,5,0.18,0.18,0.32,0.44,low-to-medium-low,open
