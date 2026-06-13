@@ -1,0 +1,87 @@
+{
+  "timestamp_utc": "2026-06-13T20:08:32Z",
+  "timestamp_hkt": "2026-06-14T04:08:32+08:00",
+  "scheduled_invocation_hkt": "2026-06-14T04:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_bets_or_trades_executed": false,
+  "markets_monitored": [
+    {
+      "market": "Polymarket Dallas/KDAL Jun 14 highest temperature 92-93F YES",
+      "current_price": "10% displayed / Buy Yes about 10c",
+      "implied_probability": 0.1,
+      "estimated_fair_value_range": [0.14, 0.24],
+      "estimated_edge_range_percentage_points": [4, 14],
+      "confidence": "low",
+      "classification": "moderate raw edge, tiny paper-only add",
+      "liquidity_notes": "Market volume about $10K; target-bucket volume about $1.5K; thin exact-bucket depth.",
+      "decision": "open_paper_trade",
+      "paper_trade_id": "PT-20260613-142"
+    },
+    {
+      "market": "Polymarket Chicago/KORD Jun 14 70-71F and 72-73F cluster",
+      "current_price": "70-71F around 30%; 72-73F around 33%",
+      "implied_probability": "30% for 70-71F; 33% for 72-73F",
+      "estimated_fair_value_range": "30%-40% for 70-71F; 31%-42% for 72-73F",
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge",
+      "decision": "maintain_existing_PT-20260613-141"
+    },
+    {
+      "market": "Polymarket Houston/KHOU Jun 14 highest temperature 92-93F YES",
+      "current_price": "about 12%",
+      "implied_probability": 0.12,
+      "estimated_fair_value_range": [0.12, 0.24],
+      "estimated_edge_range_percentage_points": [0, 12],
+      "confidence": "low",
+      "classification": "represented weak-to-moderate",
+      "decision": "maintain_existing_PT-20260613-140"
+    },
+    {
+      "market": "Polymarket Los Angeles/KLAX Jun 14 highest temperature 70-71F YES",
+      "current_price": "last clean context around 18%-19c",
+      "implied_probability": "18%-19%",
+      "estimated_fair_value_range": [0.15, 0.27],
+      "estimated_edge_range_percentage_points": [-4, 9],
+      "confidence": "low",
+      "classification": "represented watch edge",
+      "decision": "maintain_existing_PT-20260613-138"
+    },
+    {
+      "market": "Polymarket NYC/KLGA Jun 14 highest temperature 88-89F YES",
+      "current_price": "around 36%",
+      "implied_probability": 0.36,
+      "estimated_fair_value_range": [0.31, 0.43],
+      "estimated_edge_range_percentage_points": [-5, 7],
+      "confidence": "low",
+      "classification": "no fresh edge",
+      "decision": "maintain_existing_PT-20260613-130"
+    }
+  ],
+  "new_paper_positions": [
+    {
+      "id": "PT-20260613-142",
+      "market": "Polymarket Dallas/KDAL Jun 14 highest temperature 92-93F YES",
+      "stance": "BUY_YES",
+      "simulated_size_usd": 5,
+      "entry_price": "10c displayed / Buy Yes context",
+      "estimated_fair_value_range": [0.14, 0.24],
+      "confidence": "low",
+      "status": "open",
+      "outcome": "unresolved"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/weather/high-temperature",
+    "https://polymarket.com/predictions/chicago",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-14-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-14-2026",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-14-2026",
+    "https://polymarket.com/event/highest-temperature-in-nyc-on-june-14-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/MapClick.php?lat=33.9425&lon=-118.409",
+    "https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88",
+    "https://forecast.weather.gov/MapClick.php?textField1=32.85&textField2=-96.85",
+    "Public weather forecast cross-checks for Jun 14 station highs"
+  ]
+}
