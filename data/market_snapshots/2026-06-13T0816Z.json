@@ -1,0 +1,68 @@
+{
+  "timestamp_utc": "2026-06-13T08:16:00Z",
+  "timestamp_hkt": "2026-06-13T16:16:00+08:00",
+  "scheduled_invocation_hkt": "2026-06-13T16:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_bets_or_trades_executed": false,
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket London/EGLC Jun 13 23C YES",
+      "current_price": "23C 19%; Buy Yes 19c; 22C 44%; 21C 35%",
+      "implied_probability": "19%",
+      "estimated_fair_value": "28%-38%",
+      "estimated_edge_percentage_points": "+9 to +19",
+      "confidence": "low-to-medium-low",
+      "paper_action": "open PT-20260613-132, $5 simulated YES at 19c"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_price": "Polymarket 32%; Buy Yes 33c; Kalshi comparable 65%; Yes 62c",
+      "implied_probability": "32%-33%",
+      "estimated_fair_value": "42%-52%",
+      "estimated_edge_percentage_points": "+9 to +19",
+      "confidence": "low",
+      "paper_action": "maintain existing paper entries only"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Chicago/KORD Jun 13 86-87F YES",
+      "current_price": "32%; Buy Yes 33c",
+      "implied_probability": "32%-33%",
+      "estimated_fair_value": "37%-47%",
+      "estimated_edge_percentage_points": "+4 to +14",
+      "confidence": "low-to-medium-low",
+      "paper_action": "maintain PT-20260612-128 only"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Houston/KHOU Jun 14 92-93F YES",
+      "current_price": "15%; Buy Yes 16c",
+      "implied_probability": "15%-16%",
+      "estimated_fair_value": "20%-30%",
+      "estimated_edge_percentage_points": "+4 to +14",
+      "confidence": "low",
+      "paper_action": "watch only"
+    }
+  ],
+  "recommended_paper_trades": [
+    {
+      "id": "PT-20260613-132",
+      "market": "Polymarket London/EGLC Jun 13 highest temperature 23C YES",
+      "stance": "YES",
+      "simulated_size_usd": 5,
+      "entry_price": 0.19,
+      "estimated_fair_value": "28%-38%",
+      "confidence": "low-to-medium-low",
+      "status": "open"
+    }
+  ],
+  "key_risks": [
+    "Exact-bucket risk",
+    "London daily-versus-hourly Met Office conflict",
+    "Wunderground station rounding and settlement source risk",
+    "Kalshi/Polymarket source and rule mismatch for Houston",
+    "Polymarket public page staleness or disagreement"
+  ]
+}
