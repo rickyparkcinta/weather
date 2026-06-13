@@ -1,0 +1,2 @@
+id,timestamp_utc,market,contract,stance,entry_price,implied_probability,estimated_fair_value,simulated_size,status,confidence,thesis
+PT-20260613-140,2026-06-13T18:08:14Z,Polymarket Houston/KHOU Jun 14 2026 highest temperature,92-93F,BUY_YES,0.120,0.120,0.18-0.30,5,open,low,"Tiny first Jun 14 Houston paper entry after a clean 12c quote while NWS Hobby still showed Sunday high near 93F; capped by storm timing, thin target volume, existing Houston concentration, and Wunderground/NWS source uncertainty."
