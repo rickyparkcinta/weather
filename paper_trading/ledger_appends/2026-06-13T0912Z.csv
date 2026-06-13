@@ -1,0 +1,3 @@
+timestamp_utc,id,market,stance,simulated_size_usd,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,confidence,status
+2026-06-13T09:12:27Z,PT-20260613-133,Polymarket Dallas/KDAL Jun 13 96-97F YES,YES,5,0.049,0.049,0.22,0.34,low,open
+2026-06-13T09:12:27Z,PT-20260613-134,Polymarket Los Angeles/KLAX Jun 13 74-75F YES,YES,5,0.25,0.25,0.36,0.46,low-to-medium-low,open
