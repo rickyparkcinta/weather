@@ -1,0 +1,95 @@
+{
+  "timestamp_utc": "2026-06-13T06:12:50Z",
+  "timestamp_hkt": "2026-06-13T14:12:50+08:00",
+  "scheduled_invocation_hkt": "2026-06-13T14:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_bets_or_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Chicago/KORD Jun 13 highest temperature",
+    "Polymarket Houston/KHOU Jun 13 highest temperature",
+    "Polymarket Houston/KHOU Jun 14 highest temperature",
+    "Polymarket London/EGLC Jun 13 highest temperature",
+    "Polymarket NYC/KLGA Jun 13 highest temperature",
+    "Polymarket NYC/KLGA Jun 14 highest temperature",
+    "Polymarket Miami/KMIA highest temperature",
+    "Polymarket Atlanta/KATL highest temperature",
+    "Polymarket Hong Kong Observatory highest temperature",
+    "Kalshi Houston daily high temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_price": "Polymarket public range roughly 27%-34%; Kalshi comparable 92-93F roughly 54%-55%",
+      "implied_probability": "27%-34%",
+      "estimated_fair_value": "36%-46%",
+      "estimated_edge_percentage_points": "+2 to +19",
+      "confidence": "low",
+      "classification": "moderate represented/source-disagreement edge",
+      "paper_action": "maintain PT-20260612-127 and PT-20260612-129 only"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Chicago/KORD Jun 13 86-87F YES",
+      "current_price": "27%-32%; cleaner board Buy Yes near 28c",
+      "implied_probability": "27%-32%",
+      "estimated_fair_value": "34%-44%",
+      "estimated_edge_percentage_points": "+2 to +17",
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "maintain PT-20260612-128 only"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket NYC/KLGA Jun 14 88-89F YES",
+      "current_price": "about 28%",
+      "implied_probability": "28%",
+      "estimated_fair_value": "32%-42%",
+      "estimated_edge_percentage_points": "+4 to +14",
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "maintain PT-20260613-130 only"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Houston/KHOU Jun 14 92-93F YES",
+      "current_price": "14%; Buy Yes near 15c",
+      "implied_probability": "14%-15%",
+      "estimated_fair_value": "20%-30%",
+      "estimated_edge_percentage_points": "+5 to +16",
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only edge",
+      "paper_action": "no entry"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket London/EGLC Jun 13 23C YES",
+      "current_price": "32%; Buy Yes near 33c",
+      "implied_probability": "32%-33%",
+      "estimated_fair_value": "35%-45%",
+      "estimated_edge_percentage_points": "+2 to +13",
+      "confidence": "low",
+      "classification": "weak-to-moderate represented edge",
+      "paper_action": "maintain PT-20260612-124 only"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "maintenance_positions": [
+    "PT-20260612-127",
+    "PT-20260612-129",
+    "PT-20260612-128",
+    "PT-20260612-122",
+    "PT-20260613-130",
+    "PT-20260612-124",
+    "PT-20260612-126"
+  ],
+  "key_risks": [
+    "Exact-bucket risk",
+    "Polymarket public page disagreement",
+    "Direct API access blocked from workspace",
+    "Houston storm timing",
+    "Chicago official point-forecast conflict",
+    "NYC Jun 14 cloud and shower timing",
+    "London exact-Celsius settlement uncertainty"
+  ]
+}
