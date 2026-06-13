@@ -1,0 +1,118 @@
+{
+  "timestamp_utc": "2026-06-13T02:12:38Z",
+  "timestamp_hkt": "2026-06-13T10:12:38+08:00",
+  "scheduled_invocation_hkt": "2026-06-13T10:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_or_bets_executed": false,
+  "markets_monitored": [
+    "Polymarket Chicago/O'Hare KORD Jun 13 highest temperature",
+    "Polymarket Houston/Hobby KHOU Jun 13 highest temperature",
+    "Polymarket London City Airport/EGLC Jun 13 highest temperature",
+    "Polymarket NYC/LaGuardia KLGA Jun 13 highest temperature",
+    "Polymarket Miami/KMIA Jun 13 highest temperature",
+    "Polymarket Atlanta/KATL Jun 13 highest temperature",
+    "Polymarket Hong Kong Observatory Jun 13 highest temperature",
+    "Robinhood Houston Daily Temperature High Jun 13 thresholds"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Chicago/KORD Jun 13 86-87F YES",
+      "current_price": "about 31% / Buy Yes around 31c",
+      "implied_probability": 0.31,
+      "estimated_fair_value_range": [0.39, 0.49],
+      "estimated_edge_range_pp": [8, 18],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge / no duplicate",
+      "action": "maintain PT-20260612-128 only; keep PT-20260612-122 adverse-watch",
+      "key_evidence": "NWS O'Hare high near 86F; market still leads with 84-85F around 41%",
+      "major_risks": "84-85F underperformance, 88F+ overshoot, exact-bucket settlement risk, thin depth"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket London/EGLC Jun 13 23C YES",
+      "current_price": "last clean 23C context around 34%-35%; 22C visible around 39%-41%",
+      "implied_probability": 0.35,
+      "estimated_fair_value_range": [0.42, 0.52],
+      "estimated_edge_range_pp": [7, 17],
+      "confidence": "low",
+      "classification": "moderate represented edge / no duplicate",
+      "action": "maintain PT-20260612-124 only",
+      "key_evidence": "Met Office London City Airport now lists Today at 23C and hourly table reaches 23C multiple times",
+      "major_risks": "22C settlement, Wunderground/Met Office mismatch, exact-Celsius rounding, incomplete target-depth refresh"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Houston/KHOU Jun 13 92-93F YES",
+      "current_price": "about 31%-35% quote-quality-capped context; Robinhood >92 threshold at 31c",
+      "implied_probability": 0.33,
+      "estimated_fair_value_range": [0.34, 0.44],
+      "estimated_edge_range_pp": [0, 13],
+      "confidence": "low",
+      "classification": "weak-to-moderate represented edge / no duplicate",
+      "action": "maintain PT-20260612-127 and PT-20260612-129 only",
+      "key_evidence": "NWS Hobby high near 93F; broader Houston and threshold pricing keep 90-91F live",
+      "major_risks": "90-91F cooler settlement, source disagreement, exact-bucket risk, thin depth"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket NYC/KLGA Jun 13 88-89F YES",
+      "current_price": "about 50%",
+      "implied_probability": 0.5,
+      "estimated_fair_value_range": [0.43, 0.53],
+      "estimated_edge_range_pp": [-7, 3],
+      "confidence": "low-to-medium-low",
+      "classification": "near fair / represented no-add",
+      "action": "maintain PT-20260612-126 only",
+      "key_evidence": "NWS LaGuardia high near 89F; market now largely reflects the forecast",
+      "major_risks": "90-91F overshoot or cooler 86-87F miss"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "maintenance": [
+    "Maintain PT-20260612-128 Chicago/KORD 86-87F YES from 26c",
+    "Maintain PT-20260612-122 Chicago/KORD 84-85F YES from 36c as weakened/adverse-watch",
+    "Maintain PT-20260612-127 and PT-20260612-129 Houston/KHOU 92-93F YES from 28c and 26c",
+    "Maintain PT-20260612-124 London/EGLC 23C YES from 25c",
+    "Maintain PT-20260612-126 NYC/KLGA 88-89F YES from 37c"
+  ],
+  "watchlist_no_fresh_edge": [
+    "Miami/KMIA Jun 13 90-91F around 47% and 88-89F around 44%, close to NWS high near 90F after storm and sea-breeze risk",
+    "Atlanta/KATL Jun 13 92-93F near fair against NWS high near 93F and afternoon storm risk",
+    "Hong Kong Observatory Jun 13 29C/30C cluster with HKO max 30C and showers/thunderstorms"
+  ],
+  "source_quality_notes": [
+    "Direct Polymarket structured API refresh was unavailable from the workspace; public market surfaces and indexed snippets were used with reduced confidence.",
+    "Where exact target-bucket depth did not refresh, fair-value confidence and paper-action confidence were reduced."
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-london-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-nyc-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-miami-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-13-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-13-2026",
+    "https://robinhood.com/us/en/prediction-markets/climate/events/houston-daily-temperature-high-june-13-2026-jun-13-2026/",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88",
+    "https://forecast.weather.gov/MapClick.php?textField1=25.77&textField2=-80.20",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213",
+    "https://weather.metoffice.gov.uk/forecast/u10j124jp",
+    "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=en"
+  ],
+  "repo_updates": [
+    "odds/latest.md",
+    "odds/history/2026-06-13T0212Z.md",
+    "alerts/2026-06-13T0212Z.md",
+    "data/market_snapshots/2026-06-13T0212Z.json",
+    "paper_trading/maintenance/2026-06-13T0212Z.md",
+    "paper_trading/paper_trade_log.md",
+    "paper_trading/paper_trade_summary.md",
+    "paper-trade-summary.md",
+    "market-watchlist.md",
+    "edge-notes.md",
+    "repo-working-notes.md"
+  ]
+}
