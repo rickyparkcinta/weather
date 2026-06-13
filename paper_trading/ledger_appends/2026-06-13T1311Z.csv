@@ -1,0 +1,2 @@
+id,timestamp_utc,market,contract,stance,entry_price,implied_probability,estimated_fair_value,simulated_size,status,confidence,thesis
+PT-20260613-139,2026-06-13T13:11:19Z,Polymarket Los Angeles/KLAX Jun 13 2026 highest temperature,74-75F,BUY_YES,0.050,0.050,0.12-0.24,5,open,low,"Tiny add-on after direct Polymarket price fell to 5c while NWS KLAX still showed high near 75F; capped by Wunderground 72F forecast, marine-layer risk, existing LA exposure, and public-page conflict."
