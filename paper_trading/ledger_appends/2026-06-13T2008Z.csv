@@ -1,0 +1,2 @@
+timestamp_utc,trade_id,market,stance,simulated_size_usd,entry_price,implied_probability,estimated_fair_value,confidence,status,outcome
+2026-06-13T20:08:32Z,PT-20260613-142,"Polymarket Dallas/KDAL Jun 14 highest temperature 92-93F YES",BUY_YES,5,"10c displayed / Buy Yes context",10%,"14%-24%",Low,Open,Unresolved
