@@ -1,0 +1,2 @@
+timestamp_utc,trade_id,market,stance,simulated_size_usd,entry_price,implied_probability,estimated_fair_value,confidence,status,outcome
+2026-06-14T13:16:42Z,PT-20260614-152,Polymarket Austin/KAUS Jun 15 highest temperature 86-87F YES,BUY_YES,5,6c,6%,18%-30%,low-to-medium-low,open,unresolved
