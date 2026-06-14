@@ -1,0 +1,3 @@
+timestamp_utc,trade_id,market,stance,simulated_size_usd,entry_price,implied_probability,estimated_fair_value,confidence,status,outcome
+2026-06-14T04:07:00Z,PT-20260614-147,"Polymarket Hong Kong/HKO Jun 14 highest temperature 29C YES",BUY_YES,5,"48c displayed context",48%,"55%-65%",Low-to-medium-low,Open,Unresolved
+2026-06-14T04:07:00Z,PT-20260614-148,"Polymarket Dallas/KDAL Jun 14 highest temperature 90-91F YES",BUY_YES,5,"17c mirror context",17%,"30%-42%",Low,Open,Unresolved
