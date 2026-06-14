@@ -1,0 +1,153 @@
+{
+  "timestamp_utc": "2026-06-14T10:11:01Z",
+  "timestamp_hkt": "2026-06-14T18:11:01+08:00",
+  "scheduled_invocation_hkt": "2026-06-14T18:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_bets_or_trades_executed": false,
+  "quote_quality": "Public prediction-market pages can lag executable order books and sometimes disagree by locale or mirror; confidence is capped where current target-bucket depth was not visible.",
+  "markets": [
+    {
+      "market": "Polymarket Los Angeles/KLAX Jun 14 highest temperature 70-71F YES",
+      "observed_price": "70-71F roughly 34%-40%; 72-73F roughly 47%-49%; English Polymarket volume about $16K",
+      "implied_probability": "34%-40%",
+      "estimated_fair_value_range": "43%-53%",
+      "estimated_edge_range": "+3 to +19 percentage points before haircuts",
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge",
+      "paper_action": "maintain PT-20260613-138 from 18c; no duplicate",
+      "key_evidence": "NWS KLAX forecasts high near 70F with patchy fog before 11am and gradual clearing; current KLAX conditions were overcast 63F at 02:30 PDT.",
+      "major_risks": "Marine layer timing, 72-73F miss, page disagreement, current quote worse than entry."
+    },
+    {
+      "market": "Polymarket Chicago/KORD Jun 14 highest temperature 72-73F YES",
+      "observed_price": "72-73F about 33%; 70-71F about 37%-39%; Bitget volume about $23.9K",
+      "implied_probability": 0.33,
+      "estimated_fair_value_range": "40%-50% for 72-73F; 27%-37% for 70-71F",
+      "estimated_edge_range": "+7 to +17 points on 72-73F before boundary penalties",
+      "confidence": "low-to-medium-low",
+      "classification": "represented cluster",
+      "paper_action": "maintain PT-20260614-149 and PT-20260613-141; no duplicate",
+      "key_evidence": "NWS KORD current 69F at 03:51 CDT and Sunday high near 72F after early showers with breezy northwest flow.",
+      "major_risks": "70-71F/72-73F boundary risk, faster clearing to 74F+, public quote lag."
+    },
+    {
+      "market": "Polymarket Dallas/KDAL Jun 14 highest temperature 88-89F YES",
+      "observed_price": "88-89F roughly 32%-35%; 86-87F roughly 27%-28%; 90-91F roughly 17%-20%; 92-93F about 7%-8%",
+      "implied_probability": "32%-35%",
+      "estimated_fair_value_range": "40%-50%",
+      "estimated_edge_range": "+5 to +18 points, low quality",
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only hedge",
+      "paper_action": "maintain/weaken 90-91F entries; no new Dallas hedge",
+      "key_evidence": "NWS Dallas Love Field current overcast 81F at 03:53 CDT and high near 89F with showers/thunderstorms increasingly likely.",
+      "major_risks": "Storm/cloud cap to 86-87F or lower, late heating to 90-91F, existing Dallas concentration."
+    },
+    {
+      "market": "Polymarket Miami/KMIA Jun 14 highest temperature 92-93F YES",
+      "observed_price": "92-93F about 34%; 90-91F about 57%",
+      "implied_probability": 0.34,
+      "estimated_fair_value_range": "38%-48%",
+      "estimated_edge_range": "+4 to +14 points",
+      "confidence": "low",
+      "classification": "represented moderate edge",
+      "paper_action": "maintain PT-20260614-145 from 24c; no duplicate",
+      "key_evidence": "NWS KMIA current 81F at 05:53 EDT and high near 92F with 40% thunderstorm chance after 2pm.",
+      "major_risks": "Sea-breeze/storm cap, 90-91F miss, 94F overshoot, public quote conflict."
+    },
+    {
+      "market": "Polymarket NYC/KLGA Jun 14 highest temperature 88-89F YES",
+      "observed_price": "English Polymarket about 50%; locale snippets around 38%; 86-87F about 27%-28%",
+      "implied_probability": "38%-50%; primary surface 50%",
+      "estimated_fair_value_range": "56%-66%",
+      "estimated_edge_range": "+6 to +16 points against the 50% surface",
+      "confidence": "low-to-medium-low",
+      "classification": "represented/no-add",
+      "paper_action": "maintain PT-20260613-130 from 18c; no duplicate",
+      "key_evidence": "NWS KLGA current 77F at 05:51 EDT and high near 89F with strengthening south wind.",
+      "major_risks": "Localized page disagreement, current quote far worse than entry, adjacent-bucket miss."
+    },
+    {
+      "market": "Polymarket Houston/KHOU Jun 14 highest temperature 92-93F / warm cluster",
+      "observed_price": "90-91F leader around 49%; 88-89F around 31%; fresh 92-93F target quote not clean",
+      "implied_probability": null,
+      "estimated_fair_value_range": "20%-30% for 92-93F; 3%-7% for 94-95F",
+      "estimated_edge_range": "potentially positive but quote-quality capped",
+      "confidence": "low",
+      "classification": "represented warm-tail cluster",
+      "paper_action": "maintain PT-20260613-140 and PT-20260613-143; no duplicate",
+      "key_evidence": "NWS KHOU current 82F at 03:53 CDT and high near 93F, but thunderstorms likely mainly after 1pm with 70% precipitation probability.",
+      "major_risks": "Storm timing, Wunderground/NWS source mismatch, target quote not clean, existing Houston concentration."
+    },
+    {
+      "market": "Polymarket Austin/KAUS Jun 14 highest temperature 92-93F YES",
+      "observed_price": "92-93F about 46%-49%; 90-91F about 39%-42%; 88-89F about 6%-7%",
+      "implied_probability": "46%-49%",
+      "estimated_fair_value_range": "45%-55%",
+      "estimated_edge_range": "near fair",
+      "confidence": "low",
+      "classification": "represented/no-add",
+      "paper_action": "maintain PT-20260614-146 from 21c; no duplicate",
+      "key_evidence": "NWS KAUS current 78F at 04:53 CDT and high near 92F with showers and thunderstorms likely after 1pm.",
+      "major_risks": "Storm cap, 90-91F adjacent miss, current quote no longer discounted."
+    },
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 14 highest temperature 29C YES",
+      "observed_price": "29C about 99%; 30C about 1%",
+      "implied_probability": 0.99,
+      "estimated_fair_value_range": "99.0%-99.7%",
+      "estimated_edge_range": "no add at the offer",
+      "confidence": "low-to-medium-low",
+      "classification": "represented/no-add after convergence",
+      "paper_action": "maintain PT-20260614-147 from 48c; no duplicate near 99%",
+      "key_evidence": "HKO regional readings at 17:00 HKT showed HK Observatory current 29.1C and maximum 29.5C since midnight.",
+      "major_risks": "Final Daily Extract not posted; official 30.0C+ print would invalidate; provisional-data boundary."
+    }
+  ],
+  "watch_only_cross_checks": [
+    {
+      "market": "Polymarket Atlanta/KATL Jun 14 highest temperature",
+      "observed_price": "88-89F around 52%-54%; 86-87F around 21%-22%",
+      "decision": "no edge after upper-80s forecast alignment"
+    },
+    {
+      "market": "Polymarket Denver/KBKF Jun 14 highest temperature",
+      "observed_price": "72-73F around 31%; 70-71F around 26%; no clean 76-77F depth exposed",
+      "decision": "watch only; market context also centers low-to-mid 70s"
+    }
+  ],
+  "paper_trades_opened": [],
+  "paper_trades_maintained": [
+    "PT-20260613-138",
+    "PT-20260614-149",
+    "PT-20260613-141",
+    "PT-20260614-144",
+    "PT-20260614-148",
+    "PT-20260614-145",
+    "PT-20260613-140",
+    "PT-20260613-143",
+    "PT-20260613-130",
+    "PT-20260614-146",
+    "PT-20260614-147"
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-14-2026",
+    "https://www.hko.gov.hk/textonly/v2/forecast/text_readings_e.htm",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-14-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=33.9425&lon=-118.409",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-14-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-14-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=32.7782&lon=-96.7951",
+    "https://polymarket.com/event/highest-temperature-in-miami-on-june-14-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=25.79056&lon=-80.31639",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-14-2026",
+    "https://kalshi.com/markets/kxhighthou/daily-high-temperature-houston/kxhighthou-26jun14",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.7687&textField2=-95.3867",
+    "https://polymarket.com/event/highest-temperature-in-nyc-on-june-14-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-14-2026",
+    "https://forecast.weather.gov/MapClick.php?FcstType=text&lat=30.1831&lg=english&lon=-97.6799",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-14-2026",
+    "https://polymarket.com/event/highest-temperature-in-denver-on-june-14-2026"
+  ]
+}
