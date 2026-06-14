@@ -1,0 +1,73 @@
+{
+  "time_checked": {
+    "utc": "2026-06-14T15:10:00Z",
+    "hkt": "2026-06-14T23:10:00+08:00",
+    "scheduled_invocation_hkt": "2026-06-14T23:07:01+08:00"
+  },
+  "mode": "analysis_alerting_paper_trading_only_no_real_bets_or_trades",
+  "markets_monitored": [
+    "Polymarket Chicago/KORD Jun 14 highest temperature",
+    "Polymarket Dallas/KDAL Jun 14 highest temperature",
+    "Polymarket Atlanta/KATL Jun 14 highest temperature",
+    "Polymarket Miami/KMIA Jun 14 highest temperature",
+    "Polymarket Houston/KHOU Jun 14 highest temperature",
+    "Polymarket NYC/KLGA Jun 14 highest temperature",
+    "Polymarket Los Angeles/KLAX Jun 14 highest temperature",
+    "Polymarket Austin/KAUS Jun 14 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 14 highest temperature",
+    "Polymarket Austin/KAUS Jun 15 highest temperature",
+    "Polymarket Dallas/KDAL Jun 15 highest temperature",
+    "Polymarket Atlanta/KATL Jun 15 highest temperature",
+    "Polymarket Chicago/KORD Jun 15 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Chicago/KORD Jun 14 highest temperature 70-71F YES",
+      "current_price": "Displayed 39%; Buy Yes 40c",
+      "implied_probability": 0.40,
+      "estimated_fair_value_range": [0.52, 0.64],
+      "estimated_edge_range": [0.12, 0.24],
+      "confidence": "medium-low",
+      "classification": "represented strong edge; no duplicate add"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Dallas/KDAL Jun 14 highest temperature 84-85F YES",
+      "current_price": "Displayed 4%; Buy Yes 5c",
+      "implied_probability": 0.05,
+      "estimated_fair_value_range": [0.14, 0.25],
+      "estimated_edge_range": [0.09, 0.20],
+      "confidence": "low-to-medium-low",
+      "classification": "represented cooler hedge; no duplicate add"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Austin/KAUS Jun 15 highest temperature 86-87F YES",
+      "current_price": "Displayed 5%; Buy Yes 6c",
+      "implied_probability": 0.06,
+      "estimated_fair_value_range": [0.16, 0.28],
+      "estimated_edge_range": [0.10, 0.22],
+      "confidence": "low-to-medium-low",
+      "classification": "represented forward-day edge; no duplicate add"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Miami/KMIA Jun 14 highest temperature 90-91F YES",
+      "current_price": "Displayed 39%; Buy Yes 40c",
+      "implied_probability": 0.40,
+      "estimated_fair_value_range": [0.43, 0.55],
+      "estimated_edge_range": [0.03, 0.15],
+      "confidence": "low",
+      "classification": "watch-only hedge; no paper add"
+    }
+  ],
+  "paper_trades": [],
+  "maintenance_actions": [
+    "Maintain Chicago/KORD 70-71F and 72-73F paper cluster.",
+    "Maintain Dallas/KDAL 84-85F YES.",
+    "Maintain Austin/KAUS Jun 15 86-87F YES.",
+    "Downgrade Atlanta/KATL Jun 14 90-91F YES to adverse-watch.",
+    "Maintain Miami, Houston, NYC, LA, same-day Austin, and HKO represented positions only."
+  ]
+}
