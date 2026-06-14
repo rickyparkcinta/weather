@@ -1,0 +1,2 @@
+timestamp_utc,trade_id,market,stance,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,simulated_size_usd,confidence,status,notes
+2026-06-14T17:11:32Z,PT-20260614-155,Polymarket Hong Kong/HKO Jun 15 highest temperature 29C,BUY_YES,0.43,0.43,0.50,0.62,5,medium-low,open,"Official HKO forecast caps Jun 15 at 29C under heavy showers/squally thunderstorms; HKO was 28C at midnight HKT. Exact one-decimal and rain-timing risks remain material. No real trade executed."
