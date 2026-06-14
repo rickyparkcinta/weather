@@ -1,0 +1,115 @@
+{
+  "timestamp_utc": "2026-06-14T13:16:42Z",
+  "timestamp_hkt": "2026-06-14T21:16:42+08:00",
+  "scheduled_invocation_hkt": "2026-06-14T21:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_bets_or_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Austin/KAUS Jun 15 highest temperature",
+    "Polymarket Dallas/KDAL Jun 14 highest temperature",
+    "Polymarket Atlanta/KATL Jun 14 highest temperature",
+    "Polymarket Chicago/KORD Jun 14 highest temperature",
+    "Polymarket Houston/KHOU Jun 14 highest temperature",
+    "Polymarket NYC/KLGA Jun 14 highest temperature",
+    "Polymarket Los Angeles/KLAX Jun 14 highest temperature",
+    "Polymarket Miami/KMIA Jun 14 highest temperature",
+    "Polymarket Austin/KAUS Jun 14 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 14 highest temperature",
+    "Polymarket Dallas/KDAL Jun 15 highest temperature",
+    "Polymarket Atlanta/KATL Jun 15 highest temperature",
+    "Polymarket Chicago/KORD Jun 15 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Austin/KAUS Jun 15 highest temperature 86-87F YES",
+      "current_price": "Buy Yes 6c; displayed around 6%",
+      "implied_probability": 0.06,
+      "estimated_fair_value_range": [0.18, 0.30],
+      "estimated_edge_range": [0.12, 0.24],
+      "confidence": "low-to-medium-low",
+      "classification": "strongest fresh paper-only edge",
+      "paper_trade_id": "PT-20260614-152",
+      "simulated_size_usd": 5,
+      "status": "open"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Dallas/KDAL Jun 14 highest temperature 84-85F YES",
+      "current_price": "Buy Yes 5c; displayed around 4%",
+      "implied_probability": 0.05,
+      "estimated_fair_value_range": [0.18, 0.30],
+      "estimated_edge_range": [0.13, 0.25],
+      "confidence": "low-to-medium-low",
+      "classification": "represented strong hedge; no duplicate",
+      "paper_trade_id": "PT-20260614-151",
+      "status": "open"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Atlanta/KATL Jun 14 highest temperature 90-91F YES",
+      "current_price": "Buy Yes 14c; displayed around 13%",
+      "implied_probability": 0.14,
+      "estimated_fair_value_range": [0.22, 0.34],
+      "estimated_edge_range": [0.08, 0.20],
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge; no duplicate",
+      "paper_trade_id": "PT-20260614-150",
+      "status": "open"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Chicago/KORD Jun 14 highest temperature 72-73F YES",
+      "current_price": "Buy Yes 27c; displayed around 26%",
+      "implied_probability": 0.27,
+      "estimated_fair_value_range": [0.32, 0.42],
+      "estimated_edge_range": [0.05, 0.15],
+      "confidence": "low",
+      "classification": "represented moderate edge; no duplicate",
+      "paper_trade_id": "PT-20260614-149",
+      "status": "open"
+    }
+  ],
+  "recommended_paper_trades": [
+    {
+      "trade_id": "PT-20260614-152",
+      "stance": "BUY_YES",
+      "market": "Polymarket Austin/KAUS Jun 15 highest temperature 86-87F YES",
+      "entry_price": "6c",
+      "simulated_size_usd": 5,
+      "thesis": "NWS Austin/Bergstrom forecasts Monday high near 86F while the market centers on lower 82-85F buckets.",
+      "confidence": "low-to-medium-low",
+      "status": "open"
+    }
+  ],
+  "watch_only": [
+    {
+      "market": "Polymarket Dallas/KDAL Jun 15 82-83F YES",
+      "current_price": "Buy Yes about 28c",
+      "estimated_fair_value_range": [0.30, 0.42],
+      "reason": "thin volume and near-fair"
+    },
+    {
+      "market": "Polymarket Atlanta/KATL Jun 15 84-85F YES",
+      "current_price": "Buy Yes about 39c",
+      "estimated_fair_value_range": [0.40, 0.52],
+      "reason": "near fair"
+    },
+    {
+      "market": "Polymarket Chicago/KORD Jun 15 76-77F YES",
+      "current_price": "Buy Yes about 39c",
+      "estimated_fair_value_range": [0.40, 0.52],
+      "reason": "modest edge below entry threshold"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?FcstType=text&lat=30.1831&lg=english&lon=-97.6799",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-14-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=32.7782&lon=-96.7951",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-14-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6367&lon=-84.4281",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-14-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9"
+  ]
+}
