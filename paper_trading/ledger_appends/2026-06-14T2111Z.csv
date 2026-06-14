@@ -1,0 +1,2 @@
+timestamp_utc,trade_id,market,observed_price,implied_probability,estimated_fair_value,simulated_stance,simulated_size_usd,confidence,status,notes
+2026-06-14T21:11:03Z,PT-20260614-161,"Polymarket Dallas/KDAL Jun 15 highest temperature 82-83F YES","Buy Yes 29c",0.29,"38%-50%",BUY_YES,5,low-to-medium-low,open,"Tiny adjacent-bucket hedge after NWS KDAL centered Monday near 83F; no real trade executed."
