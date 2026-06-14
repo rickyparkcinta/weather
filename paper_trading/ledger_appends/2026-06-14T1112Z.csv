@@ -1,0 +1,2 @@
+timestamp_utc,trade_id,market,stance,simulated_size_usd,entry_price,implied_probability,estimated_fair_value,confidence,status,outcome
+2026-06-14T11:12:08Z,PT-20260614-150,"Polymarket Atlanta/KATL Jun 14 highest temperature 90-91F YES",BUY_YES,5,12c,12%,"26%-38%",Low-to-medium-low,Open,Unresolved
