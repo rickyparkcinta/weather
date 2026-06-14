@@ -1,0 +1,45 @@
+{
+  "timestamp_utc": "2026-06-14T21:11:03Z",
+  "timestamp_hkt": "2026-06-15T05:11:03+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Dallas/KDAL Jun 15 highest temperature 82-83F YES",
+      "observed_price": "Buy Yes about 29c",
+      "implied_probability": 0.29,
+      "estimated_fair_value_range": [0.38, 0.50],
+      "confidence": "low-to-medium-low",
+      "action": "open paper-only position PT-20260614-161"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Hong Kong/HKO Jun 15 highest temperature 29C YES",
+      "observed_price": "Buy Yes 43c",
+      "implied_probability": 0.43,
+      "estimated_fair_value_range": [0.50, 0.60],
+      "confidence": "medium-low",
+      "action": "maintain PT-20260614-155; no duplicate"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Houston/KHOU Jun 15 highest temperature 88-89F YES",
+      "observed_price": "Buy Yes 10c",
+      "implied_probability": 0.10,
+      "estimated_fair_value_range": [0.18, 0.30],
+      "confidence": "low-to-medium-low",
+      "action": "maintain PT-20260614-156 and PT-20260614-158; no duplicate"
+    }
+  ],
+  "paper_trades_opened": [
+    {
+      "id": "PT-20260614-161",
+      "market": "Polymarket Dallas/KDAL Jun 15 highest temperature 82-83F YES",
+      "entry_price": "29c",
+      "simulated_size_usd": 5,
+      "confidence": "low-to-medium-low",
+      "status": "open"
+    }
+  ]
+}
