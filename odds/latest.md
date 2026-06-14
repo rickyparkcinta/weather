@@ -2,135 +2,156 @@
 
 ## Time Checked
 
-- UTC: 2026-06-13 23:08:41
-- HKT: 2026-06-14 07:08:41
-- Scheduled invocation: 2026-06-14 07:07:01 HKT
+- UTC: 2026-06-14 02:14:25
+- HKT: 2026-06-14 10:14:25
+- Scheduled invocation: 2026-06-14 10:07:00 HKT
 - Mode: analysis, alerting, and paper trading only. No real bets or trades executed.
 
 ## Markets Monitored
 
-- Primary watchlist scope: Polymarket station-resolved highest-temperature markets for Hong Kong/HKO Jun 14, Los Angeles/KLAX Jun 14, Dallas/KDAL Jun 14, Houston/KHOU Jun 14, Chicago/KORD Jun 14, and NYC/KLGA Jun 14.
-- Broader screen: Polymarket high-temperature board for nearby Jun 14 weather markets. No stronger unrepresented opportunity was identified than the existing watchlist cluster.
-- Evidence cross-checks: Polymarket event/category pages; NWS point forecasts for US airport stations; HKO open-data forecast and regional readings for Hong Kong; market resolution rules.
-- Durable logging target: memory/GitHub-backed odds log.
+- Primary watchlist scope: Polymarket station-resolved highest-temperature markets for Miami/KMIA Jun 14, Austin/KAUS Jun 14, Los Angeles/KLAX Jun 14, Dallas/KDAL Jun 14, Houston/KHOU Jun 14, Chicago/KORD Jun 14, NYC/KLGA Jun 14, and Hong Kong/HKO Jun 14.
+- Evidence cross-checks: Polymarket public event/search surfaces; NWS point forecasts and current-condition pages for US airport stations; HKO 9-day text forecast.
+- Quote-quality note: public Polymarket pages can lag executable order books. Where a target bucket is not exposed in the refreshed public page, the price is treated as quote-quality capped and is not used for new paper exposure.
 
 ## Top Edges
 
 ### 1. Polymarket Los Angeles/KLAX Jun 14 70-71F YES
 
-- Current price: 22% displayed / Buy Yes 23c. Market leaders: 72-73F at 47% / Buy Yes 48c and 74-75F at 25% / Buy Yes 26c.
-- Implied probability: about 23% using the buy price.
-- Estimated fair value: 28%-40%.
-- Estimated edge: roughly +5 to +17 percentage points before exact-bucket, marine-layer, Wunderground, and liquidity penalties.
+- Current price: about 23% displayed / Buy Yes 24c. Market leader: 72-73F at about 48%.
+- Implied probability: about 24% using the buy context.
+- Estimated fair value: 30%-40%.
+- Estimated edge: roughly +6 to +16 percentage points before exact-bucket, Wunderground, and marine-layer penalties.
 - Confidence: low-to-medium-low.
-- Classification: strongest raw represented edge; no duplicate paper add.
-- Key reasoning: NWS KLAX still shows Sunday high near 70F with patchy fog before 11am, then gradual clearing. That keeps 70-71F underpriced versus the warmer 72-75F market center, but the quote has moved against the paper book from the PT-20260613-138 entry at 18c to 23c.
-- Liquidity/practicality notes: Total market volume is about $12.1K; target-bucket volume is about $523. The market resolves from Wunderground KLAX history, so NWS is a proxy rather than the settlement source.
+- Classification: represented moderate edge; no duplicate paper add.
+- Key reasoning: NWS KLAX still shows Sunday high near 70F with patchy fog before 11am and gradual clearing, while the market remains centered on 72-73F.
+- Liquidity/practicality notes: PT-20260613-138 already holds 70-71F from 18c. The current quote is worse than entry and coastal clearing can still miss one bucket warmer.
 
-### 2. Polymarket Dallas/KDAL Jun 14 92-93F YES
+### 2. Polymarket Hong Kong/HKO Jun 14 30C YES
 
-- Current price: 13% displayed / Buy Yes 14.9c. Market leaders: 88-89F at 28% / Buy Yes 30c, 90-91F at 20% / Buy Yes 21c, and 86-87F at 19% / Buy Yes 20c.
-- Implied probability: about 14.9%.
-- Estimated fair value: 18%-30%.
-- Estimated edge: roughly +3 to +15 percentage points before exact-bucket, storm, and source penalties.
+- Current price: 34% displayed / Buy Yes 35c. Nearby leader: 29C at about 50% / Buy Yes 50c.
+- Implied probability: about 35% using the buy price.
+- Estimated fair value: 38%-48%.
+- Estimated edge: roughly +3 to +13 points before one-decimal boundary, rain, and live-observation penalties.
 - Confidence: low.
-- Classification: moderate represented edge; no duplicate paper add.
-- Key reasoning: NWS KDAL shows Sunday high near 93F, but with a 50% chance of showers/thunderstorms after 10am. The bucket remains plausibly underpriced, but it has moved above PT-20260613-142's 10c entry and storm timing is still the main cap risk.
-- Liquidity/practicality notes: Total market volume is about $13.2K and target-bucket volume about $1.6K. No add unless a verified quote falls materially below entry or thunderstorm timing shifts later.
+- Classification: fresh watch-only possible edge.
+- Key reasoning: HKO's 09:50 HKT forecast keeps Jun 14 at 26-30C with occasional heavy showers and squally thunderstorms. The shift from a 30C-led board to a 29C-led board may be overdone if later bright periods allow the Observatory to touch 30.0C.
+- Liquidity/practicality notes: No paper entry because current HKO station readings were not cleanly exposed through the available source, and the 29.9C versus 30.0C boundary is decisive.
 
-### 3. Polymarket Houston/KHOU Jun 14 Warm Tail
+### 3. Polymarket Miami/KMIA Jun 14 92-93F YES
 
-- Current price: 92-93F at 12% displayed / Buy Yes 13c; 94-95F at 2% displayed / Buy Yes 2.0c.
-- Implied probability: about 13% for 92-93F and 2.0% for 94-95F using buy prices.
-- Estimated fair value: 14%-24% for 92-93F; 5%-12% for 94-95F.
-- Estimated edge: roughly +1 to +11 points on 92-93F and +3 to +10 points on 94-95F, both heavily risk-adjusted.
+- Current price: about 25% displayed, with 90-91F leading near 66%.
+- Implied probability: about 25%.
+- Estimated fair value: 30%-40%.
+- Estimated edge: roughly +5 to +15 points before sea-breeze, storm, exact-bucket, and quote-quality penalties.
+- Confidence: low-to-medium-low.
+- Classification: represented moderate edge; no duplicate paper add.
+- Key reasoning: NWS KMIA shows Sunday sunny with a high near 92F and showers/thunderstorms after 2pm, leaving the 92-93F bucket live despite the market's heavy 90-91F center.
+- Liquidity/practicality notes: PT-20260614-145 already holds this at 24c. The current public price is not materially better than entry.
+
+### 4. Polymarket Austin/KAUS Jun 14 92-93F YES
+
+- Current price: target bucket not cleanly exposed in the refreshed public page; latest headline shows 90-91F at 32% and 88-89F at 25%. Prior verified target buy context was 21c.
+- Implied probability: quote-quality capped; use 21%-low 20s only as a stale paper-tracking reference.
+- Estimated fair value: 27%-38%.
+- Estimated edge: plausible but not refresh-clean.
+- Confidence: low-to-medium-low.
+- Classification: represented moderate edge; no duplicate paper add.
+- Key reasoning: NWS KAUS shows Sunday high near 92F with a 50% chance of showers/thunderstorms after 1pm. The target bucket remains thesis-consistent, but the current target quote was not clean enough to add.
+- Liquidity/practicality notes: PT-20260614-146 already holds this bucket from 21c.
+
+### 5. Polymarket Houston/KHOU Jun 14 warm-tail cluster
+
+- Current price: refreshed headline center is 88-89F at about 37% and 90-91F at about 37%; 92-93F and 94-95F target quotes were not cleanly refreshed this run.
+- Implied probability: target warm-tail probabilities quote-quality capped.
+- Estimated fair value: 15%-25% for 92-93F; 4%-10% for 94-95F, with heavy storm discounting.
+- Estimated edge: small-to-moderate but heavily risk-adjusted.
 - Confidence: low.
 - Classification: represented warm-tail cluster; no fresh paper add.
-- Key reasoning: NWS near Hobby shows Sunday high near 94F, with showers and thunderstorms likely mainly from 2pm to 4pm and after. That keeps the warm-tail thesis alive, but PT-20260613-140 already represents 92-93F and PT-20260613-143 already represents 94-95F.
-- Liquidity/practicality notes: Target-bucket depth is thin and Houston exposure is already concentrated. No duplicate unless the quote becomes materially cheaper or storm timing clearly shifts later.
+- Key reasoning: NWS Houston/Hobby shows Sunday high near 93F with showers and thunderstorms likely before and during the afternoon. That keeps warm-tail exposure live, but storms are a direct invalidation path.
+- Liquidity/practicality notes: PT-20260613-140 and PT-20260613-143 already cover the warm-tail thesis. No duplicate without a clean sub-entry quote or better station evidence.
 
-### 4. Polymarket Chicago/KORD Jun 14 72-73F / 70-71F Cluster
+### 6. Polymarket Dallas/KDAL Jun 14 90-91F YES
 
-- Current price: 72-73F at 35% displayed / Buy Yes 36c; 70-71F at 29% displayed / Buy Yes 29c.
-- Implied probability: about 36% for 72-73F and 29% for 70-71F using buy prices.
-- Estimated fair value: 38%-48% for 72-73F; 24%-34% for 70-71F.
+- Current price: headline page now shows 88-89F at about 29% and 86-87F at about 22%; the current 90-91F target quote was not cleanly exposed. Prior buy context was 25c, and PT-20260614-144 entry is 21c.
+- Implied probability: quote-quality capped.
+- Estimated fair value: 28%-38%.
+- Estimated edge: plausible but storm-sensitive and represented.
+- Confidence: low-to-medium-low.
+- Classification: represented moderate edge; no duplicate paper add.
+- Key reasoning: NWS Dallas Love Field shows Sunday high near 91F, but also showers/thunderstorms likely, including early and late windows that can cap the daily high.
+- Liquidity/practicality notes: Maintain PT-20260614-144 at 21c and keep PT-20260613-142 on 92-93F marked weaker/partially hedged.
+
+### 7. Polymarket Chicago/KORD Jun 14 72-73F / 70-71F cluster
+
+- Current price: 72-73F about 35%; 70-71F about 30%.
+- Implied probability: about 35% for 72-73F and 30% for 70-71F.
+- Estimated fair value: 38%-46% for 72-73F; 20%-30% for 70-71F.
 - Estimated edge: small and split across adjacent buckets.
 - Confidence: low-to-medium-low.
-- Classification: mostly fair to mildly positive; no new paper position.
-- Key reasoning: NWS O'Hare forecasts Sunday high near 72F after a slight chance of early showers, then gradual clearing. The market has now centered the correct 70-73F area; a fresh 72-73F hedge does not clear the edge threshold, and PT-20260613-141 already holds the cooler 70-71F side.
-- Liquidity/practicality notes: Total market volume is about $12.8K. The 72F boundary is the main practical risk.
+- Classification: mild 72-73F watch-only; existing 70-71F thesis weakened.
+- Key reasoning: NWS O'Hare forecasts high near 72F after a small early shower chance, then gradual clearing. That matches 72-73F better than the existing 70-71F paper entry.
+- Liquidity/practicality notes: No 72-73F hedge because the price improvement from the prior no-add level is too small for exact-bucket risk.
 
-### 5. Polymarket Hong Kong/HKO Jun 14 29C / 30C Cluster
+### 8. Polymarket NYC/KLGA Jun 14 88-89F YES
 
-- Current price: 29C at 54% displayed / Buy Yes 54c; 30C at 37% displayed / Buy Yes 38c; 31C at 10% displayed / Buy Yes 11c.
-- Implied probability: about 54% for 29C and 38% for 30C using buy prices.
-- Estimated fair value: 43%-55% for 29C; 35%-47% for 30C.
-- Estimated edge: no clear add after spread and exact one-decimal settlement risk.
-- Confidence: low-to-medium-low.
-- Classification: no edge / watch-only.
-- Key reasoning: HKO reported Hong Kong Observatory at 29C at 06:00 HKT and forecasts today's maximum around 30C with mainly cloudy weather, occasional showers, squally thunderstorms, and heavy showers at times. The market is correctly concentrated in 29-30C; 31C remains live but not cheap enough given heavy-rain risk.
-- Liquidity/practicality notes: This is the highest-volume scanned market at about $72.5K, but the exact "Absolute Daily Max" one-decimal settlement makes the 29.9C/30.0C boundary decisive.
-
-### 6. Polymarket NYC/KLGA Jun 14 88-89F YES
-
-- Current price: 39% displayed / Buy Yes 39c. Nearby buckets: 90-91F at 28% / Buy Yes 28c and 86-87F at 23% / Buy Yes 23c.
+- Current price: about 39% displayed from public Polymarket context.
 - Implied probability: about 39%.
-- Estimated fair value: 36%-48%.
-- Estimated edge: small and represented.
+- Estimated fair value: 42%-52%.
+- Estimated edge: roughly +3 to +13 points before exact-bucket and late-cloud penalties.
 - Confidence: low.
-- Classification: no fresh edge.
-- Key reasoning: NWS LaGuardia shows Sunday high near 89F with increasing clouds and stronger south wind. The market has mostly caught up to PT-20260613-130's 18c entry.
-- Liquidity/practicality notes: Maintain only; no duplicate near 39c.
+- Classification: represented moderate edge; no duplicate paper add.
+- Key reasoning: NWS LaGuardia forecasts Sunday high near 89F with increasing clouds and gusty south wind. The price remains modestly below a station-forecast-centered fair estimate.
+- Liquidity/practicality notes: PT-20260613-130 already holds this bucket from 18c, so the current quote is far worse than entry.
 
 ## Recommended Paper Trades
 
 No new paper trade is recommended this run.
 
-Maintenance actions only:
+Maintenance actions:
 
 - Maintain PT-20260613-138, LA/KLAX Jun 14 70-71F YES at 18c entry.
-- Maintain PT-20260613-142, Dallas/KDAL Jun 14 92-93F YES at 10c entry.
+- Maintain PT-20260614-145, Miami/KMIA Jun 14 92-93F YES at 24c entry.
+- Maintain PT-20260614-146, Austin/KAUS Jun 14 92-93F YES at 21c entry.
+- Maintain PT-20260614-144, Dallas/KDAL Jun 14 90-91F YES at 21c entry.
+- Maintain PT-20260613-142, Dallas/KDAL Jun 14 92-93F YES at 10c entry, but keep it marked partially hedged/weaker.
 - Maintain PT-20260613-140, Houston/KHOU Jun 14 92-93F YES at 12c entry.
 - Maintain PT-20260613-143, Houston/KHOU Jun 14 94-95F YES at 1.9c entry.
-- Maintain PT-20260613-141, Chicago/KORD Jun 14 70-71F YES at 30c entry, now closer to fair because 72-73F leads.
+- Maintain/weaken PT-20260613-141, Chicago/KORD Jun 14 70-71F YES at 30c entry because 72-73F remains the cleaner forecast center.
 - Maintain PT-20260613-130, NYC/KLGA Jun 14 88-89F YES at 18c entry.
+- Watch HKO Jun 14 30C only; no paper entry without clean live-station evidence.
 
 ## Risks and Invalidation Factors
 
-- Exact-bucket risk dominates every listed edge.
+- Exact-bucket risk dominates every listed weather market.
+- Public Polymarket pages may lag executable order books.
 - Polymarket US airport temperature markets resolve using Wunderground station histories; NWS forecasts are only proxies.
-- HKO resolves from the official Daily Extract absolute maximum to one decimal place; a 29.9C versus 30.0C print is decisive.
-- LA/KLAX can miss warmer into 72-75F if clearing beats forecast or Wunderground records warmer than NWS point guidance.
-- Dallas and Houston are storm-timing markets as much as temperature markets; earlier convection can cap highs below the target buckets.
-- Chicago is now more naturally centered on 72-73F, which weakens the older 70-71F paper thesis.
-- NYC has largely repriced around the NWS high, leaving only a small residual edge.
-- Several target buckets have thin volume and public pages may lag live executable order books.
+- HKO resolves from official HKO data to one decimal place; 29.9C versus 30.0C is decisive.
+- Dallas, Austin, Houston, and Miami are storm-timing markets as much as temperature markets.
+- LA depends on marine-layer depth and clearing timing.
+- Chicago's older 70-71F paper thesis has weakened because 72-73F remains closer to the official forecast center.
 
 ## Sources Used
 
-- Polymarket high-temperature board: https://polymarket.com/weather/high-temperature
-- Polymarket Hong Kong Jun 14: https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-14-2026
+- Polymarket Miami Jun 14: https://polymarket.com/event/highest-temperature-in-miami-on-june-14-2026
+- Polymarket Austin Jun 14: https://polymarket.com/event/highest-temperature-in-austin-on-june-14-2026
 - Polymarket Los Angeles Jun 14: https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-14-2026
 - Polymarket Dallas Jun 14: https://polymarket.com/event/highest-temperature-in-dallas-on-june-14-2026
 - Polymarket Houston Jun 14: https://polymarket.com/event/highest-temperature-in-houston-on-june-14-2026
 - Polymarket Chicago Jun 14: https://polymarket.com/event/highest-temperature-in-chicago-on-june-14-2026
-- Polymarket NYC Jun 14: https://polymarket.com/event/highest-temperature-in-nyc-on-june-14-2026
-- HKO 9-day forecast API: https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=en
-- HKO local forecast API: https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=flw&lang=en
-- HKO current readings API: https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en
+- Polymarket Hong Kong Jun 14: https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-14-2026
+- NWS KMIA forecast: https://forecast.weather.gov/MapClick.php?lat=25.79056&lon=-80.31639
+- NWS KAUS forecast: https://forecast.weather.gov/MapClick.php?lat=30.2&lon=-97.68
 - NWS KLAX forecast: https://forecast.weather.gov/MapClick.php?lat=33.9425&lon=-118.409
 - NWS Dallas/Love Field forecast: https://forecast.weather.gov/MapClick.php?lat=32.858386&lon=-96.861368
-- NWS Houston/Hobby forecast: https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28
+- NWS Houston/Hobby forecast: https://forecast.weather.gov/MapClick.php?textField1=29.7606&textField2=-95.3697
 - NWS Chicago/O'Hare forecast: https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9
 - NWS KLGA forecast: https://forecast.weather.gov/MapClick.php?lat=40.77917&lon=-73.88
+- HKO 9-day text forecast: https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm
 
 ## Repo Log Update
 
-- Updated `odds/latest.md`.
-- Created `odds/history/2026-06-13T2308Z.md`.
-- Created `alerts/2026-06-13T2308Z.md`.
-- Created `data/market_snapshots/2026-06-13T2308Z.json`.
-- Created `paper_trading/maintenance/2026-06-13T2308Z.md`.
+- Updated latest odds snapshot.
+- Created the 2026-06-14T0214Z history entry, alert, JSON market snapshot, and paper-trading maintenance note.
 - Updated rolling paper-trade log, paper-trade summaries, watchlist, edge notes, and repo working notes in the memory folder for continuity.
-- No new paper-trade entry or ledger append was created because no fresh simulated position was opened.
+- No paper-trading ledger append was created because no new simulated position was opened.
 - No real bets or trades were executed.
