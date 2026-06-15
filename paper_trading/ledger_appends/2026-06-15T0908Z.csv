@@ -1,0 +1,2 @@
+timestamp_utc,trade_id,market,stance,entry_price,implied_probability,fair_value_low,fair_value_high,simulated_size_usd,confidence,status,notes
+2026-06-15T09:08:49Z,PT-20260615-167,Robinhood Houston/KHOU Jun 15 daily high greater than 85F YES,BUY_YES,0.37,0.37,0.43,0.53,5,low-to-medium-low,open,"Tiny paper-only threshold overlay. NWS KHOU forecast high near 86F supports the greater-than-85F line, but storms, public quote quality, and Weather Underground settlement-source risk cap size."
