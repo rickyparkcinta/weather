@@ -1,0 +1,2 @@
+timestamp_utc,trade_id,market,stance,entry_price,implied_probability,fair_value_low,fair_value_high,simulated_size_usd,confidence,status,notes
+2026-06-15T13:08:12Z,PT-20260615-168,Polymarket Atlanta/KATL Jun 16 highest temperature 80-81F YES,BUY_YES,0.05,0.05,0.24,0.36,5,low-to-medium-low,open,"Tiny forward-day paper-only entry. NWS KATL forecast high near 80F supports 80-81F, but new-market depth, storm/cloud cap risk, and Wunderground settlement-source uncertainty keep size very small."
