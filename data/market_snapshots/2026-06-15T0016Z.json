@@ -1,0 +1,133 @@
+{
+  "timestamp_utc": "2026-06-15T00:16:15Z",
+  "timestamp_hkt": "2026-06-15T08:16:15+08:00",
+  "scheduled_invocation_hkt": "2026-06-15T08:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Austin/KAUS Jun 15 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 15 highest temperature",
+    "Polymarket Houston/KHOU Jun 15 highest temperature",
+    "Polymarket Atlanta/KATL Jun 15 highest temperature",
+    "Polymarket Dallas/KDAL Jun 15 highest temperature",
+    "Polymarket Chicago/KORD Jun 15 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Austin/KAUS Jun 15 highest temperature 84-85F YES",
+      "observed_price": "displayed 13%; Buy Yes 19c",
+      "implied_probability": 0.19,
+      "estimated_fair_value_range": [0.28, 0.40],
+      "estimated_edge_range": [0.09, 0.21],
+      "confidence": "low-to-medium-low",
+      "classification": "fresh moderate paper-only edge, liquidity-limited",
+      "action": "opened PT-20260615-162, $5 simulated BUY_YES"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Hong Kong/HKO Jun 15 highest temperature 29C YES",
+      "observed_price": "displayed about 44%; 30C roughly mid-30s",
+      "implied_probability": 0.44,
+      "estimated_fair_value_range": [0.50, 0.62],
+      "estimated_edge_range": [0.06, 0.18],
+      "confidence": "medium-low",
+      "classification": "represented moderate edge",
+      "action": "maintain PT-20260614-155; no duplicate"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Houston/KHOU Jun 15 highest temperature 88-89F YES",
+      "observed_price": "last readable page context around 13-15c",
+      "implied_probability": 0.14,
+      "estimated_fair_value_range": [0.20, 0.32],
+      "estimated_edge_range": [0.05, 0.19],
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge",
+      "action": "maintain PT-20260614-156 and PT-20260614-158; no duplicate"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Atlanta/KATL Jun 15 highest temperature 84-85F YES",
+      "observed_price": "displayed 36%",
+      "implied_probability": 0.36,
+      "estimated_fair_value_range": [0.42, 0.52],
+      "estimated_edge_range": [0.06, 0.16],
+      "confidence": "medium-low",
+      "classification": "represented moderate edge",
+      "action": "maintain PT-20260614-157; no duplicate"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket Dallas/KDAL Jun 15 highest temperature 84-85F YES",
+      "observed_price": "about 31%, with localized page conflict",
+      "implied_probability": 0.31,
+      "estimated_fair_value_range": [0.36, 0.48],
+      "estimated_edge_range": [0.05, 0.17],
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge",
+      "action": "maintain PT-20260614-160; no duplicate"
+    },
+    {
+      "rank": 6,
+      "market": "Polymarket Chicago/KORD Jun 15 highest temperature 76-77F YES",
+      "observed_price": "about 38%",
+      "implied_probability": 0.38,
+      "estimated_fair_value_range": [0.42, 0.54],
+      "estimated_edge_range": [0.04, 0.16],
+      "confidence": "low-to-medium-low",
+      "classification": "watch-only",
+      "action": "no paper entry"
+    }
+  ],
+  "recommended_paper_trades": [
+    {
+      "trade_id": "PT-20260615-162",
+      "market": "Polymarket Austin/KAUS Jun 15 highest temperature 84-85F YES",
+      "stance": "BUY_YES",
+      "entry_price": 0.19,
+      "implied_probability": 0.19,
+      "estimated_fair_value_range": [0.28, 0.40],
+      "simulated_size_usd": 5,
+      "confidence": "low-to-medium-low",
+      "status": "open",
+      "thesis": "NWS keeps KAUS Monday high near 84F while Polymarket repriced 84-85F lower and shifted the board toward 80-83F.",
+      "invalidation_risks": [
+        "all-day rain caps KAUS at 80-83F",
+        "late dry breaks push 86F+",
+        "Wunderground final station history differs from NWS guidance",
+        "public Polymarket quote is stale or thin"
+      ]
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=30.2&lon=-97.68",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-15-2026",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/englishwx2.htm",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=29.6375&lon=-95.2825",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?FcstType=text&lat=32.8929&lg=english&lon=-96.8641",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213"
+  ],
+  "repo_updates": [
+    "odds/latest.md",
+    "odds/history/2026-06-15T0016Z.md",
+    "alerts/2026-06-15T0016Z.md",
+    "data/market_snapshots/2026-06-15T0016Z.json",
+    "paper_trading/entries/PT-20260615-162.md",
+    "paper_trading/ledger_appends/2026-06-15T0016Z.csv",
+    "paper_trading/maintenance/2026-06-15T0016Z.md",
+    "paper_trading/paper_trade_log.md",
+    "paper_trading/paper_trade_summary.md",
+    "paper-trade-summary.md",
+    "market-watchlist.md",
+    "edge-notes.md",
+    "repo-working-notes.md"
+  ]
+}
