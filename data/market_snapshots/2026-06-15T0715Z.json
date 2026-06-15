@@ -1,0 +1,176 @@
+{
+  "timestamp_utc": "2026-06-15T07:15:45Z",
+  "timestamp_hkt": "2026-06-15T15:15:45+08:00",
+  "scheduled_invocation_hkt": "2026-06-15T15:07:29+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets": [
+    {
+      "market": "Polymarket Austin/KAUS Jun 15 80-81F YES",
+      "current_price": 0.33,
+      "displayed_probability": 0.32,
+      "leaders": {
+        "82-83F": 0.42,
+        "80-81F": 0.32,
+        "84-85F": 0.28
+      },
+      "official_evidence": {
+        "source": "NWS Austin-Bergstrom point forecast and station observations",
+        "forecast_high_f": 77,
+        "forecast_text": "Showers and possibly a thunderstorm; steady temperature around 77; 90% precipitation chance; 1-2 inches possible.",
+        "recent_current_observation_context": "NWS current-condition snippet showed KAUS near 75F at 01:53 CDT with lightning observed; earlier station-history snippets suggested an early local 80-81F print.",
+        "main_uncertainty": "Whether Wunderground captures the early 80F high and whether KAUS later rebounds to 82F+."
+      },
+      "fair_value_low": 0.58,
+      "fair_value_high": 0.72,
+      "classification": "strongest fresh paper-only hedge",
+      "action": "open_paper_trade",
+      "paper_positions": [
+        "PT-20260615-166"
+      ]
+    },
+    {
+      "market": "Polymarket Austin/KAUS Jun 16 84-85F YES",
+      "current_price": 0.26,
+      "displayed_probability": 0.26,
+      "leaders": {
+        "86-87F": 0.36,
+        "84-85F": 0.26,
+        "88-89F": 0.18,
+        "82-83F": 0.12
+      },
+      "official_evidence": {
+        "source": "NWS Austin-Bergstrom point forecast",
+        "forecast_high_f": 85,
+        "conditions": "50% chance of showers and thunderstorms mainly before 4pm; partly sunny."
+      },
+      "fair_value_low": 0.32,
+      "fair_value_high": 0.44,
+      "classification": "moderate watch-only forward edge",
+      "action": "watch_only",
+      "paper_positions": []
+    },
+    {
+      "market": "Polymarket Houston/KHOU Jun 15 86-87F YES",
+      "current_price": 0.30,
+      "displayed_probability": 0.28,
+      "leaders": {
+        "84-85F": 0.33,
+        "86-87F": 0.28
+      },
+      "official_evidence": {
+        "source": "NWS Houston Hobby point forecast",
+        "forecast_high_f": 86,
+        "conditions": "Showers and thunderstorms likely mainly 1pm-4pm; 70% precipitation chance; 1-2 inches possible."
+      },
+      "fair_value_low": 0.38,
+      "fair_value_high": 0.48,
+      "classification": "represented moderate edge",
+      "action": "maintain",
+      "paper_positions": [
+        "PT-20260615-165"
+      ]
+    },
+    {
+      "market": "Polymarket Chicago/KORD Jun 15 76-77F YES",
+      "current_price_context": 0.39,
+      "displayed_probability_context": 0.39,
+      "official_evidence": {
+        "source": "NWS O'Hare point forecast",
+        "forecast_high_f": 76,
+        "conditions": "Increasing clouds; west wind 5 to 15 mph."
+      },
+      "fair_value_low": 0.44,
+      "fair_value_high": 0.54,
+      "classification": "represented moderate edge",
+      "action": "maintain",
+      "paper_positions": [
+        "PT-20260615-163"
+      ]
+    },
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 15 29C YES and 30C NO",
+      "top_prices": {
+        "29C_yes_context": 0.99,
+        "30C_no_estimated": 0.99
+      },
+      "official_evidence": {
+        "source": "HKO regional readings",
+        "hko_observatory_current_c": 25.9,
+        "hko_observatory_max_since_midnight_c": 29.9,
+        "conditions": "Cloudy/showery with thunderstorms in official forecast context."
+      },
+      "fair_value": {
+        "29C_yes_low": 0.97,
+        "29C_yes_high": 0.995,
+        "30C_no_low": 0.97,
+        "30C_no_high": 0.995
+      },
+      "classification": "represented edge mostly converged",
+      "action": "maintain",
+      "paper_positions": [
+        "PT-20260614-155",
+        "PT-20260615-164"
+      ]
+    },
+    {
+      "market": "Polymarket Dallas/KDAL Jun 15 84-85F YES",
+      "current_price": 0.34,
+      "displayed_probability": 0.34,
+      "leaders": {
+        "84-85F": 0.34,
+        "82-83F": 0.30
+      },
+      "official_evidence": {
+        "source": "NWS Dallas/Love Field point forecast",
+        "forecast_high_f": 84,
+        "conditions": "30% chance of showers and thunderstorms mainly 10am-4pm; mostly cloudy."
+      },
+      "fair_value_low": 0.38,
+      "fair_value_high": 0.48,
+      "classification": "represented mild-to-moderate edge",
+      "action": "maintain",
+      "paper_positions": [
+        "PT-20260614-160",
+        "PT-20260614-161"
+      ]
+    },
+    {
+      "market": "Polymarket Atlanta/KATL Jun 15 84-85F YES",
+      "current_price": 0.45,
+      "displayed_probability": 0.44,
+      "leaders": {
+        "84-85F": 0.44,
+        "82-83F": 0.36
+      },
+      "official_evidence": {
+        "source": "NWS KATL point forecast",
+        "forecast_high_f": 84,
+        "conditions": "Partly sunny; northwest wind around 10 mph."
+      },
+      "fair_value_low": 0.43,
+      "fair_value_high": 0.52,
+      "classification": "near fair represented mild edge",
+      "action": "maintain",
+      "paper_positions": [
+        "PT-20260614-157"
+      ]
+    }
+  ],
+  "new_paper_trades": [
+    {
+      "id": "PT-20260615-166",
+      "timestamp_utc": "2026-06-15T07:15:45Z",
+      "market": "Polymarket Austin/KAUS Jun 15 highest temperature 80-81F",
+      "stance": "BUY_YES",
+      "entry_price": 0.33,
+      "implied_probability": 0.33,
+      "fair_value_low": 0.58,
+      "fair_value_high": 0.72,
+      "simulated_size_usd": 10,
+      "confidence": "medium-low",
+      "status": "open",
+      "real_trade_executed": false
+    }
+  ]
+}
