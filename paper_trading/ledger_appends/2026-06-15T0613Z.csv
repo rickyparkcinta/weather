@@ -1,0 +1,2 @@
+timestamp_utc,trade_id,market,stance,entry_price,implied_probability,fair_value_low,fair_value_high,simulated_size_usd,confidence,status,notes
+2026-06-15T06:13:41Z,PT-20260615-165,Polymarket Houston/KHOU Jun 15 highest temperature 86-87F,BUY_YES,0.30,0.30,0.38,0.48,5,low-to-medium-low,open,"Tiny paper-only adjacent-bucket hedge after NWS Hobby cooled Monday's high to near 86F while Polymarket priced 86-87F at 29% / Buy Yes 30c behind 84-85F. Storm timing, exact-bucket, Wunderground source, and public quote-quality risks remain material. No real trade executed."
