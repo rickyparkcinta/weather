@@ -1,0 +1,132 @@
+{
+  "timestamp_utc": "2026-06-15T12:08:29Z",
+  "timestamp_hkt": "2026-06-15T20:08:29+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets": [
+    {
+      "market": "Polymarket Austin/KAUS Jun 15 highest temperature",
+      "observed_prices": {
+        "80-81F_yes": 0.29,
+        "82-83F_yes": 0.39,
+        "84-85F_yes": 0.30
+      },
+      "fair_value": {
+        "80-81F_yes": "0.32-0.44",
+        "82-83F_yes": "0.38-0.50",
+        "84-85F_yes": "0.18-0.30"
+      },
+      "classification": "represented_moderate_maintenance",
+      "confidence": "low_to_medium_low",
+      "paper_action": "maintain_no_new_entry"
+    },
+    {
+      "market": "Polymarket Houston/KHOU Jun 15 highest temperature",
+      "observed_prices": {
+        "82-83F_yes": 0.35,
+        "84-85F_yes": 0.36,
+        "86-87F_yes": 0.31
+      },
+      "fair_value": {
+        "86-87F_yes": "0.34-0.44",
+        "84-85F_yes": "0.30-0.40",
+        "82-83F_yes": "0.22-0.34"
+      },
+      "classification": "represented_moderate_maintenance",
+      "confidence": "low_to_medium_low",
+      "paper_action": "maintain_no_new_entry"
+    },
+    {
+      "market": "Polymarket Chicago/KORD Jun 15 highest temperature",
+      "observed_prices": {
+        "74-75F_yes": 0.45,
+        "76-77F_yes": 0.42,
+        "78-79F_yes": 0.11
+      },
+      "fair_value": {
+        "76-77F_yes": "0.42-0.52"
+      },
+      "classification": "represented_maintenance",
+      "confidence": "low_to_medium_low",
+      "paper_action": "maintain_no_new_entry"
+    },
+    {
+      "market": "Polymarket Dallas/KDAL Jun 15 highest temperature",
+      "observed_prices": {
+        "82-83F_yes": 0.38,
+        "84-85F_yes": 0.33,
+        "86-87F_yes": 0.095
+      },
+      "fair_value": {
+        "84-85F_yes": "0.34-0.44",
+        "82-83F_yes": "0.30-0.40"
+      },
+      "classification": "represented_weak_to_moderate_maintenance",
+      "confidence": "low",
+      "paper_action": "maintain_no_new_entry"
+    },
+    {
+      "market": "Polymarket Atlanta/KATL Jun 15 highest temperature",
+      "observed_prices": {
+        "82-83F_yes": 0.37,
+        "84-85F_yes": 0.48,
+        "86-87F_yes": 0.07
+      },
+      "fair_value": {
+        "84-85F_yes": "0.44-0.54"
+      },
+      "classification": "represented_near_fair_maintenance",
+      "confidence": "medium_low",
+      "paper_action": "maintain_no_new_entry"
+    },
+    {
+      "market": "Bitget/Polymarket mirror Hong Kong/HKO Jun 15 highest temperature",
+      "observed_prices": {
+        "29C_yes": 1.0,
+        "30C_yes": 0.01
+      },
+      "fair_value": {
+        "29C_yes": "0.990-0.998"
+      },
+      "classification": "represented_converged",
+      "confidence": "medium_direction_low_incremental",
+      "paper_action": "maintain_no_new_entry"
+    },
+    {
+      "market": "Polymarket Austin/KAUS Jun 16 highest temperature",
+      "observed_prices": {
+        "84-85F_yes": 0.26,
+        "86-87F_yes": 0.37,
+        "88-89F_yes": 0.19
+      },
+      "fair_value": {
+        "86-87F_yes": "0.36-0.46"
+      },
+      "classification": "watch_only",
+      "confidence": "low_to_medium_low",
+      "paper_action": "no_entry"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "ledger_append_created": false,
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-15-2026",
+    "https://forecast.weather.gov/zipcity.php?inputstring=KAUS",
+    "https://forecast.weather.gov/data/obhistory/KAUS.html",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-15-2026",
+    "https://forecast.weather.gov/zipcity.php?inputstring=KHOU",
+    "https://forecast.weather.gov/data/obhistory/KHOU.html",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/data/obhistory/KORD.html",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?FcstType=text&lat=32.8929&lg=english&lon=-96.8641",
+    "https://forecast.weather.gov/data/obhistory/KDAL.html",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213",
+    "https://forecast.weather.gov/data/obhistory/KATL.html",
+    "https://web3.bitget.com/ru/predictions/event/highest-temperature-in-hong-kong-on-june-15-2026",
+    "https://www.weather.gov.hk/textonly/v2/forecast/text_readings_v2_e.htm",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-16-2026"
+  ]
+}
