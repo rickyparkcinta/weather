@@ -1,0 +1,133 @@
+{
+  "timestamp_utc": "2026-06-15T18:15:09Z",
+  "timestamp_hkt": "2026-06-16T02:15:09+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Atlanta/KATL Jun 16 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 16 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 17 highest temperature",
+    "Polymarket Austin/KAUS Jun 16 highest temperature",
+    "Polymarket Chicago/KORD Jun 16 highest temperature",
+    "Polymarket Houston/KHOU Jun 16 highest temperature",
+    "Polymarket Dallas/KDAL Jun 16 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Atlanta/KATL Jun 16 80-81F YES",
+      "current_price": "Buy Yes 3.0c",
+      "implied_probability": 0.03,
+      "estimated_fair_value_range": [
+        0.18,
+        0.30
+      ],
+      "estimated_edge_range": [
+        0.15,
+        0.27
+      ],
+      "confidence": "low-to-medium-low",
+      "classification": "strong raw edge, represented/no-add",
+      "liquidity_note": "Target bucket volume about $2.0K; already represented by three open paper entries.",
+      "action": "maintain_existing"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Hong Kong/HKO Jun 16 29C YES",
+      "current_price": "33c-34c",
+      "implied_probability": 0.33,
+      "estimated_fair_value_range": [
+        0.42,
+        0.54
+      ],
+      "estimated_edge_range": [
+        0.08,
+        0.21
+      ],
+      "confidence": "medium-low",
+      "classification": "represented moderate edge",
+      "liquidity_note": "p|data event volume about $36.8K; target 29C volume about $3.4K.",
+      "action": "maintain_existing"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Austin/KAUS Jun 16 84-85F YES",
+      "current_price": "Buy Yes 28c",
+      "implied_probability": 0.28,
+      "estimated_fair_value_range": [
+        0.34,
+        0.46
+      ],
+      "estimated_edge_range": [
+        0.06,
+        0.18
+      ],
+      "confidence": "low-to-medium-low",
+      "classification": "watch-only moderate edge",
+      "liquidity_note": "Target bucket volume about $270; recent Austin paper concentration.",
+      "action": "watch_only"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Chicago/KORD Jun 16 74-75F YES",
+      "current_price": "about 33c",
+      "implied_probability": 0.33,
+      "estimated_fair_value_range": [
+        0.38,
+        0.50
+      ],
+      "estimated_edge_range": [
+        0.05,
+        0.17
+      ],
+      "confidence": "low-to-medium-low",
+      "classification": "watch-only moderate edge",
+      "liquidity_note": "Adjacent 72-73F bucket remains nearly co-live.",
+      "action": "watch_only"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket Dallas/KDAL Jun 16 90-91F YES",
+      "current_price": "Buy Yes 37c",
+      "implied_probability": 0.37,
+      "estimated_fair_value_range": [
+        0.38,
+        0.48
+      ],
+      "estimated_edge_range": [
+        0.01,
+        0.11
+      ],
+      "confidence": "low-to-medium-low",
+      "classification": "weak-to-moderate watch-only / near fair",
+      "liquidity_note": "Market already has 90-91F and 88-89F as co-leaders.",
+      "action": "watch_only"
+    }
+  ],
+  "paper_trading": {
+    "new_positions_opened": [],
+    "ledger_append_created": false,
+    "maintenance": [
+      "Maintain PT-20260615-168, PT-20260615-171, and PT-20260615-172 on Atlanta/KATL Jun 16 80-81F.",
+      "Maintain PT-20260615-169 and PT-20260615-170 on HKO Jun 16 29C.",
+      "Keep Austin/KAUS Jun 16 84-85F and Chicago/KORD Jun 16 74-75F watch-only.",
+      "Keep Houston/KHOU Jun 16 and Dallas/KDAL Jun 16 near-fair/watch-only."
+    ]
+  },
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-16-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213",
+    "https://pdata.world/events/polymarket/593026",
+    "https://polymarket.com/predictions/hong-kong",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.weather.gov.hk/textonly/v2/forecast/text_readings_v2_e.htm",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-16-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=30.2&lon=-97.68",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-16-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-16-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-16-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=32.7782&lon=-96.7951"
+  ]
+}
