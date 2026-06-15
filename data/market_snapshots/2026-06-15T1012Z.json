@@ -1,0 +1,125 @@
+{
+  "timestamp_utc": "2026-06-15T10:12:36Z",
+  "timestamp_hkt": "2026-06-15T18:12:36+08:00",
+  "scheduled_invocation_hkt": "2026-06-15T18:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "new_paper_trades": [],
+  "ledger_append_created": false,
+  "markets": [
+    {
+      "rank": 1,
+      "market": "Houston/KHOU Jun 15 greater-than-85F YES / 86-87F cluster",
+      "current_price_context": "Robinhood greater-than-85F displayed 30c, greater-than-86F displayed 34c, greater-than-84F displayed 60c; Polymarket search context had 84-85F near 33% and 86-87F near 28%.",
+      "implied_probability_low": 0.28,
+      "implied_probability_high": 0.30,
+      "fair_value_low": 0.38,
+      "fair_value_high": 0.50,
+      "estimated_edge_low": 0.08,
+      "estimated_edge_high": 0.22,
+      "confidence": "low",
+      "classification": "represented_moderate_edge_quote_quality_capped",
+      "official_evidence": {
+        "forecast_source": "NWS Houston Hobby",
+        "forecast_high_f": 86,
+        "forecast_text": "Showers and thunderstorms likely; high near 86; 70% precipitation chance.",
+        "latest_station_observation": "KHOU 81F at 2026-06-15 04:53 CDT, overcast."
+      },
+      "action": "maintain_existing_positions_no_new_trade",
+      "paper_positions": ["PT-20260615-167", "PT-20260615-165", "PT-20260614-156", "PT-20260614-158"]
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Chicago/KORD Jun 15 76-77F YES",
+      "current_price": 0.33,
+      "displayed_probability": 0.32,
+      "fair_value_low": 0.40,
+      "fair_value_high": 0.50,
+      "estimated_edge_low": 0.07,
+      "estimated_edge_high": 0.18,
+      "confidence": "low-to-medium-low",
+      "classification": "represented_moderate_edge",
+      "official_evidence": {
+        "forecast_source": "NWS Chicago O'Hare",
+        "forecast_high_f": 76
+      },
+      "action": "maintain_no_duplicate",
+      "paper_positions": ["PT-20260615-163"]
+    },
+    {
+      "rank": 3,
+      "market": "Austin/KAUS Jun 15 82-83F YES",
+      "current_price_context": "Robinhood threshold ladder implies 82-83F near 46%; Bitget/Polymarket mirror context showed 82-83F near 43%.",
+      "implied_probability_low": 0.43,
+      "implied_probability_high": 0.46,
+      "fair_value_low": 0.42,
+      "fair_value_high": 0.54,
+      "classification": "watch_maintenance_edge",
+      "confidence": "low-to-medium-low",
+      "official_evidence": {
+        "forecast_source": "NWS Austin-Bergstrom",
+        "forecast_high_f": 83,
+        "forecast_text": "Showers and possibly a thunderstorm; 90% precipitation chance.",
+        "latest_station_observation": "KAUS 72F at 2026-06-15 04:53 CDT after thunderstorm rain."
+      },
+      "action": "maintain_existing_cluster_no_new_trade",
+      "paper_positions": ["PT-20260615-166", "PT-20260614-159", "PT-20260615-162"]
+    },
+    {
+      "rank": 4,
+      "market": "Dallas/KDAL Jun 15 84-85F and 82-83F cluster",
+      "current_price_context": "Direct KDAL exact-bucket quote refresh was limited; Robinhood KDFW cross-check showed greater-than-83F 53c and greater-than-84F 33c.",
+      "fair_value_low": 0.34,
+      "fair_value_high": 0.46,
+      "classification": "represented_maintenance_only",
+      "confidence": "low",
+      "official_evidence": {
+        "forecast_source": "NWS Dallas area / KDAL current conditions",
+        "forecast_high_f": 84,
+        "latest_station_observation": "KDAL 75F at 2026-06-15 04:53 CDT."
+      },
+      "action": "maintain_no_duplicate",
+      "paper_positions": ["PT-20260614-160", "PT-20260614-161"]
+    },
+    {
+      "rank": 5,
+      "market": "Atlanta/KATL Jun 15 84-85F YES",
+      "current_price": 0.45,
+      "fair_value_low": 0.42,
+      "fair_value_high": 0.50,
+      "classification": "represented_near_fair_maintenance",
+      "confidence": "medium-low",
+      "official_evidence": {
+        "forecast_source": "NWS KATL",
+        "forecast_high_f": 84
+      },
+      "action": "maintain_no_duplicate",
+      "paper_positions": ["PT-20260614-157"]
+    },
+    {
+      "rank": 6,
+      "market": "Polymarket Hong Kong/HKO Jun 15 29C YES / 30C NO",
+      "current_price": 0.998,
+      "fair_value_low": 0.99,
+      "fair_value_high": 0.998,
+      "classification": "represented_mostly_converged",
+      "confidence": "medium_for_direction_low_for_new_entry",
+      "official_evidence": {
+        "source": "HKO regional readings",
+        "reading_time_hkt": "2026-06-15T16:00:00+08:00",
+        "hko_observatory_current_c": 26.1,
+        "hko_observatory_max_since_midnight_c": 29.9,
+        "provisional_data": true
+      },
+      "action": "maintain_no_high_price_add",
+      "paper_positions": ["PT-20260614-155", "PT-20260615-164"]
+    }
+  ],
+  "maintenance_actions": [
+    "Maintain Houston/KHOU greater-than-85F and 86-87F paper exposure; do not add because public threshold ladder is internally inconsistent.",
+    "Maintain Chicago/KORD 76-77F only; no duplicate on a 1c improvement.",
+    "Maintain Austin 80-81F hedge and 84-85F adverse-watch positions; no third active Austin add.",
+    "Maintain Dallas KDAL 84-85F/82-83F cluster and Atlanta 84-85F.",
+    "Maintain HKO 29C YES and 30C NO; no 99c+ chase."
+  ]
+}
