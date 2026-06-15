@@ -1,0 +1,92 @@
+{
+  "timestamp_utc": "2026-06-15T15:12:31Z",
+  "timestamp_hkt": "2026-06-15T23:12:31+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Hong Kong/HKO Jun 16 highest temperature",
+    "Polymarket Houston/KHOU Jun 16 highest temperature",
+    "Polymarket Chicago/KORD Jun 16 highest temperature",
+    "Polymarket Atlanta/KATL Jun 16 highest temperature",
+    "Polymarket Dallas/KDAL Jun 16 highest temperature",
+    "Polymarket/NWS maintenance checks for Jun 15 U.S. and HKO weather markets"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Hong Kong/HKO Jun 16 highest temperature 29C YES",
+      "current_price": "29% displayed / Buy Yes 30c on specific event page; broad temperature page showed 29C at 36%",
+      "implied_probability": 0.30,
+      "estimated_fair_value_range": "40%-52%",
+      "estimated_edge_range": "+10 to +22 percentage points before haircuts",
+      "confidence": "medium-low",
+      "classification": "strongest addable paper-only edge",
+      "action": "open tiny paper add-on",
+      "paper_trade_id": "PT-20260615-170"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Atlanta/KATL Jun 16 80-81F YES",
+      "current_price": "last clean Buy Yes 17c from prior scan; current quote not refreshed cleanly",
+      "implied_probability": 0.17,
+      "estimated_fair_value_range": "24%-36%",
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge",
+      "action": "maintain existing PT-20260615-168"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Chicago/KORD Jun 16 74-75F YES",
+      "current_price": "33% displayed / Buy Yes 33c",
+      "implied_probability": 0.33,
+      "estimated_fair_value_range": "36%-48%",
+      "confidence": "low-to-medium-low",
+      "classification": "watch-only moderate edge",
+      "action": "no paper add"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Houston/KHOU Jun 16 82-83F YES",
+      "current_price": "37% displayed / Buy Yes 38c",
+      "implied_probability": 0.38,
+      "estimated_fair_value_range": "36%-48%",
+      "confidence": "medium-low",
+      "classification": "near fair/watch-only",
+      "action": "no paper add"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket Dallas/KDAL Jun 16 90-91F YES",
+      "current_price": "last clean Buy Yes 39c from prior scan; current quote not refreshed cleanly",
+      "implied_probability": 0.39,
+      "estimated_fair_value_range": "40%-52%",
+      "confidence": "low-to-medium-low",
+      "classification": "watch-only/near fair",
+      "action": "no paper add"
+    }
+  ],
+  "paper_trades_opened": [
+    {
+      "trade_id": "PT-20260615-170",
+      "market": "Polymarket Hong Kong/HKO Jun 16 highest temperature 29C YES",
+      "entry_price": "Buy Yes 30c",
+      "simulated_size": "$5 notional",
+      "confidence": "medium-low",
+      "status": "open"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-16-2026",
+    "https://polymarket.com/weather/temperature",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.weather.gov.hk/textonly/v2/forecast/text_readings_v2_e.htm",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-16-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213",
+    "https://forecast.weather.gov/MapClick.php?lat=29.6375&lon=-95.2825",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?FcstType=text&lat=32.8929&lg=english&lon=-96.8641",
+    "https://forecast.weather.gov/MapClick.php?lat=30.18304&lon=-97.67987",
+    "https://www.weather.gov/data/obhistory/KAUS.html"
+  ]
+}
