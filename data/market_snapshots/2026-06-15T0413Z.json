@@ -1,0 +1,99 @@
+{
+  "timestamp_utc": "2026-06-15T04:13:22Z",
+  "timestamp_hkt": "2026-06-15T12:13:22+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets": [
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 15 highest temperature",
+      "top_prices": {
+        "29C_yes": 0.07,
+        "30C_yes": 0.79,
+        "30C_no": 0.26,
+        "31C_yes": 0.119,
+        "32C_yes": 0.026
+      },
+      "displayed_probabilities": {
+        "29C": 0.07,
+        "30C": 0.77,
+        "31C": 0.108,
+        "32C": 0.017
+      },
+      "volume_usd": 91133,
+      "official_evidence": {
+        "hko_regional_reading_time_hkt": "2026-06-15T12:00:00+08:00",
+        "hko_observatory_current_c": 28.5,
+        "hko_observatory_max_since_midnight_c": 29.9,
+        "hko_observatory_min_since_midnight_c": 26.5,
+        "conditions": "heavy rain, amber rainstorm warning, thunderstorm warning"
+      },
+      "fair_value": {
+        "30C_no_low": 0.35,
+        "30C_no_high": 0.50
+      },
+      "classification": "moderate-to-strong paper edge, boundary-fragile",
+      "action": "open_paper_trade",
+      "trade_id": "PT-20260615-164"
+    },
+    {
+      "market": "Polymarket Austin/KAUS Jun 15 84-85F YES",
+      "current_price": 0.18,
+      "displayed_probability": 0.16,
+      "fair_value_low": 0.28,
+      "fair_value_high": 0.38,
+      "classification": "represented moderate edge",
+      "action": "maintain"
+    },
+    {
+      "market": "Polymarket Chicago/KORD Jun 15 76-77F YES",
+      "current_price_range": [0.35, 0.38],
+      "fair_value_low": 0.44,
+      "fair_value_high": 0.54,
+      "classification": "represented moderate edge",
+      "action": "maintain"
+    },
+    {
+      "market": "Polymarket Houston/KHOU Jun 15 88-89F YES",
+      "current_price": 0.14,
+      "displayed_probability": 0.12,
+      "fair_value_low": 0.20,
+      "fair_value_high": 0.30,
+      "classification": "represented moderate edge",
+      "action": "maintain"
+    },
+    {
+      "market": "Polymarket Atlanta/KATL Jun 15 84-85F YES",
+      "current_price": 0.39,
+      "displayed_probability": 0.38,
+      "fair_value_low": 0.42,
+      "fair_value_high": 0.50,
+      "classification": "represented mild-to-moderate edge",
+      "action": "maintain"
+    },
+    {
+      "market": "Polymarket Dallas/KDAL Jun 15 84-85F YES",
+      "current_price": 0.34,
+      "displayed_probability": 0.32,
+      "fair_value_low": 0.36,
+      "fair_value_high": 0.46,
+      "classification": "represented mild edge",
+      "action": "maintain"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-15-2026",
+    "https://www.hko.gov.hk/textonly/v2/forecast/text_readings_e.htm",
+    "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en",
+    "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=flw&lang=en",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=30.2&lon=-97.68",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-15-2026",
+    "https://forecast.weather.gov/zipcity.php?inputstring=KHOU",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-15-2026",
+    "https://forecast.weather.gov/MapClick.php?FcstType=text&lat=32.8929&lg=english&lon=-96.8641"
+  ]
+}
