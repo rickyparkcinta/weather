@@ -1,0 +1,32 @@
+{
+  "timestamp_utc": "2026-06-15T23:10:04Z",
+  "timestamp_hkt": "2026-06-16T07:10:04+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "top_edges": [
+    {
+      "market": "Polymarket Austin/KAUS Jun 16 84-85F YES",
+      "observed_price": "Buy Yes 15c; 14% displayed",
+      "estimated_fair_value": "30%-42%",
+      "confidence": "low-to-medium-low",
+      "paper_action": "open PT-20260615-175"
+    },
+    {
+      "market": "Polymarket HKO Jun 16 28C YES",
+      "observed_price": "Buy Yes 33c; 32% displayed",
+      "estimated_fair_value": "38%-50%",
+      "confidence": "low-to-medium-low",
+      "paper_action": "open PT-20260615-176"
+    },
+    {
+      "market": "Polymarket Atlanta/KATL Jun 16 76-77F YES",
+      "observed_price": "Buy Yes 30c; 30% displayed",
+      "estimated_fair_value": "38%-50%",
+      "confidence": "low-to-medium-low",
+      "paper_action": "maintain PT-20260615-174; no duplicate"
+    }
+  ],
+  "paper_trades_opened": ["PT-20260615-175", "PT-20260615-176"],
+  "watch_only": ["Houston/KHOU Jun 16 82-83F", "Dallas/KDAL Jun 16 90-91F", "Chicago/KORD Jun 16 74-75F near fair"],
+  "real_trades_or_bets_executed": false
+}
