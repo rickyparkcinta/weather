@@ -1,0 +1,100 @@
+{
+  "timestamp_utc": "2026-06-15T14:08:35Z",
+  "timestamp_hkt": "2026-06-15T22:08:35+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Hong Kong/HKO Jun 16 highest temperature",
+    "Polymarket Atlanta/KATL Jun 16 highest temperature",
+    "Polymarket Chicago/KORD Jun 16 highest temperature",
+    "Polymarket Dallas/KDAL Jun 16 highest temperature",
+    "Polymarket Houston/KHOU Jun 16 highest temperature",
+    "Polymarket Austin/KAUS Jun 15 highest temperature",
+    "Polymarket Houston/KHOU Jun 15 highest temperature",
+    "Polymarket Dallas/KDAL Jun 15 highest temperature",
+    "Polymarket Chicago/KORD Jun 15 highest temperature",
+    "Polymarket Atlanta/KATL Jun 15 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 15 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 16 29C YES",
+      "current_price": "34% displayed / Buy Yes 35c",
+      "implied_probability": 0.35,
+      "estimated_fair_value": [0.44, 0.56],
+      "estimated_edge_points": [9, 21],
+      "confidence": "medium-low",
+      "classification": "strongest fresh paper-only edge",
+      "paper_trade": "PT-20260615-169"
+    },
+    {
+      "market": "Polymarket Atlanta/KATL Jun 16 80-81F YES",
+      "current_price": "14% displayed / Buy Yes 17c",
+      "implied_probability": 0.17,
+      "estimated_fair_value": [0.24, 0.36],
+      "estimated_edge_points": [7, 19],
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge; no duplicate",
+      "paper_trade": "PT-20260615-168"
+    },
+    {
+      "market": "Polymarket Chicago/KORD Jun 16 74-75F YES",
+      "current_price": "33% displayed / Buy Yes 33c",
+      "implied_probability": 0.33,
+      "estimated_fair_value": [0.34, 0.46],
+      "estimated_edge_points": [1, 13],
+      "confidence": "low-to-medium-low",
+      "classification": "watch-only"
+    },
+    {
+      "market": "Polymarket Dallas/KDAL Jun 16 90-91F YES",
+      "current_price": "37% displayed / Buy Yes 39c",
+      "implied_probability": 0.39,
+      "estimated_fair_value": [0.40, 0.52],
+      "estimated_edge_points": [1, 13],
+      "confidence": "low-to-medium-low",
+      "classification": "watch-only / near fair"
+    },
+    {
+      "market": "Polymarket Houston/KHOU Jun 16 82-83F YES",
+      "current_price": "40% displayed / Buy Yes 41c",
+      "implied_probability": 0.41,
+      "estimated_fair_value": [0.40, 0.52],
+      "estimated_edge_points": [-1, 11],
+      "confidence": "medium-low",
+      "classification": "near fair"
+    }
+  ],
+  "recommended_paper_trades": [
+    {
+      "trade_id": "PT-20260615-169",
+      "market": "Polymarket Hong Kong/HKO Jun 16 highest temperature 29C YES",
+      "stance": "BUY_YES",
+      "entry_price": 0.35,
+      "implied_probability": 0.35,
+      "simulated_size_usd": 5,
+      "confidence": "medium-low",
+      "status": "open"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-16-2026",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.weather.gov.hk/textonly/v2/forecast/text_readings_v2_e.htm",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-16-2026/highest-temperature-in-atlanta-on-june-16-2026-76-77f",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213",
+    "https://forecast.weather.gov/data/obhistory/KATL.html",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-16-2026/highest-temperature-in-chicago-on-june-16-2026-72-73f",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/data/obhistory/KORD.html",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-16-2026",
+    "https://forecast.weather.gov/MapClick.php?FcstType=text&lat=32.8929&lg=english&lon=-96.8641",
+    "https://forecast.weather.gov/data/obhistory/KDAL.html",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-16-2026",
+    "https://forecast.weather.gov/zipcity.php?inputstring=KHOU",
+    "https://forecast.weather.gov/data/obhistory/KHOU.html",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-15-2026",
+    "https://forecast.weather.gov/zipcity.php?inputstring=KAUS",
+    "https://forecast.weather.gov/data/obhistory/KAUS.html"
+  ]
+}
