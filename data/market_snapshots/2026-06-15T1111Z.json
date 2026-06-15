@@ -1,0 +1,84 @@
+{
+  "timestamp_utc": "2026-06-15T11:11:31Z",
+  "timestamp_hkt": "2026-06-15T19:11:31+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets": [
+    {
+      "market": "Polymarket Austin/KAUS Jun 15 82-83F YES",
+      "observed_price": 0.39,
+      "implied_probability": 0.39,
+      "estimated_fair_value_range": [0.44, 0.54],
+      "edge_range": [0.05, 0.15],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate watch/maintenance",
+      "paper_action": "no_add_concentration_capped"
+    },
+    {
+      "market": "Polymarket Chicago/KORD Jun 15 76-77F YES",
+      "observed_price": 0.36,
+      "implied_probability": 0.36,
+      "estimated_fair_value_range": [0.42, 0.52],
+      "edge_range": [0.06, 0.16],
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge",
+      "paper_action": "maintain_PT-20260615-163"
+    },
+    {
+      "market": "Polymarket Houston/KHOU Jun 15 86-87F YES",
+      "observed_price": 0.32,
+      "implied_probability": 0.31,
+      "estimated_fair_value_range": [0.32, 0.42],
+      "edge_range": [0.00, 0.10],
+      "confidence": "low",
+      "classification": "represented weak-to-moderate maintenance",
+      "paper_action": "maintain_PT-20260615-165"
+    },
+    {
+      "market": "Polymarket Houston/KHOU Jun 15 84-85F YES",
+      "observed_price": 0.35,
+      "implied_probability": 0.34,
+      "estimated_fair_value_range": [0.28, 0.38],
+      "edge_range": [-0.07, 0.03],
+      "confidence": "low",
+      "classification": "near fair",
+      "paper_action": "no_add"
+    },
+    {
+      "market": "Polymarket Dallas/KDAL Jun 15 84-85F YES",
+      "observed_price": 0.32,
+      "implied_probability": 0.32,
+      "estimated_fair_value_range": [0.33, 0.43],
+      "edge_range": [0.01, 0.11],
+      "confidence": "low",
+      "classification": "represented maintenance",
+      "paper_action": "maintain_PT-20260614-160"
+    },
+    {
+      "market": "Polymarket Atlanta/KATL Jun 15 84-85F YES",
+      "observed_price": 0.47,
+      "implied_probability": 0.47,
+      "estimated_fair_value_range": [0.42, 0.50],
+      "edge_range": [-0.05, 0.03],
+      "confidence": "medium-low",
+      "classification": "near fair",
+      "paper_action": "maintain_PT-20260614-157"
+    },
+    {
+      "market": "Polymarket/Bitget Hong Kong HKO Jun 15 29C YES",
+      "observed_price": 1.0,
+      "implied_probability": 1.0,
+      "estimated_fair_value_range": [0.99, 0.998],
+      "edge_range": [-0.01, -0.002],
+      "confidence": "medium for direction; low for incremental entry",
+      "classification": "converged",
+      "paper_action": "maintain_only"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "notes": [
+    "No new simulated entry because all meaningful edges are represented, concentration-capped, or near fair.",
+    "Austin 82-83F is the best raw fresh candidate but does not clear the larger threshold needed for a third same-station paper leg.",
+    "No real betting or trading actions were taken."
+  ]
+}
