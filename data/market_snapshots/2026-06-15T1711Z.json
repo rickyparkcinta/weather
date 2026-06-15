@@ -1,0 +1,101 @@
+{
+  "timestamp_utc": "2026-06-15T17:11:47Z",
+  "timestamp_hkt": "2026-06-16T01:11:48+08:00",
+  "scheduled_invocation_hkt": "2026-06-16T01:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Atlanta/KATL Jun 16 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 16 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 17 highest temperature",
+    "Polymarket Chicago/KORD Jun 16 highest temperature",
+    "Polymarket Austin/KAUS Jun 16 highest temperature",
+    "Polymarket Houston/KHOU Jun 16 highest temperature",
+    "Polymarket Dallas/KDAL Jun 16 highest temperature",
+    "Maintenance checks on open same-day U.S. and HKO weather paper positions"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Atlanta/KATL Jun 16 highest temperature 80-81F YES",
+      "current_price": "3% displayed / Buy Yes 3.5c",
+      "implied_probability": 0.035,
+      "estimated_fair_value_range": "20%-32%",
+      "estimated_edge_range": "+16.5 to +28.5 percentage points before haircuts",
+      "confidence": "low-to-medium-low",
+      "classification": "strongest addable paper-only edge",
+      "action": "open tiny paper add-on",
+      "paper_trade_id": "PT-20260615-172"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Hong Kong/HKO Jun 16 highest temperature 29C YES",
+      "current_price": "33% displayed / Buy Yes 34c",
+      "implied_probability": 0.34,
+      "estimated_fair_value_range": "40%-52%",
+      "estimated_edge_range": "+6 to +18 percentage points",
+      "confidence": "medium-low",
+      "classification": "represented moderate edge",
+      "action": "maintain existing PT-20260615-169 and PT-20260615-170"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Austin/KAUS Jun 16 highest temperature 84-85F YES",
+      "current_price": "27% displayed / Buy Yes 28c",
+      "implied_probability": 0.28,
+      "estimated_fair_value_range": "32%-42%",
+      "estimated_edge_range": "+4 to +14 percentage points",
+      "confidence": "low-to-medium-low",
+      "classification": "watch-only moderate edge",
+      "action": "no paper add"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Chicago/KORD Jun 16 highest temperature 74-75F YES",
+      "current_price": "33% displayed / Buy Yes 33c",
+      "implied_probability": 0.33,
+      "estimated_fair_value_range": "36%-46%",
+      "estimated_edge_range": "+3 to +13 percentage points",
+      "confidence": "low-to-medium-low",
+      "classification": "watch-only moderate edge",
+      "action": "no paper add"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket Hong Kong/HKO Jun 17 highest temperature 30C YES",
+      "current_price": "14% displayed / Buy Yes 15c",
+      "implied_probability": 0.15,
+      "estimated_fair_value_range": "18%-28%",
+      "estimated_edge_range": "+3 to +13 percentage points",
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only edge",
+      "action": "no paper add"
+    }
+  ],
+  "paper_trades_opened": [
+    {
+      "trade_id": "PT-20260615-172",
+      "market": "Polymarket Atlanta/KATL Jun 16 highest temperature 80-81F YES",
+      "entry_price": "Buy Yes 3.5c",
+      "simulated_size": "$5 notional",
+      "confidence": "low-to-medium-low",
+      "status": "open"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-16-2026/highest-temperature-in-atlanta-on-june-16-2026-80-81f",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-17-2026",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.weather.gov.hk/textonly/v2/forecast/text_readings_v2_e.htm",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-16-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=30.1945&lon=-97.6699",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-16-2026/highest-temperature-in-chicago-on-june-16-2026-74-75f",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-16-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=29.6375&lon=-95.2825",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-16-2026",
+    "https://forecast.weather.gov/MapClick.php?FcstType=text&lat=32.8929&lg=english&lon=-96.8641"
+  ]
+}
