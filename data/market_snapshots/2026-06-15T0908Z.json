@@ -1,0 +1,98 @@
+{
+  "timestamp_utc": "2026-06-15T09:08:49Z",
+  "timestamp_hkt": "2026-06-15T17:08:49+08:00",
+  "scheduled_invocation_hkt": "2026-06-15T17:07:01+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets": [
+    {
+      "market": "Robinhood Houston/KHOU Jun 15 daily high greater than 85F YES",
+      "current_price": 0.37,
+      "implied_probability": 0.37,
+      "nearby_threshold_prices": {
+        "greater_than_84f": 0.60,
+        "greater_than_85f": 0.37,
+        "greater_than_86f": 0.34,
+        "greater_than_87f": 0.14
+      },
+      "official_evidence": {
+        "source": "NWS Houston Hobby forecast/current conditions",
+        "forecast_high_f": 86,
+        "forecast_text": "Showers and thunderstorms likely; high near 86; 70% precipitation chance.",
+        "settlement_note": "Robinhood page states Weather Underground William P Hobby Airport Station KHOU."
+      },
+      "fair_value_low": 0.43,
+      "fair_value_high": 0.53,
+      "estimated_edge_low": 0.06,
+      "estimated_edge_high": 0.16,
+      "classification": "moderate addable paper edge",
+      "action": "open_tiny_paper_trade",
+      "paper_trade_id": "PT-20260615-167"
+    },
+    {
+      "market": "Polymarket Austin/KAUS Jun 15 82-83F YES",
+      "current_price_context": "Polymarket public surfaces around 36%-40%; Robinhood threshold ladder cross-check centered near 82-83F.",
+      "fair_value_low": 0.44,
+      "fair_value_high": 0.56,
+      "classification": "moderate watch maintenance edge",
+      "action": "maintain_existing_austin_cluster_no_new_trade",
+      "paper_positions": ["PT-20260615-166", "PT-20260614-159", "PT-20260615-162"]
+    },
+    {
+      "market": "Atlanta/KATL Jun 15 84-85F YES",
+      "current_price": 0.45,
+      "fair_value_low": 0.42,
+      "fair_value_high": 0.50,
+      "classification": "represented near-fair maintenance",
+      "action": "maintain_no_duplicate",
+      "paper_positions": ["PT-20260614-157"]
+    },
+    {
+      "market": "Chicago/KORD Jun 15 76-77F YES",
+      "current_price_context": "Public Polymarket context around 35%-36%; 74-75F remains a live adjacent leader.",
+      "fair_value_low": 0.36,
+      "fair_value_high": 0.46,
+      "classification": "represented weak-to-moderate edge",
+      "action": "maintain_no_duplicate",
+      "paper_positions": ["PT-20260615-163"]
+    },
+    {
+      "market": "Hong Kong/HKO Jun 15 29C YES and 30C NO",
+      "top_prices": {"29c_yes_approx": 0.99, "30c_no_approx": 0.99},
+      "official_evidence": {
+        "source": "HKO regional readings",
+        "reading_time_hkt": "2026-06-15T16:00:00+08:00",
+        "hko_observatory_current_c": 26.1,
+        "hko_observatory_max_since_midnight_c": 29.9,
+        "provisional_data": true
+      },
+      "fair_value": {"29c_yes_low": 0.985, "29c_yes_high": 0.997, "30c_no_low": 0.985, "30c_no_high": 0.997},
+      "classification": "represented edge mostly converged",
+      "action": "maintain_no_high_price_add",
+      "paper_positions": ["PT-20260614-155", "PT-20260615-164"]
+    },
+    {
+      "market": "Dallas/KDAL Jun 15 84-85F and 82-83F cluster",
+      "current_price_context": "Direct KDAL exact-bucket refresh quote-limited this run; Robinhood Dallas is KDFW-resolved and used only as broad cross-check.",
+      "fair_value_low": 0.36,
+      "fair_value_high": 0.48,
+      "classification": "represented maintenance only",
+      "action": "maintain_no_duplicate",
+      "paper_positions": ["PT-20260614-160", "PT-20260614-161"]
+    }
+  ],
+  "new_paper_trades": [
+    {
+      "trade_id": "PT-20260615-167",
+      "market": "Robinhood Houston/KHOU Jun 15 daily high greater than 85F YES",
+      "stance": "BUY_YES",
+      "entry_price": 0.37,
+      "implied_probability": 0.37,
+      "fair_value_low": 0.43,
+      "fair_value_high": 0.53,
+      "simulated_size_usd": 5,
+      "confidence": "low-to-medium-low",
+      "status": "open"
+    }
+  ]
+}
