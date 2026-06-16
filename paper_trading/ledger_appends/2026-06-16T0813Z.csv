@@ -1,0 +1,2 @@
+timestamp_utc,paper_trade_id,market,stance,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,simulated_size_usd,confidence,status
+2026-06-16T08:13:24Z,PT-20260616-182,Polymarket Atlanta/KATL Jun 16 highest temperature 74-75F YES,BUY_YES,0.38,0.38,0.44,0.54,5,low-to-medium-low,open
