@@ -1,0 +1,2 @@
+timestamp_utc,paper_trade_id,market,stance,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,simulated_size_usd,confidence,status
+2026-06-16T04:13:32Z,PT-20260616-178,Polymarket Hong Kong/HKO Jun 16 highest temperature 27C YES,BUY_YES,0.74,0.74,0.78,0.88,5,medium-low,open
