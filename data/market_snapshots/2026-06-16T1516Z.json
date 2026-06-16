@@ -1,0 +1,110 @@
+{
+  "time_checked_utc": "2026-06-16T15:16:40Z",
+  "time_checked_hkt": "2026-06-16T23:16:40+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_or_bets_executed": false,
+  "markets": [
+    {
+      "market": "Polymarket Houston/KHOU Jun 16 highest temperature 82-83F YES / 80-81F YES",
+      "current_price": "public Polymarket text: 80-81F 33%, 82-83F 27%; older/language-indexed surfaces conflicted with 82-83F 44% and 80-81F 35%",
+      "implied_probability": {"82_83F": 0.27, "80_81F": 0.33},
+      "estimated_fair_low": {"82_83F": 0.30, "80_81F": 0.34},
+      "estimated_fair_high": {"82_83F": 0.40, "80_81F": 0.44},
+      "estimated_edge_low": {"82_83F": 0.03, "80_81F": 0.01},
+      "estimated_edge_high": {"82_83F": 0.13, "80_81F": 0.11},
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only, quote-quality capped",
+      "paper_action": "maintain PT-20260616-181 only; no new 82-83F hedge without clean quote confirmation",
+      "key_evidence": "NWS Houston Hobby showed 78F-79F with overcast/light rain and high near 82F under flood-watch/heavy-rain context."
+    },
+    {
+      "market": "Polymarket Dallas/KDAL Jun 17 highest temperature 94-95F YES",
+      "current_price": "public Polymarket snippets ranged 23%-25%; 92-93F led around 37%-41%",
+      "implied_probability": 0.24,
+      "estimated_fair_low": 0.32,
+      "estimated_fair_high": 0.42,
+      "estimated_edge_low": 0.07,
+      "estimated_edge_high": 0.19,
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge, no duplicate",
+      "paper_action": "maintain PT-20260616-185 only",
+      "key_evidence": "NWS Dallas Love Field forecasts Wednesday high near 95F with decreasing clouds and heat index values as high as 105F."
+    },
+    {
+      "market": "Polymarket Chicago/KORD Jun 16 highest temperature 72-73F YES",
+      "current_price": "72-73F displayed around 15%; earlier Buy Yes context 16c; 74-75F near 50%, 76-77F near 24%-25%",
+      "implied_probability": 0.16,
+      "estimated_fair_low": 0.30,
+      "estimated_fair_high": 0.40,
+      "estimated_edge_low": 0.14,
+      "estimated_edge_high": 0.25,
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge, duplicate blocked",
+      "paper_action": "maintain PT-20260616-180/PT-20260616-184/PT-20260616-186/PT-20260616-188 only",
+      "key_evidence": "KORD was 69.1F at 9:51 a.m. CDT; NWS still forecasts high near 73F while Polymarket heavily favors 74-75F."
+    },
+    {
+      "market": "Polymarket Austin/KAUS Jun 17 highest temperature 90-91F YES",
+      "current_price": "90-91F around 32%; 92-93F led around 40%-41%",
+      "implied_probability": 0.32,
+      "estimated_fair_low": 0.38,
+      "estimated_fair_high": 0.48,
+      "estimated_edge_low": 0.06,
+      "estimated_edge_high": 0.16,
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge, no duplicate",
+      "paper_action": "maintain PT-20260616-187 only",
+      "key_evidence": "NWS Austin-Bergstrom forecasts Wednesday high near 91F with clouds gradually becoming sunny and heat index values as high as 103F."
+    },
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 17 highest temperature 28C YES",
+      "current_price": "28C 37%; 27C 30%, 29C 21%, 30C 13%",
+      "implied_probability": 0.37,
+      "estimated_fair_low": 0.40,
+      "estimated_fair_high": 0.50,
+      "estimated_edge_low": 0.03,
+      "estimated_edge_high": 0.13,
+      "confidence": "medium-low",
+      "classification": "represented moderate edge, no duplicate",
+      "paper_action": "maintain PT-20260616-183 only; PT-20260616-179 on 29C remains weakened/adverse-watch",
+      "key_evidence": "HKO 16:30 HKT forecast keeps Jun 17 at 25-28C with cloudy weather, showers, squally thunderstorms, heavy showers at times, and high PSR."
+    },
+    {
+      "market": "Polymarket Atlanta/KATL Jun 16 highest temperature 74-75F YES",
+      "current_price": "74-75F 43%; 72-73F 39%; 76-77F 19%",
+      "implied_probability": 0.43,
+      "estimated_fair_low": 0.34,
+      "estimated_fair_high": 0.44,
+      "estimated_edge_low": -0.09,
+      "estimated_edge_high": 0.01,
+      "confidence": "low",
+      "classification": "mostly fair / represented maintenance",
+      "paper_action": "maintain PT-20260616-182 only",
+      "key_evidence": "KATL was 69.1F at 10:52 a.m. EDT with light rain; NWS forecasts high near 75F with showers/thunderstorms, leaving 72-73F live."
+    }
+  ],
+  "paper_trades": [],
+  "maintenance": [
+    "No new paper trade, no entry file, and no ledger append.",
+    "Maintain Houston/KHOU 80-81F from 26c; watch 82-83F only if clean sub-30% quote is confirmed.",
+    "Maintain Dallas/KDAL 94-95F, Chicago/KORD 72-73F, Austin/KAUS 90-91F, HKO 28C, and Atlanta/KATL 74-75F represented positions."
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-16-2026/highest-temperature-in-chicago-on-june-16-2026-72-73f",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-17-2026/highest-temperature-in-austin-on-june-17-2026-83forbelow",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-17-2026",
+    "https://web3.bitget.com/predictions/event/highest-temperature-in-atlanta-on-june-16-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?lat=30.2&lon=-97.68",
+    "https://forecast.weather.gov/MapClick.php?lat=32.8471&lon=-96.8518",
+    "https://forecast.weather.gov/MapClick.php?lat=33.7483&lon=-84.3911",
+    "https://forecast.weather.gov/MapClick.php?lat=29.6913&lon=-95.2988",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://tgftp.nws.noaa.gov/weather/current/KORD.html",
+    "https://tgftp.nws.noaa.gov/weather/current/KATL.html",
+    "https://tgftp.nws.noaa.gov/weather/current/KHOU.html",
+    "https://tgftp.nws.noaa.gov/weather/current/KDAL.html"
+  ]
+}
