@@ -1,0 +1,117 @@
+{
+  "time_checked_utc": "2026-06-16T10:13:15Z",
+  "time_checked_hkt": "2026-06-16T18:13:15+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_or_bets_executed": false,
+  "markets": [
+    {
+      "market": "Polymarket Dallas/KDAL Jun 17 highest temperature 94-95F YES",
+      "current_price": "displayed around 24%; Buy Yes 25c",
+      "implied_probability": 0.25,
+      "estimated_fair_low": 0.32,
+      "estimated_fair_high": 0.42,
+      "estimated_edge_low": 0.07,
+      "estimated_edge_high": 0.17,
+      "confidence": "low-to-medium-low",
+      "classification": "moderate fresh edge, low-liquidity",
+      "paper_action": "open PT-20260616-185, $5 simulated BUY_YES",
+      "key_evidence": "NWS Dallas Love Field forecast shows Wednesday high near 95F; Polymarket displays 92-93F around 38% and 94-95F around 24% / Buy Yes 25c; target-bucket public volume is only about $97."
+    },
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 17 highest temperature 28C YES",
+      "current_price": "displayed around 33%",
+      "implied_probability": 0.33,
+      "estimated_fair_low": 0.40,
+      "estimated_fair_high": 0.52,
+      "estimated_edge_low": 0.07,
+      "estimated_edge_high": 0.19,
+      "confidence": "medium-low",
+      "classification": "represented moderate edge",
+      "paper_action": "maintain PT-20260616-183 only",
+      "key_evidence": "HKO 9-day forecast keeps Jun 17 at 25-28C with cloudy weather, showers, squally thunderstorms, and heavy showers at times."
+    },
+    {
+      "market": "Polymarket Atlanta/KATL Jun 16 highest temperature 74-75F YES",
+      "current_price": "displayed around 38%",
+      "implied_probability": 0.38,
+      "estimated_fair_low": 0.44,
+      "estimated_fair_high": 0.54,
+      "estimated_edge_low": 0.06,
+      "estimated_edge_high": 0.16,
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge",
+      "paper_action": "maintain PT-20260616-182 only",
+      "key_evidence": "NWS KATL forecasts high near 74F with showers and thunderstorms likely; 72-73F and 76-77F remain live adjacent buckets."
+    },
+    {
+      "market": "Polymarket Chicago/KORD Jun 16 highest temperature 72-73F YES",
+      "current_price": "displayed around 26%",
+      "implied_probability": 0.26,
+      "estimated_fair_low": 0.33,
+      "estimated_fair_high": 0.43,
+      "estimated_edge_low": 0.07,
+      "estimated_edge_high": 0.17,
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge",
+      "paper_action": "maintain PT-20260616-180 and PT-20260616-184 only",
+      "key_evidence": "NWS O'Hare forecasts high near 73F with showers/thunderstorms likely before 2 p.m.; 74-75F still leads the market around 50%-51%."
+    },
+    {
+      "market": "Polymarket Austin/KAUS Jun 17 highest temperature 90-91F YES",
+      "current_price": "displayed around 33%",
+      "implied_probability": 0.33,
+      "estimated_fair_low": 0.36,
+      "estimated_fair_high": 0.46,
+      "estimated_edge_low": 0.03,
+      "estimated_edge_high": 0.13,
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only",
+      "paper_action": "none",
+      "key_evidence": "NWS Austin-Bergstrom forecasts Wednesday high near 91F while Polymarket leads with 92-93F around 41% and 90-91F around 33%."
+    },
+    {
+      "market": "Polymarket Houston/KHOU Jun 16 highest temperature 80-81F / 82-83F",
+      "current_price": "82-83F around 41%-42%; 80-81F around 27%-28%",
+      "implied_probability": 0.42,
+      "estimated_fair_low": 0.36,
+      "estimated_fair_high": 0.46,
+      "estimated_edge_low": -0.06,
+      "estimated_edge_high": 0.04,
+      "confidence": "low",
+      "classification": "mostly fair / maintenance only",
+      "paper_action": "maintain PT-20260616-181 only",
+      "key_evidence": "NWS Houston Hobby forecasts high near 82F with showers, thunderstorms, and heavy rain possible; public market center has moved toward 82-83F."
+    }
+  ],
+  "paper_trades": [
+    {
+      "timestamp_utc": "2026-06-16T10:13:15Z",
+      "paper_trade_id": "PT-20260616-185",
+      "market": "Polymarket Dallas/KDAL Jun 17 highest temperature 94-95F YES",
+      "observed_price": 0.25,
+      "implied_probability": 0.25,
+      "estimated_fair_low": 0.32,
+      "estimated_fair_high": 0.42,
+      "simulated_stance": "BUY_YES",
+      "simulated_size_usd": 5,
+      "confidence": "low-to-medium-low",
+      "status": "open",
+      "execution_note": "paper trade only; no real bet, trade, wallet action, or order execution occurred"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-16-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=32.85416&lon=-96.85506",
+    "https://forecast.weather.gov/MapClick.php?lat=30.2&lon=-97.68",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213",
+    "https://forecast.weather.gov/MapClick.php?lat=29.6913&lon=-95.2988",
+    "https://www.hko.gov.hk/textonly/forecast/englishwx.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm"
+  ]
+}
