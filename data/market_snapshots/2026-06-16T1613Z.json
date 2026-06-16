@@ -1,0 +1,99 @@
+{
+  "timestamp_utc": "2026-06-16T16:13:16Z",
+  "timestamp_hkt": "2026-06-17 00:13:16 HKT",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_money_actions": "none",
+  "markets_monitored": [
+    "Polymarket Chicago/KORD Jun 16 exact high temperature",
+    "Polymarket Houston/KHOU Jun 16 exact high temperature",
+    "Polymarket Atlanta/KATL Jun 16 exact high temperature",
+    "Polymarket Austin/KAUS Jun 17 exact high temperature",
+    "Polymarket Dallas/KDAL Jun 17 exact high temperature",
+    "Polymarket Hong Kong/HKO Jun 17 exact high temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Chicago/KORD Jun 16 72-73F YES",
+      "current_price": "16% displayed; Buy Yes 17c",
+      "implied_probability": 0.17,
+      "estimated_fair_value_range": [0.34, 0.44],
+      "estimated_edge_range": [0.17, 0.27],
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate-to-strong raw edge; no duplicate",
+      "paper_action": "maintain_existing"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Austin/KAUS Jun 17 90-91F YES",
+      "current_price": "31% displayed; Buy Yes 31c",
+      "implied_probability": 0.31,
+      "estimated_fair_value_range": [0.38, 0.48],
+      "estimated_edge_range": [0.07, 0.17],
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge; no duplicate",
+      "paper_action": "maintain_existing"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Dallas/KDAL Jun 17 94-95F YES",
+      "current_price": "24% displayed",
+      "implied_probability": 0.24,
+      "estimated_fair_value_range": [0.32, 0.42],
+      "estimated_edge_range": [0.08, 0.18],
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge; no duplicate",
+      "paper_action": "maintain_existing"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket HKO Jun 17 28C YES",
+      "current_price": "36% displayed; Buy Yes 37c",
+      "implied_probability": 0.37,
+      "estimated_fair_value_range": [0.40, 0.50],
+      "estimated_edge_range": [0.03, 0.13],
+      "confidence": "medium-low",
+      "classification": "represented moderate edge; no duplicate",
+      "paper_action": "maintain_existing"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "maintenance_positions": [
+    "PT-20260616-180",
+    "PT-20260616-184",
+    "PT-20260616-186",
+    "PT-20260616-188",
+    "PT-20260616-187",
+    "PT-20260616-185",
+    "PT-20260616-183",
+    "PT-20260616-182",
+    "PT-20260616-181"
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-16-2026/highest-temperature-in-atlanta-on-june-16-2026-76-77f",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-17-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/data/obhistory/KORD.html",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/MapClick.php?lat=30.2&lon=-97.68",
+    "https://forecast.weather.gov/MapClick.php?lat=32.783&lon=-96.8",
+    "https://forecast.weather.gov/MapClick.php?lat=33.7483&lon=-84.3911",
+    "https://www.flightaware.com/resources/airport/KATL/weather",
+    "https://www.hko.gov.hk/textonly/v2/forecast/englishwx2.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm"
+  ],
+  "repo_updates": [
+    "odds/latest.md",
+    "odds/history/2026-06-16T1613Z.md",
+    "alerts/2026-06-16T1613Z.md",
+    "data/market_snapshots/2026-06-16T1613Z.json",
+    "paper_trading/maintenance/2026-06-16T1613Z.md",
+    "paper_trading/paper_trade_summary.md",
+    "market-watchlist.md",
+    "edge-notes.md"
+  ]
+}
