@@ -1,0 +1,116 @@
+{
+  "timestamp_utc": "2026-06-16T00:13:04Z",
+  "timestamp_hkt": "2026-06-16T08:13:04+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets": [
+    {
+      "platform": "Polymarket",
+      "market": "Austin/KAUS Jun 16 highest temperature",
+      "top_prices": [
+        {"outcome": "86-87F", "displayed_probability": 0.44, "buy_yes": 0.45, "volume_usd": 368},
+        {"outcome": "88-89F", "displayed_probability": 0.29, "buy_yes": 0.29, "volume_usd": 203},
+        {"outcome": "84-85F", "displayed_probability": 0.14, "buy_yes": 0.14, "volume_usd": 581},
+        {"outcome": "90-91F", "displayed_probability": 0.075, "buy_yes": 0.076, "volume_usd": 129},
+        {"outcome": "82-83F", "displayed_probability": 0.05, "buy_yes": 0.06, "volume_usd": 482}
+      ],
+      "official_signal": "NWS KAUS Tuesday high near 85F; showers likely; precipitation chance 70%.",
+      "target_outcome": "84-85F YES",
+      "estimated_fair_value": [0.28, 0.40],
+      "classification": "represented moderate-to-strong raw edge; no new add"
+    },
+    {
+      "platform": "Polymarket",
+      "market": "Atlanta/KATL Jun 16 highest temperature",
+      "top_prices": [
+        {"outcome": "74-75F", "displayed_probability": 0.35, "buy_yes": 0.35, "volume_usd": 854},
+        {"outcome": "76-77F", "displayed_probability": 0.30, "buy_yes": 0.30, "volume_usd": 812},
+        {"outcome": "78-79F", "displayed_probability": 0.14, "buy_yes": 0.14, "volume_usd": 1847},
+        {"outcome": "72-73F", "displayed_probability": 0.104, "buy_yes": 0.106, "volume_usd": 929},
+        {"outcome": "80-81F", "displayed_probability": 0.04, "buy_yes": 0.039, "volume_usd": 2239}
+      ],
+      "official_signal": "NWS KATL Tuesday high near 76F; showers and thunderstorms likely; precipitation chance 80%.",
+      "target_outcome": "76-77F YES",
+      "estimated_fair_value": [0.36, 0.48],
+      "classification": "represented moderate edge; no new add"
+    },
+    {
+      "platform": "Polymarket",
+      "market": "Dallas/KDAL Jun 16 highest temperature",
+      "top_prices": [
+        {"outcome": "88-89F", "displayed_probability": 0.40, "buy_yes": 0.40, "volume_usd": 602},
+        {"outcome": "90-91F", "displayed_probability": 0.39, "buy_yes": 0.40, "volume_usd": 726},
+        {"outcome": "86-87F", "displayed_probability": 0.11, "buy_yes": 0.12, "volume_usd": 1340},
+        {"outcome": "92-93F", "displayed_probability": 0.11, "buy_yes": 0.12, "volume_usd": 1818}
+      ],
+      "official_signal": "NWS KDAL Tuesday high near 91F; mostly sunny.",
+      "target_outcome": "90-91F YES",
+      "estimated_fair_value": [0.44, 0.54],
+      "classification": "weak-to-moderate watch-only"
+    },
+    {
+      "platform": "Polymarket",
+      "market": "Hong Kong/HKO Jun 16 highest temperature",
+      "top_prices": [
+        {"outcome": "27C", "displayed_probability": 0.45, "buy_yes": 0.45, "volume_usd": 14478},
+        {"outcome": "28C", "displayed_probability": 0.25, "buy_yes": 0.26, "volume_usd": 6285},
+        {"outcome": "29C", "displayed_probability": 0.18, "buy_yes": 0.18, "volume_usd": 8043},
+        {"outcome": "26C", "displayed_probability": 0.15, "buy_yes": 0.16, "volume_usd": 17443}
+      ],
+      "official_signal": "HKO 06:05 HKT forecast 25-28C with heavy showers and squally thunderstorms; 07:02 HKT current bulletin 25C/rain with thunderstorm warning.",
+      "target_outcome": "28C YES",
+      "estimated_fair_value": [0.28, 0.40],
+      "classification": "represented watch/maintenance edge"
+    },
+    {
+      "platform": "Polymarket",
+      "market": "Houston/KHOU Jun 16 highest temperature",
+      "top_prices": [
+        {"outcome": "82-83F", "displayed_probability": 0.40, "buy_yes": 0.40, "volume_usd": 1053},
+        {"outcome": "80-81F", "displayed_probability": 0.32, "buy_yes": 0.33, "volume_usd": 199},
+        {"outcome": "84-85F", "displayed_probability": 0.16, "buy_yes": 0.17, "volume_usd": 1061},
+        {"outcome": "78-79F", "displayed_probability": 0.10, "buy_yes": 0.11, "volume_usd": 873}
+      ],
+      "official_signal": "NWS KHOU Tuesday high near 82F; Flood Watch; showers and thunderstorms; 90% precipitation; 1-2 inches possible.",
+      "target_outcome": "82-83F YES",
+      "estimated_fair_value": [0.40, 0.50],
+      "classification": "weak watch-only / near fair"
+    },
+    {
+      "platform": "Polymarket",
+      "market": "Chicago/KORD Jun 16 highest temperature",
+      "top_prices": [
+        {"outcome": "74-75F", "displayed_probability": 0.51, "buy_yes": 0.52, "volume_usd": 1154},
+        {"outcome": "72-73F", "displayed_probability": 0.31, "buy_yes": 0.32, "volume_usd": 712},
+        {"outcome": "76-77F", "displayed_probability": 0.12, "buy_yes": 0.12, "volume_usd": 195},
+        {"outcome": "70-71F", "displayed_probability": 0.05, "buy_yes": 0.06, "volume_usd": 1173}
+      ],
+      "official_signal": "NWS KORD Tuesday high near 74F; 40% chance showers/thunderstorms; breezy southwest wind.",
+      "target_outcome": "74-75F YES",
+      "estimated_fair_value": [0.44, 0.54],
+      "classification": "no edge / close to fair"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "maintenance_actions": [
+    "Maintain PT-20260615-173 and PT-20260615-175 Austin/KAUS Jun 16 84-85F YES.",
+    "Maintain PT-20260615-174 Atlanta/KATL Jun 16 76-77F YES.",
+    "Maintain PT-20260615-176 HKO Jun 16 28C YES.",
+    "Keep HKO Jun 16 29C and Atlanta Jun 16 80-81F positions on adverse-watch."
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-16-2026",
+    "https://forecast.weather.gov/zipcity.php?inputstring=KAUS",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/MapClick.php?lat=32.85416&lon=-96.85506",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/englishwx2.htm"
+  ]
+}
