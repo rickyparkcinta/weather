@@ -1,0 +1,131 @@
+{
+  "time_checked_utc": "2026-06-16T05:07:54Z",
+  "time_checked_hkt": "2026-06-16T13:07:54+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_or_bets_executed": false,
+  "markets": [
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 17 highest temperature 29C YES",
+      "current_price": "displayed around 22%",
+      "implied_probability": 0.22,
+      "estimated_fair_low": 0.30,
+      "estimated_fair_high": 0.40,
+      "estimated_edge_low": 0.08,
+      "estimated_edge_high": 0.18,
+      "confidence": "medium-low",
+      "classification": "moderate edge",
+      "paper_action": "open PT-20260616-179",
+      "key_evidence": "HKO 11:30 HKT forecast shows Jun 17 25-29C with heavy showers and squally thunderstorms while Polymarket displays 29C around 22% behind 28C around 36%."
+    },
+    {
+      "market": "Polymarket Chicago/KORD Jun 16 highest temperature 72-73F YES",
+      "current_price": "displayed around 30%",
+      "implied_probability": 0.30,
+      "estimated_fair_low": 0.36,
+      "estimated_fair_high": 0.46,
+      "estimated_edge_low": 0.06,
+      "estimated_edge_high": 0.16,
+      "confidence": "low-to-medium-low",
+      "classification": "moderate edge",
+      "paper_action": "open PT-20260616-180",
+      "key_evidence": "NWS KORD forecast shows high near 73F with showers/breezy conditions while Polymarket displays 74-75F around 52% and 72-73F around 30%."
+    },
+    {
+      "market": "Polymarket Austin/KAUS Jun 16 highest temperature 84-85F YES",
+      "current_price": "displayed around 17%-18%",
+      "implied_probability": 0.18,
+      "estimated_fair_low": 0.25,
+      "estimated_fair_high": 0.35,
+      "estimated_edge_low": 0.07,
+      "estimated_edge_high": 0.17,
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate raw edge",
+      "paper_action": "maintain prior entries only",
+      "key_evidence": "NWS KAUS still shows Tuesday high near 85F with showers likely and 70% precipitation chance; already represented at 18c and 15c."
+    },
+    {
+      "market": "Polymarket Houston/KHOU Jun 16 highest temperature 80-81F YES",
+      "current_price": "displayed around 31%",
+      "implied_probability": 0.31,
+      "estimated_fair_low": 0.34,
+      "estimated_fair_high": 0.44,
+      "estimated_edge_low": 0.03,
+      "estimated_edge_high": 0.13,
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only",
+      "paper_action": "none",
+      "key_evidence": "NWS KHOU shows Flood Watch, heavy rain, and Tuesday high near 81F; storm-path uncertainty and rounded public quote keep this watch-only."
+    },
+    {
+      "market": "Polymarket Dallas/KDAL Jun 16 highest temperature 90-91F YES",
+      "current_price": "displayed around 40%",
+      "implied_probability": 0.40,
+      "estimated_fair_low": 0.43,
+      "estimated_fair_high": 0.53,
+      "estimated_edge_low": 0.03,
+      "estimated_edge_high": 0.13,
+      "confidence": "low-to-medium-low",
+      "classification": "weak-to-moderate watch-only",
+      "paper_action": "none",
+      "key_evidence": "NWS KDAL high near 91F with afternoon sun; 88-89F co-favored and 92F warm miss remain live."
+    },
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 16 highest temperature 27C YES",
+      "current_price": "displayed around 93%",
+      "implied_probability": 0.93,
+      "estimated_fair_low": 0.94,
+      "estimated_fair_high": 0.98,
+      "estimated_edge_low": 0.01,
+      "estimated_edge_high": 0.05,
+      "confidence": "medium-low",
+      "classification": "represented small residual edge",
+      "paper_action": "maintain PT-20260616-178 only",
+      "key_evidence": "HKO 13:02 HKT bulletin showed 26C, heavy rain, widespread heavy-rain risk, and thunderstorm warning active until 2 p.m."
+    }
+  ],
+  "paper_trades": [
+    {
+      "id": "PT-20260616-179",
+      "timestamp_utc": "2026-06-16T05:07:54Z",
+      "market": "Polymarket Hong Kong/HKO Jun 17 highest temperature 29C YES",
+      "stance": "BUY_YES",
+      "entry_price": "0.22",
+      "implied_probability": 0.22,
+      "estimated_fair_low": 0.30,
+      "estimated_fair_high": 0.40,
+      "simulated_size_usd": 5,
+      "confidence": "medium-low",
+      "status": "open"
+    },
+    {
+      "id": "PT-20260616-180",
+      "timestamp_utc": "2026-06-16T05:07:54Z",
+      "market": "Polymarket Chicago/KORD Jun 16 highest temperature 72-73F YES",
+      "stance": "BUY_YES",
+      "entry_price": "0.30",
+      "implied_probability": 0.30,
+      "estimated_fair_low": 0.36,
+      "estimated_fair_high": 0.46,
+      "simulated_size_usd": 5,
+      "confidence": "low-to-medium-low",
+      "status": "open"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-16-2026",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-16-2026",
+    "https://forecast.weather.gov/zipcity.php?inputstring=KAUS",
+    "https://forecast.weather.gov/MapClick.php?lat=33.7483&lon=-84.3911",
+    "https://forecast.weather.gov/MapClick.php?lat=32.858386&lon=-96.861368",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/MapClick.php?lat=41.9796&lon=-87.9045",
+    "https://www.hko.gov.hk/textonly/v2/forecast/englishwx2.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.weather.gov.hk/textonly/v2/warning/detail.htm"
+  ]
+}
