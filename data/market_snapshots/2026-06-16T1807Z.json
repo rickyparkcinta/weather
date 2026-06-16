@@ -1,0 +1,132 @@
+{
+  "timestamp_utc": "2026-06-16T18:07:01Z",
+  "timestamp_hkt": "2026-06-17T02:07:01+08:00",
+  "mode": "analysis_and_paper_trading_only",
+  "real_trades_or_bets_executed": false,
+  "new_paper_entries": [],
+  "markets_monitored": [
+    "Polymarket Atlanta/KATL Jun 16 72-73F and 74-75F",
+    "Polymarket Atlanta/KATL Jun 17 82-87F cluster",
+    "Polymarket Chicago/KORD Jun 16 72-75F cluster",
+    "Polymarket Houston/KHOU Jun 16 78-83F cluster",
+    "Polymarket Houston/KHOU Jun 17 84-91F cluster",
+    "Polymarket Dallas/KDAL Jun 17 90-97F cluster",
+    "Polymarket Austin/KAUS Jun 17 88-95F cluster",
+    "Polymarket Hong Kong/HKO Jun 17 27-30C cluster"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Dallas/KDAL Jun 17 94-95F YES",
+      "current_price": "27c buy / 26% displayed",
+      "implied_probability": 0.27,
+      "estimated_fair_value": "36%-46%",
+      "estimated_edge": "9-19 pp",
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge",
+      "action": "maintain PT-20260616-185; no duplicate"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Hong Kong/HKO Jun 17 28C YES",
+      "current_price": "about 35%-36%",
+      "implied_probability": 0.36,
+      "estimated_fair_value": "42%-52%",
+      "estimated_edge": "6-16 pp",
+      "confidence": "medium-low",
+      "classification": "represented moderate edge",
+      "action": "maintain PT-20260616-183; no duplicate"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Austin/KAUS Jun 17 90-91F YES",
+      "current_price": "31c buy / 30% displayed",
+      "implied_probability": 0.31,
+      "estimated_fair_value": "37%-47%",
+      "estimated_edge": "6-16 pp",
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge",
+      "action": "maintain PT-20260616-187; no duplicate"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Houston/KHOU Jun 17 88-89F YES",
+      "current_price": "34c buy / 33% displayed",
+      "implied_probability": 0.34,
+      "estimated_fair_value": "38%-48%",
+      "estimated_edge": "4-14 pp",
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only",
+      "action": "no new entry"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket Atlanta/KATL Jun 17 84-85F YES",
+      "current_price": "around 34c",
+      "implied_probability": 0.34,
+      "estimated_fair_value": "38%-48%",
+      "estimated_edge": "4-14 pp",
+      "confidence": "low",
+      "classification": "watch-only",
+      "action": "no new entry"
+    },
+    {
+      "rank": 6,
+      "market": "Polymarket Atlanta/KATL Jun 16 72-73F YES",
+      "current_price": "82.3c buy / near 80% displayed",
+      "implied_probability": 0.82,
+      "estimated_fair_value": "78%-88%",
+      "estimated_edge": "mostly closed",
+      "confidence": "low-to-medium-low",
+      "classification": "maintain represented edge",
+      "action": "maintain PT-20260616-189; no add"
+    },
+    {
+      "rank": 7,
+      "market": "Polymarket Houston/KHOU Jun 16 80-81F YES",
+      "current_price": "47c buy / 47% displayed",
+      "implied_probability": 0.47,
+      "estimated_fair_value": "40%-50%",
+      "estimated_edge": "no clean fresh edge",
+      "confidence": "low",
+      "classification": "maintain represented edge",
+      "action": "maintain PT-20260616-181; no add"
+    },
+    {
+      "rank": 8,
+      "market": "Polymarket Chicago/KORD Jun 16 72-73F YES",
+      "current_price": "about 17c",
+      "implied_probability": 0.17,
+      "estimated_fair_value": "10%-20%",
+      "estimated_edge": "none",
+      "confidence": "low",
+      "classification": "adverse/maintenance",
+      "action": "maintain existing PT-20260616-180/184/186/188; no add"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "maintained_positions": [
+    "PT-20260616-185",
+    "PT-20260616-183",
+    "PT-20260616-187",
+    "PT-20260616-189",
+    "PT-20260616-181",
+    "PT-20260616-180",
+    "PT-20260616-184",
+    "PT-20260616-186",
+    "PT-20260616-188",
+    "PT-20260616-182"
+  ],
+  "repo_updates": [
+    "odds/latest.md",
+    "odds/history/2026-06-16T1807Z.md",
+    "alerts/2026-06-16T1807Z.md",
+    "data/market_snapshots/2026-06-16T1807Z.json",
+    "paper_trading/maintenance/2026-06-16T1807Z.md",
+    "paper_trading/paper_trade_log.md",
+    "paper_trading/paper_trade_summary.md",
+    "market-watchlist.md",
+    "edge-notes.md",
+    "paper-trade-summary.md"
+  ]
+}
