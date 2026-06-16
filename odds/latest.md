@@ -1,130 +1,121 @@
 # Odds Market Snapshot
 
 ## Time Checked
-- UTC: 2026-06-16 18:07:01
-- HKT: 2026-06-17 02:07:01
+- UTC: 2026-06-16 20:12:14
+- HKT: 2026-06-17 04:12:14
 - Mode: analysis, alerting, and paper trading only. No real bets or trades executed.
 
 ## Markets Monitored
-- Polymarket weather markets: Atlanta/KATL Jun 16 72-73F/74-75F and Jun 17 82-87F cluster; Chicago/KORD Jun 16 72-75F cluster; Houston/KHOU Jun 16 78-83F and Jun 17 84-91F clusters; Dallas/KDAL Jun 17 90-97F cluster; Austin/KAUS Jun 17 88-95F cluster; Hong Kong/HKO Jun 17 27-30C cluster.
-- Official/weather context: NWS station forecasts and current observations for KATL, KORD, KHOU, KDAL, and KAUS; HKO current weather and 9-day forecast; Wunderground/settlement-source context where available.
-- Settlement/source note: U.S. Polymarket weather markets resolve using Wunderground station history. NWS/METAR/HKO evidence is used to estimate fair value, but browser-visible market prices can be stale, rounded, thin, or internally inconsistent.
+- Polymarket weather markets: Dallas/KDAL Jun 17 90-97F cluster; Austin/KAUS Jun 17 88-95F cluster; Hong Kong/HKO Jun 17 27-29C cluster; Chicago/KORD Jun 17 66-69F cluster; Atlanta/KATL Jun 17 82-87F cluster; Houston/KHOU Jun 17 86-91F cluster.
+- New forward watch: Hong Kong/HKO Jun 18 28-30C cluster.
+- Maintenance checks: Houston/KHOU Jun 16 80-83F cluster and Atlanta/KATL Jun 16 72-73F outcome path.
 
 ## Top Edges
 
 ### 1. Polymarket Dallas/KDAL Jun 17 94-95F YES
-- Current price: 94-95F displayed 26%; Buy Yes 27c. 92-93F leads near 41c.
+- Current price: 94-95F displayed 27%; Buy Yes 27c. 92-93F leads at 43%.
 - Implied probability: about 27%.
-- Estimated fair value: 36%-46%.
-- Estimated edge: roughly +9 to +19 percentage points.
+- Estimated fair value: 35%-45%.
+- Estimated edge: roughly +8 to +18 percentage points.
 - Confidence: low-to-medium-low.
 - Classification: represented moderate edge; no duplicate.
-- Key reasoning: NWS/market-page weather context centers Wednesday near 95F with heat index up to 105F, making 94-95F underweighted relative to a 92-93F-led board. Cloud timing and exact one-bucket miss risk still matter.
-- Liquidity/practicality notes: Maintain PT-20260616-185 from 25c. Do not duplicate because current price is close to entry and public depth is limited.
+- Key reasoning: NWS Dallas Love Field forecast updated at 1:26 pm CDT shows Wednesday high near 94F with heat index values as high as 103. The market still gives the cooler 92-93F bucket a much larger weight.
+- Liquidity/practicality notes: Maintain PT-20260616-185 from 25c. Do not duplicate because current price is above entry, target-bucket depth remains modest, and a one-degree miss to 92-93F is live.
 
 ### 2. Polymarket Hong Kong/HKO Jun 17 28C YES
-- Current price: about 35%-36% in current public pages.
-- Implied probability: about 36%.
-- Estimated fair value: 42%-52%.
-- Estimated edge: roughly +6 to +16 percentage points.
+- Current price: 28C around 37%-38%; 27C around 24%-28%; 29C around 23%.
+- Implied probability: about 37%-38%.
+- Estimated fair value: 43%-53%.
+- Estimated edge: roughly +5 to +16 percentage points.
 - Confidence: medium-low.
 - Classification: represented moderate edge; no duplicate.
-- Key reasoning: HKO forecasts Jun 17 at 25-28C with showers/squally thunderstorms and current weather near 26C/light rain after midnight HKT. A rain-capped 28C max remains plausible while 27.xC and 29C are still live.
+- Key reasoning: HKO 00:00 HKT forecast gives a 25-28C range with showers and squally thunderstorms, heavy at times. HKO current weather at 04:02 HKT showed 27C and rain with a thunderstorm warning.
 - Liquidity/practicality notes: Maintain PT-20260616-183 from 32%. No add above entry with one-decimal Celsius boundary risk.
 
-### 3. Polymarket Austin/KAUS Jun 17 90-91F YES
-- Current price: 90-91F displayed 30%; Buy Yes 31c. 92-93F leads near 41c.
-- Implied probability: about 31%.
-- Estimated fair value: 37%-47%.
-- Estimated edge: roughly +6 to +16 percentage points.
-- Confidence: low-to-medium-low.
-- Classification: represented moderate edge; no duplicate.
-- Key reasoning: NWS Austin-Bergstrom guidance remains close enough to the low 90s that 90-91F is underweighted versus a 92-93F-led board, but clearing/heat-index support makes 92F+ the main miss path.
-- Liquidity/practicality notes: Maintain PT-20260616-187 from 32c. A 1c improvement is not enough for duplicate exposure.
-
-### 4. Polymarket Houston/KHOU Jun 17 88-89F YES
-- Current price: 88-89F displayed 33%; Buy Yes 34c.
-- Implied probability: about 34%.
-- Estimated fair value: 38%-48%.
-- Estimated edge: roughly +4 to +14 percentage points.
+### 3. Polymarket Chicago/KORD Jun 17 68-69F YES
+- Current price: quote surfaces disagree. Current/indexed Polymarket snippets put 66-67F around 33%-34% and 68-69F around 21%-28% depending on page/index.
+- Implied probability: roughly 21%-28%, depending on executable quote.
+- Estimated fair value: 30%-40%.
+- Estimated edge: roughly +2 to +19 percentage points, highly quote-quality dependent.
 - Confidence: low.
 - Classification: weak-to-moderate watch-only.
-- Key reasoning: NWS/Houston page context shows high near 88F, but 70% rain and heavy rainfall keep 84-87F live, while clearing could still push 90-91F.
-- Liquidity/practicality notes: Very low visible volume, about $1.9K, so no new paper entry.
+- Key reasoning: NWS O'Hare forecast updated at 2:26 pm CDT shows Wednesday high near 68F with storms after 10am, possible severe weather, heavy rain, 100% precipitation, and breezy conditions. Heavy rain can still cap the day at 66-67F.
+- Liquidity/practicality notes: No new paper entry. Recheck only if direct 68-69F buy depth is clean below roughly 24c-25c.
+
+### 4. Polymarket Hong Kong/HKO Jun 18 30C YES
+- Current price: 30C displayed 27%; 29C leads at 37%; 28C at 26%.
+- Implied probability: about 27%.
+- Estimated fair value: 30%-40%.
+- Estimated edge: roughly +3 to +13 percentage points.
+- Confidence: low-to-medium-low.
+- Classification: fresh weak-to-moderate watch-only.
+- Key reasoning: HKO Jun 18 forecast range is 26-30C with showers and a few squally thunderstorms, heavier in some areas at first. The official max reaches the 30C bucket, but 28C/29C remain live and market depth is very thin.
+- Liquidity/practicality notes: No paper entry because volume/depth is extremely thin and HKO Jun 17 exposure is already open.
 
 ### 5. Polymarket Atlanta/KATL Jun 17 84-85F YES
-- Current price: around 34c with 86-87F close behind.
-- Implied probability: about 34%.
-- Estimated fair value: 38%-48%.
-- Estimated edge: roughly +4 to +14 percentage points.
-- Confidence: low.
-- Classification: watch-only.
-- Key reasoning: Forecast context centers near 85F, but storms and low volume leave 82-83F and 86-87F both plausible.
-- Liquidity/practicality notes: No paper entry because the gap is thin and quote quality is modest.
-
-### 6. Polymarket Atlanta/KATL Jun 16 72-73F YES
-- Current price: 72-73F displayed near 80%; Buy Yes 82.3c.
-- Implied probability: about 82%.
-- Estimated fair value: 78%-88%.
-- Estimated edge: mostly closed after repricing.
-- Confidence: low-to-medium-low.
-- Classification: maintain represented edge.
-- Key reasoning: KATL was 71F in light rain/overcast at 12:52 EDT and had likely already printed the 72-73F bucket, but any later 74F+ station print invalidates the bucket.
-- Liquidity/practicality notes: Maintain PT-20260616-189 from 51c. No add at 82c.
-
-### 7. Polymarket Houston/KHOU Jun 16 80-81F YES
-- Current price: 80-81F displayed 47%; Buy Yes 47c; 82-83F about 35c; 78-79F about 24c.
-- Implied probability: about 47%.
+- Current price: 84-85F about 40%; 86-87F about 28%; 82-83F about 20%.
+- Implied probability: about 40%.
 - Estimated fair value: 40%-50%.
-- Estimated edge: no clean fresh edge.
-- Confidence: low.
-- Classification: maintain represented edge.
-- Key reasoning: Forecast/source context still supports an upper-70s to low-80s rain-capped cluster. The visible board no longer offers a clean underpriced contract.
-- Liquidity/practicality notes: Maintain PT-20260616-181 from 26c as improved/maintenance.
+- Estimated edge: roughly 0 to +10 percentage points.
+- Confidence: low-to-medium-low.
+- Classification: near-fair / watch-only.
+- Key reasoning: NWS Hartsfield-Jackson forecast updated at 2:26 pm EDT shows Wednesday high near 85F with a chance of showers before 2pm and storms after 4pm. The market now prices 84-85F as the leader.
+- Liquidity/practicality notes: No paper entry; fair value is too close to market after exact-bucket and storm-timing risk.
 
-### 8. Polymarket Chicago/KORD Jun 16 72-73F YES
-- Current price: about 17c, with 74-75F leading near the low 60s.
-- Implied probability: about 17%.
-- Estimated fair value: 10%-20%.
-- Estimated edge: none.
+### 6. Polymarket Houston/KHOU Jun 17 88-89F YES
+- Current price: 88-89F around 39%-40%; 90-91F around 24%; 86-87F around 23%-24%.
+- Implied probability: about 39%-40% for 88-89F.
+- Estimated fair value: 35%-45%.
+- Estimated edge: roughly -5 to +6 percentage points.
 - Confidence: low.
-- Classification: adverse/maintenance for existing positions.
-- Key reasoning: KORD was already near 72F before midday, and updated forecast context centers closer to 75F, moving the best bucket away from 72-73F.
-- Liquidity/practicality notes: Maintain PT-20260616-180/PT-20260616-184/PT-20260616-186/PT-20260616-188 as adverse/maintenance. No new hedge without cleaner depth.
+- Classification: near-fair / weak watch-only.
+- Key reasoning: NWS Houston/Hobby forecast updated at 1:22 pm CDT shows Wednesday high near 88F, but with a Flood Watch, 60% precipitation, possible heavy rain, and 1-2 inches of new rain.
+- Liquidity/practicality notes: No fresh paper entry; not enough edge after storm/rain risk.
+
+### 7. Polymarket Austin/KAUS Jun 17 90-91F YES
+- Current price: 90-91F 26%; Buy Yes 26c. 92-93F leads at 39%; 94-95F 22%.
+- Implied probability: about 26%.
+- Estimated fair value: 25%-35%, trimmed from prior runs.
+- Estimated edge: roughly -1 to +9 percentage points.
+- Confidence: low-to-medium-low.
+- Classification: represented but weakened/near-fair.
+- Key reasoning: NWS Austin-Bergstrom forecast updated at 2:44 pm CDT shows Wednesday high near 92F with decreasing clouds, so the older 90-91F paper thesis is weakened.
+- Liquidity/practicality notes: Maintain PT-20260616-187 from 32c only; no duplicate.
 
 ## Recommended Paper Trades
 No new paper-only trade is recommended this run.
 
-### Maintained / No Duplicate
+## Maintained / No Duplicate
 - Maintain PT-20260616-185 Dallas/KDAL Jun 17 94-95F YES from 25c.
 - Maintain PT-20260616-183 HKO Jun 17 28C YES from 32%.
-- Maintain PT-20260616-187 Austin/KAUS Jun 17 90-91F YES from 32c.
+- Maintain PT-20260616-187 Austin/KAUS Jun 17 90-91F YES from 32c, now weakened/near-fair.
 - Maintain PT-20260616-189 Atlanta/KATL Jun 16 72-73F YES from 51c as improved/no-add.
-- Maintain PT-20260616-181 Houston/KHOU Jun 16 80-81F YES from 26c as improved/maintenance.
-- Mark PT-20260616-180/PT-20260616-184/PT-20260616-186/PT-20260616-188 Chicago/KORD Jun 16 72-73F YES adverse/maintenance.
-- Keep PT-20260616-182 Atlanta/KATL Jun 16 74-75F YES weakened/adverse to the 72-73F hedge.
-
-No real bets, trades, wallet actions, or order execution occurred.
+- Maintain PT-20260616-181 Houston/KHOU Jun 16 80-81F YES from 26c as improved/no-add.
 
 ## Risks and Invalidation Factors
 - Exact weather buckets can lose by one degree even when the broad forecast thesis is right.
 - U.S. Polymarket weather markets resolve to Wunderground station history; NWS/METAR evidence is supportive, not controlling.
-- Same-day markets can reflect partial or stale station evidence, and displayed prices may be rounded or shallow.
-- Dallas/Austin/Houston/Atlanta Jun 17 positions are forward-day weather buckets with meaningful forecast-cycle risk.
-- HKO has one-decimal Celsius boundary risk; 27.xC rain cap and 29C warming are both live.
-- Low public volume in Houston and Atlanta Jun 17 makes visible prices less reliable.
+- Public Polymarket category, search, and localized pages can disagree. This blocked a Chicago Jun 17 paper entry.
+- Dallas/Austin/Houston/Atlanta/Chicago Jun 17 positions are forward-day weather buckets with meaningful forecast-cycle risk.
+- HKO has one-decimal Celsius boundary risk; 27.xC rain cap and 29C warming are both live for Jun 17.
 
 ## Sources Used
-- Polymarket Atlanta Jun 16: https://polymarket.com/event/highest-temperature-in-atlanta-on-june-16-2026
 - Polymarket Dallas Jun 17: https://polymarket.com/event/highest-temperature-in-dallas-on-june-17-2026
-- Polymarket Austin Jun 17: https://polymarket.com/event/highest-temperature-in-austin-on-june-17-2026
-- Polymarket HKO Jun 17: https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-17-2026
-- Polymarket Houston Jun 16: https://polymarket.com/event/highest-temperature-in-houston-on-june-16-2026
-- Polymarket Houston Jun 17: https://polymarket.com/event/highest-temperature-in-houston-on-june-17-2026
-- NWS station forecast/current pages for KATL, KORD, KHOU, KDAL, and KAUS.
-- HKO current weather and 9-day forecast.
+- Polymarket Austin Jun 17: https://polymarket.com/ru/event/highest-temperature-in-austin-on-june-17-2026
+- Polymarket Hong Kong Jun 17: https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-17-2026
+- Polymarket Chicago Jun 17: https://polymarket.com/it/event/highest-temperature-in-chicago-on-june-17-2026
+- Polymarket Atlanta Jun 17: https://polymarket.com/zh-hant/event/highest-temperature-in-atlanta-on-june-17-2026
+- Polymarket Houston Jun 17: https://polymarket.com/es/event/highest-temperature-in-houston-on-june-17-2026
+- Polymarket Hong Kong Jun 18: https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-18-2026
+- NWS Dallas Love Field forecast: https://forecast.weather.gov/MapClick.php?lat=32.85416&lon=-96.85506
+- NWS Austin-Bergstrom forecast: https://forecast.weather.gov/MapClick.php?lat=30.2&lon=-97.68
+- NWS Houston/Hobby forecast: https://forecast.weather.gov/MapClick.php?textField1=29.620035&textField2=-95.268602
+- NWS Atlanta/Hartsfield forecast: https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213
+- NWS Chicago/O'Hare forecast: https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9
+- HKO 9-day forecast: https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm
+- HKO current weather: https://www.hko.gov.hk/textonly/v2/forecast/englishwx2.htm
 
 ## Repo Log Update
-- Updated latest and timestamped odds snapshots, alert summary, JSON market snapshot, paper-trading maintenance note, rolling paper-trading log/summary, watchlist, edge notes, and paper-trade summary.
+- Updated odds/latest.md and created timestamped history, alert, and paper-trading maintenance records.
 - No new paper-trade entry or ledger append was created because this was a no-new-entry maintenance run.
-- GitHub connector mirror target: rickyparkcinta/weather.
+- No real bets, trades, wallet actions, or order execution occurred.
