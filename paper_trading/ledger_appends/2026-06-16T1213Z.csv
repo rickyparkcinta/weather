@@ -1,0 +1,2 @@
+timestamp_utc,paper_trade_id,market,stance,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,simulated_size_usd,confidence,status
+2026-06-16T12:13:12Z,PT-20260616-186,Polymarket Chicago/KORD Jun 16 highest temperature 72-73F YES,BUY_YES,0.20,0.20,0.32,0.42,5,low-to-medium-low,open
