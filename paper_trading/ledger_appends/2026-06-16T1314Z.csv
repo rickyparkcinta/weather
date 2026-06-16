@@ -1,0 +1,2 @@
+timestamp_utc,paper_trade_id,market,observed_price,implied_probability,estimated_fair_low,estimated_fair_high,stance,simulated_size_usd,sizing_rationale,thesis,confidence,status,outcome
+2026-06-16T13:14:15Z,PT-20260616-187,"Polymarket Austin / KAUS Jun 17 highest temperature 90-91F YES","Buy Yes 32c",0.32,0.38,0.48,BUY_YES,5,"Tiny first entry only; target-bucket volume is thin and 92-93F remains very live.","NWS Austin-Bergstrom centers Wednesday near 91F while Polymarket leads with 92-93F and prices 90-91F at 32c.",low-to-medium-low,open,unresolved
