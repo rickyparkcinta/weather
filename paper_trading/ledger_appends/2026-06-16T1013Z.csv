@@ -1,0 +1,2 @@
+timestamp_utc,paper_trade_id,market,stance,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,simulated_size_usd,confidence,status
+2026-06-16T10:13:15Z,PT-20260616-185,Polymarket Dallas/KDAL Jun 17 highest temperature 94-95F YES,BUY_YES,0.25,0.25,0.32,0.42,5,low-to-medium-low,open
