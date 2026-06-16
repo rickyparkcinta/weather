@@ -1,0 +1,2 @@
+timestamp_utc,paper_trade_id,market,stance,entry_price,implied_probability,estimated_fair_low,estimated_fair_high,simulated_size_usd,confidence,status
+2026-06-16T06:11:13Z,PT-20260616-181,Polymarket Houston/KHOU Jun 16 highest temperature 80-81F YES,BUY_YES,0.26,0.26,0.34,0.44,5,low-to-medium-low,open
