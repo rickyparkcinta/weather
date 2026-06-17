@@ -1,112 +1,105 @@
 # Odds Market Snapshot
 
 ## Time Checked
-- UTC: 2026-06-17 15:14:00
-- HKT: 2026-06-17 23:14:00
+- UTC: 2026-06-17 16:12:14
+- HKT: 2026-06-18 00:12:14
 - Mode: analysis, alerting, and paper trading only. No real bets or trades executed.
 
 ## Markets Monitored
-- Polymarket weather watchlist: Chicago/KORD Jun 17; Los Angeles/KLAX Jun 17; Dallas/KDAL Jun 17; Austin/KAUS Jun 17; Houston/KHOU Jun 17; Atlanta/KATL Jun 17; Miami/KMIA Jun 17; Hong Kong/HKO Jun 18 and Jun 19.
-- Maintenance focus: Austin 92-93F; Chicago 68-69F and adjacent cool buckets; HKO Jun 18 29C/28C; Dallas 94-95F; LA 70-71F/68-69F; Houston 88-89F; Atlanta 84-85F; Miami 92-93F.
-- Source-quality note: local curl/API access remained blocked by network 403, so market prices come from web-rendered Polymarket pages/search snippets. Confidence is haircut where public surfaces disagreed.
+- Polymarket weather watchlist: Chicago/KORD Jun 17; Austin/KAUS Jun 17; Dallas/KDAL Jun 17; Los Angeles/KLAX Jun 17; Houston/KHOU Jun 17; Atlanta/KATL Jun 17; Miami/KMIA Jun 17; Hong Kong/HKO Jun 18 and Jun 19.
+- Cross-checks: official NWS airport observations and point forecasts for KORD, KAUS, KDAL, KLAX, KHOU, KATL, and KMIA; HKO official open-data forecast/current feed for Jun 18-19; Polymarket public pages/search renderings for market prices and liquidity.
+- Source-quality note: local curl/API access to Polymarket remained blocked by network 403. Market prices come from web-rendered Polymarket pages/search snippets, so confidence is haircut where direct executable depth was not visible.
 
 ## Top Edges
 
-### 1. Polymarket Austin/KAUS Jun 17 92-93F YES
-- Current price: displayed about 31%; Buy Yes 32c.
-- Implied probability: about 32%.
-- Estimated fair value: 40%-50%.
-- Estimated edge: roughly +8 to +18 percentage points.
-- Confidence: low-to-medium-low.
-- Classification: moderate represented edge; add-on paper trade opened.
-- Key reasoning: NWS Austin-Bergstrom still forecasts high near 92F with clouds decreasing into sun. KAUS was around 80F at 08:53 CDT, which does not invalidate a 92-93F afternoon high. The market shifted 92-93F down from the prior 40c entry while adjacent 90-91F and 94-95F remain meaningful.
-- Liquidity/practicality notes: target-bucket visible volume/depth remains thin; size stays tiny. Opened PT-20260617-198 at Buy Yes 32c for $5 simulated notional.
+### 1. Polymarket Hong Kong/HKO Jun 19 31C YES
+- Current price: 31C displayed about 38% on the Polymarket Hong Kong page.
+- Implied probability: about 38%.
+- Estimated fair value: 42%-52%.
+- Estimated edge: roughly +4 to +14 percentage points.
+- Confidence: medium-low.
+- Classification: moderate fresh paper-only edge; tiny entry opened.
+- Key reasoning: HKO's 16:30 HKT official 9-day forecast lists Jun 19 maximum temperature at 31C, with mainly cloudy weather, a few showers, isolated thunderstorms at first, and hot sunny periods in the afternoon. This centers the 31C bucket more cleanly than the market's sub-40% top price, but exact-Celsius and two-day forecast risk keep conviction capped.
+- Liquidity/practicality notes: Polymarket Hong Kong page showed about $8.2K volume and $37.2K liquidity for Jun 19. Entry uses the displayed 38% because direct Buy Yes depth was not cleanly rendered.
 
-### 2. Polymarket Chicago/KORD Jun 17 68-69F YES
-- Current price: public Polymarket surfaces conflicted; readable current context showed roughly 18%-20% displayed and Buy Yes around 21c-24c, while the wider board had 70-71F, 64-65F, and 66-67F all live.
-- Implied probability: about 18%-24%.
-- Estimated fair value: 24%-34%.
-- Estimated edge: roughly +0 to +16 percentage points depending executable quote.
-- Confidence: low.
-- Classification: represented watch/maintenance; no fresh add.
-- Key reasoning: NWS still says high near 68F, but KORD was only about 60F with light rain at 08:51 CDT and the storm/rain timing makes both 64-67F and 70-71F plausible.
-- Liquidity/practicality notes: maintain PT-20260616-190 and PT-20260617-196 only; no duplicate because current quote quality is inconsistent and the thesis is already represented.
-
-### 3. Polymarket Dallas/KDAL Jun 17 94-95F YES
-- Current price: about 32%.
-- Implied probability: about 32%.
-- Estimated fair value: 34%-44%.
+### 2. Polymarket Austin/KAUS Jun 17 92-93F YES
+- Current price: 92-93F displayed about 41%; next closest 90-91F about 33%.
+- Implied probability: about 41%.
+- Estimated fair value: 43%-53%.
 - Estimated edge: roughly +2 to +12 percentage points.
 - Confidence: low-to-medium-low.
-- Classification: represented weak-to-moderate edge; no fresh add.
-- Key reasoning: NWS Love Field still forecasts high near 94F under mostly sunny conditions. The main risk is an exact 93F/94F boundary miss, plus station/source mismatch.
-- Liquidity/practicality: maintain 25c/20c paper entries; current price is above both entries.
+- Classification: represented moderate edge; no fresh add.
+- Key reasoning: NWS Austin-Bergstrom still forecasts a high near 92F, and KAUS was 81F at 09:53 CDT with mostly cloudy conditions improving toward mostly sunny. The market has repriced up from the 32c add-on, so the existing paper book already captures the better entry.
+- Liquidity/practicality notes: maintain PT-20260617-193 at 40c and PT-20260617-198 at 32c only.
 
-### 4. Polymarket Hong Kong/HKO Jun 18 29C YES
-- Current price: displayed about 36%; Buy Yes 37c. 28C roughly co-led around 36%.
-- Implied probability: about 37%.
-- Estimated fair value: 36%-46%.
-- Estimated edge: about -1 to +9 percentage points.
-- Confidence: medium-low.
-- Classification: near-fair represented maintenance; no fresh add.
-- Key reasoning: HKO official forecast still caps Jun 18 at 29C, but showers/thunderstorms and the 28C co-lead keep lower cap path live.
-- Liquidity/practicality notes: maintain PT-20260617-197 from 30c; no duplicate after repricing.
+### 3. Polymarket Chicago/KORD Jun 17 68-69F YES
+- Current price: 68-69F displayed about 20%; Buy Yes about 21c. Nearby buckets were tightly clustered around 64-71F.
+- Implied probability: about 20%-21%.
+- Estimated fair value: 23%-33%.
+- Estimated edge: roughly +2 to +13 percentage points.
+- Confidence: low.
+- Classification: represented edge; no fresh add.
+- Key reasoning: NWS still shows today's O'Hare high near 68F, but KORD was only 58F in rain/fog at 10:51 CDT with flood watch, wind advisory, severe thunderstorm, and heavy-rain risk still active. That keeps 62-67F and 70-71F miss paths live.
+- Liquidity/practicality notes: maintain PT-20260616-190 and PT-20260617-196 only; current quote is not better than the 21c add-on.
 
-### 5. Polymarket LA/KLAX Jun 17 70-71F YES
-- Current price: about 50%.
-- Implied probability: about 50%.
-- Estimated fair value: 44%-54%.
-- Estimated edge: near fair.
+### 4. Polymarket Dallas/KDAL Jun 17 94-95F YES
+- Current price: 94-95F displayed about 32%; Buy Yes about 33c. 92-93F leads near 52%.
+- Implied probability: about 32%-33%.
+- Estimated fair value: 34%-44%.
+- Estimated edge: roughly +1 to +12 percentage points.
 - Confidence: low-to-medium-low.
-- Classification: maintenance only.
-- Key reasoning: NWS high near 70F keeps 70-71F live, but current price mostly reflects it and marine-layer timing can still leave 68-69F plausible.
-- Liquidity/practicality: maintain existing 70-71F hedge only; do not add at near-fair.
+- Classification: represented weak-to-moderate edge; no fresh add.
+- Key reasoning: NWS Love Field forecasts sunny conditions with a high near 94F, but KDAL was only 81F at 09:53 CDT and the market has already repriced above the 25c and 20c paper entries.
+- Liquidity/practicality notes: maintain existing Dallas 94-95F paper positions only.
+
+### 5. Polymarket HKO Jun 18 29C YES
+- Current price: 29C displayed about 34%, effectively co-led with 28C around 34%-35%.
+- Implied probability: about 34%.
+- Estimated fair value: 34%-44%.
+- Estimated edge: roughly 0 to +10 percentage points.
+- Confidence: medium-low.
+- Classification: represented maintenance; no fresh add.
+- Key reasoning: HKO's official forecast still caps Jun 18 at 29C, but it also calls for mainly cloudy weather, showers, and a few squally thunderstorms with heavy showers at first. The 28C cap path is very live and the 29C paper hedge is already open from 30c.
+- Liquidity/practicality notes: maintain PT-20260617-197 only.
 
 ## Near-Fair / Weakened Monitors
-- Houston/KHOU Jun 17 88-89F: around 31% with 86-87F around 32%; NWS high near 89 but wet/cloudy setup caps conviction. Weak/watch-only.
-- Atlanta/KATL Jun 17 84-85F: near fair around high-30s to high-40s context versus NWS high near 85; no add.
-- Miami/KMIA Jun 17 92-93F: about 57% / Buy Yes 58c versus fair 55%-65%; no add.
-- HKO Jun 19: watch-only; no clean current edge.
+- LA/KLAX Jun 17 70-71F: market about 60% versus NWS high near 70F and KLAX 65F/overcast at 08:53 PDT. Fair estimate 55%-65%; no add.
+- Houston/KHOU Jun 17 86-87F / 88-89F: market cluster around 32%-38% on 86-87F and 31%-32% on 88-89F. NWS high near 89F, but KHOU was rain-cooled at 77F with flood watch and heavy-rain context. No clean edge.
+- Atlanta/KATL Jun 17 84-85F: about 46% versus NWS high near 85F and KATL 77F at 10:52 EDT. Fair/near-fair.
+- Miami/KMIA Jun 17 92-93F: about 61% / Buy Yes 62c versus NWS high near 93F and KMIA 89F at 10:53 EDT. Fair/near-fair after heat and thunderstorm risk.
 
 ## Recommended Paper Trades
 
-### Opened PT-20260617-198
-- Stance: BUY_YES on Polymarket Austin/KAUS Jun 17 highest temperature 92-93F.
+### Opened PT-20260617-199
+- Stance: BUY_YES on Polymarket Hong Kong/HKO Jun 19 highest temperature 31C.
 - Simulated size: $5 notional.
-- Entry price: Buy Yes 32c.
-- Thesis: official station-area forecast still centers near 92F while the market moved materially below the earlier 40c Austin 92-93F entry.
-- Confidence: low-to-medium-low.
-- Invalidation risks: morning clouds/rain cap the station at 90-91F; stronger afternoon sun pushes 94-95F; Wunderground station history diverges from NWS point guidance; displayed Polymarket quote depth is thin or stale.
+- Entry price: represented/displayed 38%.
+- Thesis: HKO's official Jun 19 forecast centers the maximum at 31C while Polymarket displays 31C below 40%, leaving a modest fresh unrepresented edge.
+- Confidence: medium-low.
+- Invalidation risks: HKO lowers the Jun 19 forecast to 30C; showers/clouds cap the Observatory at 30.9C or below; stronger sunny-period heating pushes 32.0C or above; exact one-decimal settlement risk; public Polymarket display may differ from executable depth.
 
 ## Risks and Invalidation Factors
-- Exact weather buckets can lose by one degree even when the broad forecast thesis is right.
+- Exact weather buckets can lose by one degree or one decimal even when the broader forecast thesis is directionally right.
 - U.S. Polymarket weather markets resolve to Wunderground station history, not directly to NWS point forecasts.
-- HKO Celsius markets resolve to one decimal place.
-- Public Polymarket surfaces/snippets disagreed in places, especially Chicago; quote quality lowers confidence.
-- Rain/storm timing is the main uncertainty for Chicago, Houston, Atlanta, Miami, Austin, and Dallas.
-- LA hinges on marine-layer depth and afternoon clearing.
+- HKO Celsius markets resolve to the official HKO Daily Extract absolute max, measured to one decimal place.
+- Public Polymarket renderings can lag or disagree with executable order books; confidence is reduced where direct depth was unavailable.
+- Same-day U.S. markets are highly sensitive to storm timing, cloud breaks, and late-afternoon recovery.
 
 ## Sources Used
-- Polymarket Chicago Jun 17: https://polymarket.com/event/highest-temperature-in-chicago-on-june-17-2026
 - Polymarket Austin Jun 17: https://polymarket.com/event/highest-temperature-in-austin-on-june-17-2026
+- Polymarket Chicago Jun 17: https://polymarket.com/event/highest-temperature-in-chicago-on-june-17-2026
 - Polymarket Dallas Jun 17: https://polymarket.com/event/highest-temperature-in-dallas-on-june-17-2026
 - Polymarket Los Angeles Jun 17: https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-17-2026
 - Polymarket Houston Jun 17: https://polymarket.com/event/highest-temperature-in-houston-on-june-17-2026
 - Polymarket Atlanta Jun 17: https://polymarket.com/event/highest-temperature-in-atlanta-on-june-17-2026
 - Polymarket Miami Jun 17: https://polymarket.com/event/highest-temperature-in-miami-on-june-17-2026
-- Polymarket HKO Jun 18: https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-18-2026
-- NWS KORD observations: https://forecast.weather.gov/data/obhistory/KORD.html
-- NWS Austin-Bergstrom forecast and observations: https://forecast.weather.gov/MapClick.php?lat=30.2&lon=-97.68 and https://forecast.weather.gov/data/obhistory/KAUS.html
-- NWS Dallas/Love Field forecast: https://forecast.weather.gov/MapClick.php?lat=32.858386&lon=-96.861368
-- NWS KLAX forecast/observations: https://forecast.weather.gov/MapClick.php?lat=33.9425&lon=-118.409 and https://forecast.weather.gov/data/obhistory/KLAX.html
-- NWS Houston/Hobby forecast: https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28
-- NWS Atlanta/KATL forecast: https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213
-- NWS Miami/KMIA forecast/observations: https://forecast.weather.gov/MapClick.php?lat=25.7933&lon=-80.2906 and https://forecast.weather.gov/data/obhistory/KMIA.html
-- HKO 9-day forecast/current weather: https://www.hko.gov.hk/en/wxinfo/currwx/fnd.htm
+- Polymarket Hong Kong Jun 18 / Jun 19 pages: https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-18-2026 and https://polymarket.com/predictions/hong-kong
+- NWS station observations and forecasts: KORD, KAUS, KDAL, KLAX, KHOU, KATL, KMIA via weather.gov observation history and MapClick pages.
+- HKO official open-data forecast/current feeds: https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=en and https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en
 
 ## Repo Log Update
 - Updated odds/latest.md.
-- Created odds/history/2026-06-17T1514Z.md, alerts/2026-06-17T1514Z.md, data/market_snapshots/2026-06-17T1514Z.json, paper_trading/entries/PT-20260617-198.md, paper_trading/ledger_appends/2026-06-17T1514Z.csv, and paper_trading/maintenance/2026-06-17T1514Z.md.
+- Created odds/history/2026-06-17T1612Z.md, alerts/2026-06-17T1612Z.md, data/market_snapshots/2026-06-17T1612Z.json, paper_trading/entries/PT-20260617-199.md, paper_trading/ledger_appends/2026-06-17T1612Z.csv, and paper_trading/maintenance/2026-06-17T1612Z.md.
 - Updated rolling local records: paper_trading/paper_trade_log.md, paper_trading/paper_trade_summary.md, paper-trade-summary.md, market-watchlist.md, edge-notes.md, and repo-working-notes.md.
-- New simulated paper-only position opened: PT-20260617-198 Austin/KAUS 92-93F YES at Buy Yes 32c, $5 simulated notional.
+- New simulated paper-only position opened: PT-20260617-199 HKO Jun 19 31C YES at represented/displayed 38%, $5 simulated notional.
 - No real trades or betting actions were executed.
