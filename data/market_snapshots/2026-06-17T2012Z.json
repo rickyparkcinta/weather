@@ -1,0 +1,63 @@
+{
+  "timestamp_utc": "2026-06-17T20:12:29Z",
+  "timestamp_hkt": "2026-06-18T04:12:29+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_money_actions": "none",
+  "markets_monitored": [
+    "Polymarket HKO Jun 18 highest temperature",
+    "Polymarket HKO Jun 19 highest temperature",
+    "Polymarket Chicago/KORD Jun 17 highest temperature",
+    "Polymarket Dallas/KDAL Jun 17 highest temperature",
+    "Polymarket Austin/KAUS Jun 17 highest temperature",
+    "Polymarket Los Angeles/KLAX Jun 17 highest temperature",
+    "Polymarket San Francisco/KSFO Jun 17 highest temperature",
+    "Polymarket Atlanta/KATL Jun 17 highest temperature",
+    "Polymarket Miami/KMIA Jun 17 highest temperature",
+    "Polymarket Houston/KHOU Jun 17 highest temperature",
+    "Kalshi Dallas/DFW Jun 17 high-temperature cross-check"
+  ],
+  "top_edges": [
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 19 31C YES",
+      "current_price": "36c",
+      "implied_probability": 0.36,
+      "estimated_fair_value": "43%-53%",
+      "estimated_edge": "+7 to +17 pp",
+      "confidence": "medium-low",
+      "classification": "moderate represented maintenance",
+      "decision": "maintain only; no new paper entry"
+    },
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 18 29C YES",
+      "current_price": "34c",
+      "implied_probability": 0.34,
+      "estimated_fair_value": "32%-42%",
+      "estimated_edge": "-2 to +8 pp",
+      "confidence": "medium-low",
+      "classification": "weak represented maintenance",
+      "decision": "maintain only"
+    },
+    {
+      "market": "Polymarket Chicago/KORD Jun 17 62-63F YES",
+      "current_price": "17.3c Buy Yes / 14% displayed",
+      "implied_probability": 0.14,
+      "estimated_fair_value": "15%-25%",
+      "estimated_edge": "-2 to +8 pp after spread",
+      "confidence": "low",
+      "classification": "weak watch-only",
+      "decision": "no hedge entry"
+    }
+  ],
+  "paper_trade_action": {
+    "new_positions": [],
+    "maintenance_row_added": true,
+    "simulated_new_notional": "$0"
+  },
+  "key_risks": [
+    "Exact Celsius/Fahrenheit bucket risk",
+    "HKO one-decimal Daily Extract settlement risk",
+    "Wunderground station-history and METAR max-field ambiguity",
+    "Public display price versus executable depth mismatch",
+    "Late-session U.S. station print volatility"
+  ]
+}
