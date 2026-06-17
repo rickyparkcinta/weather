@@ -1,0 +1,139 @@
+{
+  "timestamp_utc": "2026-06-17T07:13:00Z",
+  "timestamp_hkt": "2026-06-17T15:13:00+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Dallas/KDAL Jun 17 highest temperature",
+    "Polymarket Austin/KAUS Jun 17 highest temperature",
+    "Polymarket Chicago/KORD Jun 17 highest temperature",
+    "Polymarket Los Angeles/KLAX Jun 17 highest temperature",
+    "Polymarket Houston/KHOU Jun 17 highest temperature",
+    "Polymarket Atlanta/KATL Jun 17 highest temperature",
+    "Polymarket Miami/KMIA Jun 17 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 17 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 18 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Dallas/KDAL Jun 17 94-95F YES",
+      "observed_price": "Buy Yes 20c",
+      "implied_probability": 0.20,
+      "estimated_fair_range": [0.34, 0.44],
+      "estimated_edge_range_percentage_points": [14, 24],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate add-on edge",
+      "action": "opened PT-20260617-194, $5 simulated notional"
+    },
+    {
+      "rank": 2,
+      "market": "Austin/KAUS Jun 17 92-93F YES",
+      "observed_price": "Buy Yes 41c",
+      "implied_probability": 0.41,
+      "estimated_fair_range": [0.44, 0.54],
+      "estimated_edge_range_percentage_points": [3, 13],
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate edge",
+      "action": "maintain PT-20260617-193; no duplicate"
+    },
+    {
+      "rank": 3,
+      "market": "Chicago/KORD Jun 17 68-69F YES",
+      "observed_price": "Buy Yes 37c",
+      "implied_probability": 0.37,
+      "estimated_fair_range": [0.40, 0.50],
+      "estimated_edge_range_percentage_points": [3, 13],
+      "confidence": "low-to-medium-low",
+      "classification": "represented moderate maintenance edge",
+      "action": "maintain PT-20260616-190; no add"
+    },
+    {
+      "rank": 4,
+      "market": "Hong Kong/HKO Jun 18 30C YES",
+      "observed_price": "Buy Yes 27c",
+      "implied_probability": 0.27,
+      "estimated_fair_range": [0.24, 0.34],
+      "estimated_edge_range_percentage_points": [-3, 7],
+      "confidence": "medium-low",
+      "classification": "represented mild/near-fair edge",
+      "action": "maintain PT-20260616-191; no duplicate"
+    },
+    {
+      "rank": 5,
+      "market": "Los Angeles/KLAX Jun 17 68-69F YES",
+      "observed_price": "Buy Yes 44c",
+      "implied_probability": 0.44,
+      "estimated_fair_range": [0.40, 0.50],
+      "estimated_edge_range_percentage_points": [-4, 6],
+      "confidence": "low-to-medium-low",
+      "classification": "represented near-fair maintenance edge",
+      "action": "maintain PT-20260617-192; no add"
+    }
+  ],
+  "near_fair_or_weakened": [
+    {
+      "market": "Hong Kong/HKO Jun 17 28C YES",
+      "observed_price": "Buy Yes 97.7c",
+      "estimated_fair_range": [0.94, 0.98],
+      "status": "mostly converged; maintain only"
+    },
+    {
+      "market": "Houston/KHOU Jun 17 88-89F YES",
+      "observed_price": "Buy Yes 39c",
+      "estimated_fair_range": [0.38, 0.48],
+      "status": "near fair"
+    },
+    {
+      "market": "Atlanta/KATL Jun 17 84-85F YES",
+      "observed_price": "Buy Yes 46c",
+      "estimated_fair_range": [0.42, 0.52],
+      "status": "near fair"
+    },
+    {
+      "market": "Miami/KMIA Jun 17 92-93F YES",
+      "observed_price": "Buy Yes 57c",
+      "estimated_fair_range": [0.50, 0.60],
+      "status": "near fair"
+    },
+    {
+      "market": "Austin/KAUS Jun 17 90-91F YES",
+      "observed_price": "Buy Yes 33c",
+      "status": "weakened/adverse-watch for PT-20260616-187"
+    }
+  ],
+  "paper_trades_opened": [
+    {
+      "id": "PT-20260617-194",
+      "market": "Polymarket Dallas / KDAL Jun 17 highest temperature 94-95F YES",
+      "observed_price": "Buy Yes 20c",
+      "implied_probability": 0.20,
+      "estimated_fair_range": [0.34, 0.44],
+      "simulated_stance": "BUY_YES",
+      "simulated_size_usd": 5,
+      "confidence": "low-to-medium-low",
+      "status": "open"
+    }
+  ],
+  "paper_trading_action": "Opened one tiny paper-only Dallas add-on. No real trades or betting actions executed.",
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-17-2026",
+    "https://polymarket.com/pt/event/highest-temperature-in-atlanta-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-miami-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-18-2026",
+    "https://forecast.weather.gov/MapClick.php?lat=32.858386&lon=-96.861368",
+    "https://forecast.weather.gov/MapClick.php?lat=30.2&lon=-97.68",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/MapClick.php?lat=33.9425&lon=-118.409",
+    "https://forecast.weather.gov/MapClick.php?lat=29.74440000000004&lon=-95.36787999999996",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213",
+    "https://forecast.weather.gov/MapClick.php?lat=25.79056&lon=-80.31639",
+    "https://www.hko.gov.hk/textonly/v2/forecast/englishwx2.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm"
+  ]
+}
