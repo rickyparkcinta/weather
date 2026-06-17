@@ -1,0 +1,125 @@
+{
+  "time_checked": {
+    "utc": "2026-06-17T13:08:50Z",
+    "hkt": "2026-06-17T21:08:50+08:00"
+  },
+  "mode": "analysis_alerting_and_paper_trading_only",
+  "safety": "No real bets, trades, wallet actions, or order execution occurred.",
+  "source_quality_note": "Direct market APIs were blocked from the workspace. Market prices use public Polymarket page/search snippets and the prior 12:14 UTC snapshot as cross-checks; confidence is reduced where only related-page snippets were available.",
+  "markets_monitored": [
+    "Polymarket Chicago/KORD Jun 17 highest temperature",
+    "Polymarket Los Angeles/KLAX Jun 17 highest temperature",
+    "Polymarket Dallas/KDAL Jun 17 highest temperature",
+    "Polymarket Austin/KAUS Jun 17 highest temperature",
+    "Polymarket Houston/KHOU Jun 17 highest temperature",
+    "Polymarket Atlanta/KATL Jun 17 highest temperature",
+    "Polymarket Miami/KMIA Jun 17 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 17 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 18 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 19 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Chicago/KORD Jun 17 68-69F YES",
+      "current_price": "about 27% displayed",
+      "market_leader": "70-71F about 38%",
+      "implied_probability": 0.27,
+      "estimated_fair_value_range": [0.34, 0.44],
+      "estimated_edge_range": [0.07, 0.17],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "Maintain PT-20260616-190 and PT-20260617-196; no new add",
+      "key_reasoning": "NWS O'Hare forecasts high near 68F with heavy rain/severe thunderstorm risk while the market leads with 70-71F."
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket HKO Jun 18 29C YES",
+      "current_price": "about 27% displayed",
+      "market_leader": "28C about 37%-40%",
+      "implied_probability": 0.27,
+      "estimated_fair_value_range": [0.34, 0.44],
+      "estimated_edge_range": [0.07, 0.17],
+      "confidence": "medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "Maintain PT-20260617-197; no new add",
+      "key_reasoning": "HKO official Jun 18 range remains 26-29C, but 28C leads and showers keep cap risk high."
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Dallas/KDAL Jun 17 94-95F YES",
+      "current_price": "about 32% displayed",
+      "market_leader": "92-93F about 59%",
+      "implied_probability": 0.32,
+      "estimated_fair_value_range": [0.38, 0.48],
+      "estimated_edge_range": [0.06, 0.16],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "paper_action": "Maintain PT-20260616-185 and PT-20260617-194; no new add",
+      "key_reasoning": "NWS Love Field forecasts high near 94F; current price is above both paper entries."
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Austin/KAUS Jun 17 92-93F YES",
+      "current_price": "about 41% displayed",
+      "market_leader": "92-93F about 41%",
+      "implied_probability": 0.41,
+      "estimated_fair_value_range": [0.45, 0.55],
+      "estimated_edge_range": [0.04, 0.14],
+      "confidence": "low-to-medium-low",
+      "classification": "represented weak-to-moderate edge",
+      "paper_action": "Maintain PT-20260617-193; no new add",
+      "key_reasoning": "NWS Austin-Bergstrom forecasts high near 92F, but current price is slightly worse than entry."
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket Houston/KHOU Jun 17 88-89F YES",
+      "current_price": "about 41% displayed",
+      "market_leader": "88-89F about 41%",
+      "implied_probability": 0.41,
+      "estimated_fair_value_range": [0.38, 0.48],
+      "estimated_edge_range": [-0.03, 0.07],
+      "confidence": "low",
+      "classification": "weak/watch-only",
+      "paper_action": "No paper entry",
+      "key_reasoning": "NWS high near 89F is supportive, but heavy rain/flood hazards reduce confidence."
+    }
+  ],
+  "recommended_paper_trades": [],
+  "paper_trading_update": {
+    "new_entries": 0,
+    "ledger_append_created": false,
+    "maintenance_only": true,
+    "existing_positions_maintained": [
+      "PT-20260616-190",
+      "PT-20260617-196",
+      "PT-20260617-197",
+      "PT-20260616-185",
+      "PT-20260617-194",
+      "PT-20260617-193",
+      "PT-20260617-192",
+      "PT-20260617-195"
+    ]
+  },
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-miami-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-18-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-19-2026",
+    "https://forecast.weather.gov/MapClick.php?textField1=41.98&textField2=-87.9",
+    "https://forecast.weather.gov/data/obhistory/KORD.html",
+    "https://forecast.weather.gov/MapClick.php?lat=33.9425&lon=-118.409",
+    "https://forecast.weather.gov/data/obhistory/KLAX.html",
+    "https://forecast.weather.gov/MapClick.php?lat=32.858386&lon=-96.861368",
+    "https://forecast.weather.gov/MapClick.php?lat=30.2&lon=-97.68",
+    "https://forecast.weather.gov/MapClick.php?textField1=29.65&textField2=-95.28",
+    "https://forecast.weather.gov/MapClick.php?lat=33.6421&lon=-84.4213",
+    "https://forecast.weather.gov/MapClick.php?lat=25.7933&lon=-80.2906",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm"
+  ]
+}
