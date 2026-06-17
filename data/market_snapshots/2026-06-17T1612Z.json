@@ -1,0 +1,87 @@
+{
+  "timestamp_utc": "2026-06-17T16:12:14Z",
+  "timestamp_hkt": "2026-06-18T00:12:14+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    {
+      "platform": "Polymarket",
+      "market": "Hong Kong/HKO Jun 19 highest temperature 31C YES",
+      "observed_price": "displayed 38%",
+      "implied_probability": 0.38,
+      "estimated_fair_value_range": [0.42, 0.52],
+      "estimated_edge_range": [0.04, 0.14],
+      "confidence": "medium-low",
+      "classification": "moderate fresh edge",
+      "paper_trade": "PT-20260617-199"
+    },
+    {
+      "platform": "Polymarket",
+      "market": "Austin/KAUS Jun 17 highest temperature 92-93F YES",
+      "observed_price": "displayed 41%",
+      "implied_probability": 0.41,
+      "estimated_fair_value_range": [0.43, 0.53],
+      "estimated_edge_range": [0.02, 0.12],
+      "confidence": "low-to-medium-low",
+      "classification": "represented edge"
+    },
+    {
+      "platform": "Polymarket",
+      "market": "Chicago/KORD Jun 17 highest temperature 68-69F YES",
+      "observed_price": "displayed 20%; Buy Yes about 21c",
+      "implied_probability": 0.21,
+      "estimated_fair_value_range": [0.23, 0.33],
+      "estimated_edge_range": [0.02, 0.13],
+      "confidence": "low",
+      "classification": "represented edge"
+    },
+    {
+      "platform": "Polymarket",
+      "market": "Dallas/KDAL Jun 17 highest temperature 94-95F YES",
+      "observed_price": "displayed 32%; Buy Yes about 33c",
+      "implied_probability": 0.33,
+      "estimated_fair_value_range": [0.34, 0.44],
+      "estimated_edge_range": [0.01, 0.12],
+      "confidence": "low-to-medium-low",
+      "classification": "represented weak-to-moderate edge"
+    },
+    {
+      "platform": "Polymarket",
+      "market": "Hong Kong/HKO Jun 18 highest temperature 29C YES",
+      "observed_price": "displayed about 34%",
+      "implied_probability": 0.34,
+      "estimated_fair_value_range": [0.34, 0.44],
+      "estimated_edge_range": [0.0, 0.10],
+      "confidence": "medium-low",
+      "classification": "represented maintenance"
+    }
+  ],
+  "new_paper_trades": [
+    {
+      "id": "PT-20260617-199",
+      "market": "Polymarket Hong Kong/HKO Jun 19 highest temperature 31C YES",
+      "observed_price": "represented/displayed 38%",
+      "implied_probability": "about 38%",
+      "estimated_fair_value": "42%-52%",
+      "simulated_stance": "BUY_YES",
+      "simulated_size_usd": 5,
+      "confidence": "medium-low",
+      "status": "open",
+      "outcome": "unresolved"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/predictions/hong-kong",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-18-2026",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-miami-on-june-17-2026",
+    "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=en",
+    "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en",
+    "https://forecast.weather.gov/"
+  ]
+}
