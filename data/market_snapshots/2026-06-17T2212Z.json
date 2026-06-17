@@ -1,0 +1,83 @@
+{
+  "timestamp_utc": "2026-06-17T22:12:07Z",
+  "timestamp_hkt": "2026-06-18T06:12:07+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_money_actions": "none",
+  "markets_monitored": [
+    "Polymarket Chicago/KORD Jun 17 highest temperature",
+    "Polymarket HKO Jun 18 highest temperature",
+    "Polymarket HKO Jun 19 highest temperature",
+    "Polymarket Dallas/KDAL Jun 17 highest temperature",
+    "Polymarket Austin/KAUS Jun 17 highest temperature",
+    "Polymarket Los Angeles/KLAX Jun 17 highest temperature",
+    "Polymarket Houston/KHOU Jun 17 highest temperature",
+    "Polymarket Atlanta/KATL Jun 17 highest temperature",
+    "Polymarket Miami/KMIA Jun 17 highest temperature",
+    "Polymarket San Francisco/KSFO Jun 17 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "market": "Polymarket Chicago/KORD Jun 17 68-69F YES",
+      "current_price": "51c Buy Yes / 46% displayed",
+      "implied_probability": 0.51,
+      "estimated_fair_value": "55%-65%",
+      "estimated_edge": "+4 to +14 pp",
+      "confidence": "medium-low",
+      "classification": "moderate represented maintenance",
+      "decision": "maintain existing paper positions only"
+    },
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 19 31C YES",
+      "current_price": "38c Buy Yes / 37% displayed",
+      "implied_probability": 0.38,
+      "estimated_fair_value": "42%-52%",
+      "estimated_edge": "+4 to +14 pp",
+      "confidence": "medium-low",
+      "classification": "moderate represented maintenance",
+      "decision": "maintain existing paper positions only"
+    },
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 18 29C YES",
+      "current_price": "33c Buy Yes / 33% displayed",
+      "implied_probability": 0.33,
+      "estimated_fair_value": "31%-41%",
+      "estimated_edge": "-2 to +8 pp",
+      "confidence": "medium-low",
+      "classification": "weak represented maintenance",
+      "decision": "maintain only"
+    }
+  ],
+  "paper_trade_action": {
+    "new_positions": [],
+    "maintenance_row_added": true,
+    "simulated_new_notional": "$0",
+    "adverse_watch_updates": [
+      "PT-20260617-201 Chicago/KORD Jun 17 64-65F YES",
+      "PT-20260616-185 / PT-20260617-194 Dallas/KDAL Jun 17 94-95F YES",
+      "PT-20260617-193 / PT-20260617-198 Austin/KAUS Jun 17 92-93F YES"
+    ]
+  },
+  "key_risks": [
+    "Late KORD print at 70F or higher",
+    "Wunderground station-history and NWS observation interpretation mismatch",
+    "Public Polymarket display price versus executable depth mismatch",
+    "HKO exact one-decimal Celsius bucket risk",
+    "Late station prints and source-history revisions"
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-17-2026",
+    "https://forecast.weather.gov/data/obhistory/KORD.html",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-18-2026",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/englishwx2.htm",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-los-angeles-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-houston-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-atlanta-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-miami-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-san-francisco-on-june-17-2026",
+    "https://forecast.weather.gov/data/obhistory/"
+  ]
+}
