@@ -105,7 +105,7 @@
 - Houston heavy-rain context: https://www.weather.gov/hgx/
 
 ## Repo Log Update
-- Updated odds/latest.md.
-- Created odds/history/2026-06-17T0512Z.md, alerts/2026-06-17T0512Z.md, data/market_snapshots/2026-06-17T0512Z.json, and paper_trading/maintenance/2026-06-17T0512Z.md.
-- Updated paper_trading/paper_trade_log.md, paper_trading/paper_trade_summary.md, market-watchlist.md, edge-notes.md, paper-trade-summary.md, and repo-working-notes.md.
+- GitHub mirror: updated odds/latest.md.
+- GitHub mirror: created odds/history/2026-06-17T0512Z.md, alerts/2026-06-17T0512Z.md, data/market_snapshots/2026-06-17T0512Z.json, and paper_trading/maintenance/2026-06-17T0512Z.md.
+- Local memory/rolling record: updated paper_trading/paper_trade_log.md, paper_trading/paper_trade_summary.md, market-watchlist.md, edge-notes.md, paper-trade-summary.md, and repo-working-notes.md.
 - No new simulated paper-only position opened; no ledger append. No real trades or betting actions were executed.
