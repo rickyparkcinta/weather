@@ -1,0 +1,105 @@
+{
+  "timestamp_utc": "2026-06-18T21:10:53Z",
+  "timestamp_hkt": "2026-06-19T05:10:53+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Chongqing/ZUCK Jun 19 highest temperature",
+    "Polymarket Shanghai/ZSPD Jun 19 highest temperature",
+    "Polymarket Seoul/Incheon Jun 19 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 19 highest temperature",
+    "Polymarket Guangzhou/ZGGG Jun 19 highest temperature",
+    "Polymarket Shenzhen/ZGSZ Jun 19 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Shanghai/ZSPD Jun 19 30C YES",
+      "observed_price": "Buy Yes 23c",
+      "implied_probability": 0.23,
+      "estimated_fair_value_range": [0.29, 0.39],
+      "estimated_edge_range": [0.06, 0.16],
+      "confidence": "low",
+      "classification": "represented moderate hedge edge",
+      "decision": "maintain existing paper position only"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Chongqing/ZUCK Jun 19 31C YES",
+      "observed_price": "Buy Yes 31c",
+      "implied_probability": 0.31,
+      "estimated_fair_value_range": [0.36, 0.46],
+      "estimated_edge_range": [0.05, 0.15],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "decision": "maintain existing paper position only"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Seoul/Incheon Jun 19 31C YES",
+      "observed_price": "Buy Yes 13c",
+      "implied_probability": 0.13,
+      "estimated_fair_value_range": [0.18, 0.28],
+      "estimated_edge_range": [0.05, 0.15],
+      "confidence": "low",
+      "classification": "represented moderate tail edge",
+      "decision": "maintain existing paper position only"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Hong Kong/HKO Jun 19 31C YES",
+      "observed_price": "Buy Yes 44c",
+      "implied_probability": 0.44,
+      "estimated_fair_value_range": [0.43, 0.53],
+      "estimated_edge_range": [-0.01, 0.09],
+      "confidence": "medium-low",
+      "classification": "represented near-fair maintenance",
+      "decision": "maintain existing paper position only"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket Guangzhou/ZGGG Jun 19 32C YES",
+      "observed_price": "Buy Yes 30c",
+      "implied_probability": 0.30,
+      "estimated_fair_value_range": [0.28, 0.38],
+      "estimated_edge_range": [-0.02, 0.08],
+      "confidence": "low",
+      "classification": "weak to near-fair represented maintenance",
+      "decision": "maintain existing paper position only"
+    },
+    {
+      "rank": 6,
+      "market": "Polymarket Shenzhen/ZGSZ Jun 19 32C YES",
+      "observed_price": "Buy Yes 29c",
+      "implied_probability": 0.29,
+      "estimated_fair_value_range": [0.20, 0.30],
+      "estimated_edge_range": [-0.09, 0.01],
+      "confidence": "low",
+      "classification": "represented weak/no edge",
+      "decision": "maintain existing paper position only"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "paper_record_update": {
+    "new_entry_file_created": false,
+    "ledger_append_created": false,
+    "maintenance_file": "paper_trading/maintenance/2026-06-18T2110Z.md"
+  },
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-chongqing-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-seoul-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-shanghai-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-guangzhou-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-shenzhen-on-june-19-2026",
+    "https://weather.metoffice.gov.uk/forecast/wm78q9qxj",
+    "https://weather.metoffice.gov.uk/forecast/wydj553hq",
+    "https://weather.metoffice.gov.uk/forecast/wtw6sh1q7",
+    "https://weather.metoffice.gov.uk/forecast/ws0e3x09w",
+    "https://weather.metoffice.gov.uk/forecast/ws10k3j56",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/text_readings_e.htm",
+    "https://www.accuweather.com/en/cn/guangzhou-baiyun-international-airport/1839_poi/weather-forecast/1839_poi",
+    "https://www.accuweather.com/en/cn/shenzhen-baoan-international-airport/1831_poi/weather-forecast/1831_poi"
+  ]
+}
