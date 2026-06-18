@@ -1,0 +1,90 @@
+{
+  "timestamp_utc": "2026-06-18T03:18:51Z",
+  "timestamp_hkt": "2026-06-18T11:18:51+0800",
+  "mode": "analysis_alerting_paper_trading_only",
+  "no_real_trades_or_bets": true,
+  "markets": [
+    {
+      "market": "Polymarket Shenzhen/ZGSZ Jun 18 highest temperature",
+      "volume": "$58.3K",
+      "resolution_source": "Wunderground Shenzhen Bao'an International Airport Station / ZGSZ",
+      "key_prices": [
+        {"outcome": "26C", "displayed_probability": "20%", "buy_yes": "22.6c"},
+        {"outcome": "27C", "displayed_probability": "52%", "buy_yes": "54c"},
+        {"outcome": "28C", "displayed_probability": "32%", "buy_yes": "35c"},
+        {"outcome": "29C", "displayed_probability": "4%", "buy_yes": "4.0c"},
+        {"outcome": "30C", "displayed_probability": "4%", "buy_yes": "5.9c"}
+      ],
+      "fair_value_focus": {"outcome": "29C YES", "fair_value": "10%-22%", "confidence": "low"},
+      "decision": "open paper trade PT-20260618-205"
+    },
+    {
+      "market": "Polymarket Tokyo/Haneda Jun 18 highest temperature",
+      "volume": "$60.0K",
+      "resolution_source": "Wunderground Tokyo Haneda Airport Station / RJTT",
+      "key_prices": [
+        {"outcome": "23C", "displayed_probability": "17%", "buy_yes": "19.3c"},
+        {"outcome": "24C", "displayed_probability": "30%", "buy_yes": "33.7c"},
+        {"outcome": "25C", "displayed_probability": "39%", "buy_yes": "40c"},
+        {"outcome": "26C", "displayed_probability": "10%", "buy_yes": "11c"},
+        {"outcome": "27C", "displayed_probability": "3%", "buy_yes": "6.0c"}
+      ],
+      "fair_value_focus": {"outcome": "26C YES", "fair_value": "18%-30%", "confidence": "low"},
+      "decision": "open paper trade PT-20260618-206"
+    },
+    {
+      "market": "Polymarket Seoul/Incheon Jun 18 highest temperature",
+      "volume": "$128.8K",
+      "resolution_source": "Wunderground Incheon Intl Airport Station / RKSI",
+      "key_prices": [
+        {"outcome": "27C", "displayed_probability": "15%", "buy_yes": "15.9c"},
+        {"outcome": "28C", "displayed_probability": "50%", "buy_yes": "50c"},
+        {"outcome": "29C", "displayed_probability": "27%", "buy_yes": "28c"},
+        {"outcome": "30C", "displayed_probability": "8%", "buy_yes": "9.7c"}
+      ],
+      "fair_value_focus": {"outcome": "28C YES", "fair_value": "54%-64%", "confidence": "medium-low"},
+      "decision": "watch only; maintain PT-20260618-202 as weakened/adverse-watch"
+    },
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 19 highest temperature",
+      "volume": "$15.0K",
+      "resolution_source": "Hong Kong Observatory Absolute Daily Max",
+      "key_prices": [
+        {"outcome": "29C", "displayed_probability": "16%", "buy_yes": "16c"},
+        {"outcome": "30C", "displayed_probability": "29%", "buy_yes": "29c"},
+        {"outcome": "31C", "displayed_probability": "37%", "buy_yes": "37c"},
+        {"outcome": "32C", "displayed_probability": "18%", "buy_yes": "19c"}
+      ],
+      "fair_value_focus": {"outcome": "31C YES", "fair_value": "42%-52%", "confidence": "medium-low"},
+      "decision": "maintain existing paper entries only"
+    }
+  ],
+  "paper_trades_opened": [
+    {
+      "id": "PT-20260618-205",
+      "market": "Polymarket Shenzhen/ZGSZ Jun 18 highest temperature 29C YES",
+      "observed_price": "Buy Yes 4.0c",
+      "implied_probability": "4%",
+      "estimated_fair_value": "10%-22%",
+      "simulated_stance": "BUY_YES",
+      "simulated_size": "$5 notional",
+      "confidence": "low"
+    },
+    {
+      "id": "PT-20260618-206",
+      "market": "Polymarket Tokyo/Haneda Jun 18 highest temperature 26C YES",
+      "observed_price": "Buy Yes 11c",
+      "implied_probability": "10%-11%",
+      "estimated_fair_value": "18%-30%",
+      "simulated_stance": "BUY_YES",
+      "simulated_size": "$5 notional",
+      "confidence": "low"
+    }
+  ],
+  "maintained_positions": [
+    "PT-20260618-203 Shanghai/ZSPD Jun 18 30C YES: maintain only, no duplicate",
+    "PT-20260618-204 Tokyo/Haneda Jun 18 26C YES: adverse but add-on opened at much lower quote",
+    "PT-20260618-202 Seoul/Incheon Jun 18 27C YES: weakened/adverse-watch",
+    "PT-20260617-199 and PT-20260617-200 Hong Kong/HKO Jun 19 31C YES: maintain only"
+  ]
+}
