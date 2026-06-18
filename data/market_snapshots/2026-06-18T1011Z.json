@@ -1,0 +1,116 @@
+{
+  "timestamp_utc": "2026-06-18T10:11:29Z",
+  "timestamp_hkt": "2026-06-18T18:11:29+08:00",
+  "mode": "analysis_and_paper_trading_only",
+  "real_execution": false,
+  "markets": [
+    {
+      "rank": 1,
+      "market": "Polymarket Shanghai/ZSPD Jun 19 highest temperature 28C YES",
+      "current_price": "Buy Yes 12c",
+      "displayed_probability": "11%",
+      "implied_probability": 0.12,
+      "estimated_fair_value_range": [0.24, 0.34],
+      "estimated_edge_range_percentage_points": [12, 22],
+      "confidence": "low",
+      "classification": "strongest raw edge, represented",
+      "decision": "Maintain PT-20260618-211 and PT-20260618-213; no duplicate at same 12c price.",
+      "liquidity_notes": "Event volume about $29.3K; 28C bucket volume about $4.6K."
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Guangzhou/ZGGG Jun 19 highest temperature 32C YES",
+      "current_price": "Buy Yes 25c",
+      "displayed_probability": "24%",
+      "implied_probability": 0.25,
+      "estimated_fair_value_range": [0.30, 0.40],
+      "estimated_edge_range_percentage_points": [5, 15],
+      "confidence": "low",
+      "classification": "moderate fresh edge",
+      "decision": "Open PT-20260618-215, $5 simulated BUY_YES at 25c.",
+      "liquidity_notes": "Event volume about $12.1K; 32C bucket volume about $992."
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Chongqing/ZUCK Jun 19 highest temperature 31C YES",
+      "current_price": "Buy Yes 24c",
+      "displayed_probability": "24%",
+      "implied_probability": 0.24,
+      "estimated_fair_value_range": [0.34, 0.44],
+      "estimated_edge_range_percentage_points": [10, 20],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "decision": "Maintain PT-20260618-214 only.",
+      "liquidity_notes": "Event volume about $7.3K; 31C bucket volume about $1.4K."
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Seoul/Incheon Jun 19 highest temperature 30C YES",
+      "current_price": "Buy Yes 23c",
+      "displayed_probability": "22%",
+      "implied_probability": 0.23,
+      "estimated_fair_value_range": [0.32, 0.42],
+      "estimated_edge_range_percentage_points": [9, 19],
+      "confidence": "low-to-medium-low",
+      "classification": "represented maintenance edge",
+      "decision": "Maintain PT-20260618-210 only.",
+      "liquidity_notes": "Event volume about $12.7K."
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket Shenzhen/ZGSZ Jun 19 highest temperature 32C YES",
+      "current_price": "Buy Yes 27c",
+      "displayed_probability": "26%",
+      "implied_probability": 0.27,
+      "estimated_fair_value_range": [0.30, 0.40],
+      "estimated_edge_range_percentage_points": [3, 13],
+      "confidence": "low",
+      "classification": "weak-to-moderate represented edge",
+      "decision": "Maintain PT-20260618-212 only.",
+      "liquidity_notes": "Event volume about $20.4K; 32C bucket volume about $3.2K."
+    },
+    {
+      "rank": 6,
+      "market": "Polymarket Hong Kong/HKO Jun 19 highest temperature 31C YES",
+      "current_price": "Buy Yes 42c",
+      "displayed_probability": "41%",
+      "implied_probability": 0.42,
+      "estimated_fair_value_range": [0.45, 0.55],
+      "estimated_edge_range_percentage_points": [3, 13],
+      "confidence": "medium-low",
+      "classification": "represented maintenance / near fair",
+      "decision": "Maintain PT-20260617-199 and PT-20260617-200 only.",
+      "liquidity_notes": "Event volume about $34.1K."
+    }
+  ],
+  "recommended_paper_trades": [
+    {
+      "trade_id": "PT-20260618-215",
+      "market": "Polymarket Guangzhou/ZGGG Jun 19 highest temperature 32C YES",
+      "stance": "BUY_YES",
+      "entry_price": "25c",
+      "simulated_size": "$5 notional",
+      "confidence": "low",
+      "status": "open",
+      "outcome": "unresolved"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-shanghai-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-guangzhou-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-chongqing-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-seoul-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-shenzhen-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-shanghai-on-june-20-2026",
+    "https://weather.metoffice.gov.uk/forecast/wtw6sh1q7",
+    "https://weather.metoffice.gov.uk/forecast/ws0e3x09w",
+    "https://weather.metoffice.gov.uk/forecast/wm78q9qxj",
+    "https://weather.metoffice.gov.uk/forecast/ws10k3j56",
+    "https://weather.metoffice.gov.uk/forecast/wydj553hq",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://tgftp.nws.noaa.gov/weather/current/ZSPD.html",
+    "https://tgftp.nws.noaa.gov/weather/current/ZGGG.html"
+  ],
+  "notes": "All activity is analysis and simulated paper trading only. No real bets, trades, wallet actions, or order execution were performed."
+}
