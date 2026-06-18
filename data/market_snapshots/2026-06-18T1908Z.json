@@ -1,0 +1,90 @@
+{
+  "timestamp_utc": "2026-06-18T19:08:03Z",
+  "timestamp_hkt": "2026-06-19T03:08:03+08:00",
+  "mode": "analysis, alerting, and paper trading only; no real bets, trades, wallet actions, or order execution performed",
+  "markets_monitored": [
+    "Polymarket Chongqing/ZUCK highest temperature Jun 19 2026",
+    "Polymarket Seoul/Incheon highest temperature Jun 19 2026",
+    "Polymarket Shanghai/ZSPD highest temperature Jun 19 2026",
+    "Polymarket Hong Kong/HKO highest temperature Jun 19 2026",
+    "Polymarket Guangzhou/ZGGG highest temperature Jun 19 2026",
+    "Polymarket Shenzhen/ZGSZ highest temperature Jun 19 2026"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Chongqing/ZUCK Jun 19 31C YES",
+      "observed_price": "Buy Yes 29c",
+      "displayed_probability": 0.29,
+      "implied_probability": 0.29,
+      "estimated_fair_value_range": [0.36, 0.46],
+      "estimated_edge_range_percentage_points": [7, 17],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "decision": "maintain PT-20260618-214; no duplicate above entry"
+    },
+    {
+      "rank": 2,
+      "market": "Seoul/Incheon Jun 19 31C YES",
+      "observed_price": "Buy Yes 14c",
+      "displayed_probability": 0.14,
+      "implied_probability": 0.14,
+      "estimated_fair_value_range": [0.18, 0.28],
+      "estimated_edge_range_percentage_points": [4, 14],
+      "confidence": "low",
+      "classification": "represented moderate edge",
+      "decision": "maintain PT-20260618-216; no duplicate above entry"
+    },
+    {
+      "rank": 3,
+      "market": "Shanghai/ZSPD Jun 19 30C YES",
+      "observed_price": "Buy Yes 24c",
+      "displayed_probability": 0.24,
+      "implied_probability": 0.24,
+      "estimated_fair_value_range": [0.28, 0.38],
+      "estimated_edge_range_percentage_points": [4, 14],
+      "confidence": "low",
+      "classification": "represented moderate hedge edge",
+      "decision": "maintain PT-20260618-217; no same-price duplicate"
+    },
+    {
+      "rank": 4,
+      "market": "Hong Kong/HKO Jun 19 31C YES",
+      "observed_price": "Buy Yes 43c",
+      "displayed_probability": 0.42,
+      "implied_probability": 0.43,
+      "estimated_fair_value_range": [0.45, 0.55],
+      "estimated_edge_range_percentage_points": [2, 12],
+      "confidence": "medium-low",
+      "classification": "represented moderate maintenance edge",
+      "decision": "maintain PT-20260617-199/PT-20260617-200; no duplicate above entries"
+    },
+    {
+      "rank": 5,
+      "market": "Guangzhou/ZGGG Jun 19 32C YES",
+      "observed_price": "Buy Yes 31c",
+      "displayed_probability": 0.30,
+      "implied_probability": 0.31,
+      "estimated_fair_value_range": [0.26, 0.36],
+      "estimated_edge_range_percentage_points": [-5, 5],
+      "confidence": "low",
+      "classification": "represented near-fair maintenance",
+      "decision": "maintain PT-20260618-215; no duplicate"
+    },
+    {
+      "rank": 6,
+      "market": "Shenzhen/ZGSZ Jun 19 32C YES",
+      "observed_price": "Buy Yes 30c",
+      "displayed_probability": 0.29,
+      "implied_probability": 0.30,
+      "estimated_fair_value_range": [0.20, 0.30],
+      "estimated_edge_range_percentage_points": [-10, 0],
+      "confidence": "low",
+      "classification": "represented near-fair to weakened maintenance",
+      "decision": "maintain PT-20260618-212; no duplicate"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "paper_trading_update": "No new simulated position opened. Maintained existing Chongqing 31C, Seoul/Incheon 31C, Shanghai 30C, HKO 31C, Guangzhou 32C, and Shenzhen 32C paper-only positions. Added a maintenance note only.",
+  "real_money_actions": "none"
+}
