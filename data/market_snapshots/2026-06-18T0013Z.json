@@ -1,0 +1,81 @@
+{
+  "timestamp_utc": "2026-06-18T00:13:10Z",
+  "timestamp_hkt": "2026-06-18T08:13:10+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket HKO Jun 18 highest temperature",
+    "Polymarket HKO Jun 19 highest temperature",
+    "Polymarket Chicago/KORD Jun 17 highest temperature",
+    "Polymarket Dallas/KDAL Jun 17 highest temperature",
+    "Polymarket Austin/KAUS Jun 17 highest temperature",
+    "Polymarket Los Angeles/KLAX Jun 17 highest temperature",
+    "Polymarket Houston/KHOU Jun 17 highest temperature",
+    "Polymarket Atlanta/KATL Jun 17 highest temperature",
+    "Polymarket Miami/KMIA Jun 17 highest temperature",
+    "Polymarket San Francisco/KSFO Jun 17 highest temperature",
+    "Polymarket London/EGLC Jun 18 highest temperature",
+    "Polymarket Seoul Jun 18 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket HKO Jun 19 31C YES",
+      "current_price": "displayed 37%; Buy Yes 38c",
+      "implied_probability": 0.38,
+      "estimated_fair_value_range": [0.42, 0.52],
+      "estimated_edge_range": [0.04, 0.14],
+      "confidence": "medium-low",
+      "classification": "moderate represented maintenance",
+      "decision": "maintain only; no duplicate above existing 35c add-on"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket London/EGLC Jun 18 28C YES",
+      "current_price": "displayed 40%",
+      "implied_probability": 0.40,
+      "estimated_fair_value_range": [0.40, 0.50],
+      "estimated_edge_range": [0.00, 0.10],
+      "confidence": "low-to-medium-low",
+      "classification": "weak-to-moderate watch-only",
+      "decision": "no paper entry"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket HKO Jun 18 28C / 29C split",
+      "current_price": "28C Buy Yes 48c; 29C Buy Yes 34c",
+      "implied_probability": {
+        "28C": 0.48,
+        "29C": 0.34
+      },
+      "estimated_fair_value_range": {
+        "28C": [0.43, 0.53],
+        "29C": [0.30, 0.40]
+      },
+      "estimated_edge": "no clear positive edge after spread",
+      "confidence": "medium-low",
+      "classification": "near fair / represented maintenance",
+      "decision": "maintain existing HKO Jun 18 29C paper exposure only"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "maintenance_notes": [
+    "Chicago/KORD Jun 17 68-69F paper exposure is favorable/near-resolution after KORD printed 69.1F at 16:51 CDT and public Polymarket moved near 95%-96%.",
+    "Dallas/KDAL Jun 17 94-95F and Austin/KAUS Jun 17 92-93F remain adverse-watch after station observations stayed below those target buckets.",
+    "Los Angeles/KLAX Jun 17 70-71F hedge remains favorable/near-resolution."
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-18-2026",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/englishwx2.htm",
+    "https://polymarket.com/event/highest-temperature-in-london-on-june-18-2026",
+    "https://weather.metoffice.gov.uk/forecast/u10j124jp",
+    "https://polymarket.com/event/highest-temperature-in-seoul-on-june-18-2026",
+    "https://www.kma.go.kr/neng/forecast/short-term.do",
+    "https://polymarket.com/event/highest-temperature-in-chicago-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-dallas-on-june-17-2026",
+    "https://polymarket.com/event/highest-temperature-in-austin-on-june-17-2026",
+    "https://forecast.weather.gov/data/obhistory/"
+  ]
+}
