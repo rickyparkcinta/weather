@@ -1,85 +1,99 @@
 # Odds Market Snapshot
 
 ## Time Checked
-- UTC: 2026-06-18 05:25:04
-- HKT: 2026-06-18 13:25:04
+- UTC: 2026-06-18 06:08:15
+- HKT: 2026-06-18 14:08:15
 - Mode: analysis, alerting, and paper trading only. No real bets, trades, wallet actions, or order execution performed.
 
 ## Markets Monitored
-- Polymarket weather watchlist: Tokyo/Haneda Jun 18; Shanghai/Pudong Jun 19; Hong Kong/HKO Jun 19; Seoul/Incheon Jun 18; Shenzhen/ZGSZ Jun 18 and Jun 19; Guangzhou/ZGGG Jun 19; Shanghai/Pudong Jun 18.
-- Evidence used: Polymarket public market pages and resolution rules; Met Office forecasts for Tokyo Haneda and Shanghai; HKO 9-day forecast; same-run station context from earlier TAF/METAR checks.
+- Polymarket weather watchlist: Tokyo/Haneda Jun 18; Seoul/Incheon Jun 18 and Jun 19; Shanghai/Pudong Jun 19 and Jun 20; Hong Kong/HKO Jun 19; Shenzhen/ZGSZ Jun 18 and Jun 19; Guangzhou/ZGGG Jun 19.
+- Station and weather evidence: Polymarket public market pages and resolution rules; Met Office forecasts for Tokyo Haneda, Incheon, Seoul Incheon, Shanghai, Shanghai International, Shenzhen, and Guangzhou; HKO 9-day text forecast; NOAA/NWS current station summaries for RJTT, RKSI, and ZSPD.
 - Source-quality note: public Polymarket pages were used for displayed odds and Buy Yes / Buy No quotes. Confidence is capped where displayed probabilities, executable depth, final Wunderground station history, or source timing may diverge.
 
 ## Top Edges
 
-### 1. Polymarket Tokyo/Haneda Jun 18 27C YES
-- Current price: 27C displayed about 7.6%-8%; Buy Yes 12.0c. Nearby outcomes: 25C displayed 61% / Buy Yes 63c; 26C displayed 19% / Buy Yes 22c; 24C displayed 8.2% / Buy Yes 9.2c; 28C displayed 4% / Buy Yes 7.2c.
-- Implied probability: about 12% at the visible Buy Yes quote.
-- Estimated fair value: 20%-32%.
-- Estimated edge: roughly +8 to +20 percentage points.
-- Confidence: low.
+### 1. Polymarket Seoul/Incheon Jun 19 30C YES
+- Current price: 30C displayed 25%; Buy Yes 25c. Nearby outcomes: 29C displayed 35% / Buy Yes 35c; 28C displayed 28% / Buy Yes 28c; 31C displayed 7% / Buy Yes 8c.
+- Implied probability: about 25%.
+- Estimated fair value: 32%-42%.
+- Estimated edge: roughly +7 to +17 percentage points.
+- Confidence: low-to-medium-low.
 - Classification: moderate fresh paper-only edge.
-- Key reasoning: Polymarket still concentrates the board on 25C/26C, but refreshed Met Office Tokyo Haneda guidance now lists today's maximum at 27C. This makes 27C a cheap adjacent-bucket hedge against existing 26C paper exposure after exact-degree and Wunderground-source haircuts.
-- Liquidity/practicality notes: event volume is about $80.2K and the 27C bucket shows about $5.6K volume. Same-day exact-Celsius risk keeps sizing tiny.
-- Decision: open PT-20260618-209, paper-only BUY_YES at 12.0c.
+- Key reasoning: the market resolves to Incheon Intl Airport. Met Office Incheon and Seoul Incheon both show Jun 19 max around 30C with hourly peaks at 30C during the afternoon, while the market still makes 29C the leader. RKSI was already 28C at 06:00 UTC on Jun 18, supporting a warm station baseline going into Friday.
+- Liquidity/practicality notes: event volume about $23.3K, but the 30C bucket volume is only about $1.35K. Exact-Celsius and station-source risk keep size tiny.
+- Decision: open PT-20260618-210, paper-only BUY_YES at 25c.
 
-### 2. Polymarket Shanghai/ZSPD Jun 19 29C YES
-- Current price: 29C displayed 16%; Buy Yes 16c. Nearby outcomes: 28C displayed 15% / Buy Yes 15c; 30C displayed 32% / Buy Yes 33c; 31C displayed 25% / Buy Yes 26c; 32C displayed 12% / Buy Yes 13c.
-- Implied probability: about 16%.
-- Estimated fair value: 22%-34%.
+### 2. Polymarket Shanghai/ZSPD Jun 19 28C YES
+- Current price: 28C displayed 17%; Buy Yes 17c. Nearby outcomes: 29C displayed 22% / Buy Yes 22c; 30C displayed 30% / Buy Yes 31c; 31C displayed 21% / Buy Yes 21c.
+- Implied probability: about 17%.
+- Estimated fair value: 24%-34%.
+- Estimated edge: roughly +7 to +17 percentage points.
+- Confidence: low.
+- Classification: moderate fresh adjacent-bucket hedge.
+- Key reasoning: the freshest Met Office Shanghai International forecast for Jun 19 shows a 28C daily maximum with heavy rain/showers, and the city forecast also prints 28C. This shifts the best centered paper thesis cooler than the existing PT-20260618-208 29C entry, while the market still centers 30C/29C/31C. ZSPD current observations remain humid and mostly cloudy, which supports the rain-cooled path.
+- Liquidity/practicality notes: event volume about $22.6K and 28C bucket volume about $3.6K. The signal is source-sensitive because prior aviation context pointed closer to 29C, so this is a hedge, not a large conviction add.
+- Decision: open PT-20260618-211, paper-only BUY_YES at 17c.
+
+### 3. Polymarket Tokyo/Haneda Jun 18 27C YES
+- Current price: 27C displayed 10.8%; Buy Yes 12.0c. Nearby outcomes: 25C displayed 57% / Buy Yes 59c; 26C displayed 31% / Buy Yes 35c.
+- Implied probability: about 12%.
+- Estimated fair value: 18%-30%.
 - Estimated edge: roughly +6 to +18 percentage points.
 - Confidence: low.
 - Classification: moderate represented paper-only edge.
-- Key reasoning: Shanghai/Pudong remains a plausible rain-cooled 29C path while the market still centers hotter at 30C/31C. The edge narrowed as the quote moved from 14c to 16c, so this remains represented rather than addable.
-- Liquidity/practicality notes: event volume is about $18.9K and the 29C bucket shows about $1.8K volume. Existing PT-20260618-208 exposure blocks a duplicate.
-- Decision: maintain PT-20260618-208 only; no new Shanghai add.
+- Key reasoning: Met Office Tokyo Haneda still shows today at 27C, with hourly values at 27C in the afternoon, and NOAA/NWS had RJTT at 26C by 06:00 UTC. The market still leads with 25C/26C. However, PT-20260618-209 already opened at the same 12c price 43 minutes earlier.
+- Liquidity/practicality notes: event volume about $88.8K and 27C bucket volume about $6.3K. Same-price duplicate blocked by recent entry and exact-degree settlement risk.
+- Decision: maintain PT-20260618-209 only; no duplicate.
 
-### 3. Polymarket Hong Kong/HKO Jun 19 31C YES
-- Current price: 31C displayed 37%; Buy Yes 37c. Nearby outcomes: 30C displayed 28% / Buy Yes 28c; 32C displayed 21% / Buy Yes 21c; 29C displayed 11% / Buy Yes 11c.
-- Implied probability: about 37%.
-- Estimated fair value: 42%-52%.
-- Estimated edge: roughly +5 to +15 percentage points.
+### 4. Polymarket Hong Kong/HKO Jun 19 31C YES
+- Current price: 31C displayed 42%; Buy Yes 43c. Nearby outcomes: 30C displayed 27% / Buy Yes 28c; 32C displayed 16% / Buy Yes 17c; 29C displayed 14% / Buy Yes 14c.
+- Implied probability: about 43%.
+- Estimated fair value: 44%-54%.
+- Estimated edge: roughly +1 to +11 percentage points.
 - Confidence: medium-low.
-- Classification: moderate represented maintenance.
-- Key reasoning: HKO's 11:30 HKT forecast for Jun 19 gives 27-31C with mainly cloudy weather, a few showers, isolated thunderstorms at first, and sunny periods in the afternoon. That keeps 31C the best official single bucket, but 30.9C and 32.0C+ miss paths remain live.
-- Liquidity/practicality notes: event volume is about $16.1K. Existing PT-20260617-199 at 38c and PT-20260617-200 at 35c already represent the thesis.
-- Decision: maintain existing 31C paper exposure only; no duplicate above the 35c add-on.
+- Classification: represented maintenance.
+- Key reasoning: HKO's 11:30 HKT 9-day forecast still lists Jun 19 at 27-31C with mainly cloudy weather, a few showers, isolated thunderstorms at first, and sunny periods in the afternoon. The market has repriced from 37c to 43c, so the remaining edge is smaller.
+- Liquidity/practicality notes: event volume about $25.2K. Existing PT-20260617-199 at 38c and PT-20260617-200 at 35c already cover the thesis.
+- Decision: maintain only; no duplicate at 43c.
 
-### 4. Polymarket Seoul/Incheon Jun 18 29C BUY_NO
-- Current price: 29C displayed 8%; Buy Yes 8c / Buy No 93c. Market leader: 28C displayed 92% / Buy Yes 92c.
-- Implied probability: about 93% for the No side at the visible quote.
-- Estimated fair value: 88%-95% for NOT 29C.
-- Estimated edge: roughly -5 to +2 percentage points at the current No quote.
-- Confidence: medium-low as maintenance, low for fresh entry.
-- Classification: prior paper edge now mostly closed.
-- Key reasoning: The prior No entry has moved sharply in favor as the board flipped from 29C to 28C. At 93c the No side no longer offers a meaningful fresh discount.
-- Liquidity/practicality notes: event volume is about $157.7K. The move is favorable for PT-20260618-207, but it is now too expensive to add.
-- Decision: maintain PT-20260618-207; no new trade.
+### 5. Other Watchlist Notes
+- Seoul/Incheon Jun 18 29C BUY_NO moved further in favor: 28C is now displayed 94% / Buy Yes 95c, while 29C is 7% / Buy Yes 8c / Buy No 95c. Maintain PT-20260618-207 from Buy No 35c; no add at the current expensive No quote.
+- Shanghai/ZSPD Jun 19 29C YES from 14c is still open but less centered after the latest Met Office Shanghai International update shifted toward 28C. Maintain PT-20260618-208 only and use the new 28C hedge rather than defending 29C.
+- Shenzhen/ZGSZ Jun 19 is close to fair: 31C Buy Yes 30c and 32C Buy Yes 28c versus Met Office Shenzhen daily max 32C and hourly 31C/32C split.
+- Guangzhou/ZGGG Jun 19 is near fair or too thin: 32C Buy Yes 30c and 31C Buy Yes 24c versus Met Office Guangzhou daily max 32C and hourly 31C peak; target bucket volumes are light.
+- Shanghai/ZSPD Jun 20 is too young/thin for a paper entry despite interesting 29C/30C clustering.
 
 ## Recommended Paper Trades
-- Open PT-20260618-209: paper-only BUY_YES on Polymarket Tokyo/Haneda Jun 18 highest temperature 27C at Buy Yes 12.0c, $5 simulated notional.
-- Thesis: refreshed Met Office Tokyo Haneda guidance now prints a 27C daily maximum while Polymarket still prices 27C as a low-probability adjacent bucket. This is a tiny paper hedge against existing Tokyo 26C exposure, not a high-conviction standalone.
-- Confidence: low.
-- Invalidation risks: Haneda caps at 25C/26C despite the forecast; final Wunderground/RJTT history differs from Met Office guidance; late cloud, rain, or sea-breeze effects cap the station; public Polymarket quote depth is stale or thin; whole-degree settlement/rounding shifts the result.
-- Maintain, no duplicate: PT-20260618-208 Shanghai/ZSPD Jun 19 29C YES from 14c; PT-20260617-199 / PT-20260617-200 HKO Jun 19 31C YES from 38c/35c; PT-20260618-207 Seoul/Incheon Jun 18 29C BUY_NO from 35c; PT-20260618-204 / PT-20260618-206 Tokyo/Haneda Jun 18 26C YES from 33c/11c.
+- Open PT-20260618-210: paper-only BUY_YES on Polymarket Seoul/Incheon Jun 19 highest temperature 30C at Buy Yes 25c, $5 simulated notional.
+- Open PT-20260618-211: paper-only BUY_YES on Polymarket Shanghai/ZSPD Jun 19 highest temperature 28C at Buy Yes 17c, $5 simulated notional.
+- Maintain, no duplicate: PT-20260618-209 Tokyo/Haneda Jun 18 27C YES from 12c; PT-20260618-207 Seoul/Incheon Jun 18 29C BUY_NO from 35c; PT-20260618-208 Shanghai/ZSPD Jun 19 29C YES from 14c; PT-20260617-199 / PT-20260617-200 HKO Jun 19 31C YES from 38c/35c.
 
 ## Risks and Invalidation Factors
-- Whole-degree Wunderground settlement can flip Tokyo, Seoul, Shanghai, Shenzhen, and Guangzhou on a single rounded station print.
-- Tokyo's best new edge depends on Met Office Haneda matching the eventual Wunderground/RJTT station-history print.
-- Shanghai Jun 19 remains a young, thin market; visible 16c quotes may not reflect practical executable depth.
+- Whole-degree Wunderground settlement can flip Tokyo, Seoul, Shanghai, Shenzhen, and Guangzhou on one rounded station print.
+- Seoul Jun 19 can miss to 29C if the sea breeze or late cloud suppresses Incheon Intl by one degree, or to 31C if afternoon heating exceeds the Met Office peak.
+- Shanghai Jun 19 28C depends on rain/cloud persistence; any midday clearing can push ZSPD back toward 29C/30C and leave both 28C and the older 29C hedge exposed to adjacent-bucket risk.
 - HKO Jun 19 31C can lose either to a 30.9C cap or to a 32.0C+ sunny-break overshoot.
-- Public Polymarket pages can show display probabilities that differ from live depth.
+- Public Polymarket pages can show display probabilities that differ from live executable depth.
 
 ## Sources Used
 - Polymarket Tokyo Jun 18 event: https://polymarket.com/event/highest-temperature-in-tokyo-on-june-18-2026
-- Met Office Tokyo Haneda forecast: https://weather.metoffice.gov.uk/forecast/xn76hz8ty
-- Polymarket Shanghai Jun 19 event: https://polymarket.com/event/highest-temperature-in-shanghai-on-june-19-2026
-- Met Office Shanghai and Shanghai International forecasts: https://weather.metoffice.gov.uk/forecast/wtw3u0gu2 and https://weather.metoffice.gov.uk/forecast/wtw6sh1q7
-- Polymarket Hong Kong Jun 19 event: https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-19-2026
-- HKO 9-day text forecast: https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm
 - Polymarket Seoul Jun 18 event: https://polymarket.com/event/highest-temperature-in-seoul-on-june-18-2026
+- Polymarket Seoul Jun 19 event: https://polymarket.com/event/highest-temperature-in-seoul-on-june-19-2026
+- Polymarket Shanghai Jun 19 event: https://polymarket.com/event/highest-temperature-in-shanghai-on-june-19-2026
+- Polymarket Shanghai Jun 20 event: https://polymarket.com/event/highest-temperature-in-shanghai-on-june-20-2026
+- Polymarket Hong Kong Jun 19 event: https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-19-2026
+- Polymarket Shenzhen Jun 18 event: https://polymarket.com/event/highest-temperature-in-shenzhen-on-june-18-2026
+- Polymarket Shenzhen Jun 19 event: https://polymarket.com/event/highest-temperature-in-shenzhen-on-june-19-2026
+- Polymarket Guangzhou Jun 19 event: https://polymarket.com/event/highest-temperature-in-guangzhou-on-june-19-2026
+- Met Office Tokyo Haneda forecast: https://weather.metoffice.gov.uk/forecast/xn76hz8ty
+- Met Office Incheon and Seoul Incheon forecasts: https://weather.metoffice.gov.uk/forecast/wydj553hq and https://weather.metoffice.gov.uk/forecast/wy9vjmn3q
+- Met Office Shanghai and Shanghai International forecasts: https://weather.metoffice.gov.uk/forecast/wtw3u0gu2 and https://weather.metoffice.gov.uk/forecast/wtw6sh1q7
+- Met Office Shenzhen and Guangzhou forecasts: https://weather.metoffice.gov.uk/forecast/ws10k3j56 and https://weather.metoffice.gov.uk/forecast/ws0e3x09w
+- HKO 9-day text forecast: https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm
+- NOAA/NWS current station summaries: https://tgftp.nws.noaa.gov/weather/current/RJTT.html, https://tgftp.nws.noaa.gov/weather/current/RKSI.html, and https://tgftp.nws.noaa.gov/weather/current/ZSPD.html
 
 ## Repo Log Update
 - Updated odds/latest.md.
-- Created odds/history/2026-06-18T0525Z.md, alerts/2026-06-18T0525Z.md, data/market_snapshots/2026-06-18T0525Z.json, paper_trading/entries/PT-20260618-209.md, paper_trading/ledger_appends/2026-06-18T0525Z.csv, and paper_trading/maintenance/2026-06-18T0525Z.md.
-- New simulated paper-only position: PT-20260618-209 Tokyo/Haneda Jun 18 27C YES at Buy Yes 12.0c, $5 notional. No real trades or betting actions were executed.
+- Created odds/history/2026-06-18T0608Z.md, alerts/2026-06-18T0608Z.md, data/market_snapshots/2026-06-18T0608Z.json, paper_trading/entries/PT-20260618-210.md, paper_trading/entries/PT-20260618-211.md, paper_trading/ledger_appends/2026-06-18T0608Z.csv, and paper_trading/maintenance/2026-06-18T0608Z.md.
+- Updated rolling memory records: paper_trading/paper_trade_log.md, paper_trading/paper_trade_summary.md, paper-trade-summary.md, market-watchlist.md, edge-notes.md, and repo-working-notes.md.
+- New simulated paper-only positions: PT-20260618-210 Seoul/Incheon Jun 19 30C YES at Buy Yes 25c, $5 notional; PT-20260618-211 Shanghai/ZSPD Jun 19 28C YES at Buy Yes 17c, $5 notional. No real trades or betting actions were executed.
