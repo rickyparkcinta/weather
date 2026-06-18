@@ -1,0 +1,111 @@
+{
+  "timestamp_utc": "2026-06-18T08:12:26Z",
+  "timestamp_hkt": "2026-06-18T16:12:26+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Seoul/Incheon Jun 19 highest temperature",
+    "Polymarket Seoul/Incheon Jun 20 highest temperature",
+    "Polymarket Shanghai/ZSPD Jun 19 highest temperature",
+    "Polymarket Shanghai/ZSPD Jun 20 highest temperature",
+    "Polymarket Shenzhen/ZGSZ Jun 19 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 19 highest temperature",
+    "Polymarket Guangzhou/ZGGG Jun 19 highest temperature",
+    "Polymarket Guangzhou/ZGGG Jun 20 highest temperature",
+    "Polymarket Tokyo/Haneda Jun 18 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Seoul/Incheon Jun 19 highest temperature 30C YES",
+      "current_price": "Buy Yes 23c",
+      "displayed_probability": "23%",
+      "implied_probability": 0.23,
+      "estimated_fair_value_range": "32%-42%",
+      "estimated_edge_range": "+9 to +19 percentage points",
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "decision": "maintain PT-20260618-210; no duplicate"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Shanghai/ZSPD Jun 19 highest temperature 28C YES",
+      "current_price": "Buy Yes 16c",
+      "displayed_probability": "15%",
+      "implied_probability": 0.16,
+      "estimated_fair_value_range": "24%-34%",
+      "estimated_edge_range": "+8 to +18 percentage points",
+      "confidence": "low",
+      "classification": "moderate represented adjacent-bucket edge",
+      "decision": "maintain PT-20260618-211; no duplicate"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Shenzhen/ZGSZ Jun 19 highest temperature 32C YES",
+      "current_price": "Buy Yes 22c",
+      "displayed_probability": "22%",
+      "implied_probability": 0.22,
+      "estimated_fair_value_range": "28%-38%",
+      "estimated_edge_range": "+6 to +16 percentage points",
+      "confidence": "low",
+      "classification": "moderate represented edge",
+      "decision": "maintain PT-20260618-212; no duplicate"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Hong Kong/HKO Jun 19 highest temperature 31C YES",
+      "current_price": "Buy Yes 44c",
+      "displayed_probability": "43%",
+      "implied_probability": 0.44,
+      "estimated_fair_value_range": "45%-55%",
+      "estimated_edge_range": "+1 to +11 percentage points",
+      "confidence": "medium-low",
+      "classification": "represented maintenance",
+      "decision": "maintain existing paper exposure; no duplicate"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket Tokyo/Haneda Jun 18 highest temperature 27C YES",
+      "current_price": "Buy Yes 10.1c",
+      "displayed_probability": "7.2%",
+      "implied_probability": 0.101,
+      "estimated_fair_value_range": "8%-16%",
+      "estimated_edge_range": "-2 to +6 percentage points",
+      "confidence": "low",
+      "classification": "weak represented maintenance",
+      "decision": "maintain/watch only"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "maintenance_positions": [
+    "PT-20260618-210",
+    "PT-20260618-211",
+    "PT-20260618-212",
+    "PT-20260618-209",
+    "PT-20260617-199",
+    "PT-20260617-200"
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-seoul-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-seoul-on-june-20-2026",
+    "https://polymarket.com/event/highest-temperature-in-shanghai-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-shanghai-on-june-20-2026",
+    "https://polymarket.com/event/highest-temperature-in-shenzhen-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-guangzhou-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-guangzhou-on-june-20-2026",
+    "https://polymarket.com/event/highest-temperature-in-tokyo-on-june-18-2026",
+    "https://weather.metoffice.gov.uk/forecast/wydj553hq",
+    "https://weather.metoffice.gov.uk/forecast/wy9vjmn3q",
+    "https://weather.metoffice.gov.uk/forecast/wtw6sh1q7",
+    "https://weather.metoffice.gov.uk/forecast/ws10k3j56",
+    "https://weather.metoffice.gov.uk/forecast/ws0e3x09w",
+    "https://weather.metoffice.gov.uk/forecast/xn76hz8ty",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://tgftp.nws.noaa.gov/weather/current/RJTT.html",
+    "https://tgftp.nws.noaa.gov/weather/current/RKSI.html",
+    "https://tgftp.nws.noaa.gov/weather/current/ZSPD.html",
+    "https://tgftp.nws.noaa.gov/weather/current/ZGSZ.html",
+    "https://tgftp.nws.noaa.gov/weather/current/ZGGG.html"
+  ]
+}
