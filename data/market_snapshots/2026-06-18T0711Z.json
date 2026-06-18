@@ -1,0 +1,101 @@
+{
+  "timestamp_utc": "2026-06-18T07:11:57Z",
+  "timestamp_hkt": "2026-06-18T15:11:57+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Tokyo/Haneda Jun 18 highest temperature",
+    "Polymarket Seoul/Incheon Jun 18 highest temperature",
+    "Polymarket Seoul/Incheon Jun 19 highest temperature",
+    "Polymarket Shanghai/ZSPD Jun 19 highest temperature",
+    "Polymarket Shanghai/ZSPD Jun 20 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 19 highest temperature",
+    "Polymarket Shenzhen/ZGSZ Jun 19 highest temperature",
+    "Polymarket Guangzhou/ZGGG Jun 19 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Shanghai/ZSPD Jun 19 highest temperature 28C YES",
+      "current_price": "Buy Yes 16c",
+      "displayed_probability": "15%",
+      "implied_probability": 0.16,
+      "estimated_fair_value_range": "24%-34%",
+      "estimated_edge_range": "+8 to +18 percentage points",
+      "confidence": "low",
+      "classification": "moderate represented adjacent-bucket edge",
+      "decision": "maintain PT-20260618-211; no duplicate"
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Seoul/Incheon Jun 19 highest temperature 30C YES",
+      "current_price": "Buy Yes 25c",
+      "displayed_probability": "25%",
+      "implied_probability": 0.25,
+      "estimated_fair_value_range": "32%-42%",
+      "estimated_edge_range": "+7 to +17 percentage points",
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "decision": "maintain PT-20260618-210; no duplicate"
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Shenzhen/ZGSZ Jun 19 highest temperature 32C YES",
+      "current_price": "Buy Yes 22c",
+      "displayed_probability": "22%",
+      "implied_probability": 0.22,
+      "estimated_fair_value_range": "28%-38%",
+      "estimated_edge_range": "+6 to +16 percentage points",
+      "confidence": "low",
+      "classification": "moderate fresh paper-only edge",
+      "decision": "open paper trade PT-20260618-212",
+      "simulated_size": "$5 notional"
+    },
+    {
+      "rank": 4,
+      "market": "Polymarket Tokyo/Haneda Jun 18 highest temperature 27C YES",
+      "current_price": "Buy Yes 16.9c",
+      "displayed_probability": "13.9%",
+      "implied_probability": 0.169,
+      "estimated_fair_value_range": "18%-28%",
+      "estimated_edge_range": "+1 to +11 percentage points",
+      "confidence": "low",
+      "classification": "represented maintenance",
+      "decision": "maintain PT-20260618-209; no duplicate"
+    },
+    {
+      "rank": 5,
+      "market": "Polymarket Hong Kong/HKO Jun 19 highest temperature 31C YES",
+      "current_price": "Buy Yes 42c",
+      "displayed_probability": "42%",
+      "implied_probability": 0.42,
+      "estimated_fair_value_range": "44%-54%",
+      "estimated_edge_range": "+2 to +12 percentage points",
+      "confidence": "medium-low",
+      "classification": "represented maintenance",
+      "decision": "maintain existing paper exposure; no duplicate"
+    }
+  ],
+  "recommended_paper_trades": [
+    "PT-20260618-212"
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-seoul-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-shanghai-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-shenzhen-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-tokyo-on-june-18-2026",
+    "https://polymarket.com/event/highest-temperature-in-guangzhou-on-june-19-2026",
+    "https://weather.metoffice.gov.uk/forecast/xn76hz8ty",
+    "https://weather.metoffice.gov.uk/forecast/wydj553hq",
+    "https://weather.metoffice.gov.uk/forecast/wy9vjmn3q",
+    "https://weather.metoffice.gov.uk/forecast/wtw6sh1q7",
+    "https://weather.metoffice.gov.uk/forecast/ws10k3j56",
+    "https://weather.metoffice.gov.uk/forecast/ws0e3x09w",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://tgftp.nws.noaa.gov/weather/current/RJTT.html",
+    "https://tgftp.nws.noaa.gov/weather/current/RKSI.html",
+    "https://tgftp.nws.noaa.gov/weather/current/ZSPD.html",
+    "https://tgftp.nws.noaa.gov/weather/current/ZGSZ.html"
+  ]
+}
