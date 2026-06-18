@@ -1,0 +1,103 @@
+{
+  "timestamp_utc": "2026-06-18T04:12:30Z",
+  "timestamp_hkt": "2026-06-18T12:12:30+0800",
+  "mode": "analysis_alerting_paper_trading_only",
+  "no_real_trades_or_bets": true,
+  "markets": [
+    {
+      "market": "Polymarket Seoul/Incheon Jun 18 highest temperature",
+      "volume": "$141.8K",
+      "resolution_source": "Wunderground Incheon Intl Airport Station / RKSI",
+      "key_prices": [
+        {"outcome": "28C", "displayed_probability": "27%", "buy_yes": "27c"},
+        {"outcome": "29C", "displayed_probability": "67%", "buy_yes": "68c", "buy_no": "35c"},
+        {"outcome": "30C", "displayed_probability": "13%", "buy_yes": "14.6c"},
+        {"outcome": "31C or higher", "displayed_probability": "2%", "buy_yes": "2.5c"}
+      ],
+      "evidence": "RKSI METAR 180330Z reported 28C; TAF includes TX28/1806Z for Jun 18 and TX29/1906Z for Jun 19.",
+      "fair_value_focus": {"outcome": "29C BUY_NO", "fair_value": "42%-52%", "confidence": "low-to-medium-low"},
+      "decision": "open paper trade PT-20260618-207"
+    },
+    {
+      "market": "Polymarket Shanghai/ZSPD Jun 19 highest temperature",
+      "volume": "$17.6K",
+      "resolution_source": "Wunderground Shanghai Pudong International Airport Station / ZSPD",
+      "key_prices": [
+        {"outcome": "28C", "displayed_probability": "13%", "buy_yes": "14c"},
+        {"outcome": "29C", "displayed_probability": "14%", "buy_yes": "14c"},
+        {"outcome": "30C", "displayed_probability": "30%", "buy_yes": "30c"},
+        {"outcome": "31C", "displayed_probability": "26%", "buy_yes": "26c"},
+        {"outcome": "32C", "displayed_probability": "13%", "buy_yes": "14c"}
+      ],
+      "evidence": "ZSPD TAF includes TX29/1906Z; Met Office Shanghai shows Fri Jun 19 max 28C with heavy rain/showers.",
+      "fair_value_focus": {"outcome": "29C YES", "fair_value": "24%-36%", "confidence": "low"},
+      "decision": "open paper trade PT-20260618-208"
+    },
+    {
+      "market": "Polymarket Tokyo/Haneda Jun 18 highest temperature",
+      "volume": "$68.9K",
+      "resolution_source": "Wunderground Tokyo Haneda Airport Station / RJTT",
+      "key_prices": [
+        {"outcome": "24C", "displayed_probability": "29%", "buy_yes": "32.3c"},
+        {"outcome": "25C", "displayed_probability": "43%", "buy_yes": "44c"},
+        {"outcome": "26C", "displayed_probability": "15%", "buy_yes": "18c"}
+      ],
+      "fair_value_focus": {"outcome": "26C YES", "fair_value": "22%-32%", "confidence": "low"},
+      "decision": "maintain PT-20260618-204 and PT-20260618-206 only; no duplicate"
+    },
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 19 highest temperature",
+      "volume": "$15.0K",
+      "resolution_source": "Hong Kong Observatory Absolute Daily Max",
+      "key_prices": [
+        {"outcome": "29C", "displayed_probability": "16%", "buy_yes": "16c"},
+        {"outcome": "30C", "displayed_probability": "29%", "buy_yes": "29c"},
+        {"outcome": "31C", "displayed_probability": "37%", "buy_yes": "37c"},
+        {"outcome": "32C", "displayed_probability": "18%", "buy_yes": "19c"}
+      ],
+      "fair_value_focus": {"outcome": "31C YES", "fair_value": "42%-52%", "confidence": "medium-low"},
+      "decision": "maintain PT-20260617-199 and PT-20260617-200 only"
+    },
+    {
+      "market": "Polymarket Shenzhen/ZGSZ Jun 18 highest temperature",
+      "volume": "$62.9K",
+      "resolution_source": "Wunderground Shenzhen Bao'an International Airport Station / ZGSZ",
+      "key_prices": [
+        {"outcome": "26C", "displayed_probability": "62.5%", "buy_yes": "63.0c"},
+        {"outcome": "27C", "displayed_probability": "23%", "buy_yes": "24c"},
+        {"outcome": "28C", "displayed_probability": "7%", "buy_yes": "8c"},
+        {"outcome": "29C", "displayed_probability": "2%", "buy_yes": "3.6c"}
+      ],
+      "fair_value_focus": {"outcome": "29C YES", "fair_value": "6%-14%", "confidence": "low"},
+      "decision": "maintain PT-20260618-205 only; no duplicate"
+    }
+  ],
+  "paper_trades_opened": [
+    {
+      "id": "PT-20260618-207",
+      "market": "Polymarket Seoul/Incheon Jun 18 highest temperature 29C BUY_NO",
+      "observed_price": "Buy No 35c",
+      "implied_probability": "35%",
+      "estimated_fair_value": "42%-52%",
+      "simulated_stance": "BUY_NO",
+      "simulated_size": "$5 notional",
+      "confidence": "low-to-medium-low"
+    },
+    {
+      "id": "PT-20260618-208",
+      "market": "Polymarket Shanghai/ZSPD Jun 19 highest temperature 29C YES",
+      "observed_price": "Buy Yes 14c",
+      "implied_probability": "14%",
+      "estimated_fair_value": "24%-36%",
+      "simulated_stance": "BUY_YES",
+      "simulated_size": "$5 notional",
+      "confidence": "low"
+    }
+  ],
+  "maintained_positions": [
+    "PT-20260618-204 and PT-20260618-206 Tokyo/Haneda Jun 18 26C YES: maintain only",
+    "PT-20260618-205 Shenzhen/ZGSZ Jun 18 29C YES: adverse-watch after thunderstorm/heavy-rain evidence",
+    "PT-20260618-203 Shanghai/ZSPD Jun 18 30C YES: adverse/no-add",
+    "PT-20260617-199 and PT-20260617-200 Hong Kong/HKO Jun 19 31C YES: represented/no duplicate"
+  ]
+}
