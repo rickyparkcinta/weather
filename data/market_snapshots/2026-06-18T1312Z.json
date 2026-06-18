@@ -1,0 +1,126 @@
+{
+  "timestamp_utc": "2026-06-18T13:12:52Z",
+  "timestamp_hkt": "2026-06-18T21:12:52+08:00",
+  "mode": "analysis_alerting_and_paper_trading_only",
+  "real_money_actions": "none",
+  "markets_monitored": [
+    "Polymarket Seoul/Incheon highest temperature Jun 19 2026",
+    "Polymarket Chongqing/ZUCK highest temperature Jun 19 2026",
+    "Polymarket Shanghai/ZSPD highest temperature Jun 19 2026",
+    "Polymarket Guangzhou/ZGGG highest temperature Jun 19 2026",
+    "Polymarket Shenzhen/ZGSZ highest temperature Jun 19 2026",
+    "Polymarket Hong Kong/HKO highest temperature Jun 19 2026"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Chongqing/ZUCK Jun 19 31C YES",
+      "observed_price": "Buy Yes 26c",
+      "implied_probability": 0.26,
+      "estimated_fair_value_range": [0.34, 0.44],
+      "estimated_edge_range_percentage_points": [8, 18],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "decision": "maintain existing paper position PT-20260618-214; no duplicate"
+    },
+    {
+      "rank": 2,
+      "market": "Shanghai/ZSPD Jun 19 28C YES",
+      "observed_price": "Buy Yes 15c",
+      "implied_probability": 0.15,
+      "estimated_fair_value_range": [0.22, 0.32],
+      "estimated_edge_range_percentage_points": [7, 17],
+      "confidence": "low",
+      "classification": "represented maintenance edge",
+      "decision": "maintain existing paper positions PT-20260618-211 and PT-20260618-213; no duplicate"
+    },
+    {
+      "rank": 3,
+      "market": "Seoul/Incheon Jun 19 31C YES",
+      "observed_price": "Buy Yes 12c",
+      "implied_probability": 0.12,
+      "estimated_fair_value_range": [0.18, 0.28],
+      "estimated_edge_range_percentage_points": [6, 16],
+      "confidence": "low",
+      "classification": "represented moderate edge",
+      "decision": "maintain existing paper position PT-20260618-216; no duplicate"
+    },
+    {
+      "rank": 4,
+      "market": "Guangzhou/ZGGG Jun 19 32C YES",
+      "observed_price": "Buy Yes 25c",
+      "implied_probability": 0.25,
+      "estimated_fair_value_range": [0.30, 0.40],
+      "estimated_edge_range_percentage_points": [5, 15],
+      "confidence": "low",
+      "classification": "represented moderate edge",
+      "decision": "maintain existing paper position PT-20260618-215; no duplicate"
+    },
+    {
+      "rank": 5,
+      "market": "Shenzhen/ZGSZ Jun 19 32C YES",
+      "observed_price": "Buy Yes 22c",
+      "implied_probability": 0.22,
+      "estimated_fair_value_range": [0.24, 0.34],
+      "estimated_edge_range_percentage_points": [2, 12],
+      "confidence": "low",
+      "classification": "represented weak-to-moderate edge",
+      "decision": "maintain existing paper position PT-20260618-212; no duplicate"
+    },
+    {
+      "rank": 6,
+      "market": "Hong Kong/HKO Jun 19 31C YES",
+      "observed_price": "Buy Yes 43c",
+      "implied_probability": 0.43,
+      "estimated_fair_value_range": [0.44, 0.54],
+      "estimated_edge_range_percentage_points": [1, 11],
+      "confidence": "medium-low",
+      "classification": "represented maintenance / near fair",
+      "decision": "maintain existing paper positions PT-20260617-199 and PT-20260617-200; no duplicate"
+    }
+  ],
+  "recommended_paper_trades": [],
+  "paper_trading_update": {
+    "new_entry_file_created": false,
+    "ledger_append_created": false,
+    "maintenance_file": "paper_trading/maintenance/2026-06-18T1312Z.md"
+  },
+  "risk_notes": [
+    "Exact-weather buckets can miss on one-degree or one-tenth-degree settlement boundaries.",
+    "Public Polymarket display and executable depth may diverge.",
+    "Met Office location forecasts may not perfectly match Wunderground resolution stations.",
+    "Shanghai has explicit source disagreement between Met Office 28C support and hotter 30C-31C model context.",
+    "Asia weather exposure remains correlated across rain/cloud and model-update errors."
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-seoul-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-chongqing-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-shanghai-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-guangzhou-on-june-19-2026",
+    "https://polymarket.com/es/event/highest-temperature-in-shenzhen-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-19-2026",
+    "https://weather.metoffice.gov.uk/forecast/wydj553hq",
+    "https://weather.metoffice.gov.uk/forecast/wm78q9qxj",
+    "https://weather.metoffice.gov.uk/forecast/wtw6sh1q7",
+    "https://weather.metoffice.gov.uk/forecast/ws0e3x09w",
+    "https://weather.metoffice.gov.uk/forecast/ws10k3j56",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://tgftp.nws.noaa.gov/weather/current/RKSI.html",
+    "https://tgftp.nws.noaa.gov/weather/current/ZUCK.html",
+    "https://tgftp.nws.noaa.gov/weather/current/ZSPD.html",
+    "https://tgftp.nws.noaa.gov/weather/current/ZGGG.html",
+    "https://tgftp.nws.noaa.gov/weather/current/ZGSZ.html"
+  ],
+  "files_updated": [
+    "odds/latest.md",
+    "odds/history/2026-06-18T1312Z.md",
+    "alerts/2026-06-18T1312Z.md",
+    "data/market_snapshots/2026-06-18T1312Z.json",
+    "paper_trading/maintenance/2026-06-18T1312Z.md",
+    "market-watchlist.md",
+    "edge-notes.md",
+    "paper-trade-summary.md",
+    "paper_trading/paper_trade_summary.md",
+    "paper_trading/paper_trade_log.md"
+  ]
+}
