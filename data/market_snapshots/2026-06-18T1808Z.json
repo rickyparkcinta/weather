@@ -1,0 +1,102 @@
+{
+  "timestamp_utc": "2026-06-18T18:08:13Z",
+  "timestamp_hkt": "2026-06-19T02:08:13+08:00",
+  "mode": "analysis, alerting, and paper trading only; no real bets, trades, wallet actions, or order execution performed",
+  "markets_monitored": [
+    "Polymarket Chongqing/ZUCK highest temperature Jun 19 2026",
+    "Polymarket Seoul/Incheon highest temperature Jun 19 2026",
+    "Polymarket Hong Kong/HKO highest temperature Jun 19 2026",
+    "Polymarket Shanghai/ZSPD highest temperature Jun 19 2026",
+    "Polymarket Guangzhou/ZGGG highest temperature Jun 19 2026",
+    "Polymarket Shenzhen/ZGSZ highest temperature Jun 19 2026"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Chongqing/ZUCK Jun 19 31C YES",
+      "observed_price": "Buy Yes 31c",
+      "displayed_probability": 0.30,
+      "implied_probability": 0.31,
+      "estimated_fair_value_range": [0.36, 0.46],
+      "estimated_edge_range_percentage_points": [5, 15],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate represented edge",
+      "decision": "maintain PT-20260618-214; no duplicate above entry"
+    },
+    {
+      "rank": 2,
+      "market": "Shanghai/ZSPD Jun 19 30C YES",
+      "observed_price": "Buy Yes 24c",
+      "displayed_probability": 0.24,
+      "implied_probability": 0.24,
+      "estimated_fair_value_range": [0.28, 0.38],
+      "estimated_edge_range_percentage_points": [4, 14],
+      "confidence": "low",
+      "classification": "moderate fresh paper-only hedge",
+      "decision": "opened PT-20260618-217"
+    },
+    {
+      "rank": 3,
+      "market": "Seoul/Incheon Jun 19 31C YES",
+      "observed_price": "Buy Yes 12c",
+      "displayed_probability": 0.11,
+      "implied_probability": 0.12,
+      "estimated_fair_value_range": [0.18, 0.28],
+      "estimated_edge_range_percentage_points": [6, 16],
+      "confidence": "low",
+      "classification": "represented moderate edge",
+      "decision": "maintain PT-20260618-216; no duplicate"
+    },
+    {
+      "rank": 4,
+      "market": "Hong Kong/HKO Jun 19 31C YES",
+      "observed_price": "Buy Yes 41c",
+      "displayed_probability": 0.41,
+      "implied_probability": 0.41,
+      "estimated_fair_value_range": [0.44, 0.54],
+      "estimated_edge_range_percentage_points": [3, 13],
+      "confidence": "medium-low",
+      "classification": "represented moderate maintenance edge",
+      "decision": "maintain PT-20260617-199/PT-20260617-200; no duplicate"
+    },
+    {
+      "rank": 5,
+      "market": "Guangzhou/ZGGG Jun 19 32C YES",
+      "observed_price": "Buy Yes 31c",
+      "displayed_probability": 0.30,
+      "implied_probability": 0.31,
+      "estimated_fair_value_range": [0.26, 0.36],
+      "estimated_edge_range_percentage_points": [-5, 5],
+      "confidence": "low",
+      "classification": "represented near-fair maintenance",
+      "decision": "maintain PT-20260618-215; no duplicate"
+    },
+    {
+      "rank": 6,
+      "market": "Shenzhen/ZGSZ Jun 19 32C YES",
+      "observed_price": "Buy Yes 30c",
+      "displayed_probability": 0.29,
+      "implied_probability": 0.30,
+      "estimated_fair_value_range": [0.22, 0.32],
+      "estimated_edge_range_percentage_points": [-8, 2],
+      "confidence": "low",
+      "classification": "represented near-fair to slightly weakened maintenance",
+      "decision": "maintain PT-20260618-212; no duplicate"
+    }
+  ],
+  "recommended_paper_trades": [
+    {
+      "trade_id": "PT-20260618-217",
+      "market": "Polymarket Shanghai/ZSPD Jun 19 highest temperature 30C YES",
+      "observed_price": "Buy Yes 24c",
+      "implied_probability": 0.24,
+      "estimated_fair_value_range": [0.28, 0.38],
+      "simulated_stance": "BUY_YES",
+      "simulated_size": "$5 notional",
+      "confidence": "low",
+      "status": "open"
+    }
+  ],
+  "paper_trading_update": "Opened PT-20260618-217 as a tiny simulated Shanghai/ZSPD Jun 19 30C hedge. Maintained Chongqing 31C, Seoul/Incheon 31C, HKO 31C, Guangzhou 32C, and Shenzhen 32C as represented positions.",
+  "real_money_actions": "none"
+}
