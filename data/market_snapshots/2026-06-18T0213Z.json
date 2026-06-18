@@ -1,0 +1,130 @@
+{
+  "timestamp_utc": "2026-06-18T02:13:10Z",
+  "timestamp_hkt": "2026-06-18T10:13:10+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_money_actions": "none",
+  "markets_monitored": [
+    "Polymarket Shanghai/ZSPD Jun 18 highest temperature",
+    "Polymarket Tokyo/Haneda Jun 18 highest temperature",
+    "Polymarket Seoul/Incheon Jun 18 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 18 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 19 highest temperature",
+    "Polymarket London/EGLC Jun 18 highest temperature",
+    "Polymarket Guangzhou/ZGGG Jun 18 highest temperature",
+    "Polymarket Shenzhen/ZGSZ Jun 18 context"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Shanghai/ZSPD Jun 18 30C YES",
+      "current_price": "displayed 4%; Buy Yes 4.0c",
+      "implied_probability": 0.04,
+      "estimated_fair_value_range": [0.12, 0.24],
+      "estimated_edge_range": [0.08, 0.20],
+      "confidence": "low",
+      "classification": "moderate paper-only edge, strong raw but source-conflicted",
+      "decision": "open tiny paper-only BUY_YES",
+      "paper_trade_id": "PT-20260618-203"
+    },
+    {
+      "rank": 2,
+      "market": "Tokyo/Haneda Jun 18 26C YES",
+      "current_price": "displayed 32%; Buy Yes 33c",
+      "implied_probability": 0.33,
+      "estimated_fair_value_range": [0.38, 0.48],
+      "estimated_edge_range": [0.05, 0.15],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate paper-only edge",
+      "decision": "open tiny paper-only BUY_YES",
+      "paper_trade_id": "PT-20260618-204"
+    },
+    {
+      "rank": 3,
+      "market": "Hong Kong/HKO Jun 19 31C YES",
+      "current_price": "displayed 37%; Buy Yes 37c",
+      "implied_probability": 0.37,
+      "estimated_fair_value_range": [0.42, 0.52],
+      "estimated_edge_range": [0.05, 0.15],
+      "confidence": "medium-low",
+      "classification": "moderate represented maintenance",
+      "decision": "maintain only"
+    },
+    {
+      "rank": 4,
+      "market": "Guangzhou/ZGGG Jun 18 30C YES",
+      "current_price": "displayed 18%; Buy Yes 19c",
+      "implied_probability": 0.19,
+      "estimated_fair_value_range": [0.22, 0.34],
+      "estimated_edge_range": [0.03, 0.15],
+      "confidence": "low",
+      "classification": "weak-to-moderate watch-only",
+      "decision": "watch only"
+    },
+    {
+      "rank": 5,
+      "market": "London/EGLC Jun 18 28C YES",
+      "current_price": "displayed 38%; Buy Yes 38c",
+      "implied_probability": 0.38,
+      "estimated_fair_value_range": [0.36, 0.46],
+      "estimated_edge_range": [-0.02, 0.08],
+      "confidence": "low-to-medium-low",
+      "classification": "near fair / watch-only",
+      "decision": "no paper trade"
+    },
+    {
+      "rank": 6,
+      "market": "Seoul/Incheon Jun 18 27C YES",
+      "current_price": "displayed 13%; Buy Yes 14.5c",
+      "implied_probability": 0.145,
+      "estimated_fair_value_range": [0.10, 0.22],
+      "estimated_edge_range": [-0.045, 0.075],
+      "confidence": "low",
+      "classification": "weakened represented maintenance",
+      "decision": "maintain as weakened/adverse-watch"
+    }
+  ],
+  "paper_trades": [
+    {
+      "id": "PT-20260618-203",
+      "timestamp_utc": "2026-06-18T02:13:10Z",
+      "market": "Polymarket Shanghai/ZSPD Jun 18 highest temperature 30C YES",
+      "observed_price": "Buy Yes 4.0c",
+      "implied_probability": 0.04,
+      "estimated_fair_value_range": [0.12, 0.24],
+      "simulated_stance": "BUY_YES",
+      "simulated_size": "$5 notional",
+      "confidence": "low",
+      "status": "open",
+      "outcome": "unresolved"
+    },
+    {
+      "id": "PT-20260618-204",
+      "timestamp_utc": "2026-06-18T02:13:10Z",
+      "market": "Polymarket Tokyo/Haneda Jun 18 highest temperature 26C YES",
+      "observed_price": "Buy Yes 33c",
+      "implied_probability": 0.33,
+      "estimated_fair_value_range": [0.38, 0.48],
+      "simulated_stance": "BUY_YES",
+      "simulated_size": "$5 notional",
+      "confidence": "low-to-medium-low",
+      "status": "open",
+      "outcome": "unresolved"
+    }
+  ],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-shanghai-on-june-18-2026",
+    "https://en.allmetsat.com/metar-taf/asia.php?icao=ZSPD",
+    "https://polymarket.com/event/highest-temperature-in-tokyo-on-june-18-2026",
+    "https://weather.metoffice.gov.uk/forecast/xn76hz8ty",
+    "https://en.allmetsat.com/metar-taf/asia.php?icao=RJTT",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-19-2026",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/englishwx2.htm",
+    "https://polymarket.com/event/highest-temperature-in-guangzhou-on-june-18-2026",
+    "https://polymarket.com/event/highest-temperature-in-london-on-june-18-2026",
+    "https://weather.metoffice.gov.uk/forecast/u10j124jp",
+    "https://polymarket.com/event/highest-temperature-in-seoul-on-june-18-2026",
+    "https://weather.metoffice.gov.uk/forecast/wydj553hq",
+    "https://en.allmetsat.com/metar-taf/asia.php?icao=RKSI"
+  ]
+}
