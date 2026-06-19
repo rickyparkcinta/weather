@@ -1,0 +1,4 @@
+timestamp_utc,trade_id,market,observed_price,implied_probability,estimated_fair_value,simulated_stance,simulated_size_usd,confidence,status,notes
+2026-06-19T04:11:18Z,PT-20260619-223,Polymarket Shanghai/ZSPD Jun 19 highest temperature 29C YES,Buy Yes 6.0c,6%,14%-26%,BUY_YES,5,low,open,"Tiny add-on after 29C dropped to 6c while ZSPD reported 29C and TAF still listed TX29; no real bet or trade executed."
+2026-06-19T04:11:18Z,PT-20260619-224,Polymarket Chongqing/ZUCK Jun 19 highest temperature 30C YES,Buy Yes 25c,25%,32%-44%,BUY_YES,5,low-to-medium-low,open,"Tiny hedge after refreshed ZUCK TAF moved to TX30; no real bet or trade executed."
+2026-06-19T04:11:18Z,PT-20260619-225,Polymarket Guangzhou/ZGGG Jun 19 highest temperature 33C YES,Buy Yes 15c,15%,20%-32%,BUY_YES,5,low,open,"Tiny hedge after refreshed ZGGG TAF moved to TX33 while market centered 30C-32C; no real bet or trade executed."
