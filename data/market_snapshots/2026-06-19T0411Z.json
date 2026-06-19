@@ -1,0 +1,120 @@
+{
+  "timestamp_utc": "2026-06-19T04:11:18Z",
+  "timestamp_hkt": "2026-06-19T12:11:18+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Shanghai/ZSPD Jun 19 highest temperature",
+    "Polymarket Guangzhou/ZGGG Jun 19 highest temperature",
+    "Polymarket Chongqing/ZUCK Jun 19 highest temperature",
+    "Polymarket Shenzhen/ZGSZ Jun 19 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 19 highest temperature",
+    "Polymarket Seoul/Incheon/RKSI Jun 19 highest temperature"
+  ],
+  "top_edges": [
+    {
+      "rank": 1,
+      "market": "Polymarket Shanghai/ZSPD Jun 19 29C YES",
+      "observed_price": "Buy Yes 6.0c; displayed 4%",
+      "implied_probability": 0.06,
+      "estimated_fair_value_range": [0.14, 0.26],
+      "estimated_edge_range": [0.08, 0.20],
+      "confidence": "low",
+      "classification": "moderate fresh add-on edge",
+      "decision": "open paper trade PT-20260619-223",
+      "simulated_size_usd": 5
+    },
+    {
+      "rank": 2,
+      "market": "Polymarket Chongqing/ZUCK Jun 19 30C YES",
+      "observed_price": "Buy Yes 25c; displayed 24%",
+      "implied_probability": 0.25,
+      "estimated_fair_value_range": [0.32, 0.44],
+      "estimated_edge_range": [0.07, 0.19],
+      "confidence": "low-to-medium-low",
+      "classification": "moderate fresh hedge edge",
+      "decision": "open paper trade PT-20260619-224",
+      "simulated_size_usd": 5
+    },
+    {
+      "rank": 3,
+      "market": "Polymarket Guangzhou/ZGGG Jun 19 33C YES",
+      "observed_price": "Buy Yes 15c; displayed 14%",
+      "implied_probability": 0.15,
+      "estimated_fair_value_range": [0.20, 0.32],
+      "estimated_edge_range": [0.05, 0.17],
+      "confidence": "low",
+      "classification": "moderate fresh hedge edge",
+      "decision": "open paper trade PT-20260619-225",
+      "simulated_size_usd": 5
+    }
+  ],
+  "watch_only": [
+    {
+      "market": "Polymarket Shenzhen/ZGSZ Jun 19 31C YES",
+      "observed_price": "Buy Yes 28c; displayed 27%",
+      "estimated_fair_value_range": [0.28, 0.38],
+      "reason": "TAF support is offset by Wunderground-style 30C public forecast context and current ask is not cheap enough"
+    },
+    {
+      "market": "Polymarket Hong Kong/HKO Jun 19 32C YES",
+      "observed_price": "Buy Yes 24c; displayed 22%",
+      "estimated_fair_value_range": [0.20, 0.32],
+      "reason": "Already represented at 18c and HKO had only reached 30.0C by 11:00 HKT"
+    },
+    {
+      "market": "Polymarket Seoul/Incheon/RKSI Jun 19 31C YES",
+      "observed_price": "Buy Yes 79c; displayed 76%",
+      "estimated_fair_value_range": [0.65, 0.80],
+      "reason": "Open paper entries moved strongly in favor, but current ask is no longer cheap"
+    }
+  ],
+  "paper_trades_opened": [
+    {
+      "id": "PT-20260619-223",
+      "market": "Polymarket Shanghai/ZSPD Jun 19 29C YES",
+      "observed_price": "Buy Yes 6.0c",
+      "implied_probability": 0.06,
+      "estimated_fair_value_range": [0.14, 0.26],
+      "simulated_stance": "BUY_YES",
+      "simulated_size_usd": 5,
+      "status": "open"
+    },
+    {
+      "id": "PT-20260619-224",
+      "market": "Polymarket Chongqing/ZUCK Jun 19 30C YES",
+      "observed_price": "Buy Yes 25c",
+      "implied_probability": 0.25,
+      "estimated_fair_value_range": [0.32, 0.44],
+      "simulated_stance": "BUY_YES",
+      "simulated_size_usd": 5,
+      "status": "open"
+    },
+    {
+      "id": "PT-20260619-225",
+      "market": "Polymarket Guangzhou/ZGGG Jun 19 33C YES",
+      "observed_price": "Buy Yes 15c",
+      "implied_probability": 0.15,
+      "estimated_fair_value_range": [0.20, 0.32],
+      "simulated_stance": "BUY_YES",
+      "simulated_size_usd": 5,
+      "status": "open"
+    }
+  ],
+  "settlements": [],
+  "sources": [
+    "https://polymarket.com/event/highest-temperature-in-shanghai-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-guangzhou-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-chongqing-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-shenzhen-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-hong-kong-on-june-19-2026",
+    "https://polymarket.com/event/highest-temperature-in-seoul-on-june-19-2026",
+    "https://www.hko.gov.hk/textonly/v2/forecast/nday_v2.htm",
+    "https://www.hko.gov.hk/textonly/v2/forecast/text_readings_e.htm",
+    "https://en.allmetsat.com/metar-taf/asia.php?icao=ZSPD",
+    "https://en.allmetsat.com/metar-taf/china.php?icao=ZGGG",
+    "https://en.allmetsat.com/metar-taf/asia.php?icao=ZUCK",
+    "https://en.allmetsat.com/metar-taf/east-china.php?icao=ZGSZ",
+    "https://en.allmetsat.com/metar-taf/asia.php?icao=RKSI"
+  ]
+}
