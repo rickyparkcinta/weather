@@ -1,0 +1,31 @@
+{
+  "timestamp_utc": "2026-06-19T01:10:49Z",
+  "timestamp_hkt": "2026-06-19T09:10:49+08:00",
+  "mode": "analysis_alerting_paper_trading_only",
+  "real_trades_executed": false,
+  "markets_monitored": [
+    "Polymarket Shanghai/ZSPD Jun 19 highest temperature",
+    "Polymarket Guangzhou/ZGGG Jun 19 highest temperature",
+    "Polymarket Chongqing/ZUCK Jun 19 highest temperature",
+    "Polymarket Shenzhen/ZGSZ Jun 19 highest temperature",
+    "Polymarket Hong Kong/HKO Jun 19 highest temperature",
+    "Polymarket Seoul/Incheon/RKSI Jun 19 highest temperature"
+  ],
+  "top_edges": [
+    {"market":"Shanghai/ZSPD Jun 19 29C YES","current_price":"Buy Yes 25c","implied_probability":0.25,"estimated_fair_value_range":[0.32,0.42],"estimated_edge_range_pp":[7,17],"confidence":"low-to-medium-low","classification":"strong represented edge","paper_action":"maintain PT-20260618-208"},
+    {"market":"Guangzhou/ZGGG Jun 19 31C YES","current_price":"Buy Yes 21c","implied_probability":0.21,"estimated_fair_value_range":[0.28,0.38],"estimated_edge_range_pp":[7,17],"confidence":"low-to-medium-low","classification":"moderate-to-strong represented edge","paper_action":"maintain PT-20260618-218"},
+    {"market":"Chongqing/ZUCK Jun 19 28C YES","current_price":"Buy Yes 8c","implied_probability":0.08,"estimated_fair_value_range":[0.12,0.22],"estimated_edge_range_pp":[4,14],"confidence":"low","classification":"represented low-confidence hedge edge","paper_action":"maintain PT-20260618-219"},
+    {"market":"Shenzhen/ZGSZ Jun 19 30C YES","current_price":"Buy Yes 33c","implied_probability":0.33,"estimated_fair_value_range":[0.34,0.42],"estimated_edge_range_pp":[1,9],"confidence":"low","classification":"represented weak-to-moderate edge","paper_action":"maintain PT-20260618-220"},
+    {"market":"Hong Kong/HKO Jun 19 32C YES","current_price":"Buy Yes 32c","implied_probability":0.32,"estimated_fair_value_range":[0.28,0.38],"estimated_edge_range_pp":[-4,6],"confidence":"low-to-medium-low","classification":"favorable represented entry, no fresh edge","paper_action":"maintain PT-20260619-221"},
+    {"market":"Seoul/Incheon Jun 19 31C YES","current_price":"Buy Yes 23c","implied_probability":0.23,"estimated_fair_value_range":[0.15,0.25],"estimated_edge_range_pp":[-8,2],"confidence":"low","classification":"no fresh edge","paper_action":"maintain PT-20260618-216"}
+  ],
+  "recommended_paper_trades": [],
+  "newly_settled_paper_trades": [],
+  "repo_paths": {
+    "latest": "odds/latest.md",
+    "history": "odds/history/2026-06-19T0110Z.md",
+    "alert": "alerts/2026-06-19T0110Z.md",
+    "snapshot": "data/market_snapshots/2026-06-19T0110Z.json",
+    "paper_maintenance": "paper_trading/maintenance/2026-06-19T0110Z.md"
+  }
+}
