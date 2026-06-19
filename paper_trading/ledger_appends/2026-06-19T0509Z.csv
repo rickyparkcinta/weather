@@ -1,0 +1,2 @@
+timestamp_utc,trade_id,market,observed_price,implied_probability,estimated_fair_value,simulated_stance,simulated_size_usd,confidence,status,notes
+2026-06-19T05:09:54Z,PT-20260619-226,Polymarket Hong Kong/HKO Jun 19 highest temperature 30C YES,Buy Yes 33.9c,34%,40%-52%,BUY_YES,5,low-to-medium-low,open,"Tiny hedge after HKO Observatory had only reached 30.2C by noon HKT while market still leaned to 31C/32C; no real bet or trade executed."
